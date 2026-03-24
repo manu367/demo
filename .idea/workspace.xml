@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/fms_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pagination/fms-grid-data-view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pagination/form-data-grid-view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_exception.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_exception.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/support_system.sql" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;manu367&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/manu367/deo.git&quot;,
+    &quot;accountId&quot;: &quot;3af74b32-3146-4156-a9a7-8ecd9bca53ee&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp1\php\php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3B7Usq8iOG5bXprCqmBA7Zyvj7V" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "PHP Script.Add.php.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/xampp1/htdocs/demo/pagination",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp1\htdocs\demo\pagination" />
+      <recent name="C:\xampp1\htdocs\demo\admin" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Add.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/designpattern/behaviorial/Interpreter/Add.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.Add.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-PS-252.28238.9" />
+        <option value="bundled-php-predefined-a98d8de5180a-58f58c5035b3-com.jetbrains.php.sharedIndexes-PS-252.28238.9" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="" />
+      <created>1773839812027</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773839812027</updated>
+      <workItem from="1773839815116" duration="702000" />
+      <workItem from="1773895306460" duration="2484000" />
+      <workItem from="1773903575245" duration="22000" />
+      <workItem from="1773908979447" duration="417000" />
+      <workItem from="1773910709478" duration="911000" />
+      <workItem from="1773911973966" duration="14608000" />
+      <workItem from="1773981642086" duration="13376000" />
+      <workItem from="1774239864569" duration="30543000" />
+      <workItem from="1774326515030" duration="22116000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/admin/enginner_master.php</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/includes/common_classes.php</url>
+          <line>429</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

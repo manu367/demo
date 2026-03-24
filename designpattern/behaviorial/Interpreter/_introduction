@@ -1,0 +1,58 @@
+rules dynamic ho jayein (database se aaye, user likhe, config file se aaye)…
+👉 tab Interpreter pattern entry leta hai.
+
+Ye Pattern Actually Karta Kya Hai?
+Ye input ko 3 steps me handle karta hai:
+
+1.Grammar define karta hai
+Matlab: kya allowed hai =  numbers , operators (+, -, AND, OR) , variables
+
+2.Expression Tree banata hai
+String ko directly run nahi karta
+👉 usko tod ke objects banata hai
+5 + 3 - 2
+      (-)
+     /   \
+   (+)    2
+  /   \
+ 5     3
+
+
+ 3.Har node khud ko evaluate karta hai
+ Har class ke paas ek method hota hai: = interpret()
+ Aur wo apna result return karta hai.
+
+
+ Flow kaise chalta hai (step-by-step)
+ Step 1: Input aaya
+ Step 2: Parse hua (manual ya parser se)
+ Objects bane:
+ Number(5)
+ Number(3)
+ Add(...)
+ Subtract(...)
+
+ Step 3: Tree bana
+ Step 4: Evaluation
+ Add → 5 + 3 = 8
+ Subtract → 8 - 2 = 6
+ 👉 Final result: 6
+
+
+ Kab Use Karna Chahiye (REAL USE CASES)
+ 1. Rule Engine Discount rules Access control
+     Business logic config se aa raha ho  = (user_age > 18 AND country = "IN")
+
+ 2. Expression Evaluation
+ Calculator apps
+ Formula engines
+ Excel-like systems
+
+ 3. Query Builders
+Custom filters
+Search conditions
+
+4.DSL (Domain Specific Language)
+Apni mini-language banana
+Jaise:
+SEND_EMAIL IF user.active = true
