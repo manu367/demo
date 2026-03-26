@@ -92,6 +92,7 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
+    var_dump($_POST);exit();
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $frmName    = $_POST['frm_name'];
@@ -584,26 +585,6 @@ function showAlert(message, type = "success", duration = 3000) {
 </script>
 
 <script>
-    // function appendHidden(form, name, value){
-    //     let input = document.createElement("input");
-    //     input.type = "hidden";
-    //     input.name = name;
-    //     input.className="check_box_hidden"
-    //     input.value = value;
-    //     form.appendChild(input);
-    // }
-    //
-    // function appendArray(form, name, arr){
-    //     arr.forEach(val => {
-    //         appendHidden(form, name, val);
-    //     });
-    // }
-    //
-    //
-    // document.getElementById("frm1").addEventListener("submit", function (e) {
-    //
-    // });
-
     function checkboxvalue(){
         document.querySelectorAll(".check_box_hidden").forEach((checkbox)=>{
 
@@ -616,6 +597,17 @@ function showAlert(message, type = "success", duration = 3000) {
     }
     checkboxvalue();
 
+    // const form=document.getElementById("frm1");
+    //     form.addEventListener("submit",function(e){
+    //         const fom=new FormData();
+    //         fom.append("manu",'hello_bro');
+    //     if(true){
+    //         form.submit();
+    //     }else{
+    //         e.preventDefault();
+    //     }
+    //
+    // })
 </script>
 
 </body>
