@@ -72,7 +72,7 @@ if(isset($_REQUEST['formid'])){
             height: 3px;
             width: 100%;
             background: #fff;
-            animation: progress 5s linear;
+            animation: progress 60s linear;
         }
 
         @keyframes progress {
@@ -90,7 +90,7 @@ if(isset($_REQUEST['formid'])){
 
                 setTimeout(() => {
                     toast.classList.remove("show");
-                }, 5000); // hide after 3s
+                }, 60000); // hide after 3s
             }
         });
     </script>

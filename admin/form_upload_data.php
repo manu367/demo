@@ -24,12 +24,14 @@ if(isset($_POST['upload_file'])){
 
 
 
+
     if($tableName==="" && $fms_id==="" && $form_id==""){throw new GlobalException($redirect."value not be empty");}
     $filename=null;
 
     // Task 1= file upload kar rha hu yha  = done
     try{
         $filename=fileUploader($_FILES);
+
     }catch (Exception $e){
         mysqli_rollback($link1);
         throw new GlobalException($redirect.$e->getMessage());
@@ -38,9 +40,15 @@ if(isset($_POST['upload_file'])){
 
     if($filename){
         $sheet=loadSheets($filename);
-
         $sheet_column=sheetcolumn($sheet);
-        if($report->validateSheetColumn($tableName,$sheet_column)){
+
+        try{
+            $valid=$report->validateSheetColumn($tableName,$sheet_column);
+        }catch (Exception $e){
+            throw new GlobalException($redirect.$e->getMessage());
+        }
+
+        if($valid){
             $highestRow = $sheet->getHighestDataRow();
             $data=getAllExcelData($sheet,$highestRow);
             if($data){
@@ -53,10 +61,14 @@ if(isset($_POST['upload_file'])){
             }else{
                 throw new GlobalException($redirect.'Empty Data is not Uploaded');
             }
-        }else{
+        }
+        else{
             throw new GlobalException($redirect."Excel Sheet Column are not match with sheet");
         }
 
+    }
+    else{
+        throw new GlobalException("File not Uploaded");
     }
 
     if($flag){

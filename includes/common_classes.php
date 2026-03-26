@@ -498,12 +498,53 @@ class FormView{
 
 }
 
+
+/**
+ * Class FMSReports
+ *
+ * Handles fetching report data from database tables
+ * with optional date range filtering.
+ */
 class FMSReports{
+    /**
+     * @var mysqli Database connection instance
+     */
     private $conn;
+    /**
+     * Constructor to initialize database connection.
+     *
+     * @param mysqli $conn Active MySQLi connection
+     */
     public function __construct($conn){
         $this->conn = $conn;
     }
 
+    /**
+     * Fetch reports from a given table with optional date filtering.
+     *
+     * This method retrieves all records from the specified table.
+     * If a date range is provided, it filters results based on
+     * the `created_date` column.
+     *
+     * Date filter format:
+     * [
+     *     0 => start date (YYYY-MM-DD),
+     *     1 => end date (YYYY-MM-DD)
+     * ]
+     *
+     * Behavior:
+     * - Returns array of records if data exists
+     * - Returns 2 if no records found
+     * - Returns false if query fails
+     *
+     * Example:
+     * $reports = $obj->showReports('users', ['2025-01-01', '2025-01-31']);
+     *
+     * @param string $tablename Name of the table to query
+     * @param array  $filter    Optional date range [startDate, endDate]
+     *
+     * @return array|int|false
+     */
     public function showReports($tablename, $filter = []){
         $startDate = $filter[0] ?? '';
         $endDate   = $filter[1] ?? '';
@@ -535,6 +576,24 @@ class FMSReports{
 }
 
 //  ---------- function programming ----
+
+/**
+ * Fetch a single record from the fms_master table by ID.
+ *
+ * This function executes a SELECT query on the `fms_master` table
+ * using the provided ID and returns the first matching row.
+ *
+ * If a record is found, it is returned as an associative array.
+ * If no record is found or query fails, null is returned.
+ *
+ * Example:
+ * $data = fmsloading($conn, 5);
+ *
+ * @param mysqli $link1 Database connection object
+ * @param int    $id    Record ID to fetch
+ *
+ * @return array|null Associative array of the record, or null if not found
+ */
 function fmsloading($link1,$id){
     $result=mysqli_query($link1,"SELECT * FROM `fms_master` where id=$id LIMIT 1");
     if($result){
@@ -544,17 +603,43 @@ function fmsloading($link1,$id){
     return null;
 }
 
+
+/**
+ * Handle file upload, validate it, and store it on the server.
+ *
+ * This function processes an uploaded file from a form input
+ * named 'form_upload_file'. It validates the file, sanitizes
+ * the filename, and moves it to a target upload directory.
+ *
+ * Key operations:
+ * - Checks if file exists in request
+ * - Validates upload errors
+ * - Allows only specific file extensions (xls, xlsx, csv, xlsm)
+ * - Sanitizes filename to prevent unsafe characters
+ * - Renames file using timestamp to avoid conflicts
+ * - Creates upload directory if it doesn't exist
+ * - Moves file to destination and sets permissions
+ *
+ * Example:
+ * $path = fileUploader($_FILES);
+ *
+ * @param array $file_up The $_FILES superglobal array
+ *
+ * @return string Full path to the uploaded file
+ *
+ * @throws GlobalException If file is missing, invalid, or upload fails
+ */
 function fileUploader($file_up)
 {
     if (!isset($file_up['form_upload_file'])) {
-        throw new Exception("No file provided");
+        throw new GlobalException("No file provided");
     }
 
     $file = $file_up['form_upload_file'];
 
 
     if ($file['error'] !== 0) {
-        throw new Exception("File upload error");
+        throw new GlobalException("File upload error");
     }
 
     $filename = $file['name'];
@@ -564,7 +649,7 @@ function fileUploader($file_up)
     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
     if (!in_array($ext, $allowedExt)) {
-        throw new Exception("File type mismatch Error");
+        throw new GlobalException("File type mismatch Error");
     }
 
     $cleanName = preg_replace('/[^a-zA-Z0-9\.\-_]/', '_', $filename);
@@ -577,12 +662,33 @@ function fileUploader($file_up)
     }
     $destination = $uploadDir . $newName;
     if (!move_uploaded_file($tmp, $destination)) {
-        throw new Exception("Failed to move uploaded file");
+        throw new GlobalException("Failed to move uploaded file");
     }
     chmod($destination, 0644);
     return $destination;
 }
 
+/**
+ * Load an Excel file and return the first worksheet.
+ *
+ * This function detects the file type automatically,
+ * creates the appropriate reader, and loads the Excel
+ * file into memory. It returns only the first sheet.
+ *
+ * Data is read in "read-only" mode for better performance.
+ *
+ * Supported formats depend on PHPExcel (e.g., XLS, XLSX, CSV).
+ *
+ * Example:
+ * $sheet = loadSheets('file.xlsx');
+ *
+ * @param string $filename Path to the Excel file
+ *
+ * @return PHPExcel_Worksheet The first worksheet object
+ *
+ * @throws PHPExcel_Reader_Exception If file type is not supported
+ * @throws PHPExcel_Exception If file cannot be loaded
+ */
 function loadSheets($filename){
     $identityType = PHPExcel_IOFactory::identify($filename);
     $object = PHPExcel_IOFactory::createReader($identityType);     //Ab jo file type detect hua hai uske according reader object create kiya ja raha hai.
@@ -592,6 +698,23 @@ function loadSheets($filename){
     return $sheet;
 }
 
+/**
+ * Retrieve column headers from the first row of an Excel sheet.
+ *
+ * This function reads the first row (row 1) of the given sheet
+ * and extracts all column header values into an array.
+ * Empty/null cells are ignored.
+ *
+ * Each header value is trimmed to remove extra whitespace.
+ *
+ * Example:
+ * Row 1: [" First Name ", "Email", "Phone Number"]
+ * Output: ["First Name", "Email", "Phone Number"]
+ *
+ * @param object $sheet Excel sheet object (PHPExcel_Worksheet)
+ *
+ * @return array List of column header names
+ */
 function sheetcolumn($sheet){
     $columns = [];
 
@@ -607,6 +730,31 @@ function sheetcolumn($sheet){
     return $columns;
 }
 
+/**
+ * Extract all data rows from an Excel sheet and map them to header-based keys.
+ *
+ * This function reads data from a given sheet starting from row 2
+ * (assuming row 1 contains headers). Each row is converted into
+ * an associative array where keys are derived from the header row.
+ *
+ * Header keys are normalized by:
+ * - Trimming whitespace
+ * - Converting to lowercase
+ * - Replacing spaces with underscores
+ *
+ * Empty rows are skipped automatically.
+ *
+ * Example output:
+ * [
+ *     ["first_name" => "Manu", "email" => "demo@example.com"],
+ *     ["first_name" => "Manu", "email" => "demo@example.com"]
+ * ]
+ *
+ * @param object $sheet       Excel sheet object (PHPExcel_Worksheet)
+ * @param int    $highestRow  Highest row number in the sheet
+ *
+ * @return array List of associative arrays representing each row
+ */
 function getAllExcelData($sheet, $highestRow){
     $data = [];
 
@@ -639,6 +787,25 @@ function getAllExcelData($sheet, $highestRow){
     return $data;
 }
 
+/**
+ * Normalize column names into a clean, database-friendly format.
+ *
+ * This function processes an array of column names and applies
+ * the following transformations:
+ * - Trims leading and trailing whitespace
+ * - Converts all characters to lowercase
+ * - Replaces multiple spaces with a single space
+ * - Replaces spaces with underscores
+ * - Removes all non-alphanumeric characters except underscores
+ *
+ * Example:
+ * Input:  [" First Name ", "Email Address", "User@ID!"]
+ * Output: ["first_name", "email_address", "userid"]
+ *
+ * @param array $columns List of column names to normalize
+ *
+ * @return array Cleaned and normalized column names
+ */
 function normalizeColumns($columns = []){
     $clean = [];
     foreach($columns as $col){
@@ -676,11 +843,11 @@ class Reportuploader{
         }
 
 
+
         $dbColumns = $this->getAllTableColumn($tablename);
 
 
         $sheetColumns=normalizeColumns($sheetColumns);
-
 
 
         if(empty($dbColumns)){
@@ -689,22 +856,19 @@ class Reportuploader{
 
 
         $sheetColumns = array_map('strtolower', $sheetColumns);
+
         $dbColumns = array_map('strtolower', $dbColumns);
 
-
         $missing = array_diff($dbColumns, $sheetColumns);
+
         $extra = array_diff($sheetColumns, $dbColumns);
 
-
         if(!empty($missing)){
-            throw new Exception("Missing columns: " . implode(", ", $missing));
+            throw new GlobalException("Missing columns: " . implode(", ", $missing));
         }
-
         if(!empty($extra)){
-            throw new Exception("Invalid/Extra columns: " . implode(", ", $extra));
+            throw new GlobalException("Invalid/Extra columns: " . implode(", ", $extra));
         }
-
-
         return true;
     }
 
