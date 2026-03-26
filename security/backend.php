@@ -27,6 +27,7 @@ session_start();
 
 date_default_timezone_set('Asia/Kolkata'); //(GMT +5:30)
 $root = "/demo";
+//$root = "https://fms.cancrm.in";
 //////////////////////////////////////////////
 /// db connection
 include_once("dbh.php");

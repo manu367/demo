@@ -57,6 +57,7 @@ while($row = mysqli_fetch_assoc($res)){
         $status,
         '<a href="form_view.php?formid='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>',
         '<a href="form_upload.php?formid='.($row['id']).'" class="btn btn-sm btn-success">Upload</a>',
+        '<button onclick="showApi(this)" data-fromid="'.$row['id'].'" data-formName="'.$row['form_name'].'" data-column="'.implode('-',json_decode($row['parameter_name'])).'"  class="btn btn-sm btn-danger">API</button>',
     ];
 }
 

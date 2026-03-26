@@ -1548,7 +1548,7 @@ function sendSMSByURL($mobile_no,$msg,$templateid){
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
 		
-	CURLOPT_URL =>'https://api.voicensms.in/SMSAPI/webresources/CreateSMSCampaignGet?ukey=AmhARjaEoQqeSrlALCXfpplKl&msisdn='.$mobile_no.'&language=0&credittype=7&senderid=OKAYAE&templateid='.$templateid.'&message='.urlencode($msg).'&filetype=2',		
+	CURLOPT_URL =>'https://fmsapi.voicensms.in/SMSAPI/webresources/CreateSMSCampaignGet?ukey=AmhARjaEoQqeSrlALCXfpplKl&msisdn='.$mobile_no.'&language=0&credittype=7&senderid=OKAYAE&templateid='.$templateid.'&message='.urlencode($msg).'&filetype=2',
 		
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',

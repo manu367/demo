@@ -1,15 +1,35 @@
 <?php
 
 class FMsBasicOperation{
- public static function loadFMS($link,$fabid){
-     $result=mysqli_query($link,"select * from fms_master where id='$fabid'");
-     if($result){
-         while ($row=mysqli_fetch_assoc($result)){
-             return $row;
-         }
-     }
-     return null;
- }
+    public static function loadFMS($link,$fabid){
+        $result=mysqli_query($link,"select * from fms_master where id='$fabid'");
+        if($result){
+            while ($row=mysqli_fetch_assoc($result)){
+                return $row;
+            }
+        }
+        return null;
+    }
+    public static function loadform($link,$formid){
+        $sql="select * from `form_master` where id='$formid'";
+        $result=mysqli_query($link,$sql);
+        if($result){
+            while ($row=mysqli_fetch_assoc($result)){
+                return $row;
+            }
+        }
+        return [];
+    }
+
+    /*
+     * $remove = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
+     * $result = self::removeColumn($oldcolumn, $remove);
+     */
+    public static function removeColumn($columns = [], $remove = []){
+        return array_values(array_filter($columns, function ($col) use ($remove) {
+            return !in_array($col, $remove);
+        }));
+    }
 }
 
 
@@ -215,33 +235,44 @@ class FormOperations{
         $fms_id       = $fms_id;
         $updatedBy    = $updatedBy;
         $id           = (int)$id;
+        $check=$data['check'];
+
+        $result=mysqli_query($this->conn,"SELECT parameter_name FROM `form_master` WHERE id='$id'");
+        if(!$result){
+            throw new GlobalException("Column not found");
+        }
+
+        $old_db_col=[];
+        while($row=mysqli_fetch_array($result)){
+            $old_db_col[]=json_decode($row[0]);
+        }
+
 
         $newcolumn=[
             "type"=>json_decode($type),
             "length"=>json_decode($length),
             "newcolumn"=>json_decode($paramername),
         ];
-         $result=mysqli_query($this->conn,"DESCRIBE $tablename");
-         $oldcolumn=[];
-         if($result){
-             while ($row=mysqli_fetch_array($result)){
-                 $oldcolumn[]=$row['Field'];
-             }
-         }
+
+
 
         $remove = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
-        $oldcolumn = array_values(array_filter($oldcolumn, function($col) use ($remove) {
+        $oldcolumn = array_values(array_filter($old_db_col, function($col) use ($remove) {
             return !in_array($col, $remove);
         }));
 
 
         $newcolumn_add=json_decode($paramername);
 
-        // new column name
         $diff = array_values(array_diff($newcolumn_add, $oldcolumn));
-        $this->addMoreParameteronUpdareTime($tablename,$diff);
-        $val_res=$this->columnUpdate($tablename,$oldcolumn,$newcolumn);
 
+        try{
+            $this->addMoreParameteronUpdareTime($tablename,$diff);
+        }catch (Exception $e){
+            throw new GlobalException($e->getMessage());
+        }
+
+        $val_res=$this->columnUpdate_1($tablename,$old_db_col,$newcolumn);
         if($val_res){
             $query = "UPDATE form_master SET updated_date = '$updated_at',
                        updated_by = '$updatedBy',
@@ -251,8 +282,10 @@ class FormOperations{
                        parameter_name = '$paramername',
                        display_name = '$displayName',
                        type = '$type',
-                       length = '$length'
+                       length = '$length',
+                       param_require='$check'
                    WHERE id = $id";
+
             return mysqli_query($this->conn, $query);
         }
         return false;
@@ -267,6 +300,8 @@ class FormOperations{
         $displayName  = $data['displayName'];
         $type         = $data['type'];
         $length       = $data['length'];
+        $frm_seq=$data['frm_seq'];
+        $check=$data['check'];
 
 
         $created_at = date('Y-m-d H:i:s');
@@ -276,10 +311,10 @@ class FormOperations{
 
         $query = "INSERT INTO form_master 
         (created_date, updated_date, created_by, updated_by, updated_ip, 
-         form_id, form_name, fms_id, parameter_name, display_name, type, length, status)
+         form_id, form_name, fms_id, parameter_name, display_name, type, length, status,frm_seq,param_require)
         VALUES 
         ('$created_at', '$updated_at', '$createdBy', '$updated_by', '$updated_ip',
-         '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1')";
+         '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1','$frm_seq','$check')";
 
         return mysqli_query($this->conn, $query);
     }
@@ -310,16 +345,52 @@ class FormOperations{
     }
 
     public function columnUpdate($tablename, $oldcolumn, $newcolumn = ["type"=>[], "length"=>[], "newcolumn"=>[]]) {
-
         $queries = [];
         for ($i = 0; $i < count($oldcolumn); $i++) {
             $old = $oldcolumn[$i];
             $new = $newcolumn['newcolumn'][$i];
             $type = $this->columnType($newcolumn['type'][$i], $newcolumn['length'][$i]);
             $queries[] = "CHANGE `$old` `$new` $type";
+            var_dump($old,$new,$type,$queries);
         }
+        exit();
         $sql = "ALTER TABLE `$tablename` " . implode(", ", $queries);
+
         return mysqli_query($this->conn, $sql);
+    }
+
+    public function columnUpdate_1($tablename, $oldcolumn, $newcolumn = ["type"=>[], "length"=>[], "newcolumn"=>[]]) {
+        if (isset($oldcolumn[0]) && is_array($oldcolumn[0])) {
+            $oldcolumn = $oldcolumn[0];
+        }
+        $queries = [];
+
+        for ($i = 0; $i < count($oldcolumn); $i++) {
+            $old = $oldcolumn[$i] ?? null;
+            $new = $newcolumn['newcolumn'][$i] ?? null;
+            $typeId = $newcolumn['type'][$i] ?? null;
+            $length = $newcolumn['length'][$i] ?? null;
+
+            if (!$old || !$new || !$typeId) {
+                continue;
+            }
+            $type = $this->columnType($typeId, $length);
+            $old = trim($old);
+            $new = trim($new);
+
+            $queries[] = "CHANGE `$old` `$new` $type";
+        }
+        if (empty($queries)) {
+            return false;
+        }
+
+        $sql = "ALTER TABLE `$tablename` " . implode(", ", $queries);
+
+        $result=mysqli_query($this->conn, $sql);
+        if(!$result){
+            throw new GlobalException(mysqli_error($this->conn));
+        }
+        return $result;
     }
 
     /*
@@ -344,7 +415,7 @@ class FormOperations{
 
     public function columnType($type, $length) {
         if ($type === "3") {
-            return "INT($length)";
+            return "VARCHAR($length)";
         }
         return "VARCHAR($length)";
     }
@@ -465,11 +536,232 @@ class FMSReports{
 
 //  ---------- function programming ----
 function fmsloading($link1,$id){
- $result=mysqli_query($link1,"SELECT * FROM `fms_master` where id=$id LIMIT 1");
- if($result){
-     $data=mysqli_fetch_assoc($result);
-     return $data;
- }
-return null;
+    $result=mysqli_query($link1,"SELECT * FROM `fms_master` where id=$id LIMIT 1");
+    if($result){
+        $data=mysqli_fetch_assoc($result);
+        return $data;
+    }
+    return null;
 }
+
+function fileUploader($file_up)
+{
+    if (!isset($file_up['form_upload_file'])) {
+        throw new Exception("No file provided");
+    }
+
+    $file = $file_up['form_upload_file'];
+
+
+    if ($file['error'] !== 0) {
+        throw new Exception("File upload error");
+    }
+
+    $filename = $file['name'];
+    $tmp = $file['tmp_name'];
+
+    $allowedExt = ['xls', 'xlsx', 'csv', 'xlsm'];
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowedExt)) {
+        throw new Exception("File type mismatch Error");
+    }
+
+    $cleanName = preg_replace('/[^a-zA-Z0-9\.\-_]/', '_', $filename);
+
+    $today = date('YmdHis');
+    $newName = $today . '_' . $cleanName;
+    $uploadDir = "../ExcelExportAPI/upload/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+    $destination = $uploadDir . $newName;
+    if (!move_uploaded_file($tmp, $destination)) {
+        throw new Exception("Failed to move uploaded file");
+    }
+    chmod($destination, 0644);
+    return $destination;
+}
+
+function loadSheets($filename){
+    $identityType = PHPExcel_IOFactory::identify($filename);
+    $object = PHPExcel_IOFactory::createReader($identityType);     //Ab jo file type detect hua hai uske according reader object create kiya ja raha hai.
+    $object->setReadDataOnly(true); //data read karo
+    $objPHPExcel = $object->load($filename); // Excel file ko memory me load
+    $sheet = $objPHPExcel->getSheet(0); // first sheet
+    return $sheet;
+}
+
+function sheetcolumn($sheet){
+    $columns = [];
+
+    $highestColumn = $sheet->getHighestColumn();
+    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+
+    for($col = 0; $col < $highestColumnIndex; $col++){
+        $value = $sheet->getCellByColumnAndRow($col, 1)->getValue();
+        if($value !== null){
+            $columns[] = trim($value);
+        }
+    }
+    return $columns;
+}
+
+function getAllExcelData($sheet, $highestRow){
+    $data = [];
+
+    $headers = sheetcolumn($sheet);
+
+    $highestColumn = $sheet->getHighestColumn();
+    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+
+    // Row 2 se start (row 1 = header)
+    for($row = 2; $row <= $highestRow; $row++){
+        $rowData = [];
+
+        for($col = 0; $col < $highestColumnIndex; $col++){
+            $value = $sheet->getCellByColumnAndRow($col, $row)->getValue();
+
+            // header ke naam se mapping
+            if(isset($headers[$col])){
+                $key = strtolower(trim($headers[$col]));
+                $key = preg_replace('/\s+/', '_', $key);
+
+                $rowData[$key] = $value;
+            }
+        }
+
+        // skip empty rows (optional but important)
+        if(array_filter($rowData)){
+            $data[] = $rowData;
+        }
+    }
+    return $data;
+}
+
+function normalizeColumns($columns = []){
+    $clean = [];
+    foreach($columns as $col){
+        $col = strtolower(trim($col));
+        $col = preg_replace('/\s+/', ' ', $col);
+        $col = str_replace(' ', '_', $col);
+        $col = preg_replace('/[^a-z0-9_]/', '', $col);
+        $clean[] = $col;
+    }
+    return $clean;
+}
+
+class Reportuploader{
+    private $conn;
+    public function __construct($conn){
+        $this->conn = $conn;
+    }
+    private function getAllTableColumn($tablename,$remove=['id','created_date','update_date','updated_by','updated_ip']){
+        $columns = [];
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM `$tablename`");
+
+        if($result){
+            while($row = mysqli_fetch_assoc($result)){
+                $columns[] = $row['Field'];
+            }
+        }
+        $columns=FMsBasicOperation::removeColumn($columns,$remove);
+        return $columns;
+    }
+
+    public function validateSheetColumn($tablename, $sheetColumns = []){
+
+        if(empty($sheetColumns)){
+            throw new Exception("Sheet columns empty");
+        }
+
+
+        $dbColumns = $this->getAllTableColumn($tablename);
+
+
+        $sheetColumns=normalizeColumns($sheetColumns);
+
+
+
+        if(empty($dbColumns)){
+            throw new Exception("Table columns not fetch from db");
+        }
+
+
+        $sheetColumns = array_map('strtolower', $sheetColumns);
+        $dbColumns = array_map('strtolower', $dbColumns);
+
+
+        $missing = array_diff($dbColumns, $sheetColumns);
+        $extra = array_diff($sheetColumns, $dbColumns);
+
+
+        if(!empty($missing)){
+            throw new Exception("Missing columns: " . implode(", ", $missing));
+        }
+
+        if(!empty($extra)){
+            throw new Exception("Invalid/Extra columns: " . implode(", ", $extra));
+        }
+
+
+        return true;
+    }
+
+    public function insertData($data, $table, $updateby, $updateip){
+
+        $columns = $this->getAllTableColumn($table, ['id','created_date']);
+
+        mysqli_commit($this->conn,false);
+        $error_data = [];
+
+        $saveData=false;
+
+        foreach($data as $index => $row){
+
+            $row['updated_date'] = date('Y-m-d H:i:s');
+            $row['updated_by'] = $updateby;
+            $row['updated_ip'] = $updateip;
+
+            $fields = [];
+            $values = [];
+
+            foreach($columns as $col){
+                if(isset($row[$col])){
+                    $fields[] = $col;
+                    $values[] = "'" . addslashes($row[$col]) . "'";
+                }
+            }
+
+            $fieldList = implode(',', $fields);
+            $valueList = implode(',', $values);
+
+            $query = "INSERT INTO $table ($fieldList) VALUES ($valueList)";
+
+            $result = mysqli_query($this->conn, $query);
+
+            if(!$result){
+                $error_data[] = [
+                    'row_index' => $index,
+                    'data' => $row,
+                    'error' => 'Some things Wrong in Uploaded Data'
+                ];
+            }
+        }
+
+        if(!empty($error_data)){
+            mysqli_rollback($this->conn,false);
+            throw new Exception(json_encode($error_data));
+        } else {
+            mysqli_commit($this->conn,false);
+            $saveData=true;
+        }
+
+        return $saveData;
+    }
+
+
+}
+
+
 ?>

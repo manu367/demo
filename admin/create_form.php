@@ -5,7 +5,7 @@ require_once("../includes/config.php");
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $msg = urlencode($e->getMessage());
-        header("Location: fms_master.php?msg={$msg}");
+        header("Location: fms_master.php?type=error&msg={$msg}");
         exit;
     }
 });
@@ -45,8 +45,10 @@ if(isset($_REQUEST['id'])){
 $msg=null;
 if(isset($_POST['save']))
 {
+
    $fmsid=$_POST['fmsid'];
    $frmName=$_POST['frm_name'];
+   $frm_seq=$_POST['frm_seq'];
 
    // load fsm
    $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
@@ -59,14 +61,18 @@ if(isset($_POST['save']))
     $displayName = json_encode($_POST['display_name']);
     $type=json_encode($_POST['type']);
     $length=json_encode($_POST['length']);
+    $check=json_encode($_POST['check']);
 
     // store all data in one unit
     $data=["fmsid"=>$fmsid,
             "formname"=>$frmName,
+            'frm_seq'=>$frm_seq,
             "name"=>$paraName,
             "displayName"=>$displayName,
             "type"=>$type,
-            "length"=>$length,];
+            "length"=>$length,
+        "check"=>$check,
+            ];
 
 
     $response=$formoperation->addForm($fmsid,$data,$_SESSION['userid']);
@@ -89,18 +95,15 @@ if(isset($_POST['update']))
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $frmName    = $_POST['frm_name'];
-    $paraName   = json_encode($_POST['param_name']);
-
-    $displayName = json_encode(
-            array_map(function($val){
-                $val = trim($val);
-                $val = preg_replace('/\s+/', '_', $val);
-                return $val;
-            }, $_POST['display_name'])
-    );
+    $paraName = json_encode(array_map(function($val){
+        $val = trim($val);
+        $val = preg_replace('/\s+/', '_', $val);
+        return $val;}, $_POST['param_name']));
+    $displayName = json_encode($_POST['display_name']);
     $type       = json_encode($_POST['type']);
     $length     = json_encode($_POST['length']);
-
+    $frm_seq=$_POST['frm_seq'];
+    $check=json_encode($_POST['check']);
     $data = [
             "fmsid"       => $fmsid,
             "formname"    => $frmName,
@@ -108,9 +111,11 @@ if(isset($_POST['update']))
             "displayName" => $displayName,
             "type"        => $type,
             "length"      => $length,
+            "frm_seq"=>$frm_seq,
+            "check"=>$check,
     ];
-
     $fms_data_p=loadFSM($link1,"SELECT table_name FROM fms_master where id=$fmsid");
+
     $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);
 
     if($response){
@@ -336,7 +341,10 @@ if(isset($_REQUEST['msg'])):?>
                                 <input name="frm_name" id="frm_name" type="text" class="form-control" placeholder="Form Name" value="<?php echo $res['form_name'] ?? ''; ?>">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6"><label class="col-md-6 control-label">Sequance</label>
+                            <div class="col-md-6">
+                                <input name="frm_seq" id="frm_seq" type="number" class="form-control" placeholder="form Sequance" value="<?php echo $res['frm_seq'] ?? ''; ?>">
+                            </div>
                         </div>
                     </div>
             </div>
@@ -356,10 +364,12 @@ if(isset($_REQUEST['msg'])):?>
                         </thead>
                         <tbody id="addform">
                         <?php
+
                         $co     = json_decode($res['parameter_name'], true) ?? [];
                         $dis    = json_decode($res['display_name'], true) ?? [];
                         $type   = json_decode($res['type'], true) ?? [];
                         $length = json_decode($res['length'], true) ?? [];
+                        $param_require=json_decode($res['param_require'],true) ?? [];
                         $countleave=0;
                         $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
                         $optionsData = [];
@@ -371,9 +381,14 @@ if(isset($_REQUEST['msg'])):?>
                         }
 
                         if (!empty($co)) {
-
                             for ($i = 0; $i < count($co); $i++) {
-                                $countleave=$i+1;
+
+                                $countleave = $i + 1;
+
+
+                                $isChecked = (isset($param_require[$i]) && $param_require[$i] == 1);
+                                $checkedAttr = $isChecked ? "checked" : "";
+                                $hiddenValue = $isChecked ? 1 : 0;
                                 echo "<tr>
             <td>".($i+1)."</td>
             <td><input type='text' class='form-control' name='param_name[]' value='".($co[$i] ?? "")."'></td>
@@ -381,19 +396,13 @@ if(isset($_REQUEST['msg'])):?>
             <td>
                 <select name='type[]' class='form-control type_form'>
                     <option>-Select option-</option>";
-
                                 foreach ($optionsData as $opt) {
                                     $selected = (isset($type[$i]) && $type[$i] == $opt['pt_id']) ? "selected" : "";
                                     echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
                                 }
+                                echo "</select></td><td><input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'></td><td class='text-center'><input type='hidden' name='check[]' value='".$hiddenValue."'><input type='checkbox' class='check_box_hidden' value='1' ".$checkedAttr."></td></tr>";
 
-                                echo "  </select>
-            </td>
-            <td><input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'></td>
-            <td class='text-center'><input type='checkbox' name='check[]' class='' value='".($check[$i] ?? "")."'></td>
-        </tr>";
                             }
-
                         }
                         else {
                             // fallback → start from 1 empty row
@@ -412,6 +421,10 @@ if(isset($_REQUEST['msg'])):?>
                             echo "  </select>
         </td>
         <td><input type='number' name='length[]' class='form-control'></td>
+        <td class='text-center'>
+        <input type='hidden' name='check[]' value='0'>
+    <input type='checkbox' class='check_box_hidden' value='1'>
+</td>
     </tr>";
                         }
                         ?>
@@ -478,7 +491,11 @@ include("../includes/connection_close.php");
         </select>
     </td>
     <td><input type="number" name="length[]" class="form-control"></td>
+<td class='text-center'><input type="hidden" name="check[]" value="0">
+    <input type="checkbox" class="check_box_hidden" value="1">
+</td>
 </tr>`;
+            checkboxvalue();
             $("#addform").append(newRow);
         });
 
@@ -554,8 +571,52 @@ function showAlert(message, type = "success", duration = 3000) {
         alert.remove();
     }, duration);
 }
+
+
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(cb => {
+        cb.checked = true;
+        cb.value = 1;
+        cb.addEventListener("change", function () {
+            this.value = this.checked ? 1 : 0;
+        });
+    });
 </script>
 
+<script>
+    // function appendHidden(form, name, value){
+    //     let input = document.createElement("input");
+    //     input.type = "hidden";
+    //     input.name = name;
+    //     input.className="check_box_hidden"
+    //     input.value = value;
+    //     form.appendChild(input);
+    // }
+    //
+    // function appendArray(form, name, arr){
+    //     arr.forEach(val => {
+    //         appendHidden(form, name, val);
+    //     });
+    // }
+    //
+    //
+    // document.getElementById("frm1").addEventListener("submit", function (e) {
+    //
+    // });
+
+    function checkboxvalue(){
+        document.querySelectorAll(".check_box_hidden").forEach((checkbox)=>{
+
+            let hidden = checkbox.previousElementSibling;
+            hidden.value = checkbox.checked ? 1 : 0;
+            checkbox.addEventListener("change", function(){
+                hidden.value = this.checked ? 1 : 0;
+            });
+        });
+    }
+    checkboxvalue();
+
+</script>
 
 </body>
 </html>

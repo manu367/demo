@@ -15,7 +15,7 @@ require_once("../includes/config.php");
            }else{
 			  $msgsent="SMS Sent";
 			  if($cust_details[1]!='' && $sms!=""){
-				  $res = file_get_contents("http://sms.foxxglove.com/api/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$cust_details[1]."&text=".urlencode($sms)); 
+				  $res = file_get_contents("http://sms.foxxglove.com/fmsapi/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$cust_details[1]."&text=".urlencode($sms));
 				  //print_r($res);
              dailyActivity($_SESSION['userid'],$parentloc[$i],"SMS",$msgsent,$ip,$link1,$flag);
 		   	} 

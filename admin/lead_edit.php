@@ -24,7 +24,7 @@ if($_POST['Submit']=='Save'){
 		
 		       if($phone['phone']){
 			$sms_msg="Dear ".$phone['empname'].", Lead  data is updated ".$reference." ";
-			$res = file_get_contents("http://sms.foxxglove.com/api/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$phone['phone']."&text=".urlencode($sms_msg));
+			$res = file_get_contents("http://sms.foxxglove.com/fmsapi/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$phone['phone']."&text=".urlencode($sms_msg));
 			  }
 			dailyActivity($_SESSION['userid'],$lrow['reference'],"LEAD","EDIT",$ip,$link1,"");
 			//mysqli_query($link1,"insert into sf_status_history set party_id='".$party_id."', status_id='7', trans_type='add_lead', trans_no='".$lrow['reference']."'");

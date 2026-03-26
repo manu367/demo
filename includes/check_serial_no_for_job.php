@@ -103,11 +103,11 @@ function getJobSheetValidate($serialno,$jobno="",$productid="",$locationcode="",
 	
     return json_encode($arr_jd);
 }
-//////////check from DMS api
+//////////check from DMS fmsapi
 function getSaleDataValidate($serialno,$jobno="",$productid="",$locationcode="",$refno="",$link1){
 	
     $arr_sd = array();
-    ///////call dms api 
+    ///////call dms fmsapi
     $curl = curl_init();
     
     curl_setopt_array($curl, array(

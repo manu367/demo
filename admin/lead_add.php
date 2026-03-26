@@ -34,7 +34,7 @@ if($_POST['Submit']=='Save'){
 		
 		  if($phone['phone']){
 			$sms_msg="Dear ".$phone['empname'].", Lead is created  ".$reference." ";
-			$res = file_get_contents("http://sms.foxxglove.com/api/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$phone['phone']."&text=".urlencode($sms_msg));
+			$res = file_get_contents("http://sms.foxxglove.com/fmsapi/mt/SendSMS?user=cancrm&password=123456&senderid=CANCRM&channel=Trans&DCS=0&flashsms=0&number=".$phone['phone']."&text=".urlencode($sms_msg));
 			}
 		
 		             

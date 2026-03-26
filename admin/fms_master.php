@@ -46,7 +46,6 @@ require_once("../includes/config.php");
             display: flex;
             align-items: center;
             gap: 10px;
-            background: green;
             backdrop-filter: blur(8px);
             color: #fff;
             padding: 14px 18px;
@@ -81,7 +80,7 @@ require_once("../includes/config.php");
             height: 3px;
             width: 100%;
             background: #fff;
-            animation: progress 5s linear;
+            animation: progress 60s linear;
         }
 
         @keyframes progress {
@@ -99,7 +98,7 @@ require_once("../includes/config.php");
 
                 setTimeout(() => {
                     toast.classList.remove("show");
-                }, 5000); // hide after 3s
+                }, 50000); // hide after 3s
             }
         });
     </script>
@@ -118,7 +117,7 @@ require_once("../includes/config.php");
             ?>
             <?php
             if(isset($_REQUEST['msg'])){?>
-                <div id="errorPopup" class="toast">
+                <div id="errorPopup" class="toast" style="background-color: <?= isset($_REQUEST['type']) || $_REQUEST['type']==='error'?'darkred':'green' ?>">
                     <span class="icon">⚠️</span>
                     <span class="message"><?=htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8');?></span>
                 </div>
@@ -156,8 +155,8 @@ require_once("../includes/config.php");
                             <th>S.No</th>
                             <th>FMS Name</th>
                             <th>Details</th>
-                            <th>create At</th>
-                            <th>update At</th>
+                            <th>create Date</th>
+                            <th>update Date</th>
                             <th>Status</th>
                             <th>View/Edit</th>
                             <th>Create Form</th>
@@ -174,112 +173,5 @@ require_once("../includes/config.php");
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
-<div id="container">
-    <button>Button 1</button>
-    <button>Button 2</button>
-    <button>Button 3</button>
-</div>
-<script>
-    function LNode(value){
-        this.value=value;
-        this.next=null;
-    }
-    function LinkedList(){
-        this.head = null;
-    }
-
-    LinkedList.prototype.addNode=function(data){
-        const node=new LNode(data);
-        if(this.head===null){
-            this.head=node;
-            return node;
-        }
-        let temp=this.head;
-        while(temp.next!==null){
-            temp=temp.next;
-        }
-        temp.next=node;
-    }
-
-    LinkedList.prototype.addFront = function(data) {
-        const node = new LNode(data);
-        node.next = this.head;
-        this.head = node;
-    };
-
-    LinkedList.prototype.addAtIndex = function(data, index) {
-        const node = new LNode(data);
-        if (index === 0) {
-            node.next = this.head;this.head = node;return;
-        }
-        let temp = this.head;
-        let i = 0;
-        while (temp !== null && i < index - 1) {
-            temp = temp.next;
-            i++;
-        }
-        if (temp === null) return;
-        node.next = temp.next;
-        temp.next = node;
-    };
-    LinkedList.prototype.deleteNode = function() {
-        if (this.head === null) {
-            console.log("List already empty. Kuch delete karne ko hai hi nahi.");
-            return;
-        }
-        if (this.head.next === null) {
-            console.log(`Deleted node: ${this.head.data}`);
-            this.head = null;
-            return;
-        }
-        let temp = this.head;
-        while (temp.next.next !== null) {
-            temp = temp.next;
-        }
-        console.log(`Deleted node: ${temp.next.data}`);
-        temp.next = null;
-    };
-    LinkedList.prototype.deleteFront=function(data){}
-    LinkedList.prototype.deleteMiddle=function(data){}
-    LinkedList.prototype.search=function(data){
-        let ivalud=false;
-        if(data==='' || data===null || data===undefined){
-            console.log("No data found.");
-            return;
-        }
-        let temp=this.head;
-        let i=0;
-        while (temp!==null){
-            if(data===temp.value){
-                console.log(data);
-                ivalud=true;
-            }
-            temp=temp.next;
-            i++;
-        }
-        if (ivalud){
-            console.log("Data is found= "+i);
-        }
-        console.log("Data is nout found -1");
-    }
-
-    LinkedList.prototype.traveling=function(){
-        if(this.head===null){
-            console.log("Empty LinkedList");return;
-        }
-        let temp=this.head;
-        while(temp!==null){
-            console.log(temp.value);
-            temp=temp.next;
-        }
-    }
-    const list=new LinkedList();
-    list.addNode(12);
-    list.addNode(900);
-    list.addFront(123)
-    list.addNode(44);
-    list.traveling();
-    list.search(42);
-</script>
 </body>
 </html>

@@ -9,6 +9,7 @@
          return $this->getMessage();
      }
  }
+
 /**
  *  Global Page , Error Handling from this classes. </br>
  * Uses : throw new FMSException("error","msg","redirect_point_location","pid","hid");

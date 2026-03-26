@@ -1,42 +1,19 @@
 <?php
 require_once("../includes/config.php");
 
-class Singleton
-{
-    public static function getInstance(){
-        static $instance;
-        if($instance == null){
-            $instance = new self();
-        }
-        return $instance;
-    }
-
-    public function __toString(){
-        return "this is sinlgeton instant";
-    }
-}
-class FactoryPattern{
-    public static function getObject($role){
-        if($role ==='admin'){
-            return Singleton::getInstance();
-        }
-        if($role==="mysqli"){
-            return mysqli_connect("localhost","root","","okaya_beta","3306");
+function loadFMsColumnTableName($link,$fmsid){
+    $column=null;
+    $result=mysqli_query ($link,"SELECT * FROM fms_master WHERE id=$fmsid");
+    if($result){
+        while ($row=mysqli_fetch_assoc($result)){
+            $column=$row;
         }
     }
-    public function __toString()
-    {
-        return "";
-    }
+    return $column;
 }
 
-$a=Singleton::getInstance();
-$b=Singleton::getInstance();
-$connection=FactoryPattern::getObject("mysqli");
-echo $a;
-
-var_dump("sddc");exit();
-
+$value=loadFMsColumnTableName($link1,251);
+var_dump($value);exit();
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,52 +41,7 @@ var_dump("sddc");exit();
             <h2 align="center"><i class="fa fa-users"></i> Call Master</h2>
             <span><?=$_SESSION['csrf_manu']?></span>
 
-            <!--            pid and hid hidden form-->
-            <form class="form-horizontal" role="form" name="form1" action="" method="get">
-                <div class="form-group">
-                    <div class="col-md-6"><label class="col-md-5 control-label"></label>
-                        <div class="col-md-5">
-                            <input name="pid" id="pid" type="hidden" value="<?=$_REQUEST['pid']?>"/>
-                            <input name="hid" id="hid" type="hidden" value="<?=$_REQUEST['hid']?>"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6"><label class="col-md-5 control-label"></label>
-                        <div class="col-md-5" align="left">
-                        </div>
-                    </div>
-                </div><!--close form group-->
-            </form>
-            <div class="col-md-12" style="display: flex;justify-content: flex-end">
-                <div style="display: flex;align-items: center">
-                    <div style="display: flex; justify-content: center;align-items: center">
-                        <label>Text Here</label>
-                        <input id type="text" name="" id="input" class="form-control">
-                    </div>
-                    <button id="btn_go" class="btn btn-success" style="margin-left: 10px">Go</button>
-                </div>
-            </div>
-            <form>
-                <table width="100%" id="itemsTable1" class="table table-bordered table-hover" >
-                    <thead class="bg-primary text-center">
-                    <tr>
-                        <td>Sr.No</td>
-                        <td>value</td>
-                        <td>Action</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td>this is text-value</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-primary">🖊</button>
-                            <button type="button" class="btn btn-danger">🎁</button>
-                            <button type="button" class="btn" style="background-color: black;color: whitesmoke">👍</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
+
         </div>
     </div>
 </div>

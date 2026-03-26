@@ -1419,7 +1419,7 @@
       var that = this,
           $no_results = $('<li class="no-results"></li>');
 
-      this.$button.on('click.dropdown.data-api', function () {
+      this.$button.on('click.dropdown.data-fmsapi', function () {
         that.$menuInner.find('.active').removeClass('active');
         if (!!that.$searchbox.val()) {
           that.$searchbox.val('');
@@ -1432,7 +1432,7 @@
         }, 10);
       });
 
-      this.$searchbox.on('click.dropdown.data-api focus.dropdown.data-api touchend.dropdown.data-api', function (e) {
+      this.$searchbox.on('click.dropdown.data-fmsapi focus.dropdown.data-fmsapi touchend.dropdown.data-fmsapi', function (e) {
         e.stopPropagation();
       });
 
@@ -1883,7 +1883,7 @@
 
   // SELECTPICKER DATA-API
   // =====================
-  $(window).on('load.bs.select.data-api', function () {
+  $(window).on('load.bs.select.data-fmsapi', function () {
     $('.selectpicker').each(function () {
       var $selectpicker = $(this);
       Plugin.call($selectpicker, $selectpicker.data());

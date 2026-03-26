@@ -3,7 +3,7 @@
 require_once("security/dbh.php");	
 require_once("google_api_function.php");
 require_once("includes/common_function.php");
-////// google api key
+////// google fmsapi key
 date_default_timezone_set("Asia/Calcutta"); 
 //$apikey = "AIzaSyD_e0ruO5-kbEWig_tz6xMYExypn9K_XNU";
 //$apikey = "AIzaSyA3Zh6BY9Ypc7O7nXKd9sddeH76ChNVDPI";////updated on 18 mar 2025
@@ -32,7 +32,7 @@ while($row_usr_trk = mysqli_fetch_assoc($res_usr_trk)){
 	$eid = $row_usr_trk["user_id"];
 	$job_no = $row_usr_trk["ref_no"];
 	//echo "dddddddddddddddddddddd<br/>";
-	///// check api is already called or not for same user on specific date
+	///// check fmsapi is already called or not for same user on specific date
 	if(mysqli_num_rows(mysqli_query($link1,"SELECT id FROM eng_travel_details WHERE eng_id='".$uid."' AND entry_date='".$edate."'"))==0){
 		/// intialize array
 		$lat_arr = array();
