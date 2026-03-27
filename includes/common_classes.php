@@ -1179,6 +1179,7 @@ class UpdatePermission {
                 isset($data['app_rgt'][$tabid]),
                 isset($data['price_rgt'][$tabid])
             );
+            $tabpermission->validate();
 
             $permissions[] = $tabpermission;
         }
