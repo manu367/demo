@@ -30,7 +30,10 @@ if(isset($_POST['save'])){
     $data=$formview->loadform($formid);
     $total=count(json_decode($data['parameter_name']));
 
+
     $parameter[]=json_decode($data['parameter_name'],true);
+
+
     $parameter_1=$parameter[0];
     $data_save=[];
 
@@ -41,7 +44,9 @@ if(isset($_POST['save'])){
     $parameter_1[]="updated_ip";
     $data_save[]=$_SESSION['userid'];
     $data_save[]=$_SERVER['REMOTE_ADDR'];
+
     $save=$formview->saveDataintable($_POST['table_name'],$parameter_1,$data_save);
+
     if($save){
         $tablename=$_POST['table_name'];
         header("location:fms_view.php?msg=saved data successfully in $tablename table");
@@ -112,6 +117,10 @@ include("../includes/connection_close.php");
     document.querySelectorAll("label").forEach((label)=>{
         label.style.textTransform="capitalize"
     });
+    document.querySelectorAll("input").forEach((label)=>{
+        label.style.textTransform="capitalize"
+    });
+
 </script>
 </body>
 </html>

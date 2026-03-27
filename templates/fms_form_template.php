@@ -17,26 +17,26 @@ function dynamicColumn($column){
         return !in_array($col, $remove);
     }));
 
-    $row = "<tr>";
+    $row = "";
     for($i = 0; $i < count($column); $i++){
         $value = str_replace("_"," ", $column[$i]);
         $row .= '<th>'.$value.'</th>';
     }
-    $row .= "</tr>";
+    $row .= "";
     return $row;
 }
 ?>
 
 <table width="100%" border="1" cellpadding="5" cellspacing="0">
-    <thead style="background-color: green;color: white">
+    <tr style="background-color: green;color: white">
     <?= dynamicColumn($column)?>
-    </thead>
+    </tr>
 </table>
 
 <?php
 header("Content-Type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=fms_report_".date('Y-m-d').".xls");
 header('Cache-Control: max-age=0');
-header('Cache-Control: max-age=1')
+header('Cache-Control: max-age=1');
 
 ?>

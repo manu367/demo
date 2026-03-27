@@ -8,6 +8,18 @@ define("siteTitle", "CRM:: Support System");
 define("BRANDNAME","Okaya",true);
 define("COMPANYNAME","Okaya ",true);
 define("SERIALNO","Serial No",true);
+
+
+// fututure permissions
+define('PERMISSION_ADD','add_rgt');
+define('PERMISSION_EDIT','edit_rgt');
+define('PERMISSION_VIEW','view_rgt');
+define('PERMISSION_CANCEL','cancel_rgt');
+define('PERMISSION_PRINT','print_rgt');
+define('PERMISSION_EXCEL_EXPORT','download_rgt');
+define('PERMISSION_EXCEL_APPROVAL','approval_rgt');
+
+
 /////
 $today=date("Y-m-d");
 $todayt=date("Ymd");

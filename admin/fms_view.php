@@ -165,4 +165,9 @@ include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
 </body>
+<script>
+    document.querySelectorAll("table td, table th").forEach((cell) => {
+        cell.style.textTransform = "capitalize";
+    });
+</script>
 </html>

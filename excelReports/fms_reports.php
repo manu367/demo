@@ -47,11 +47,11 @@ function printTableKeys($keys){
 
 <table width="100%" border="1" cellpadding="5" cellspacing="0">
 
-    <thead style="background-color: green;color: white">
+    <tr style="background-color: green;color: white">
     <?= !empty($keys) ? printTableKeys($keys) : '' ?>
-    </thead>
+    </tr>
 
-    <tbody>
+    <tr>
     <?php
     if(!$flag){
         echo "<tr><td colspan='100%' style='text-align:center;'>No Data Found</td></tr>";
@@ -72,7 +72,7 @@ function printTableKeys($keys){
         }
     }
     ?>
-    </tbody>
+    </tr>
 
 </table>
 

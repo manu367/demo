@@ -112,12 +112,10 @@ require_once("../includes/config.php");
         <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
             <h2 align="center" style="font-style: italic"><i class="fa fa-users"></i> FMS Master</h2>
             <span><?=$_SESSION['csrf_manu']?></span>
-            <?php
-            openssl_encrypt("this is mnu pathak")
-            ?>
+
             <?php
             if(isset($_REQUEST['msg'])){?>
-                <div id="errorPopup" class="toast" style="background-color: <?= isset($_REQUEST['type']) || $_REQUEST['type']==='error'?'darkred':'green' ?>">
+                <div id="errorPopup" class="toast" style="background-color: <?= isset($_REQUEST['type']) && $_REQUEST['type']==='error'?'darkred':'green' ?>">
                     <span class="icon">⚠️</span>
                     <span class="message"><?=htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8');?></span>
                 </div>
@@ -173,5 +171,10 @@ require_once("../includes/config.php");
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
+<script>
+    document.querySelectorAll("table td, table th").forEach((cell) => {
+        cell.style.textTransform = "capitalize";
+    });
+</script>
 </body>
 </html>

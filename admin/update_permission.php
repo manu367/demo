@@ -8,6 +8,7 @@ require_once("../includes/config.php");
 
 if($_POST['submitTab'])
 {
+    var_dump($_POST);exit();
 	barCheck($link1);
 	// Update Function Rights
 	mysqli_query($link1,"update access_tab set status='0' where userid='".$_REQUEST['userid']."' ")or die(mysqli_error($link1));
@@ -174,6 +175,10 @@ else{
 
 }
 
+if($_POST['fms_permission']){
+    var_dump('fms_permission');
+}
+
 ?>
 
 
@@ -181,164 +186,61 @@ else{
 <!DOCTYPE html>
 
 <html>
-
 <head>
-
  <meta charset="utf-8">
-
  <meta name="viewport" content="width=device-width, initial-scale=1">
-
  <title><?=siteTitle?></title>
-
  <script src="../js/jquery.js"></script>
-
  <link href="../css/font-awesome.min.css" rel="stylesheet">
-
  <link href="../css/abc.css" rel="stylesheet">
-
  <script src="../js/bootstrap.min.js"></script>
-
  <link href="../css/abc2.css" rel="stylesheet">
-
  <link rel="stylesheet" href="../css/bootstrap.min.css">
-
  <script>
+     function checkAll(field){
+         for (i = 0; i < field.length; i++)
+             field[i].checked = true ;
+     }
 
- function checkAll(field){
+     function uncheckAll(field){
+         for (i = 0; i < field.length; i++)
+             field[i].checked = false ;
+     }
 
-   for (i = 0; i < field.length; i++)
-
-        field[i].checked = true ;
-
- }
-
- function uncheckAll(field){
-
-   for (i = 0; i < field.length; i++)
-
-        field[i].checked = false ;
-
- }
-
- ///// multiple check all function
-
- function checkFunc(field,ind,val){
-
-	 //alert(field+"--"+ind+"--"+val);
-
-	var chk=document.getElementById(val+""+ind).checked;
-
-	if(chk==true){ checkAll(field); }
-
-	else{ uncheckAll(field);}
-
- }
-
-</script>
-
+     function checkFunc(field,ind,val){
+         var chk=document.getElementById(val+""+ind).checked;
+         if(chk==true){ checkAll(field); }
+         else{ uncheckAll(field);}
+     }
+ </script>
 <script>
-
-$(document).ready(function() {
-
-    if (location.hash) {
-
-        $("a[href='" + location.hash + "']").tab("show");
-
-    }
-
-    $(document.body).on("click", "a[data-toggle]", function(event) {
-
-        location.hash = this.getAttribute("href");
-
+    $(document).ready(function() {
+        if (location.hash) {
+            $("a[href='" + location.hash + "']").tab("show");
+        }
+        $(document.body).on("click", "a[data-toggle]", function(event) {
+            location.hash = this.getAttribute("href");
+        });
     });
 
-});
+    $(window).on("popstate", function() {
+        var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+        $("a[href='" + anchor + "']").tab("show");
+        if(location.hash=="#menu1"){
+            document.getElementById("home").style.display="none";
+            document.getElementById("menu1").style.display="";
+            document.getElementById("menu2").style.display="none";
+            //document.getElementById("menu3").style.display="none";
+            // document.getElementById("menu4").style.display="none";
+            // document.getElementById("menu5").style.display="none";
+            // }
 
-$(window).on("popstate", function() {
-
-    var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
-
-    $("a[href='" + anchor + "']").tab("show");
-
-	if(location.hash=="#menu1"){
-
-		document.getElementById("home").style.display="none";
-
-		document.getElementById("menu1").style.display="";
-
-		document.getElementById("menu2").style.display="none";
-
-		//document.getElementById("menu3").style.display="none";
-
-		//document.getElementById("menu4").style.display="none";
-
-		//document.getElementById("menu5").style.display="none";
-
+        else if(location.hash=="#menu2"){
+            document.getElementById("home").style.display="none";
+        }
+        document.getElementById("menu1").style.display="none";
+        document.getElementById("menu2").style.display="";
 	}
-
-	else if(location.hash=="#menu2"){
-
-		document.getElementById("home").style.display="none";
-
-		document.getElementById("menu1").style.display="none";
-
-		document.getElementById("menu2").style.display="";
-
-		//document.getElementById("menu3").style.display="none";
-
-		//document.getElementById("menu4").style.display="none";
-
-		//document.getElementById("menu5").style.display="none";
-
-	}
-
-	/*else if(location.hash=="#menu3"){
-
-		document.getElementById("home").style.display="none";
-
-		document.getElementById("menu1").style.display="none";
-
-		document.getElementById("menu2").style.display="none";
-
-		document.getElementById("menu3").style.display="";
-
-		document.getElementById("menu4").style.display="none";
-
-		document.getElementById("menu5").style.display="none";
-
-	}
-
-	else if(location.hash=="#menu4"){
-
-		document.getElementById("home").style.display="none";
-
-		document.getElementById("menu1").style.display="none";
-
-		document.getElementById("menu2").style.display="none";
-
-		document.getElementById("menu3").style.display="none";
-
-		document.getElementById("menu4").style.display="";
-
-		document.getElementById("menu5").style.display="none";
-
-	}
-
-	else if(location.hash=="#menu5"){
-
-		document.getElementById("home").style.display="none";
-
-		document.getElementById("menu1").style.display="none";
-
-		document.getElementById("menu2").style.display="none";
-
-		document.getElementById("menu3").style.display="none";
-
-		document.getElementById("menu4").style.display="none";
-
-		document.getElementById("menu5").style.display="";
-
-	}*/
 
 	else{
 
@@ -383,49 +285,33 @@ function getCity(stateid){
 }
 
 </script>
-
 </head>
-
 <body>
-
 <div class="container-fluid">
 
   <div class="row content">
-
-	<?php 
-
+	<?php
     include("../includes/leftnav2.php");
-
     ?>
 
     <div class="<?=$screenwidth?>">
-
       <h2 align="center"><i class="fa fa-users"></i> Update User Permission</h2>
-
       <h4 align="center"><?=$_REQUEST['u_name']."  (".$_REQUEST['userid'].")";?>
-
       <?php if($_POST['submitTab']=='Save' || $_POST['submitTab1']=='Save' || $_POST['submitTab2']=='Save'){ ?>
-
       <br/>
 
      <span style="color:#FF0000"><?php if($_POST['submitTab']=="Save"){ echo "Master/Reports Tab";}else if($_POST['submitTab1']=="Save"){echo "Region Tab";} else if($_POST['submitTab2']=="Save"){echo "Brand Tab";}?> permissions are updated.</span>
-
       <?php } ?>
-
       </h4>
 
       <div class="form-group"  id="page-wrap" style="margin-left:10px;">
 
          <ul class="nav nav-tabs">
-
           <li class="active"><a data-toggle="tab" href="#home">Masters / Reports</a></li>
-
-          <li><a data-toggle="tab" href="#menu1">Region</a></li>
+          <li><a data-toggle="tab" href="#menu1">FMS </a></li>
           <li><a data-toggle="tab" href="#menu2">Brand</a></li>
-
           <li><a data-toggle="tab" href="#menu3">Product</a></li>
 		   <li><a data-toggle="tab" href="#menu4">Operation</a></li>
-
          </ul>
 
          <div class="tab-content">
@@ -528,98 +414,93 @@ function getCity(stateid){
 
       </div>
 
-	<!-- Tab 2 Region Rights-->
+             <!--             yha me fms start kar rha hu -->
 
           <div id="menu1" class="tab-pane fade" >
 
-          <form id="frm1" name="frm1" class="form-horizontal" action="" method="post">
+              <form id="frm" name="frm" class="form-horizontal" action="" method="post">
 
-          <div class="table-responsive"> 
+                  <div class="table-responsive">
+                      <table id="myTable1" class="table table-hover">
+                          <thead>
+                          <tr class="<?=$tableheadcolor?>">
+                              <td width="20%">Tab Name</td>
+                              <td width="10%"><i class='fa fa-plus'></i>&nbsp;Add</td>
+                              <td width="10%"><i class='fa fa-edit'></i>&nbsp;Edit</td>
+                              <td width="10%"><i class='fa fa-eye'></i>&nbsp;View</td>
+                              <td width="10%"><i class='fa fa-remove'></i>&nbsp;Cancel</td>
+                              <td width="10%"><i class='fa fa-print'></i>&nbsp;Print</td>
+                              <td width="10%"><i class='fa fa-file-excel-o'></i>&nbsp;Excel Export</td>
+                              <td width="10%"><i class='fa fa-legal'></i>&nbsp;Approval</td>
+                              <td width="10%"><i class='fa fa-ban'></i>&nbsp;Block Price Display</td>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <?php
+                          $rs=mysqli_query($link1,"select maintabname,maintabicon from tab_master where status='1' and tabfor='admin' group by maintabname order by maintabseq");
+                          $num=mysqli_num_rows($rs);
+                          if($num > 0){
+                              $j=1;
+                              while($row=mysqli_fetch_array($rs)){
+                                  ?>
+                                  <tr>
+                                      <td style="border:none" class="bg-success"><i class="fa <?=$row['maintabicon']?> fa-lg"></i>&nbsp;<?=$row['maintabname']?></td>
+                                  </tr>
+                                  <?php
+                                  $i=1;
+                                  $report="select tabid, subtabname,subtabicon,apply_approval from tab_master where maintabname='".$row['maintabname']."' and status='1' and tabfor='admin' order by subtabname";
+                                  $rs_report=mysqli_query($link1,$report) or die(mysqli_error($link1));
+                                  while($row_report=mysqli_fetch_array($rs_report)){?>
+                                      <tr>
+                                          <?php
+                                          $state_acc=mysqli_query($link1,"select tabid from access_tab where status='1' and tabid='".$row_report['tabid']."' and userid='".$_REQUEST['userid']."'")or die(mysqli_error());
+                                          $num1=mysqli_num_rows($state_acc);
+                                          $res_oprrgt=mysqli_query($link1,"select * from operation_rights where tabid='".$row_report['tabid']."' and userid='".$_REQUEST['userid']."'")or die(mysqli_error());
+                                          $row_oprrgt=mysqli_fetch_array($res_oprrgt);
+                                          $line_seq = $j."_".$i;
+                                          ?>
+                                          <td><input style="width:20px"  type="checkbox" id="report<?=$j?>" name="report[]" value="<?=$row_report['tabid']?>" <?php if($num1 > 0) echo "checked";?> onClick="checkTabClick(this,document.frm.opr_rgt<?=$line_seq?>);" title="Tab Name"/>&nbsp;<i class="fa <?=$row_report['subtabicon']?> fa-lg"></i>&nbsp;<?=$row_report['subtabname']?></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="add_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['add_rgt'] == "Y") echo "checked";?> title="Add Right"/></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="edit_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['edit_rgt'] == "Y") echo "checked";?> title="Edit Right"/></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="view_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['view_rgt'] == "Y") echo "checked";?> title="View Right"/></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="cancel_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['cancel_rgt'] == "Y") echo "checked";?> title="Cancel Right"/></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="print_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['print_rgt'] == "Y") echo "checked";?> title="Print Right"/></td>
+                                          <td><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="excel_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['download_rgt'] == "Y") echo "checked";?> title="Excel Right"/></td>
+                                          <td><?php if($row_report['apply_approval']=="Y"){?><input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="app_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['approval_rgt'] == "Y") echo "checked";?> title="Approval Right"/><?php }?></td>
+                                          <td>
+                                              <?php if (in_array($row_report['tabid'], $arr_price_opt)){ ?>
+                                                  <input style="width:20px"  type="checkbox" id="opr_rgt<?=$line_seq?>" name="price_rgt[<?=$row_report['tabid']?>]" value="<?=$row_report['tabid']?>" <?php if($row_oprrgt['block_price'] == "Y") echo "checked";?> title="Block Price Display"/>
+                                              <?php }?>
+                                          </td>
+                                      </tr>
+                                      <?php
+                                      $i++;
+                                  }////// Close 2nd While Loop of TAB 2
+                                  ?>
 
-          	<?php /*?><table id="myTable2" class="table table-hover"> 
+                                  <?php $j++;}
+                          }?>
+                          </tbody>
+                      </table>
+                  </div>
 
-                <thead>
-
-                  <tr>
-
-                    <td style="border:none"> 
-
-                    	<strong>State:</strong>
-						<select name="state_name" id="state_name" class="form-control" style="width:250px;" onChange="getCity(this.value);">
-
-                        	<option value="">--Select State--</option>
-
-                             <?php 
-
-							$rs2=mysqli_query($link1,"SELECT * FROM state_master ORDER BY state");
-
-                			while($row=mysqli_fetch_array($rs2)){
-
-                			?>
-
-                            <option value="<?=$row['stateid']."~".$row['zoneid']?>"><?=$row['state']?></option>
-
-                            <?php
-
-							}
-
-							?>
-
-                    	</select>
-
-                    </td>
-					
-                  </tr>
-                </thead>
-
-               </table><?php */?> 
-			   
-			   <table class='table table-hover'>
-				  <tbody>
-					  <tr>
-						  <td>
-							<input name="CheckAll" type="button" class="btn btn-primary" onClick="checkAll(document.frm1.states1)" value="Check All" />&nbsp;&nbsp;
-							<input name="UnCheckAll" type="button" class="btn btn-primary" onClick="uncheckAll(document.frm1.states1)" value="Uncheck All" />
-						  </td>
-					  </tr>
-					  <?php 
-						$ad=1;
-						$rs2=mysqli_query($link1,"SELECT * FROM state_master ORDER BY state");
-						while($row=mysqli_fetch_array($rs2)){
-						
-						$rs2_1 = mysqli_fetch_array(mysqli_query($link1,"SELECT status FROM access_region where stateid='".$row['stateid']."' and userid='".$_REQUEST['userid']."' "));						
-					  ?>
-						  <tr>
-							<td>
-								<input style="width:20px"  type="checkbox" id="states1" name="states1[]" value="<?=$row['stateid'];?>" <?php if($rs2_1['status']=="Y"){ echo "checked"; } ?> >&nbsp;&nbsp;<?=$row['state'];?>
-							</td>
-						  </tr>
-					  <?php
-						}
-					  ?>
-				  </tbody>
-			  </table>
-
-               <span id="disp_city"></span>
-
-                </div>
-
-            <div class="form-buttons" align="center">
-
-              <button title="Previous" type="button" class="btn btn-primary" onClick="window.location.href='#home'">Previous</button>
-
-              <input type="submit" class="btn btn-primary" name="submitTab1" id="submitTab1" value="Save"> 
-
-              <button title="Next" type="button" class="btn btn-primary" onClick="window.location.href='#menu2'">Next</button>
-
-              <input title="Back" type="button" class="btn btn-primary" value="Back" onClick="window.location.href='addAdminUser.php?op=edit&id=<?php echo $_REQUEST['userid'];?><?=$pagenav?>'">
-
-            </div>
-
-          </form>
+                  <div class="form-buttons" align="center">
+                      <button class='btn<?=$btncolor?>' id="submitTab" type="submit" name="submitTab" value="Save"><i class="fa fa-save fa-lg"></i>&nbsp;&nbsp;Save</button>
+                      <button title="Next" type="button" class="btn<?=$btncolor?>" onClick="window.location.href='#menu1'">Next&nbsp;&nbsp;<i class="fa fa-forward fa-lg"></i></button>
+                      <button title="Back" type="button" class="btn<?=$btncolor?>"
+                              onClick="window.location.href='addAdminUser.php?op=edit&id=<?php echo $_REQUEST['userid'];?>&srch=<?php if(isset($_REQUEST['srch'])){ echo $_REQUEST['srch'];}?>&status=<?php if(isset($_REQUEST['status'])){ echo $_REQUEST['status'];}?><?=$pagenav?>'">
+                          <i class="fa fa-reply fa-lg"></i>&nbsp;&nbsp;<span>Back</span>
+                      </button>
+                  </div>
+              </form>
 
           </div>
-          
+
+
+
+<!--             yha me fms end kar rha hu -->
+
+
           <!-- Tab 2 Region Rights-->
 
           <div id="menu2" class="tab-pane fade" >
@@ -798,7 +679,7 @@ function getCity(stateid){
 
           <form id="frm3" name="frm3" class="form-horizontal" action="" method="post">
 
-            <div class="table-responsive"> 
+            <div class="table-responsive">
 
               <div class="form-buttons" style="float:right">
 
@@ -838,7 +719,7 @@ function getCity(stateid){
 
              <button title="Previous" type="button" class="btn btn-primary" onClick="window.location.href='#menu1'">Previous</button>
 
-             <input type="submit" class="btn btn-primary" name="submitTab2" id="submitTab2" value="Save"> 
+             <input type="submit" class="btn btn-primary" name="submitTab2" id="submitTab2" value="Save">
 
              <button title="Next" type="button" class="btn btn-primary" onClick="window.location.href='#menu3'">Next</button>
 
@@ -849,6 +730,8 @@ function getCity(stateid){
           </form>
 
           </div>
+
+
 
           </div>
 

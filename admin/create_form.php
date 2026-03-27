@@ -53,6 +53,7 @@ if(isset($_POST['save']))
    // load fsm
    $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
 
+
    // partname space = Part_SPACE_Name
     $paraName = json_encode(array_map(function($val){
         $val = trim($val);
@@ -75,10 +76,15 @@ if(isset($_POST['save']))
             ];
 
 
+
     $response=$formoperation->addForm($fmsid,$data,$_SESSION['userid']);
 
-    $status_column=$formoperation->addColumnInTable($fms_data['table_name'],$_POST['param_name'],$_POST['type'],$_POST['length']);
 
+    try{
+        $status_column=$formoperation->addColumnInTable($fms_data['table_name'],$_POST['param_name'],$_POST['type'],$_POST['length']);
+    }catch (Exception $e){
+        throw new GlobalException($e->getMessage());
+    }
     if($response){
         $msg="Form Added Successfully";
         $msgEnc = urlencode($msg);
@@ -92,30 +98,65 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
-    var_dump($_POST);exit();
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
+    $old_column=$_POST['old_column'];
     $frmName    = $_POST['frm_name'];
-    $paraName = json_encode(array_map(function($val){
-        $val = trim($val);
-        $val = preg_replace('/\s+/', '_', $val);
-        return $val;}, $_POST['param_name']));
-    $displayName = json_encode($_POST['display_name']);
-    $type       = json_encode($_POST['type']);
-    $length     = json_encode($_POST['length']);
     $frm_seq=$_POST['frm_seq'];
-    $check=json_encode($_POST['check']);
-    $data = [
-            "fmsid"       => $fmsid,
-            "formname"    => $frmName,
-            "name"        => $paraName,
-            "displayName" => $displayName,
-            "type"        => $type,
-            "length"      => $length,
+
+    $raw = $_POST['old_column'];
+    $raw = trim($raw, "'");
+    $old_column = json_decode($raw, true);
+    $old_column=json_decode($old_column, true);
+
+    $newData=[];
+    $newColumnAddInDB=[];
+    $newColumnAddInDB['formid']=$formid;
+    for($i=0;$i<count($_POST['param_name']);$i++){
+        $newColumnName=$_POST['param_name'][$i];
+
+        // space convert into the _ underscore
+        $newColumnName = trim($newColumnName);
+        $newColumnName = preg_replace('/\s+/', '_', $newColumnName);
+
+
+        $displayName=$_POST['display_name'][$i];
+        $type=$_POST['type'][$i];
+        $length=$_POST['length'][$i];
+        $length_1=(int)$length;
+        if($length_1>255){
+            $length='255';
+        }
+        $old_col=$old_column[$i]??null;
+        $check=$_POST['check'][$i];
+
+        if($old_col===null){
+            $newColumnAddInDB['column'][]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,null);
+        }
+
+        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,$old_col);
+    }
+
+    // new-data and old_data store in one unit here
+    $data=[
+            "fms_id"=>'',
+            "formid"=>$formid,
             "frm_seq"=>$frm_seq,
-            "check"=>$check,
+            "new"=>$newData,
+            "old_col"=>$old_column
     ];
+
+    // here we can get the tble on the basic of ID
+    if($fmsid===''){throw new GlobalException('id mismatch error');}
     $fms_data_p=loadFSM($link1,"SELECT table_name FROM fms_master where id=$fmsid");
+
+
+    // if any extra new column add in form  then added in the db;
+
+    if (!empty($newColumnAddInDB['column']) && count($newColumnAddInDB['column']) > 0) {
+        $status = $formoperation->addnewColumnInDb($fms_data_p['table_name'], $newColumnAddInDB);
+    }
+
 
     $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);
 
@@ -172,8 +213,6 @@ function decodeValueIntoArrar($value){
     <script src="../js/bootstrap.min.js"></script>
     <link href="../css/abc2.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
     <title><?=siteTitle?></title>
 <!--    alert box css-->
     <style>
@@ -318,6 +357,13 @@ if(isset($_REQUEST['msg'])):?>
             <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
                 <input type="text" id="fmsid" name="fmsid" value="<?=$load['id']?>" style="display: none;">
                 <input type="text" id="formid" name="formid" value="<?=$res['id']?>" style="display: none;">
+                <?php
+                if (!empty($res['parameter_name'])) {
+                    echo '<input type="hidden" name="old_column" value="'
+                            . htmlspecialchars(json_encode($res['parameter_name']), ENT_QUOTES, 'UTF-8')
+                            . '">';
+                }
+                ?>
                 <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
 
                     <div class="form-group">
@@ -609,6 +655,13 @@ function showAlert(message, type = "success", duration = 3000) {
     //
     // })
 </script>
-
+<script>
+    document.querySelectorAll("input").forEach((cell) => {
+        cell.style.textTransform = "capitalize";
+    });
+    document.querySelectorAll("select").forEach((cell) => {
+        cell.style.textTransform = "capitalize";
+    });
+</script>
 </body>
 </html>

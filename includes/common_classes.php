@@ -108,6 +108,7 @@ class FMS_Operations{
         (fmsname, details, steps, total_form, updated_by, updated_ip, created_at, updated_at, table_name)
         VALUES 
         ('$fname', '$details', $steps, $total_form, '$updated_by', '$updated_ip', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '$tablname')";
+
         if(!mysqli_query($this->conn, $sql)){
             return ['status'=>false, "msg"=>mysqli_error($this->conn)];
         }
@@ -223,72 +224,178 @@ class FormOperations{
         return $tableName;
     }
     public function loadForm($fms_id,$form_id){}
-    public function updateForm($id, $fms_id, $data, $updatedBy,$tablename="")
+    public function updateForm($id, $fms_id, $data = [], $updatedBy, $tablename = "")
     {
-        $updated_at = date('Y-m-d H:i:s');
-        $updated_ip = $_SERVER['REMOTE_ADDR'];
-        $formname     = $data['formname'];
-        $paramername  =  $data['name'];
-        $displayName  = $data['displayName'];
-        $type         = $data['type'];
-        $length       = $data['length'];
-        $fms_id       = $fms_id;
-        $updatedBy    = $updatedBy;
-        $id           = (int)$id;
-        $check=$data['check'];
-
-        $result=mysqli_query($this->conn,"SELECT parameter_name FROM `form_master` WHERE id='$id'");
-        if(!$result){
-            throw new GlobalException("Column not found");
-        }
-
-        $old_db_col=[];
-        while($row=mysqli_fetch_array($result)){
-            $old_db_col[]=json_decode($row[0]);
+        $flag=false;
+        if (!$this->isDbColumnValid($data)) {
+            throw new GlobalException("Please Refresh Page");
         }
 
 
-        $newcolumn=[
-            "type"=>json_decode($type),
-            "length"=>json_decode($length),
-            "newcolumn"=>json_decode($paramername),
-        ];
+
+        $col_name = [];
+        $new_name = [];
+        $types    = [];
+        $length   = [];
+
+        foreach ($data['new'] as $formunits) {
+
+            $oldCol = $formunits->old_column ?? null;
+            $newCol = $formunits->parameter;
+
+            // agar old column exist karta hai aur change hua hai tabhi ALTER kare
+            if ($oldCol !== null && $oldCol !== $newCol) {
+                $col_name[] = $oldCol;          // old column name
+                $new_name[] = $newCol;          // new column name
+                $types[]    = 'varchar';
+                $length[]   = $formunits->length;
+            }
+
+            // agar sirf type/length change hua ho (naam same hai)
+            elseif ($oldCol !== null && $oldCol === $newCol) {
+                $col_name[] = $oldCol;
+                $new_name[] = $oldCol; // same name
+                $types[]    = 'varchar';
+                $length[]   = $formunits->length;
+            }
+        }
+
+        if (count($col_name) > 0) {
+            $sql_query = $this->changeColumnNameinDb(
+                $tablename,
+                $col_name,
+                $new_name,
+                $types,
+                $length
+            );
+
+            if (!mysqli_query($this->conn, $sql_query)) {
+                throw new GlobalException("Alter failed: " . mysqli_error($this->conn) . " | Query: $sql_query");
+            }
+        }
 
 
-
-        $remove = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
-        $oldcolumn = array_values(array_filter($old_db_col, function($col) use ($remove) {
-            return !in_array($col, $remove);
-        }));
-
-
-        $newcolumn_add=json_decode($paramername);
-
-        $diff = array_values(array_diff($newcolumn_add, $oldcolumn));
-
+        // insert final data here
         try{
-            $this->addMoreParameteronUpdareTime($tablename,$diff);
+            $result=$this->updateFormMaster_1($data['formid'],$data['new'],$data['frm_seq']);
+            $flag=true;
         }catch (Exception $e){
             throw new GlobalException($e->getMessage());
         }
+        return $flag;
+    }
+    public function isDbColumnValid($data) {
+        $formid = $data['formid'];
+        $query = "SELECT parameter_name FROM form_master WHERE id = '$formid'";
+        $result = mysqli_query($this->conn, $query);
 
-        $val_res=$this->columnUpdate_1($tablename,$old_db_col,$newcolumn);
-        if($val_res){
-            $query = "UPDATE form_master SET updated_date = '$updated_at',
-                       updated_by = '$updatedBy',
-                       updated_ip = '$updated_ip',
-                       form_name = '$formname',
-                       fms_id = '$fms_id',
-                       parameter_name = '$paramername',
-                       display_name = '$displayName',
-                       type = '$type',
-                       length = '$length',
-                       param_require='$check'
-                   WHERE id = $id";
-
-            return mysqli_query($this->conn, $query);
+        if (!$result || mysqli_num_rows($result) == 0) {
+            throw new GlobalException("Form not found");
         }
-        return false;
+        $row = mysqli_fetch_assoc($result);
+
+        $currentColNme = json_decode($row['parameter_name'], true);
+
+        if (!is_array($currentColNme)) {
+            throw new GlobalException("Invalid JSON in DB");
+        }
+
+        if (!isset($data['old_col']) || !is_array($data['old_col'])) {
+            throw new GlobalException("Invalid input data");
+        }
+        if ($currentColNme !== $data['old_col']) {
+            throw new GlobalException("Column Name Mismatch");
+        }
+        return true;
+    }
+
+    private function updateFormMaster_1($formid, $data,$frm_seq)
+    {
+        $parameter   = [];
+        $displayname = [];
+        $type        = [];
+        $require     = [];
+        $length      = [];
+
+
+        foreach ($data as $formunits) {
+            $parameter[]   = $formunits->parameter;
+            $displayname[] = $formunits->value;
+            $type[]        = $formunits->type;
+            $require[]     = $formunits->require;
+            $length[]      = $formunits->length;
+        }
+
+        $parameter   = json_encode($parameter);
+        $displayname = json_encode($displayname);
+        $type        = json_encode($type);
+        $require     = json_encode($require);
+        $length      = json_encode($length);
+
+        $sql = "UPDATE form_master SET 
+                parameter_name = '$parameter',
+                display_name = '$displayname',
+                type = '$type',
+                param_require = '$require',
+                length = '$length',
+                frm_seq='$frm_seq'
+            WHERE id = '$formid'";
+
+        return mysqli_query($this->conn, $sql);
+    }
+
+    public function changeColumnNameinDb($table, $colNames = [], $newNames = [], $types = [], $lengths = []) {
+        if (
+            count($colNames) !== count($newNames) ||
+            count($colNames) !== count($types) ||
+            count($colNames) !== count($lengths)
+        ) {
+            throw new GlobalException("All Data must have same length");
+        }
+
+        $queries = [];
+
+        foreach ($colNames as $i => $col) {
+            $new = $newNames[$i];
+            $type = strtoupper($types[$i]);
+
+            $length = !empty($lengths[$i]) ? "(" . (int)$lengths[$i] . ")" : "";
+            $queries[] = "CHANGE `$col` `$new` $type$length";
+        }
+
+        $query = "ALTER TABLE `$table` " . implode(", ", $queries);
+        return $query;
+    }
+
+    public function addnewColumnInDb($table, $col = []) {
+
+        if (empty($table) || empty($col)) {
+            throw new Exception("Invalid input");
+        }
+        $col=$col['column'];
+
+        foreach ($col as $item) {
+            if (empty($item->parameter)) {
+                continue;
+            }
+            $columnName = mysqli_real_escape_string($this->conn, $item->parameter);
+
+            $checkQuery = "SHOW COLUMNS FROM `$table` LIKE '$columnName'";
+            $result = mysqli_query($this->conn, $checkQuery);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $length=$item->length;
+                $alterQuery = "ALTER TABLE `$table` MODIFY `$columnName` VARCHAR(255) NULL";
+            } else {
+                $length=$item->length;
+                $alterQuery = "ALTER TABLE `$table` ADD `$columnName` VARCHAR($length) NULL";
+            }
+
+            if (!mysqli_query($this->conn, $alterQuery)) {
+                throw new GlobalException("Error altering table: " . mysqli_error($this->conn));
+            }
+        }
+        return true;
     }
 
     public function addForm($fms_id, $data, $createdBy)
@@ -316,7 +423,13 @@ class FormOperations{
         ('$created_at', '$updated_at', '$createdBy', '$updated_by', '$updated_ip',
          '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1','$frm_seq','$check')";
 
-        return mysqli_query($this->conn, $query);
+        try{
+            $result=mysqli_query($this->conn, $query);
+            return true;
+        }catch (Exception $e){
+
+        }
+
     }
 
     //addColumnInTable("fms_master", "status", "VARCHAR(50) NOT NULL DEFAULT 'active'");
@@ -470,17 +583,33 @@ class FormView{
         return $data[0];
     }
 
-    public function paramtertype($type, $name, $length){
+    public function paramtertype($type, $name, $length)
+    {
         $inputType = "text";
-        switch($type){
-            case 1: $inputType = "text"; break;
-            case 2: $inputType = "email"; break;
-            case 3: $inputType = "number"; break;
-            case 4: $inputType = "password"; break;
-        }
-        return "<input name='{$name}' type='{$inputType}' class='form-control' maxlength='{$length}' required>";
-    }
+        $extraAttr = "";
 
+        switch ($type) {
+            case 1:
+                $inputType = "text";
+                $extraAttr = "maxlength='{$length}'";
+                break;
+            case 2:
+                $inputType = "email";
+                $extraAttr = "maxlength='{$length}'";
+                break;
+            case 3:
+                $inputType = "number";
+                $extraAttr = "maxlength='{$length}' pattern='[0-9]{1,{$length}}' oninput=\"this.value=this.value.replace(/[^0-9]/g,'').slice(0,{$length})\"";
+                break;
+
+            case 4:
+                $inputType = "password";
+                $extraAttr = "maxlength='{$length}'";
+                break;
+        }
+
+        return "<input name='{$name}' type='{$inputType}' class='form-control' {$extraAttr} required>";
+    }
 
     public function saveDataintable($table, $parameter, $data = [])
     {
@@ -491,7 +620,6 @@ class FormView{
         }
         $values = implode(",", $escapedData);
         $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
-
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }
@@ -926,6 +1054,139 @@ class Reportuploader{
 
 
 }
+
+
+class UpdatePermission {
+    public $conn;
+    public $userid = null;
+    public function __construct(){}
+    public function setConnection($con){
+        $this->conn = $con;
+    }
+    public function setUserid($userid){
+        $this->userid = $userid;
+    }
+
+
+    // main function -> whose run on only html
+    public function printMainTabName(){
+        $html = "";
+
+        $sql = "select maintabname,maintabicon from tab_master where status='1' and tabfor='admin' group by maintabname order by maintabseq";
+
+        $rs = mysqli_query($this->conn, $sql);
+
+        if($rs && mysqli_num_rows($rs) > 0){
+            $j = 1;
+            while($row = mysqli_fetch_assoc($rs)){
+
+                // main tab aane start -> yha se kar rha hu
+                $html .= "<tr>
+                    <td style='border:none' class='bg-success'>
+                        <i class='fa {$row['maintabicon']} fa-lg'></i>&nbsp;{$row['maintabname']}
+                    </td>
+                </tr>";
+
+                // sub tab load starting yha se
+                $html .= $this->showSubTabName($row['maintabname'], $j);
+
+                $j++;
+            }
+        }
+
+        return $html;
+    }
+
+    // SUB TAB FUNCTION
+    private function showSubTabName($maintabname, $j){
+        $html = "";
+        $sql = "SELECT tabid, subtabname, subtabicon 
+                FROM tab_master 
+                WHERE maintabname='$maintabname' 
+                AND status='1' AND tabfor='admin' 
+                ORDER BY subtabname";
+
+        $rs = mysqli_query($this->conn, $sql);
+
+        if($rs && mysqli_num_rows($rs) > 0){
+            $i = 1;
+            while($row = mysqli_fetch_assoc($rs)){
+                // ACCESS CHECK from access tab -jab bhi status 1 hoga tabi show hoga
+                // return tabid
+                $acc_sql = "SELECT tabid FROM access_tab 
+                            WHERE status='1' 
+                            AND tabid='{$row['tabid']}' 
+                            AND userid='{$this->userid}'";
+
+                $state_acc = mysqli_query($this->conn, $acc_sql);
+                $checked_tab = (mysqli_num_rows($state_acc) > 0) ? "checked" : "";
+
+                // OPERATION RIGHTS
+                $opr_sql = "SELECT * FROM operation_rights 
+                            WHERE tabid='{$row['tabid']}' 
+                            AND userid='{$this->userid}'";
+
+                $res_opr = mysqli_query($this->conn, $opr_sql);
+                $opr = mysqli_fetch_assoc($res_opr);
+
+                $line_seq = $j . "_" . $i;
+//                <label class="switch">
+//                                <input type="checkbox" name="check_box_manu" value="2">
+//                                <span class="slider"></span>
+//                            </label>
+                $html .= "<tr>
+                    <td>
+                        <input type='checkbox' name='report[]' value='{$row['tabid']}' $checked_tab>
+                        &nbsp;<i class='fa {$row['subtabicon']} fa-lg'></i>&nbsp;{$row['subtabname']}
+                    </td>
+
+                    <td><input type='checkbox' name='add_rgt[{$row['tabid']}]' ".($opr['add_rgt']=='Y'?'checked':'')."></td>
+                    <td><input type='checkbox' name='edit_rgt[{$row['tabid']}]' ".($opr['edit_rgt']=='Y'?'checked':'')."></td>
+                    <td><input type='checkbox' name='view_rgt[{$row['tabid']}]' ".($opr['view_rgt']=='Y'?'checked':'')."></td>
+                    <td><input type='checkbox' name='cancel_rgt[{$row['tabid']}]' ".($opr['cancel_rgt']=='Y'?'checked':'')."></td>
+                    <td><input type='checkbox' name='print_rgt[{$row['tabid']}]' ".($opr['print_rgt']=='Y'?'checked':'')."></td>
+                    <td><input type='checkbox' name='excel_rgt[{$row['tabid']}]' ".($opr['download_rgt']=='Y'?'checked':'')."></td>
+
+                    <td>";
+                if($row['apply_approval'] == ""){
+                    $html .= "<input type='checkbox' name='app_rgt[{$row['tabid']}]' ".($opr['approval_rgt']=='Y'?'checked':'').">";
+                }
+                $html .= "</td>
+
+                    <td>
+                        <input type='checkbox' name='price_rgt[{$row['tabid']}]' ".($opr['block_price']=='Y'?'checked':'').">
+                    </td>
+                </tr>";
+
+                $i++;
+            }
+        }
+
+        return $html;
+    }
+
+    public function updatePermission($data){
+        $permissions = [];
+        foreach ($data['report'] as $tabid) {
+            $tabpermission = new TabPermission(
+                $tabid,
+                isset($data['add_rgt'][$tabid]),
+                isset($data['edit_rgt'][$tabid]),
+                isset($data['view_rgt'][$tabid]),
+                isset($data['cancel_rgt'][$tabid]),
+                isset($data['print_rgt'][$tabid]),
+                isset($data['excel_rgt'][$tabid]),
+                isset($data['app_rgt'][$tabid]),
+                isset($data['price_rgt'][$tabid])
+            );
+
+            $permissions[] = $tabpermission;
+        }
+
+        var_dump($permissions);exit();
+    }
+}
+
 
 
 ?>

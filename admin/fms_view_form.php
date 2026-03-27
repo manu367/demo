@@ -233,7 +233,6 @@ if($load){
     <button class="close" onclick="closeSheet()">X</button>
 
     <div class="content_api">
-
         <div class="card">
             <div class="header">
                 <h2>Get Form Fields <span class="badge get">GET</span></h2>
@@ -256,7 +255,7 @@ if($load){
 
     </div>
 
-    <button id="ok" class="ok" onclick="closeSheet()">OK</button>
+    <button id="ok" class="ok btn btn-primary" onclick="closeSheet()">OK</button>
 </section>
 
 <?php

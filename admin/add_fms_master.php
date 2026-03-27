@@ -52,6 +52,7 @@ if(isset($_POST['add'])){
     }
 
     try{
+        $tablename='fms_'.$tablename;
         $response=$fms->addOperation($data,$_SESSION['userid'],$tablename);
         $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"fms","CREATE",$_SERVER['REMOTE_ADDR'],$link1,true);
         // $res23=($response['status'] && $flag)
@@ -348,6 +349,12 @@ include("../includes/connection_close.php");
         echo 'showAlert("'.htmlspecialchars($_REQUEST['msg']).'","error",7000);';
     }
     ?>
+</script>
+
+<script>
+    document.querySelectorAll("input").forEach((cell) => {
+        cell.style.textTransform = "capitalize";
+    });
 </script>
 </body>
 </html>
