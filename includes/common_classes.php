@@ -1183,9 +1183,10 @@ class UpdatePermission {
 
             $permissions[] = $tabpermission;
         }
-
+        var_dump(PERMISSION_ADD);
         var_dump($permissions);exit();
     }
+
 }
 
 
