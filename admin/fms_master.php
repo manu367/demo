@@ -1,5 +1,6 @@
 <?php
 require_once("../includes/config.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -136,11 +137,19 @@ require_once("../includes/config.php");
                 </div>
             </form>
             <div style="text-align: end">
-                <button
-                    class="btn btn-primary"
-                    onclick="window.location.href='add_fms_master.php?op=add&pid=<?=isset($_REQUEST['pid'])?>&hid=<?=isset($_REQUEST['hid'])?>'">
-                    Add FMS
-                </button>
+                <?php
+                $pid = $_REQUEST['pid'] ?? null;
+                $hid = $_REQUEST['hid'] ?? '';
+
+                if ($pid && PermissionManager::checkaddRights($_SESSION['userid'], $pid)) {
+                    ?>
+                    <button class="btn btn-primary"
+                            onclick="window.location.href='add_fms_master.php?op=add&pid=<?=$pid?>&hid=<?=$hid?>'">
+                        Add FMS
+                    </button>
+                    <?php
+                }
+                ?>
             </div>
             <!--            main form for showing data-->
             <form class="form-horizontal" role="form">

@@ -1,13 +1,77 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
+
+set_exception_handler(function ($exception) {
+    if($exception instanceof GlobalException){
+        header('location:update_permission_3.php?'.$exception->getMessage());
+        exit();
+    }
+});
+
+
+
+
 $userid=isset($_REQUEST['userid'])?$_REQUEST['userid']:$_SESSION['userid'];
 $updatepermission=new UpdatePermission();
 $updatepermission->setConnection($link1);
 $updatepermission->setUserid($userid);
 
-if($_POST['update_home']){
-    $updatepermission->updatePermission($_POST);
+$userid=isset($_REQUEST['userid'])?$_REQUEST['userid']:'';
+$utype=isset($_REQUEST['utype'])?$_REQUEST['utype']:'';
+$u_name=isset($_REQUEST['u_name'])?$_REQUEST['u_name']:'';
+
+$page=isset($_REQUEST['page'])?$_REQUEST['page']:'';
+$srch=isset($_REQUEST['srch'])?$_REQUEST['srch']:'';
+$pid=isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
+$hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
+
+if ($_POST['update_home']) {
+
+    try {
+         $isupdate = $updatepermission->updatePermission($_POST);
+//        $isupdate = false; // testing
+
+        $data = [
+                'userid' => $userid,
+                'utype'  => $utype,
+                'u_name' => $u_name,
+                'page'   => $page,
+                'srch'   => $srch,
+                'pid'    => $pid,
+                'hid'    => $hid
+        ];
+
+        if ($isupdate) {
+            $data['type'] = 'success';
+            $data['msg']  = 'User Updated Successfully';
+        } else {
+            $data['type'] = 'error';
+            $data['msg']  = 'Permission not updated';
+        }
+
+        $params = http_build_query($data);
+        header("Location: update_permission_3.php?$params");
+        exit;
+
+    } catch (Exception $e) {
+
+        $data = [
+                'userid' => $userid,
+                'utype'  => $utype,
+                'u_name' => $u_name,
+                'page'   => $page,
+                'srch'   => $srch,
+                'pid'    => $pid,
+                'hid'    => $hid,
+                'type'   => 'error',
+                'msg'    => $e->getMessage()
+        ];
+
+        $params = http_build_query($data);
+        header("Location: update_permission_3.php?$params");
+        exit;
+    }
 }
 
 ?>

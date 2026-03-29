@@ -1056,7 +1056,11 @@ class Reportuploader{
 }
 
 
-class UpdatePermission {
+
+interface Permissions{}
+
+
+class UpdatePermission implements Permissions{
     public $conn;
     public $userid = null;
     public function __construct(){}
@@ -1066,7 +1070,6 @@ class UpdatePermission {
     public function setUserid($userid){
         $this->userid = $userid;
     }
-
 
     // main function -> whose run on only html
     public function printMainTabName(){
@@ -1167,26 +1170,185 @@ class UpdatePermission {
 
     public function updatePermission($data){
         $permissions = [];
-        foreach ($data['report'] as $tabid) {
-            $tabpermission = new TabPermission(
-                $tabid,
-                isset($data['add_rgt'][$tabid]),
-                isset($data['edit_rgt'][$tabid]),
-                isset($data['view_rgt'][$tabid]),
-                isset($data['cancel_rgt'][$tabid]),
-                isset($data['print_rgt'][$tabid]),
-                isset($data['excel_rgt'][$tabid]),
-                isset($data['app_rgt'][$tabid]),
-                isset($data['price_rgt'][$tabid])
-            );
-            $tabpermission->validate();
+        $flag = false;
 
-            $permissions[] = $tabpermission;
+        if ($this->resetAllTabs($this->userid)) {
+
+            foreach ($data['report'] as $tabid) {
+
+                $tabpermission = new TabPermission(
+                    $tabid,
+                    isset($data['add_rgt'][$tabid]),
+                    isset($data['edit_rgt'][$tabid]),
+                    isset($data['view_rgt'][$tabid]),
+                    isset($data['cancel_rgt'][$tabid]),
+                    isset($data['print_rgt'][$tabid]),
+                    isset($data['excel_rgt'][$tabid]),
+                    isset($data['app_rgt'][$tabid]),
+                    isset($data['price_rgt'][$tabid])
+                );
+
+                // Always set selected tab = 1
+                $giveAccess = $this->updateaccesstab($this->userid, $tabid, '1');
+
+                if (!$giveAccess) {
+                    throw new GlobalException('Access table update failed');
+                }
+
+                $tabpermission->validate();
+
+                $updateRights = $this->updateOperationRight($this->userid, $tabpermission);
+
+                if (!$updateRights) {
+                    throw new GlobalException('Operation rights update failed');
+                }
+
+                $permissions[] = $tabpermission;
+                $flag = true;
+            }
+        } else {
+            throw new GlobalException('Failed to reset tabs');
         }
-        var_dump(PERMISSION_ADD);
-        var_dump($permissions);exit();
+
+        return $flag;
     }
 
+    public function updateaccesstab($userid, $tabid = 0, $status = 0)
+    {
+        $checkSql = "SELECT 1 FROM access_tab 
+                 WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        $result = mysqli_query($this->conn, $checkSql);
+
+        if (!$result) {
+            throw new GlobalException('Error checking access_tab ' . __LINE__);
+        }
+
+        if (mysqli_num_rows($result) > 0) {
+
+            $sql = "UPDATE access_tab 
+                SET status = '$status' 
+                WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        } else {
+
+            $sql = "INSERT INTO access_tab (userid, tabid, status) 
+                VALUES ('$userid', '$tabid', '$status')";
+        }
+
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+            throw new GlobalException('Error updating access_tab ' . __LINE__);
+        }
+
+        return $result;
+    }
+    public function updateOperationRight($userid, TabPermission $operation) {
+
+        $checkSql = "SELECT 1 FROM operation_rights 
+                 WHERE userid = '".$userid."' 
+                 AND tabid = '".$operation->tabid."'";
+
+        $checkResult = mysqli_query($this->conn, $checkSql);
+
+        if (!$checkResult) {
+            throw new GlobalException('Error checking operation_rights ' . __LINE__);
+        }
+
+        if (mysqli_num_rows($checkResult) > 0) {
+
+            $sql = "UPDATE operation_rights SET 
+                add_rgt = '".$operation->add."',
+                edit_rgt = '".$operation->edit."', 
+                view_rgt = '".$operation->view."', 
+                cancel_rgt = '".$operation->cancel."', 
+                print_rgt = '".$operation->print."', 
+                download_rgt = '".$operation->report."',
+                approval_rgt = '".$operation->approval."', 
+                block_price = '".$operation->price_display."' 
+            WHERE userid = '".$userid."' 
+            AND tabid = '".$operation->tabid."'";
+
+        } else {
+
+            $sql = "INSERT INTO operation_rights 
+            (userid, tabid, add_rgt, edit_rgt, view_rgt, cancel_rgt, print_rgt, download_rgt, approval_rgt, block_price)
+            VALUES (
+                '".$userid."',
+                '".$operation->tabid."',
+                '".$operation->add."',
+                '".$operation->edit."',
+                '".$operation->view."',
+                '".$operation->cancel."',
+                '".$operation->print."',
+                '".$operation->report."',
+                '".$operation->approval."',
+                '".$operation->price_display."'
+            )";
+        }
+
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+            throw new GlobalException('Error updating operation_rights ' . __LINE__);
+        }
+
+        return $result;
+    }
+
+    public function resetAllTabs($userid){
+        $sql = "UPDATE access_tab 
+                SET status = '0' 
+                WHERE userid = '$userid'";
+        return mysqli_query($this->conn,$sql);
+    }
+}
+
+
+class PermissionManager extends UpdatePermission {
+    public static function checkaddRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
+    public static function checkEditRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
+    public static function checkViewRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return false;
+    }
+    public static function checkcancelRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
+    public static function checkPrintRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
+    public static function checkdownloadRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
+    public static function approvalRights($userid, $tabid){
+        if($tabid===null){
+            return false;
+        }
+        return true;
+    }
 }
 
 

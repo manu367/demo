@@ -306,7 +306,7 @@ function checkPWD(val){
               <input type="submit" class="btn<?=$btncolor?>" name="add" id="add" value="ADD" title="Add User">
               <?php }else{?>
               <input type="submit" class="btn<?=$btncolor?>" name="upd" id="upd" value="Update" title="Update User Details">
-              <input name="usr_permission" type="button" id="usr_permission" class="btn<?=$btncolor?>" onClick="window.location='update_permission.php?userid=<?=$sel_result['username']?>&utype=<?=$sel_result['utype']?>&u_name=<?=$sel_result['name']?>&page=<?=$page?>&srch=<?=$_REQUEST['srch']?><?=$pagenav?>'" value="Update Permission"/>
+              <input name="usr_permission" type="button" id="usr_permission" class="btn<?=$btncolor?>" onClick="window.location='update_permission_3.php?userid=<?=$sel_result['username']?>&utype=<?=$sel_result['utype']?>&u_name=<?=$sel_result['name']?>&page=<?=$page?>&srch=<?=$_REQUEST['srch']?><?=$pagenav?>'" value="Update Permission"/>
               <?php }?>
               <input type="hidden" name="usrid2"  id="usrid2" value="<?=$sel_result['username']?>" />
               <input title="Back" type="button" class="btn<?=$btncolor?>" value="Back" onClick="window.location.href='adminusermgt.php?status=<?=$_REQUEST['status']?><?=$pagenav?>'">

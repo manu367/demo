@@ -5,6 +5,8 @@ $start  = $_POST['start'] ?? 0;
 $length = $_POST['length'] ?? 10;
 $searchValue = $_POST['search']['value'] ?? "";
 
+$pid=$_POST['pid'] ?? null;
+
 $columns = [
     0 => 'fmsname',
     1 => 'details',
@@ -52,10 +54,10 @@ while($row = mysqli_fetch_assoc($res)){
         $row['created_at'],
         $row['updated_at'],
         $status,
-        '<div>
+        PermissionManager::checkViewRights($_SESSION['userid'],$pid)?'<div>
 <a href="fms_view_form.php?id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>
 <a href="fms_report.php?id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Reports</a>
-</div>',
+</div>':'',
     ];
 }
 

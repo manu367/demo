@@ -4,6 +4,7 @@ $draw   = $_POST['draw'] ?? 1;
 $start  = $_POST['start'] ?? 0;
 $length = $_POST['length'] ?? 10;
 $searchValue = $_POST['search']['value'] ?? "";
+$pid=$_POST['pid'] ?? null;
 
 $columns = [
     0 => 'fmsname',
@@ -52,8 +53,8 @@ while($row = mysqli_fetch_assoc($res)){
         $row['created_at'],
         $row['updated_at'],
         $status,
-        '<a href="add_fms_master.php?op=edit&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>',
-        '<a href="form_master.php?id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Create</a>',
+        PermissionManager::checkViewRights($_SESSION['userid'],$pid)?'<a href="add_fms_master.php?op=edit&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>':'',
+        PermissionManager::checkViewRights($_SESSION['userid'],$pid)?'<a href="form_master.php?id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Create</a>':'',
     ];
 }
 
