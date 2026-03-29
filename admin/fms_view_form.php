@@ -222,7 +222,7 @@ if($load){
             </table>
 
             <div class="text-center">
-                <span class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=290&hid=Masters'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
+                <span class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
             </div>
         </div>
     </div>

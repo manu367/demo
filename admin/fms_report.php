@@ -54,6 +54,9 @@ function printTableKeys($keys){
     return $row;
 }
 
+
+$isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -103,6 +106,9 @@ function printTableKeys($keys){
                 echo $msg;
             }
             ?>
+            <?php
+            if($isPermission){
+            ?>
             <div class="container-fluid" style="margin-top: 50px">
                 <div class="row">
                     <div class="col">
@@ -145,6 +151,30 @@ function printTableKeys($keys){
                 <?php }
                 ?>
             </div>
+            <?php }else { ?>
+                <div  style="display: flex;justify-content: center;padding: 20px;">
+                    <div class="d-flex justify-content-center align-items-center" style="height:70vh;">
+                        <div class="card shadow-lg text-center" style="max-width: 420px; border-radius:15px;">
+                            <div class="card-body">
+                                <div style="font-size:60px; color:#dc3545;">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                                <h3 class="mt-3" style="font-weight:600;">Access Denied</h3>
+                                <p class="text-muted mt-2">
+                                    You don’t have permission to access this page.<br>
+                                    Please contact your administrator if you believe this is a mistake.
+                                </p>
+
+                                <div class="mt-4">
+                                    <a href="fms_view.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>" class="btn btn-primary">
+                                        <i class="fa fa-arrow-left"></i> Go Back
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
 
     </div>

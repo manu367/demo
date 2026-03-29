@@ -58,6 +58,8 @@ if(isset($_POST['save'])){
 }
 
 
+$isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+var_dump($isPermission);
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,6 +91,9 @@ if(isset($_POST['save'])){
         <div class="<?=$screenwidth?>">
             <h2 align="center"><i class="fa fa-users"></i> Form View </h2><br/><br/>
             <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
+                <?php
+                if($isPermission){
+                ?>
                 <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
                     <input name="fmsid" value="<?=$fms_de['id']?>" type="hidden"/>
                     <input name="fmsname" value="<?=$fms_de['fmsname']?>" type="hidden"/>
@@ -102,8 +107,31 @@ if(isset($_POST['save'])){
                         <button type="submit" name="save" class="btn btn-primary">Add</button>
                         <span  class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=292&hid=Masters'"><span id="operation_name">Cancel</span</span>
                     </div>
+                </form>
+                <?php }else{
+                ?>
+                    <div class="d-flex justify-content-center align-items-center" style="height:70vh;">
+                        <div class="card shadow-lg text-center" style="max-width: 420px; border-radius:15px;">
+                            <div class="card-body">
+                                <div style="font-size:60px; color:#dc3545;">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                                <h3 class="mt-3" style="font-weight:600;">Access Denied</h3>
+                                <p class="text-muted mt-2">
+                                    You don’t have permission to access this page.<br>
+                                    Please contact your administrator if you believe this is a mistake.
+                                </p>
+
+                                <div class="mt-4">
+                                    <a href="fms_view.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>" class="btn btn-primary">
+                                        <i class="fa fa-arrow-left"></i> Go Back
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
-            </form>
         </div>
     </div>
 </div>

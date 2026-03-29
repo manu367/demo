@@ -6,6 +6,9 @@ $length = $_POST['length'] ?? 10;
 $searchValue = $_POST['search']['value'] ?? "";
 $fmsid= $_REQUEST['id'] ?? "";
 
+$pid= $_REQUEST['pid'] ?? "";
+$hid=$_REQUEST['hid'] ?? "";
+
 
 $columns = [
     0 => 'form_name',
@@ -55,7 +58,7 @@ while($row = mysqli_fetch_assoc($res)){
         $row['form_name'],
         $row['display_name'],
         $status,
-        '<a href="create_form.php?op=edit&formid='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Edit</a>',
+        PermissionManager::checkEditRights($link1,$_SESSION['userid'],$pid)?'<a href="create_form.php?pid='.$pid.'&hid='.$hid.'&op=edit&formid='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Edit</a>':'',
     ];
 }
 

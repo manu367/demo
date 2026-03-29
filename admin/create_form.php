@@ -198,6 +198,14 @@ function decodeValueIntoArrar($value){
     $arr=explode("-",$value);
     return json_encode($arr);
 }
+
+$isPermission=false;
+if($operation==='save'){
+    $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+}else{
+    $isPermission=PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+}
+
 ?>
 
 
@@ -353,107 +361,107 @@ if(isset($_REQUEST['msg'])):?>
         <div class="<?=$screenwidth?>">
             <h2 align="center" style="text-transform: capitalize">
                 <i class="fa fa-users"></i> <?=$operation?> Form</h2><br/><br/>
+            <?php if($isPermission){ ?>
+                <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
+                    <input type="text" id="fmsid" name="fmsid" value="<?=$load['id']?>" style="display: none;">
+                    <input type="text" id="formid" name="formid" value="<?=$res['id']?>" style="display: none;">
+                    <?php
+                    if (!empty($res['parameter_name'])) {
+                        echo '<input type="hidden" name="old_column" value="'
+                                . htmlspecialchars(json_encode($res['parameter_name']), ENT_QUOTES, 'UTF-8')
+                                . '">';
+                    }
+                    ?>
+                    <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
 
-            <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
-                <input type="text" id="fmsid" name="fmsid" value="<?=$load['id']?>" style="display: none;">
-                <input type="text" id="formid" name="formid" value="<?=$res['id']?>" style="display: none;">
-                <?php
-                if (!empty($res['parameter_name'])) {
-                    echo '<input type="hidden" name="old_column" value="'
-                            . htmlspecialchars(json_encode($res['parameter_name']), ENT_QUOTES, 'UTF-8')
-                            . '">';
-                }
-                ?>
-                <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
-
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label for="user_id" class="col-md-6 control-label">FMS</label>
+                        <div class="form-group">
                             <div class="col-md-6">
-                                <input name="fmsname" id="fmsname" type="text" class="form-control" value="<?php echo $load['fmsname'] ?? ''; ?>" disabled required>
+                                <label for="user_id" class="col-md-6 control-label">FMS</label>
+                                <div class="col-md-6">
+                                    <input name="fmsname" id="fmsname" type="text" class="form-control" value="<?php echo $load['fmsname'] ?? ''; ?>" disabled required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="username" class="col-md-6 control-label">Details</label>
+                                <div class="col-md-6">
+                                    <input name="fms_details" id="fms_details" type="text"
+                                           class="form-control" value="<?php echo $load['details'] ?? ''; ?>" disabled required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="username" class="col-md-6 control-label">Details</label>
-                            <div class="col-md-6">
-                                <input name="fms_details" id="fms_details" type="text"
-                                       class="form-control" value="<?php echo $load['details'] ?? ''; ?>" disabled required>
+
+                        <div class="form-group">
+                            <div class="col-md-6"><label class="col-md-6 control-label">Form name</label>
+                                <div class="col-md-6">
+                                    <input name="frm_name" id="frm_name" type="text" class="form-control" placeholder="Form Name" value="<?php echo $res['form_name'] ?? ''; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6"><label class="col-md-6 control-label">Sequance</label>
+                                <div class="col-md-6">
+                                    <input name="frm_seq" id="frm_seq" type="number" class="form-control" placeholder="form Sequance" value="<?php echo $res['frm_seq'] ?? ''; ?>">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!--                second page-->
+                    <div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/><br/>
+                        <h4 class=""><b>Paramerters</b></h4>
+                        <table  width="100%" id="form_table" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                            <thead>
+                            <tr class="<?=$tableheadcolor?>">
+                                <th>#</th>
+                                <th style="text-align: center">Name</th>
+                                <th style="text-align: center">Display Name</th>
+                                <th style="text-align: center">Type</th>
+                                <th style="text-align: center">length</th>
+                                <th style="text-align: center">Required</th>
+                            </tr>
+                            </thead>
+                            <tbody id="addform">
+                            <?php
 
-                    <div class="form-group">
-                        <div class="col-md-6"><label class="col-md-6 control-label">Form name</label>
-                            <div class="col-md-6">
-                                <input name="frm_name" id="frm_name" type="text" class="form-control" placeholder="Form Name" value="<?php echo $res['form_name'] ?? ''; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-6"><label class="col-md-6 control-label">Sequance</label>
-                            <div class="col-md-6">
-                                <input name="frm_seq" id="frm_seq" type="number" class="form-control" placeholder="form Sequance" value="<?php echo $res['frm_seq'] ?? ''; ?>">
-                            </div>
-                        </div>
-                    </div>
-            </div>
-<!--                second page-->
-                <div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/><br/>
-                    <h4 class=""><b>Paramerters</b></h4>
-                    <table  width="100%" id="form_table" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
-                        <thead>
-                        <tr class="<?=$tableheadcolor?>">
-                            <th>#</th>
-                            <th style="text-align: center">Name</th>
-                            <th style="text-align: center">Display Name</th>
-                            <th style="text-align: center">Type</th>
-                            <th style="text-align: center">length</th>
-                            <th style="text-align: center">Required</th>
-                        </tr>
-                        </thead>
-                        <tbody id="addform">
-                        <?php
+                            $co     = json_decode($res['parameter_name'], true) ?? [];
+                            $dis    = json_decode($res['display_name'], true) ?? [];
+                            $type   = json_decode($res['type'], true) ?? [];
+                            $length = json_decode($res['length'], true) ?? [];
+                            $param_require=json_decode($res['param_require'],true) ?? [];
+                            $countleave=0;
+                            $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
+                            $optionsData = [];
 
-                        $co     = json_decode($res['parameter_name'], true) ?? [];
-                        $dis    = json_decode($res['display_name'], true) ?? [];
-                        $type   = json_decode($res['type'], true) ?? [];
-                        $length = json_decode($res['length'], true) ?? [];
-                        $param_require=json_decode($res['param_require'],true) ?? [];
-                        $countleave=0;
-                        $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
-                        $optionsData = [];
-
-                        if ($result) {
-                            while ($r = mysqli_fetch_assoc($result)) {
-                                $optionsData[] = $r;
+                            if ($result) {
+                                while ($r = mysqli_fetch_assoc($result)) {
+                                    $optionsData[] = $r;
+                                }
                             }
-                        }
 
-                        if (!empty($co)) {
-                            for ($i = 0; $i < count($co); $i++) {
+                            if (!empty($co)) {
+                                for ($i = 0; $i < count($co); $i++) {
 
-                                $countleave = $i + 1;
+                                    $countleave = $i + 1;
 
 
-                                $isChecked = (isset($param_require[$i]) && $param_require[$i] == 1);
-                                $checkedAttr = $isChecked ? "checked" : "";
-                                $hiddenValue = $isChecked ? 1 : 0;
-                                echo "<tr>
+                                    $isChecked = (isset($param_require[$i]) && $param_require[$i] == 1);
+                                    $checkedAttr = $isChecked ? "checked" : "";
+                                    $hiddenValue = $isChecked ? 1 : 0;
+                                    echo "<tr>
             <td>".($i+1)."</td>
             <td><input type='text' class='form-control' name='param_name[]' value='".($co[$i] ?? "")."'></td>
             <td><input type='text' class='form-control' name='display_name[]' value='".($dis[$i] ?? "")."'></td>
             <td>
                 <select name='type[]' class='form-control type_form'>
                     <option>-Select option-</option>";
-                                foreach ($optionsData as $opt) {
-                                    $selected = (isset($type[$i]) && $type[$i] == $opt['pt_id']) ? "selected" : "";
-                                    echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
-                                }
-                                echo "</select></td><td><input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'></td><td class='text-center'><input type='hidden' name='check[]' value='".$hiddenValue."'><input type='checkbox' class='check_box_hidden' value='1' ".$checkedAttr."></td></tr>";
+                                    foreach ($optionsData as $opt) {
+                                        $selected = (isset($type[$i]) && $type[$i] == $opt['pt_id']) ? "selected" : "";
+                                        echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
+                                    }
+                                    echo "</select></td><td><input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'></td><td class='text-center'><input type='hidden' name='check[]' value='".$hiddenValue."'><input type='checkbox' class='check_box_hidden' value='1' ".$checkedAttr."></td></tr>";
 
+                                }
                             }
-                        }
-                        else {
-                            // fallback → start from 1 empty row
-                            echo "<tr>
+                            else {
+                                // fallback → start from 1 empty row
+                                echo "<tr>
         <td>1</td>
         <td><input type='text' class='form-control' name='param_name[]'></td>
         <td><input type='text' class='form-control' name='display_name[]'></td>
@@ -461,11 +469,11 @@ if(isset($_REQUEST['msg'])):?>
             <select name='type[]' class='form-control type_form'>
                 <option>-Select option-</option>";
 
-                            foreach ($optionsData as $opt) {
-                                echo "<option value='".$opt['pt_id']."'>".$opt['type']."</option>";
-                            }
+                                foreach ($optionsData as $opt) {
+                                    echo "<option value='".$opt['pt_id']."'>".$opt['type']."</option>";
+                                }
 
-                            echo "  </select>
+                                echo "  </select>
         </td>
         <td><input type='number' name='length[]' class='form-control'></td>
         <td class='text-center'>
@@ -473,20 +481,19 @@ if(isset($_REQUEST['msg'])):?>
     <input type='checkbox' class='check_box_hidden' value='1'>
 </td>
     </tr>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                    <button id="row" type="button" class="btn btn-danger" style="margin-top: 10px">Add Row</button>
-                </div>
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                        <button id="row" type="button" class="btn btn-danger" style="margin-top: 10px">Add Row</button>
+                    </div>
 
-                <div class="text-center">
-                    <button type="submit" style="text-transform: capitalize" name="<?=$operation?>" class="btn btn-success"><?=$operation?></button>
-                    <a href="form_master.php?id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
-                </div>
-            </form>
-
-
+                    <div class="text-center">
+                        <button type="submit" style="text-transform: capitalize" name="<?=$operation?>" class="btn btn-success"><?=$operation?></button>
+                        <a href="form_master.php?id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
+                    </div>
+                </form>
+                <?php } ?>
         </div>
     </div>
 </div>

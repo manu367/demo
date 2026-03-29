@@ -31,6 +31,18 @@ if($load){
 }else{
    throw new GlobalException("Id is Not valid");
 }
+
+
+//$isPermissionGrant=false;
+//
+//if(true){
+//    $isPermissionGrant=PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+//}else{
+//    $isPermissionGrant=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+//}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,7 +126,14 @@ if($load){
             </div>
 
             <div class="mt-5 text-right" style="margin-top: 100px;margin-bottom: 10px">
-                <a href="create_form.php?id=<?=$load['id']?>" class="btn btn-primary">Create form</a>
+                <?php
+                $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+                if($isPermission){
+                    ?>
+                <a href="create_form.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>&id=<?=$load['id']?>" class="btn btn-primary">Create form</a>
+                <?php
+                }
+                ?>
             </div>
 
             <table width="100%" id="myacc-users-grid" class="display table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
@@ -130,7 +149,7 @@ if($load){
             </table>
 
             <div class="text-center">
-                <span class="btn btn-primary" onclick="window.location.href='fms_master.php?pid=290&hid=Masters'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
+                <span class="btn btn-primary" onclick="window.location.href='fms_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
             </div>
         </div>
     </div>

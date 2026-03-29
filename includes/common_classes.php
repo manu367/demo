@@ -1307,47 +1307,75 @@ class UpdatePermission implements Permissions{
 
 
 class PermissionManager extends UpdatePermission {
-    public static function checkaddRights($userid, $tabid){
-        if($tabid===null){
+
+    private static function check_tabid_exist_or_not($link,$userid,$tabid){
+        $check_sql="SELECT COUNT(*) as total FROM operation_rights WHERE userid = '$userid' AND tabid ='$tabid' LIMIT 1";
+        $result_check=mysqli_query($link,$check_sql);
+        if(!$result_check){
             return false;
         }
-        return true;
+        $row = mysqli_fetch_assoc($result_check);
+        return ($row['total'] > 0);
     }
-    public static function checkEditRights($userid, $tabid){
-        if($tabid===null){
+
+    private static function checkPermission($link, $userid, $tabid, $column){
+
+        if($tabid === null){
             return false;
         }
-        return true;
-    }
-    public static function checkViewRights($userid, $tabid){
-        if($tabid===null){
+
+        if (!ctype_digit($tabid)) {
             return false;
         }
+
+
+        $tabid = (int)$tabid;
+
+        if(!self::check_tabid_exist_or_not($link,$userid,$tabid)){
+            return false;
+        }
+
+        $query = "SELECT $column FROM operation_rights WHERE userid = '$userid' AND tabid ='$tabid' LIMIT 1";
+        $result = mysqli_query($link, $query);
+
+        if (!$result) {
+            return false;
+        }
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            return ($row[$column] === 'Y');
+        }
+
         return false;
     }
-    public static function checkcancelRights($userid, $tabid){
-        if($tabid===null){
-            return false;
-        }
-        return true;
+
+    public static function checkaddRights($link, $userid, $tabid=null){
+        return self::checkPermission($link, $userid, $tabid, 'add_rgt');
     }
-    public static function checkPrintRights($userid, $tabid){
-        if($tabid===null){
-            return false;
-        }
-        return true;
+
+    public static function checkEditRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'edit_rgt');
     }
-    public static function checkdownloadRights($userid, $tabid){
-        if($tabid===null){
-            return false;
-        }
-        return true;
+
+    public static function checkViewRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'view_rgt');
     }
-    public static function approvalRights($userid, $tabid){
-        if($tabid===null){
-            return false;
-        }
-        return true;
+
+    public static function checkcancelRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'cancel_rgt');
+    }
+
+    public static function checkPrintRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'print_rgt');
+    }
+
+    public static function checkdownloadRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'download_rgt');
+    }
+
+    public static function approvalRights($link, $userid, $tabid){
+        return self::checkPermission($link, $userid, $tabid, 'approval_rgt');
     }
 }
 

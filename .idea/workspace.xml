@@ -6,12 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/addAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/addAdminUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/update_permission_3.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/update_permission_3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data-view.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data-view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagination/form-data-grid-view.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/form-data-grid-view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagination/form-data-grid.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/form-data-grid.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +71,11 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;PHP Script.Add.php.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
@@ -105,8 +114,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-PS-252.28238.9" />
-        <option value="bundled-php-predefined-a98d8de5180a-58f58c5035b3-com.jetbrains.php.sharedIndexes-PS-252.28238.9" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.30387.85" />
+        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.30387.85" />
       </set>
     </attachedChunks>
   </component>
@@ -130,6 +139,9 @@
       <workItem from="1774499369790" duration="27592000" />
       <workItem from="1774586338267" duration="78000" />
       <workItem from="1774586466752" duration="25790000" />
+      <workItem from="1774755739778" duration="6629000" />
+      <workItem from="1774798595444" duration="115000" />
+      <workItem from="1774798871628" duration="440000" />
     </task>
     <servers />
   </component>

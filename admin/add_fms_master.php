@@ -107,6 +107,18 @@ if($fms_id){
     $load_fms=mysqli_query($link1,"select * from fms_master where id=$fms_id");
     $edit_data=mysqli_fetch_assoc($load_fms);
 }
+
+
+$isPermissionGrant=false;
+
+if($is_edit){
+    $isPermissionGrant=PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+}else{
+    $isPermissionGrant=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -256,6 +268,10 @@ if($fms_id){
             <?php endif; ?>
 
 
+            <?php
+            if($isPermissionGrant){
+            ?>
+
             <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
                 <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
                     <input type="hidden" name="csrf_token"
@@ -307,6 +323,11 @@ if($fms_id){
                 </span>
             </div>
             </form>
+
+            <?php
+            }
+            ?>
+
         </div>
     </div>
 </div>

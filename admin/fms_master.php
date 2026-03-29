@@ -1,6 +1,8 @@
 <?php
 require_once("../includes/config.php");
+global $link1;
 
+PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
 ?>
 <!DOCTYPE html>
 <html>
@@ -141,7 +143,7 @@ require_once("../includes/config.php");
                 $pid = $_REQUEST['pid'] ?? null;
                 $hid = $_REQUEST['hid'] ?? '';
 
-                if ($pid && PermissionManager::checkaddRights($_SESSION['userid'], $pid)) {
+                if ($pid && PermissionManager::checkaddRights($link1,$_SESSION['userid'], $pid)) {
                     ?>
                     <button class="btn btn-primary"
                             onclick="window.location.href='add_fms_master.php?op=add&pid=<?=$pid?>&hid=<?=$hid?>'">
