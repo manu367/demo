@@ -74,6 +74,34 @@ if ($_POST['update_home']) {
     }
 }
 
+if($_POST['update_fms_permission']){
+    $flag=flase;
+    $updatepermission->resentAllFMSPermission($_SESSION['userid']);
+    for($i=0;$i<count($_POST['fms']);$i++){
+        $flag=$updatepermission->updateFMSPermission($_POST['fms'][$i],$_SESSION['userid']);
+    }
+    $data = [
+            'userid' => $userid,
+            'utype'  => $utype,
+            'u_name' => $u_name,
+            'page'   => $page,
+            'srch'   => $srch,
+            'pid'    => $pid,
+            'hid'    => $hid
+    ];
+    if($flag){
+        $data['type'] = 'success';
+        $data['msg']  = 'FMS Updated Successfully';
+        $params = http_build_query($data);
+        header("Location: update_permission_3.php?$params");
+    }else{
+        $data['type'] = 'error';
+        $data['msg']  = 'Some things is Wrong';
+        $params = http_build_query($data);
+        header("Location: update_permission_3.php?$params");
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -239,8 +267,81 @@ function getCity(stateid){
             touch-action: manipulation;
         }
     </style>
+    <style>
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 250px;
+            max-width: 300px;
+
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .toast.show {
+            right: 20px;
+            opacity: 1;
+        }
+
+        .toast .icon {
+            font-size: 18px;
+        }
+
+        .toast .message {
+            flex: 1;
+        }
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: #fff;
+            animation: progress 60s linear;
+        }
+
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            const toast = document.getElementById("errorPopup");
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add("show");
+                }, 300); // small delay for smooth entry
+
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 50000); // hide after 3s
+            }
+        });
+    </script>
 </head>
 <body>
+
+<?php
+if(isset($_REQUEST['msg'])){?>
+    <div id="errorPopup" class="toast" style="z-index: 9999;background-color: <?= isset($_REQUEST['type']) && $_REQUEST['type']==='error'?'darkred':'green' ?>">
+        <span class="icon">⚠️</span>
+        <span class="message"><?=htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8');?></span>
+    </div>
+<?php } ?>
+
 <div class="container-fluid">
     <div class="row content">
         <?php
@@ -252,14 +353,11 @@ function getCity(stateid){
                 <?=$_REQUEST['u_name']."  (".$_REQUEST['userid'].")";?>
             </h4>
 
-
-
             <div class="form-group"  id="page-wrap" style="margin-left:10px;">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-database fa-lg"></i>&nbsp;&nbsp;Masters / Reports</a></li>
                     <li><a data-toggle="tab" href="#menu1"><i class="fa fa-cogs fa-lg"></i>&nbsp;&nbsp;Region</a></li>
                     <li><a data-toggle="tab" href="#menu2"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;Location</a></li>
-                    <li><a data-toggle="tab" href="#menu3"><i class="fa fa-microchip fa-lg"></i>&nbsp;&nbsp;Process Skill Mapping</a></li>
                     <li><a data-toggle="tab" href="#menu4"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;Product Category</a></li>
                     <li><a data-toggle="tab" href="#menu5"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;FMS</a></li>
                 </ul>
@@ -267,10 +365,10 @@ function getCity(stateid){
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <form name="frm" class="form-horizontal" action="" method="post">
-                            <label class="switch">
-                                <input type="checkbox" name="check_box_manu" value="2">
-                                <span class="slider"></span>
-                            </label>
+<!--                            <label class="switch">-->
+<!--                                <input type="checkbox" name="check_box_manu" value="2">-->
+<!--                                <span class="slider"></span>-->
+<!--                            </label>-->
                             <div class="table-responsive">
                                 <table id="myTable1" class="table table-hover">
                                     <thead>
@@ -322,11 +420,11 @@ function getCity(stateid){
                     <div id="menu5" class="tab-pane fade">
                         <form id="frm4" name="frm4" class="form-horizontal" action="" method="post">
                             <div class="table-responsive">
-                                sdcdc
+                                <?=$updatepermission->printfmsName()?>
                             </div>
                             <div class="form-buttons" align="center">
                                 <button title="Previous" type="button" class="btn<?=$btncolor?>" onClick="window.location.href='#menu3'">Previous</button>
-                                <input type="submit" class="btn<?=$btncolor?>" name="submitTab4" id="submitTab4" value="Save"/>
+                                <input type="submit" class="btn<?=$btncolor?>" name="update_fms_permission" id="submitTab4" value="Save"/>
                                 <button title="Back" type="button" class="btn<?=$btncolor?>" onClick="window.location.href='addAdminUser.php?op=edit&id=<?php echo $_REQUEST['userid'];?>&srch=<?php if(isset($_REQUEST['srch'])){ echo $_REQUEST['srch'];}?>&status=<?php if(isset($_REQUEST['status'])){ echo $_REQUEST['status'];}?><?=$pagenav?>'"><i class="fa fa-reply fa-lg"></i>&nbsp;&nbsp;Back</button>
                             </div>
                         </form>

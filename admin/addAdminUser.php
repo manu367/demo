@@ -301,16 +301,21 @@ function checkPWD(val){
             </div>
           </div>
           <div class="form-group" style="padding:15px 0px;">
-            <div class="col-md-12" align="center">
-              <?php if($_REQUEST['op']=='add'){ ?>
-              <input type="submit" class="btn<?=$btncolor?>" name="add" id="add" value="ADD" title="Add User">
-              <?php }else{?>
-              <input type="submit" class="btn<?=$btncolor?>" name="upd" id="upd" value="Update" title="Update User Details">
-              <input name="usr_permission" type="button" id="usr_permission" class="btn<?=$btncolor?>" onClick="window.location='update_permission_3.php?userid=<?=$sel_result['username']?>&utype=<?=$sel_result['utype']?>&u_name=<?=$sel_result['name']?>&page=<?=$page?>&srch=<?=$_REQUEST['srch']?><?=$pagenav?>'" value="Update Permission"/>
-              <?php }?>
-              <input type="hidden" name="usrid2"  id="usrid2" value="<?=$sel_result['username']?>" />
-              <input title="Back" type="button" class="btn<?=$btncolor?>" value="Back" onClick="window.location.href='adminusermgt.php?status=<?=$_REQUEST['status']?><?=$pagenav?>'">
-            </div>
+           <?php
+           if(PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid'])){
+           ?>
+               <div class="col-md-12" align="center">
+                   <?php if($_REQUEST['op']=='add'){ ?>
+                       <input type="submit" class="btn<?=$btncolor?>" name="add" id="add" value="ADD" title="Add User">
+                   <?php }else{?>
+                       <input type="submit" class="btn<?=$btncolor?>" name="upd" id="upd" value="Update" title="Update User Details">
+                       <input name="usr_permission" type="button" id="usr_permission" class="btn<?=$btncolor?>" onClick="window.location='update_permission_3.php?userid=<?=$sel_result['username']?>&utype=<?=$sel_result['utype']?>&u_name=<?=$sel_result['name']?>&page=<?=$page?>&srch=<?=$_REQUEST['srch']?><?=$pagenav?>'" value="Update Permission"/>
+                   <?php }?>
+                   <input type="hidden" name="usrid2"  id="usrid2" value="<?=$sel_result['username']?>" />
+                   <input title="Back" type="button" class="btn<?=$btncolor?>" value="Back" onClick="window.location.href='adminusermgt.php?status=<?=$_REQUEST['status']?><?=$pagenav?>'">
+               </div>
+
+              <?php } ?>
           </div>
     </form>
       </div>

@@ -57,7 +57,8 @@ while($row = mysqli_fetch_assoc($res)){
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="add_fms_master.php?pid='.$pid.'&hid='.$hid.'&op=edit&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>':'',
         PermissionManager::checkViewRights($link1, $_SESSION['userid'], $pid)
             ? '<a href="form_master.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Create</a>'
-            : ''
+            : '',
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="clone_fms_master.php?pid='.$pid.'&hid='.$hid.'&id='.($row['id']).'" class="btn btn-sm btn-primary">Clone</a>':'',
     ];
 }
 

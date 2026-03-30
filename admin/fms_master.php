@@ -169,6 +169,7 @@ PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
                             <th>Status</th>
                             <th>View/Edit</th>
                             <th>Create Form</th>
+                            <th>clone form</th>
                         </tr>
                         </thead>
                     </table>

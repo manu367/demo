@@ -43,6 +43,10 @@ if(isset($_REQUEST['id'])){
 }
 
 $msg=null;
+
+$pid=isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
+$hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
+
 if(isset($_POST['save']))
 {
 
@@ -166,7 +170,7 @@ if(isset($_POST['update']))
         $formid = $_REQUEST['formid'] ?? '';
         $formid=base64_encode($formid);
         $msgEnc = urlencode($msg);
-        header("Location: create_form.php?op={$op}&msg={$msgEnc}&formid={$formid}");
+        header("Location: create_form.php?pid={$pid}&hid={$hid}&op={$op}&msg={$msgEnc}&formid={$formid}");
         exit;
     } else {
         throw new Exception("Update failed");
@@ -224,6 +228,12 @@ if($operation==='save'){
     <title><?=siteTitle?></title>
 <!--    alert box css-->
     <style>
+        .table-wrapper {
+            border-top-right-radius: 12px;
+            border-top-left-radius: 12px;
+            overflow: hidden; /* IMPORTANT */
+            border: 1px solid #ddd;
+        }
         #customAlertContainer {
             position: fixed;
             top: 20px;
@@ -287,7 +297,7 @@ if($operation==='save'){
             gap: 10px;
             background: green;
             backdrop-filter: blur(8px);
-
+            z-index: 9999;
             color: #fff;
             padding: 14px 18px;
             border-radius: 10px;
@@ -322,7 +332,7 @@ if($operation==='save'){
             height: 3px;
             width: 100%;
             background: #fff;
-            animation: progress 3s linear;
+            animation: progress 60s linear;
         }
 
         @keyframes progress {
@@ -346,11 +356,11 @@ if(isset($_REQUEST['msg'])):?>
         if(toast.length){
             setTimeout(() => {
                 toast.addClass("show");
-            }, 100);
+            }, 500);
 
             setTimeout(() => {
                 toast.removeClass("show");
-            }, 3000);
+            }, 60000);
         }
     });
 </script>
@@ -403,65 +413,74 @@ if(isset($_REQUEST['msg'])):?>
                             </div>
                         </div>
                     </div>
+
                     <!--                second page-->
                     <div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/><br/>
                         <h4 class=""><b>Paramerters</b></h4>
-                        <table  width="100%" id="form_table" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
-                            <thead>
-                            <tr class="<?=$tableheadcolor?>">
-                                <th>#</th>
-                                <th style="text-align: center">Name</th>
-                                <th style="text-align: center">Display Name</th>
-                                <th style="text-align: center">Type</th>
-                                <th style="text-align: center">length</th>
-                                <th style="text-align: center">Required</th>
-                            </tr>
-                            </thead>
-                            <tbody id="addform">
-                            <?php
+                        <div class="table-wrapper">
+                            <table  width="100%" id="form_table" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                                <thead>
+                                <tr class="<?=$tableheadcolor?>">
+                                    <th style="padding: 8px;">#</th>
+                                    <th style="text-align: center; padding: 8px;">Name</th>
+                                    <th style="text-align: center; padding: 8px;">Display Name</th>
+                                    <th style="text-align: center; padding: 8px;">Type</th>
+                                    <th style="text-align: center; padding: 8px;">length</th>
+                                    <th style="text-align: center; padding: 8px;">Required</th>
+                                </tr>
+                                </thead>
+                                <tbody id="addform">
+                                <?php
+                                $co     = json_decode($res['parameter_name'], true) ?? [];
+                                $dis    = json_decode($res['display_name'], true) ?? [];
+                                $type   = json_decode($res['type'], true) ?? [];
+                                $length = json_decode($res['length'], true) ?? [];
+                                $param_require=json_decode($res['param_require'],true) ?? [];
+                                $countleave=0;
 
-                            $co     = json_decode($res['parameter_name'], true) ?? [];
-                            $dis    = json_decode($res['display_name'], true) ?? [];
-                            $type   = json_decode($res['type'], true) ?? [];
-                            $length = json_decode($res['length'], true) ?? [];
-                            $param_require=json_decode($res['param_require'],true) ?? [];
-                            $countleave=0;
-                            $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
-                            $optionsData = [];
+                                $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
+                                $optionsData = [];
 
-                            if ($result) {
-                                while ($r = mysqli_fetch_assoc($result)) {
-                                    $optionsData[] = $r;
+                                if ($result) {
+                                    while ($r = mysqli_fetch_assoc($result)) {
+                                        $optionsData[] = $r;
+                                    }
                                 }
-                            }
 
-                            if (!empty($co)) {
-                                for ($i = 0; $i < count($co); $i++) {
+                                if (!empty($co)) {
+                                    for ($i = 0; $i < count($co); $i++) {
+                                        $countleave = $i + 1;
 
-                                    $countleave = $i + 1;
-
-
-                                    $isChecked = (isset($param_require[$i]) && $param_require[$i] == 1);
-                                    $checkedAttr = $isChecked ? "checked" : "";
-                                    $hiddenValue = $isChecked ? 1 : 0;
-                                    echo "<tr>
+                                        $isChecked = (isset($param_require[$i]) && $param_require[$i] == 1);
+                                        $checkedAttr = $isChecked ? "checked" : "";
+                                        $hiddenValue = $isChecked ? 1 : 0;
+//                                        var_dump($param_require[$i], $checkedAttr);
+                                        echo "<tr>
             <td>".($i+1)."</td>
             <td><input type='text' class='form-control' name='param_name[]' value='".($co[$i] ?? "")."'></td>
             <td><input type='text' class='form-control' name='display_name[]' value='".($dis[$i] ?? "")."'></td>
             <td>
                 <select name='type[]' class='form-control type_form'>
                     <option>-Select option-</option>";
-                                    foreach ($optionsData as $opt) {
-                                        $selected = (isset($type[$i]) && $type[$i] == $opt['pt_id']) ? "selected" : "";
-                                        echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
-                                    }
-                                    echo "</select></td><td><input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'></td><td class='text-center'><input type='hidden' name='check[]' value='".$hiddenValue."'><input type='checkbox' class='check_box_hidden' value='1' ".$checkedAttr."></td></tr>";
+                                        foreach ($optionsData as $opt) {
+                                            $selected = (isset($type[$i]) && $type[$i] == $opt['pt_id']) ? "selected" : "";
+                                            echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
+                                        }
+                                        echo "</select></td>
+                               <td>
+                               <input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'>
+                               </td>
+                               <td class='text-center'>
+                               <input type='hidden' name='check[]' value='".$hiddenValue."'>
+                               <input type='checkbox' class='check_box_hidden' value='".$hiddenValue."' ".$checkedAttr.">
+                               </td>
+                               </tr>";
 
+                                    }
                                 }
-                            }
-                            else {
-                                // fallback → start from 1 empty row
-                                echo "<tr>
+                                else {
+                                    // fallback → start from 1 empty row
+                                    echo "<tr>
         <td>1</td>
         <td><input type='text' class='form-control' name='param_name[]'></td>
         <td><input type='text' class='form-control' name='display_name[]'></td>
@@ -469,11 +488,11 @@ if(isset($_REQUEST['msg'])):?>
             <select name='type[]' class='form-control type_form'>
                 <option>-Select option-</option>";
 
-                                foreach ($optionsData as $opt) {
-                                    echo "<option value='".$opt['pt_id']."'>".$opt['type']."</option>";
-                                }
+                                    foreach ($optionsData as $opt) {
+                                        echo "<option value='".$opt['pt_id']."'>".$opt['type']."</option>";
+                                    }
 
-                                echo "  </select>
+                                    echo "  </select>
         </td>
         <td><input type='number' name='length[]' class='form-control'></td>
         <td class='text-center'>
@@ -481,10 +500,11 @@ if(isset($_REQUEST['msg'])):?>
     <input type='checkbox' class='check_box_hidden' value='1'>
 </td>
     </tr>";
-                            }
-                            ?>
-                            </tbody>
-                        </table>
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
                         <button id="row" type="button" class="btn btn-danger" style="margin-top: 10px">Add Row</button>
                     </div>
 
@@ -625,16 +645,6 @@ function showAlert(message, type = "success", duration = 3000) {
         alert.remove();
     }, duration);
 }
-
-
-    const checkboxes = document.querySelectorAll("input[type='checkbox']");
-    checkboxes.forEach(cb => {
-        cb.checked = true;
-        cb.value = 1;
-        cb.addEventListener("change", function () {
-            this.value = this.checked ? 1 : 0;
-        });
-    });
 </script>
 
 <script>

@@ -4,6 +4,7 @@ require_once("../includes/config.php");
 /////get status//
 
 $arrstatus = getFullStatus("master",$link1);
+$pid=$_REQUEST['pid'];
 
 $arrstatus[99] = "On Hold";
 $requestData= $_REQUEST;
@@ -88,7 +89,7 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData[] = $row["phone"];
 	$nestedData[] = $row["emailid"];
 	$nestedData[] = $arrstatus[$row["status"]];
-	$nestedData[] = "<div align='center'><a href='addAdminUser.php?op=edit&id=".$row['username']."&status=".$_REQUEST['status']."".$pagenav."' title='view'><i class='fa fa-eye fa-lg faicon' title='view/edit details'></i></a></div>";
+	$nestedData[] = PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?"<div align='center'><a href='addAdminUser.php?op=edit&id=".$row['username']."&status=".$_REQUEST['status']."".$pagenav."' title='view'><i class='fa fa-eye fa-lg faicon' title='view/edit details'></i></a></div>":'';
 	
 	$data[] = $nestedData;
 	$j++;

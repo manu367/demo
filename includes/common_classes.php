@@ -1,5 +1,210 @@
 <?php
 
+class FMSClone{
+    private $fms_id;
+    private $conn;
+    private $tableName;
+    public function __construct($conn,$fmsid){
+        $this->fms_id=$fmsid;
+        $this->conn=$conn;
+    }
+    public function setTableName($tableName){
+        $this->tableName=$tableName;
+    }
+    public function fmsClone($fmsName, $fms_details, $fms_steps, $fms_totalform, $fmsIP) {
+
+        $old_fms = $this->getAllData();
+
+        if ($old_fms === null) {
+            throw new GlobalException("Id is Wrong");
+        }
+
+        // old columns lo
+        $old_keys = array_keys($old_fms);
+        $old_keys = FMsBasicOperation::removeColumn($old_keys, ['id']);
+
+        $columns = implode(",", $old_keys);
+
+        $values = [];
+
+        foreach ($old_keys as $key) {
+
+            $val = $old_fms[$key];
+
+            // 🔥 override values
+            if ($key === 'table_name') {
+                $val='fms_'.$this->tableName;
+                $this->tableName=$val;
+                $this->createTable($val);
+            }
+
+            if ($key === 'fmsname') {
+                $val = $fmsName;
+            }
+
+            if ($key === 'details') {
+                $val = $fms_details;
+            }
+
+            if ($key === 'steps') {
+                $val = $fms_steps;
+            }
+
+            if ($key === 'total_form') {
+                $val = $fms_totalform;
+            }
+
+            if ($key === 'updated_ip') {
+                $val = $fmsIP;
+            }
+
+            $val = mysqli_real_escape_string($this->conn, $val);
+            $values[] = "'$val'";
+        }
+
+        $values_str = implode(",", $values);
+
+        $sql = "INSERT INTO `fms_master` ($columns) VALUES ($values_str)";
+
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+            throw new GlobalException("FMS Clone Failed: " . mysqli_error($this->conn));
+        }
+
+        $newFmsId = mysqli_insert_id($this->conn);
+
+        return $newFmsId;
+    }
+
+    public function formCloningStart($newFmsid){
+        // form-cloneing start
+        $formclone=new FormClone($this->conn,$this->fms_id);
+
+        $data_form=$formclone->getAllFormData();
+
+        $flag=false;
+
+        for($i=0;$i<count($data_form);$i++){
+
+            $split_item=$formclone->splitParamter($data_form[$i]);
+            $alter_table=$formclone->addColumnInTable($this->tableName,$split_item['paramter_name'],$split_item['type'],$split_item['length']);
+            $query=$formclone->insertIntoFormMaster($data_form[$i],$newFmsid);
+            $flag=true;
+        }
+        return $flag;
+    }
+
+    private function getAllData(){
+        return FMsBasicOperation::loadFMS($this->conn,$this->fms_id);
+    }
+
+    public function createTable($name)
+    {
+        $tableName=$name;
+        $sql = "CREATE TABLE IF NOT EXISTS `$tableName` (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by varchar(10),
+    updated_ip varchar(40)
+        ) ENGINE=InnoDB";
+
+        $result=mysqli_query($this->conn,$sql);
+        return $result;
+    }
+
+}
+
+class FormClone{
+    private $conn;
+    private $fms_id;
+    public function __construct($conn,$fmsid){
+        $this->conn=$conn;
+        $this->fms_id=$fmsid;
+    }
+    public function insertIntoFormMaster($data,$newFmsId){
+        $created_at=$data['created_date'];
+        $updated_at=$data['updated_date'];
+        $createdBy=$data['created_by'];
+        $updated_by=$data['updated_by'];
+        $updated_ip=$data['updated_ip'];
+        $formname=$data['form_name'];
+        $fms_id=$newFmsId;
+        $paramername=$data['parameter_name'];
+        $displayName=$data['display_name'];
+        $type=$data['type'];
+        $length=$data['length'];
+        $frm_seq=$data['frm_seq'];
+        $check=$data['param_require'];
+
+        $query = "INSERT INTO form_master 
+        (created_date, updated_date, created_by, updated_by, updated_ip, 
+         form_id, form_name, fms_id, parameter_name, display_name, type, length, status,frm_seq,param_require)
+        VALUES 
+        ('$created_at', '$updated_at', '$createdBy', '$updated_by', '$updated_ip',
+         '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1','$frm_seq','$check')";
+
+        return mysqli_query($this->conn,$query);
+    }
+    public function getAllFormData(){
+        $sql="SELECT * FROM `form_master` WHERE fms_id='$this->fms_id'";
+        $result=mysqli_query($this->conn,$sql);
+        $count=mysqli_num_rows($result);
+        $data=[];
+        if($result && $count>0){
+            while ($row=mysqli_fetch_assoc($result)){
+                $data[]=$row;
+            }
+        }
+        return $data;
+    }
+
+    public function splitParamter($data){
+        return [
+            "paramter_name"=>json_decode($data['parameter_name']),
+            "type"=>json_decode($data['type']),
+            "length"=>json_decode($data['length']),
+        ];
+    }
+
+    public function addColumnInTable($tableName, $col = [], $type = [], $length = []) {
+
+        $sql = "ALTER TABLE `$tableName` ";
+        $parts = [];
+
+        for ($i = 0; $i < count($col); $i++) {
+            $column = $this->spaceRemover($col[$i]);
+
+            $parts[] = "ADD COLUMN `$column` " . $this->columnType($type[$i], $length[$i]);
+        }
+
+        $sql .= implode(", ", $parts);
+
+        return mysqli_query($this->conn, $sql);
+    }
+    private function spaceRemover($name){
+        $name = trim($name);
+        $tableName = str_replace(' ', '_', $name);
+        $tableName = preg_replace('/[^A-Za-z0-9_]/', '', $tableName);
+        $tableName=strtolower($tableName);
+        return $tableName;
+    }
+
+    public function columnType($type, $length) {
+        if ($type === "3") {
+            return "VARCHAR($length)";
+        }
+        return "VARCHAR($length)";
+    }
+
+}
+
+
+
+
+
+
 class FMsBasicOperation{
     public static function loadFMS($link,$fabid){
         $result=mysqli_query($link,"select * from fms_master where id='$fabid'");
@@ -195,6 +400,14 @@ class FMS_Operations{
         }
         $tableName=strtolower($tableName);
         return $tableName;
+    }
+    public function tablenameAlreadyExists($db,$tablname){
+        $tablname=strtolower($tablname);
+        $tablname='fms_'.trim($tablname);
+        $sql="SELECT COUNT(*) as total FROM information_schema.tables WHERE table_schema = '$db' AND table_name = '$tablname'";
+        $result=mysqli_query($this->conn,$sql);
+        $row=mysqli_fetch_assoc($result);
+        return $row['total'];
     }
 }
 
@@ -1056,22 +1269,71 @@ class Reportuploader{
 }
 
 
-
+/**
+ * Interface Permissions
+ *
+ * Marker interface for permission-related classes.
+ * Can be extended in future to enforce permission contracts.
+ */
 interface Permissions{}
 
-
+/**
+ * Class UpdatePermission
+ *
+ * Responsible for:
+ * - Rendering permission UI (main tabs + sub tabs)
+ * - Managing user access (access_tab table)
+ * - Managing operation-level permissions (operation_rights table)
+ * - Updating and resetting permissions
+ *
+ * Tables Used:
+ * - tab_master
+ * - access_tab
+ * - operation_rights
+ *
+ * Dependencies:
+ * - mysqli connection
+ * - TabPermission class (for encapsulating permission data)
+ * - GlobalException class (for error handling)
+ */
 class UpdatePermission implements Permissions{
+    /**
+     * @var mysqli Database connection instance
+     */
     public $conn;
+    /**
+     * @var string|null Current user ID
+     */
     public $userid = null;
     public function __construct(){}
+    /**
+     * Set database connection
+     *
+     * @param mysqli $con
+     * @return void
+     */
     public function setConnection($con){
         $this->conn = $con;
     }
+    /**
+     * Set current user ID
+     *
+     * @param string $userid
+     * @return void
+     */
     public function setUserid($userid){
         $this->userid = $userid;
     }
 
-    // main function -> whose run on only html
+    /**
+     * Generate HTML for all main tabs and their sub-tabs
+     *
+     * - Fetches active admin tabs from tab_master
+     * - Groups by main tab
+     * - Calls sub-tab renderer
+     *
+     * @return string HTML output
+     */
     public function printMainTabName(){
         $html = "";
 
@@ -1100,7 +1362,18 @@ class UpdatePermission implements Permissions{
         return $html;
     }
 
-    // SUB TAB FUNCTION
+    /**
+     * Generate HTML for sub-tabs under a main tab
+     *
+     * Includes:
+     * - Access checkbox (access_tab)
+     * - Operation rights checkboxes (operation_rights)
+     *
+     * @param string $maintabname Main tab name
+     * @param int    $j           Sequence index for grouping
+     *
+     * @return string HTML output
+     */
     private function showSubTabName($maintabname, $j){
         $html = "";
         $sql = "SELECT tabid, subtabname, subtabicon 
@@ -1168,6 +1441,22 @@ class UpdatePermission implements Permissions{
         return $html;
     }
 
+    /**
+     * Update user permissions based on submitted form data
+     *
+     * Workflow:
+     * 1. Reset all tabs (set status = 0)
+     * 2. Loop through selected tabs
+     * 3. Create TabPermission object
+     * 4. Update access_tab
+     * 5. Validate permission object
+     * 6. Update operation_rights
+     *
+     * @param array $data Form data ($_POST)
+     *
+     * @return bool True on success
+     * @throws GlobalException on failure
+     */
     public function updatePermission($data){
         $permissions = [];
         $flag = false;
@@ -1212,7 +1501,19 @@ class UpdatePermission implements Permissions{
 
         return $flag;
     }
-
+    /**
+     * Insert or update access_tab entry
+     *
+     * - If record exists → UPDATE
+     * - Else → INSERT
+     *
+     * @param string $userid
+     * @param int    $tabid
+     * @param int    $status (0 or 1)
+     *
+     * @return bool|mysqli_result
+     * @throws GlobalException
+     */
     public function updateaccesstab($userid, $tabid = 0, $status = 0)
     {
         $checkSql = "SELECT 1 FROM access_tab 
@@ -1244,6 +1545,18 @@ class UpdatePermission implements Permissions{
 
         return $result;
     }
+    /**
+     * Insert or update operation_rights entry
+     *
+     * - If record exists → UPDATE
+     * - Else → INSERT
+     *
+     * @param string        $userid
+     * @param TabPermission $operation Permission object
+     *
+     * @return bool|mysqli_result
+     * @throws GlobalException
+     */
     public function updateOperationRight($userid, TabPermission $operation) {
 
         $checkSql = "SELECT 1 FROM operation_rights 
@@ -1296,18 +1609,114 @@ class UpdatePermission implements Permissions{
 
         return $result;
     }
-
+    /**
+     * Reset all tab access for a user
+     *
+     * Sets all access_tab.status = 0
+     *
+     * @param string $userid
+     *
+     * @return bool|mysqli_result
+     */
     public function resetAllTabs($userid){
         $sql = "UPDATE access_tab 
                 SET status = '0' 
                 WHERE userid = '$userid'";
         return mysqli_query($this->conn,$sql);
     }
+
+    public function printfmsName(){
+        $html = "";
+
+        $sql = "SELECT id, fmsname FROM fms_master WHERE status='1' ORDER BY fmsname";
+        $result = mysqli_query($this->conn, $sql);
+
+        if(!$result){
+            return "<h1>Something went wrong</h1>";
+        }
+
+        if(mysqli_num_rows($result) === 0){
+            return "<h1>FMS is Empty</h1>";
+        }
+
+        while ($row = mysqli_fetch_assoc($result)){
+
+            $acc_sql = "SELECT fmsid FROM access_fms 
+                    WHERE status='1' 
+                    AND fmsid='{$row['id']}' 
+                    AND userid='{$this->userid}'";
+
+            $state_acc = mysqli_query($this->conn, $acc_sql);
+            $checked = (mysqli_num_rows($state_acc) > 0) ? "checked" : "";
+
+            $html .= "<tr style='margin: 10px;'>
+            <td>
+                <input type='checkbox' name='fms[]' value='{$row['id']}' $checked>
+                &nbsp;<i class='fa fa-folder fa-lg'></i>&nbsp;{$row['fmsname']}({$row['id']})
+            </td>
+        </tr>";
+        }
+
+        return $html;
+    }
+
+    public function updateFMSPermission($fms_id, $userid){
+
+        $check = "SELECT id FROM access_fms WHERE userid='$userid' AND fmsid='$fms_id'";
+        $res = mysqli_query($this->conn, $check);
+
+        if(mysqli_num_rows($res) > 0){
+            $sql = "UPDATE access_fms 
+                SET status='1', updated_at=current_timestamp() 
+                WHERE userid='$userid' AND fmsid='$fms_id'";
+        } else {
+            $sql = "INSERT INTO access_fms (userid, fmsid, status) 
+                VALUES ('$userid', '$fms_id', '1')";
+        }
+
+        return mysqli_query($this->conn, $sql);
+    }
+    public function resentAllFMSPermission($userid){
+        $sql="UPDATE `access_fms` SET `status` = '0' WHERE userid='$userid'";
+        return mysqli_query($this->conn,$sql);
+    }
+
 }
 
 
+/**
+ * Class PermissionManager
+ *
+ * Handles user permission checks for different operations based on tab/module ID.
+ * This class centralizes all permission-related logic such as add, edit, view,
+ * cancel, approval, print, and download rights.
+ *
+ * It extends the UpdatePermission class (assumed to manage permission updates).
+ *
+ * Table used: operation_rights
+ *
+ * Columns used:
+ * - add_rgt
+ * - edit_rgt
+ * - view_rgt
+ * - cancel_rgt
+ * - print_rgt
+ * - download_rgt
+ * - approval_rgt
+ *
+ * Each column stores 'Y' (allowed) or 'N' (not allowed).
+ */
 class PermissionManager extends UpdatePermission {
 
+    /**
+     * Check whether a given tab ID exists for a specific user.
+     *
+     * @param mysqli $link   Database connection
+     * @param string $userid User ID
+     * @param int    $tabid  Tab ID
+     *
+     * @return bool Returns true if record exists, otherwise false
+     */
     private static function check_tabid_exist_or_not($link,$userid,$tabid){
         $check_sql="SELECT COUNT(*) as total FROM operation_rights WHERE userid = '$userid' AND tabid ='$tabid' LIMIT 1";
         $result_check=mysqli_query($link,$check_sql);
@@ -1318,6 +1727,18 @@ class PermissionManager extends UpdatePermission {
         return ($row['total'] > 0);
     }
 
+    /**
+     * Generic permission checker.
+     *
+     * Validates tab ID and checks if a specific permission column is enabled.
+     *
+     * @param mysqli $link    Database connection
+     * @param string $userid  User ID
+     * @param int    $tabid   Tab ID
+     * @param string $column  Permission column name
+     *
+     * @return bool Returns true if permission is granted ('Y'), otherwise false
+     */
     private static function checkPermission($link, $userid, $tabid, $column){
 
         if($tabid === null){
@@ -1350,35 +1771,96 @@ class PermissionManager extends UpdatePermission {
         return false;
     }
 
+    /**
+     * Check Add permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int|null $tabid
+     *
+     * @return bool
+     */
     public static function checkaddRights($link, $userid, $tabid=null){
         return self::checkPermission($link, $userid, $tabid, 'add_rgt');
     }
 
+    /**
+     * Check Edit permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function checkEditRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'edit_rgt');
     }
 
+    /**
+     * Check View permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function checkViewRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'view_rgt');
     }
 
+    /**
+     * Check Cancel permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function checkcancelRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'cancel_rgt');
     }
 
+    /**
+     * Check Print permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function checkPrintRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'print_rgt');
     }
 
+    /**
+     * Check Download permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function checkdownloadRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'download_rgt');
     }
 
+    /**
+     * Check Approval permission.
+     *
+     * @param mysqli $link
+     * @param string $userid
+     * @param int $tabid
+     *
+     * @return bool
+     */
     public static function approvalRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'approval_rgt');
     }
 }
-
-
 
 ?>

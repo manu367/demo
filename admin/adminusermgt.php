@@ -82,12 +82,16 @@ $(document).ready(function() {
 	  </form>
 		
 		<div class="form-group" style="overflow:hidden;margin:0px;">
-			<div class="col-md-12" style="padding:10px 0px;">
-				<button title="Bulk Upload" type="button" class="btn<?=$btncolor?>" style="float:right;" onClick="window.location.href='addAdminUser_uploader.php?op=add<?=$pagenav?>'"><span>Bulk Upload</span></button>
-				<button title="Add New User" type="button" class="btn<?=$btncolor?>" style="float:right;margin-right:5px;" onClick="window.location.href='addAdminUser.php?op=add<?=$pagenav?>'"><span>Add User</span></button>
-				<button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='statuslog_view.php'"><span>View Status Log</span></button>
-				<button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='permissionlog_view.php'"><span>View Permission Log</span></button>
-			</div>
+			<?php
+            if(PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid'])){
+            ?>
+            <div class="col-md-12" style="padding:10px 0px;">
+                <button title="Bulk Upload" type="button" class="btn<?=$btncolor?>" style="float:right;" onClick="window.location.href='addAdminUser_uploader.php?op=add<?=$pagenav?>'"><span>Bulk Upload</span></button>
+                <button title="Add New User" type="button" class="btn<?=$btncolor?>" style="float:right;margin-right:5px;" onClick="window.location.href='addAdminUser.php?op=add<?=$pagenav?>'"><span>Add User</span></button>
+                <button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='statuslog_view.php'"><span>View Status Log</span></button>
+                <button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='permissionlog_view.php'"><span>View Permission Log</span></button>
+            </div>
+            <?php }?>
 		</div>
 		
 		<form class="form-horizontal" role="form">
