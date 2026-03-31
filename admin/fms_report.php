@@ -25,7 +25,7 @@ if(isset($_POST['go'])){
             $flag=true;
         }
         else{
-            $msg="No Data Found";
+            $msg="No Data Found in Report";
         }
     }
     else{
@@ -91,6 +91,32 @@ $isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],
             });
         });
     </script>
+    <style>
+        .modal {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            margin: 15% auto;
+            width: 300px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -101,11 +127,6 @@ $isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],
         <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
             <h2 align="center"><i class="fa fa-pencil-square-o"></i> FMS Report </h2>
 
-            <?php
-            if($msg){
-                echo $msg;
-            }
-            ?>
             <?php
             if($isPermission){
             ?>
@@ -151,7 +172,8 @@ $isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],
                 <?php }
                 ?>
             </div>
-            <?php }else { ?>
+            <?php }
+            else { ?>
                 <div  style="display: flex;justify-content: center;padding: 20px;">
                     <div class="d-flex justify-content-center align-items-center" style="height:70vh;">
                         <div class="card shadow-lg text-center" style="max-width: 420px; border-radius:15px;">
@@ -183,6 +205,23 @@ $isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
+
+<?php if($msg): ?>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p><?php echo $msg; ?></p>
+            <button class="btn btn-danger" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+    <script>
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+<?php endif; ?>
+
+
+
 <?php
 if($flag){
 ?>

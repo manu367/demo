@@ -1,14 +1,11 @@
 <?php
 require_once("../includes/config.php");
 global $link1,$db;
+
 set_exception_handler(function ($exception) {
-    if ($exception instanceof FMSExceptionHandler) {
-        $exception->location();
-        exit();
-    }
     if ($exception instanceof GlobalException) {
-        $msg = urlencode($exception->getMessage());
-        header("Location: add_fms_master.php?op=add&pid=1&hid=1&msg={$msg}");
+        $msg = $exception->getMessage();
+        header("Location: clone_fms_master.php?type=error&msg=$msg");
         exit();
     }
 });
@@ -21,19 +18,31 @@ $location="fms_master.php";
 $fms=new FMS_Operations($pid,$hid,$location,$link1);
 
 if(isset($_POST['clone_system'])){
+
     $fmsName=$_POST['fmsname'];
     $fms_details=$_POST['fms_details'];
     $fms_steps=$_POST['steps'];
     $fms_totalform=$_POST['total_form'];
     $fmsIP=$_SERVER['REMOTE_ADDR'];
 
+    $fmsid=$_POST['fms_id'];
+
+
+    $data = [
+            'pid'    => $pid,
+            'hid'    => $hid,
+    ];
+
 
     $value=$fms->tablenameAlreadyExists($db,$fms->spaceRemover($fmsName));
     $value=(int)$value;
     if($value===1){
-//        throw new GlobalException("Table Already Exist");
-        var_dump("Table Already Exists");
-        exit();
+        $data['id']=$_POST['fms_id'];
+        $data['type']='error';
+        $data['msg']='Table Name Already Exists';
+        $params = http_build_query($data);
+        header("Location: clone_fms_master.php?$params");
+        exit;
     }
     /*
      *  1. Table create
@@ -49,6 +58,9 @@ if(isset($_POST['clone_system'])){
     $ook=$fmsclone->formCloningStart($newFmsid);
     if($ook){
         header("Location: fms_master.php?pid=$pid&hid=$hid&type=success&msg={Successfully Cloned}");
+        exit();
+    }else{
+        header("Location: fms_master.php?pid=$pid&hid=$hid&type=error&msg={Somethings is wrong Fms Cloning}");
         exit();
     }
 
@@ -79,8 +91,80 @@ if(isset($_POST['clone_system'])){
     <!-- Include Date Picker -->
     <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css"/>
+    <style>
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 250px;
+            max-width: 300px;
+
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .toast.show {
+            right: 20px;
+            opacity: 1;
+        }
+
+        .toast .icon {
+            font-size: 18px;
+        }
+
+        .toast .message {
+            flex: 1;
+        }
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: #fff;
+            animation: progress 60s linear;
+        }
+
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            const toast = document.getElementById("errorPopup");
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add("show");
+                }, 300); // small delay for smooth entry
+
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 50000); // hide after 3s
+            }
+        });
+    </script>
 </head>
 <body>
+
+<?php
+if(isset($_REQUEST['msg'])){?>
+    <div id="errorPopup" class="toast" style="background-color: <?= isset($_REQUEST['type']) && $_REQUEST['type']==='error'?'darkred':'green' ?>">
+        <span class="icon">⚠️</span>
+        <span class="message"><?=htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8');?></span>
+    </div>
+<?php } ?>
 
 <div class="container-fluid">
     <div class="row content">
@@ -124,60 +208,27 @@ if(isset($_POST['clone_system'])){
                         </div>
                 </div>
                 <div class="text-center mt-5">
-                    <button type="submit" name="clone_system"  class="btn btn-success">
+                    <?php
+                    if(isset($_REQUEST['id'])){
+                        echo '<button type="submit" name="clone_system"  class="btn btn-success">
                         Clone
-                    </button>
+                    </button>';
+                    }
+                    ?>
                     <span class="btn btn-primary" onclick="window.location.href='fms_master.php?pid=290&hid=Masters'">
                     <span id="operation_name">Cancel</span>
                 </span>
                 </div>
                 </form>
-
-
-
         </div>
     </div>
 </div>
 </div>
-<div id="customAlertContainer"></div>
+
 <?php
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
-<script>
-    function showAlert(message, type = "success", duration = 3000) {
-        const container = document.getElementById("customAlertContainer");
-        const alert = document.createElement("div");
-        alert.classList.add("alert-box", `alert-${type}`);
-        alert.innerHTML = `
-        <span>${message}</span>
-        <span class="close-btn">&times;</span>
-    `;
-        container.appendChild(alert);
-        alert.querySelector(".close-btn").addEventListener("click", () => {
-            alert.remove();
-        });
-        setTimeout(() => {
-            alert.remove();
-        }, duration);
-    }
-    document.addEventListener("DOMContentLoaded",function(){
-        document.getElementById("frm1").addEventListener("submit",function (e){
-            // e.preventDefault();
-        });
-    });
-    function validation(value='',message=''){
-        if(value===''){
-            showAlert(message,"error");
-            return;
-        }
-    }
-    <?php
-    if(isset($_REQUEST['msg'])){
-        echo 'showAlert("'.htmlspecialchars($_REQUEST['msg']).'","error",7000);';
-    }
-    ?>
-</script>
 
 <script>
     document.querySelectorAll("input").forEach((cell) => {

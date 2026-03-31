@@ -358,6 +358,7 @@ if(isset($_REQUEST['msg'])){?>
                     <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-database fa-lg"></i>&nbsp;&nbsp;Masters / Reports</a></li>
                     <li><a data-toggle="tab" href="#menu1"><i class="fa fa-cogs fa-lg"></i>&nbsp;&nbsp;Region</a></li>
                     <li><a data-toggle="tab" href="#menu2"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;Location</a></li>
+                    <li><a data-toggle="tab" href="#menu3"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;User Roles</a></li>
                     <li><a data-toggle="tab" href="#menu4"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;Product Category</a></li>
                     <li><a data-toggle="tab" href="#menu5"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;FMS</a></li>
                 </ul>
@@ -409,12 +410,12 @@ if(isset($_REQUEST['msg'])){?>
             
             <!-- Tab 4 Process Skill Rights-->
                     <div id="menu3" class="tab-pane fade">
-                        process page
+                        user roles process
                     </div>
 
            <!-- Tab 5 product category Rights-->
                     <div id="menu4" class="tab-pane fade">
-                        catehry page
+                        category page
                     </div>
 
                     <div id="menu5" class="tab-pane fade">
@@ -441,6 +442,20 @@ if(isset($_REQUEST['msg'])){?>
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
+<script>
+function PageSwitch(name){
+    this.pagename=name
+}
+function MasterReport(ui){
+    PageSwitch.call(this,'master_page');
+    this.ui=ui
+}
+MasterReport.prototype=Object.create(PageSwitch.prototype);
+MasterReport.prototype.constructor=MasterReport;
+$(window).on("popstate", function() {
+    var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
 
+});
+</script>
 </body>
 </html>

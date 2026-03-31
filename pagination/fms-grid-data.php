@@ -4,36 +4,55 @@ $draw   = $_POST['draw'] ?? 1;
 $start  = $_POST['start'] ?? 0;
 $length = $_POST['length'] ?? 10;
 $searchValue = $_POST['search']['value'] ?? "";
+
 $pid=$_POST['pid'] ?? null;
 $hid=$_POST['hid']??null;
+$userid=$_SESSION['userid'];
 
 $columns = [
-    0 => 'fmsname',
-    1 => 'details',
+    0 => 'fm.fmsname',
+    1 => 'fm.details',
 ];
 
 $orderColumnIndex = $_POST['order'][0]['column'] ?? 0;
 $orderColumn = $columns[$orderColumnIndex] ?? 'userloginid';
 $orderDir = ($_POST['order'][0]['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-$where = "";
+$where = " WHERE afs.userid='$userid' AND afs.status='1' ";
 if($searchValue != ""){
     $searchValue = mysqli_real_escape_string($link1,$searchValue);
-    $where = " WHERE 
-        fmsname LIKE '%$searchValue%' OR
-        details LIKE '%$searchValue%'
-      ";
+    $where .= " AND (
+        fm.fmsname LIKE '%$searchValue%' OR
+        fm.details LIKE '%$searchValue%'
+    )";
 }
 
 
-$totalRes = mysqli_query($link1,"SELECT COUNT(*) c FROM fms_master");
+
+$totalRes = mysqli_query($link1,"
+    SELECT COUNT(*) c 
+    FROM fms_master fm
+    LEFT JOIN access_fms afs ON afs.fmsid = fm.id
+    WHERE afs.userid='$userid' AND afs.status='1'
+");
 $totalData = mysqli_fetch_assoc($totalRes)['c'];
 
-$filteredRes = mysqli_query($link1,"SELECT COUNT(*) c FROM fms_master $where");
+$filteredRes = mysqli_query($link1,"
+    SELECT COUNT(*) c 
+    FROM fms_master fm
+    LEFT JOIN access_fms afs ON afs.fmsid = fm.id
+    $where
+");
 $totalFiltered = mysqli_fetch_assoc($filteredRes)['c'];
 
-
-$sql = " SELECT * FROM fms_master $where ORDER BY $orderColumn $orderDir LIMIT $start,$length";
+$sql = "
+    SELECT fm.* 
+    FROM fms_master fm
+    LEFT JOIN access_fms afs ON afs.fmsid = fm.id
+    $where
+    ORDER BY $orderColumn $orderDir 
+    LIMIT $start,$length
+";
 
 $res = mysqli_query($link1,$sql);
 

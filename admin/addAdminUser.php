@@ -48,6 +48,7 @@ uid='".$code_id."'";
 	}
 	else if($_POST['upd']=='Update')
 	{
+        $user_roles=$_POST['user_roles'];
 //        var_dump(des_id);exit();
 		$usr_upd="update admin_users set
                        password ='".$pwd."' ,
@@ -61,15 +62,24 @@ uid='".$code_id."'";
                        des_id='".$designation."',
                        address='".$address."',
                        updatedate='".date("Y-m-d H:i:s")."' where username = '".$usrid2."'";
-		$res_upd=mysqli_query($link1,$usr_upd)or die("error4".mysqli_error($link1));
-		////// insert in activity table////
+        $res_upd=mysqli_query($link1,$usr_upd)or die("error4".mysqli_error($link1));
+
+        $tabid_for_role=RoleAssienment::getTabBasedOnRoleId($link1,$user_roles);
+        RoleAssienment::resetAllTabs($link1,$usrid2);
+
+        if(count($tabid_for_role)>0){
+            for($i=0;$i<count($tabid_for_role);$i++){
+                RoleAssienment::updateaccesstab($link1,$usrid2,$tabid_for_role[$i],'1');
+            }
+        }
+
 		dailyActivity($_SESSION['userid'],$usrid2,"ADMIN USER","UPDATE",$ip,$link1,"");
 		////// return message
 		######################
 		### By Hemant
 		######################
-		$sql_csl = "INSERT INTO status_log SET userid='".$usrid2."', status='".$status."', create_dt='".$dt."', create_by='".$_SESSION['userid']."'";
-		$res_csl = mysqli_query($link1, $sql_csl);
+//		$sql_csl = "INSERT INTO status_log SET userid='".$usrid2."', status='".$status."', create_dt='".$dt."', create_by='".$_SESSION['userid']."'";
+//		$res_csl = mysqli_query($link1, $sql_csl);
 		######################
 		$msg="You have successfully updated user details for ".$usrid2;
 	}
@@ -151,7 +161,7 @@ function checkPWD(val){
 	 	 if('<?php $_REQUEST['op']=='edit' ?>'){
 	 document.getElementById('upd').style.visibility = 'visible';
 	 }
-	 document.getElementById('add').style.visibility = 'hidden';
+	 document.getElementById('add').style.visibility = 'visible';
 
 	
   }
@@ -282,9 +292,8 @@ function checkPWD(val){
                       </div>
                   </div>
               </div>
-
               <div class="form-group">
-            <div class="col-md-6"><label class="col-md-5 control-label">Status <span class="red_small">*</span></label>
+                  <div class="col-md-6"><label class="col-md-5 control-label">Status <span class="red_small">*</span></label>
               <div class="col-md-5">
                  <select name="status" id="status" class="form-control">
                     <?php foreach($arrstatus as $key => $value){?>
@@ -295,11 +304,32 @@ function checkPWD(val){
               </div>
 
             </div>
-            <div class="col-md-6">
-              <div class="col-md-5">
+                  <div class="col-md-6">
+                      <?php
+                      if(isset($_REQUEST['op']) && $_REQUEST['op']!=='add'){
+                      ?>
+                          <label class="col-md-5 control-label">Roles <span class="red_small">*</span></label>
+                          <div class="col-md-5">
+                              <select name="user_roles" id="status" class="form-control">
+                                  <?php
+                                  $sql="SELECT id,typename FROM `usertype_master` WHERE status='A'";
+                                  $result=mysqli_query($link1,$sql);
+                                  $count=mysqli_num_rows($result);
+                                  if(!$result){
+                                      echo "<option value=''>--Select Role--</option>";
+                                  }
+                                  if($count>0){
+                                      while ($row = mysqli_fetch_assoc($result)) {
+                                          echo "<option value='" . $row['id'] . "'>" . $row['typename'] . "</option>";
+                                      }
+                                  }
+                                  ?>
+                              </select>
+                          </div>
+                      <?php } ?>
+
+                  </div>
               </div>
-            </div>
-          </div>
           <div class="form-group" style="padding:15px 0px;">
            <?php
            if(PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid'])){

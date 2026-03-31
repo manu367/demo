@@ -1,18 +1,17 @@
 <?php
 require_once("../includes/config.php");
+
 $draw   = $_POST['draw'] ?? 1;
 $start  = $_POST['start'] ?? 0;
 $length = $_POST['length'] ?? 10;
 $searchValue = $_POST['search']['value'] ?? "";
 
 $pid=$_POST['pid'] ?? null;
-$hid=$_POST['hid'] ?? null;
-
+$hid=$_POST['hid']??null;
 $userid=$_SESSION['userid'];
 
-
 $columns = [
-    0 => 'fm.fmsname',
+    0 => '',
     1 => 'fm.details',
 ];
 
@@ -28,6 +27,7 @@ if($searchValue != ""){
         fm.details LIKE '%$searchValue%'
     )";
 }
+
 
 
 $totalRes = mysqli_query($link1,"
@@ -46,8 +46,6 @@ $filteredRes = mysqli_query($link1,"
 ");
 $totalFiltered = mysqli_fetch_assoc($filteredRes)['c'];
 
-
-//SELECT fm.* ,afs.* FROM fms_master AS fm LEFT JOIN access_fms AS afs ON afs.fmsid = fm.id WHERE afs.userid='$userid' and afs.status='1'
 $sql = "
     SELECT fm.* 
     FROM fms_master fm
@@ -76,10 +74,11 @@ while($row = mysqli_fetch_assoc($res)){
         $row['created_at'],
         $row['updated_at'],
         $status,
-        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<div>
-<a href="fms_view_form.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>
-<a href="fms_report.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Reports</a>
-</div>':'',
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="add_fms_master.php?pid='.$pid.'&hid='.$hid.'&op=edit&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>':'',
+        PermissionManager::checkViewRights($link1, $_SESSION['userid'], $pid)
+            ? '<a href="form_master.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Create</a>'
+            : '',
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="clone_fms_master.php?pid='.$pid.'&hid='.$hid.'&id='.($row['id']).'" class="btn btn-sm btn-primary">Clone</a>':'',
     ];
 }
 

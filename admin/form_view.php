@@ -57,9 +57,8 @@ if(isset($_POST['save'])){
     }
 }
 
-
 $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
-var_dump($isPermission);
+
 ?>
 <!DOCTYPE html>
 <html>

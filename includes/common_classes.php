@@ -31,7 +31,7 @@ class FMSClone{
 
             $val = $old_fms[$key];
 
-            // 🔥 override values
+            //  override values
             if ($key === 'table_name') {
                 $val='fms_'.$this->tableName;
                 $this->tableName=$val;
@@ -259,6 +259,7 @@ class FormModel{
         return $this->length;
     }
 }
+
 /**
  *  FMS_Operation is class
  *  Whose maintain the Operation : Add, Update , RedirectOperation in the Page
@@ -1334,6 +1335,18 @@ class UpdatePermission implements Permissions{
      *
      * @return string HTML output
      */
+    /**
+     * Generate HTML for sub-tabs under a main tab
+     *
+     * Includes:
+     * - Access checkbox (access_tab)
+     * - Operation rights checkboxes (operation_rights)
+     *
+     * @param string $maintabname Main tab name
+     * @param int    $j           Sequence index for grouping
+     *
+     * @return string HTML output
+     */
     public function printMainTabName(){
         $html = "";
 
@@ -1362,18 +1375,6 @@ class UpdatePermission implements Permissions{
         return $html;
     }
 
-    /**
-     * Generate HTML for sub-tabs under a main tab
-     *
-     * Includes:
-     * - Access checkbox (access_tab)
-     * - Operation rights checkboxes (operation_rights)
-     *
-     * @param string $maintabname Main tab name
-     * @param int    $j           Sequence index for grouping
-     *
-     * @return string HTML output
-     */
     private function showSubTabName($maintabname, $j){
         $html = "";
         $sql = "SELECT tabid, subtabname, subtabicon 
@@ -1708,6 +1709,30 @@ class UpdatePermission implements Permissions{
  */
 class PermissionManager extends UpdatePermission {
 
+    public static function accessDenied($pid,$hid,$backfile){
+        echo ' <div  style="display: flex;justify-content: center;padding: 20px;">
+                    <div class="d-flex justify-content-center align-items-center" style="height:70vh;">
+                        <div class="card shadow-lg text-center" style="max-width: 420px; border-radius:15px;">
+                            <div class="card-body">
+                                <div style="font-size:60px; color:#dc3545;">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                                <h3 class="mt-3" style="font-weight:600;">Access Denied</h3>
+                                <p class="text-muted mt-2">
+                                    You don’t have permission to access this page.<br>
+                                    Please contact your administrator if you believe this is a mistake.
+                                </p>
+
+                                <div class="mt-4">
+                                    <a href="'.$backfile.'?pid='.$pid.'&hid='.$hid.'" class="btn btn-primary">
+                                        <i class="fa fa-arrow-left"></i> Go Back
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+    }
     /**
      * Check whether a given tab ID exists for a specific user.
      *
@@ -1861,6 +1886,225 @@ class PermissionManager extends UpdatePermission {
     public static function approvalRights($link, $userid, $tabid){
         return self::checkPermission($link, $userid, $tabid, 'approval_rgt');
     }
+}
+
+
+
+
+
+class RoleMaster{
+    private $conn;
+    public function __construct($conn){
+        $this->conn = $conn;
+    }
+    public function saveRole($utype, $type){
+        $utype = mysqli_real_escape_string($this->conn, $utype);
+        $type  = mysqli_real_escape_string($this->conn, $type);
+
+        $refid=$this->continueValue();
+        $refid=(int)$refid;
+        $refid=$refid+1;
+
+        $sql = "INSERT INTO usertype_master (typename, utype,refid, status) 
+            VALUES ('$utype', '$type','$refid', 'A')";
+        return mysqli_query($this->conn, $sql) or false;
+    }
+    public function showRoles($role_id){
+        $role=$this->loadRole($role_id);
+        return ['utype'=>$role['typename'],'type'=>$role['utype']];
+    }
+    public function editRoleMaster($data){
+        $roleid=$data['role_id'];
+        $roleName=$data['role_name'];
+        $roletype=$data['role_type'];
+        if(!$this->checkRole($roleid)){
+            throw new GlobalException('Id Mismatch');
+        }
+        $status=$this->updateRoleMaster($roleid,$roleName,$roletype);
+        if($status){
+            return true;
+        }
+        return false;
+    }
+
+    public function updateRoleMaster($roleid,$roleName,$roletype){
+        $query = "UPDATE usertype_master  
+              SET typename = '$roleName', utype = '$roletype' 
+              WHERE id ='$roleid' AND status = 'A'";
+        return mysqli_query($this->conn, $query) or false;
+    }
+    private function checkRole($id){
+        $isValid=$this->loadRole($id);
+        if($isValid){
+            return true;
+        }
+        return false;
+    }
+    public function loadRole($id){
+        $sql="SELECT * FROM usertype_master where id='$id' and status='A'";
+        $result=mysqli_query($this->conn,$sql);
+        if(!$result){
+            throw new GlobalException('Somethings is wrong');
+        }
+        $countvalue=mysqli_num_rows($result);
+        if($countvalue>0){
+            while ($row=mysqli_fetch_assoc($result)){
+                return $row;
+            }
+        }
+        else{
+            return  false;
+        }
+    }
+    public function continueValue(){
+        $sql="SELECT refid FROM `usertype_master`   ORDER BY `id` DESC LIMIT 1";
+        $result=mysqli_query($this->conn,$sql);
+        while ($row=mysqli_fetch_assoc($result)){
+            return $row['refid'];
+        }
+        return 0;
+    }
+}
+
+class RoleAssienment{
+    private $conn;
+    public function __construct($conn){
+        $this->conn = $conn;
+    }
+    public function printtabList($role_id)
+    {
+        $html = "<div class='tab-grid'>";
+
+        $sql = "SELECT tabid, subtabname, subtabicon 
+            FROM tab_master 
+            WHERE status='1' AND tabfor='admin' 
+            ORDER BY maintabseq, subtabname";
+        $rs = mysqli_query($this->conn, $sql);
+
+        if ($rs && mysqli_num_rows($rs) > 0) {
+
+            while ($row = mysqli_fetch_assoc($rs)) {
+                // ACCESS CHECK
+                $acc_sql = "SELECT * FROM `access_role_tab` where status='1' AND role_id='$role_id' AND tab_id='{$row['tabid']}'";
+                $state_acc = mysqli_query($this->conn, $acc_sql);
+                $checked = (mysqli_num_rows($state_acc) > 0) ? "checked" : "";
+
+                $html .= "
+                <label class='tab-item'>
+                    <input type='checkbox' name='role_per[]' value='{$row['tabid']}' $checked>
+                    <i class='fa {$row['subtabicon']}'></i>
+                    {$row['subtabname']} ({$row['tabid']})
+                </label>
+            ";
+            }
+        }
+
+        $html .= "</div>";
+
+        return $html;
+    }
+    public function updatePermission($data){
+        $flag=false;
+
+        $role_id   = $data['role_id'];
+        $accessTab = isset($data['role_per']) ? $data['role_per'] : [];
+        $functionid = $data['function_id'];
+
+        if(!empty($accessTab) && !empty($role_id) && !empty($functionid)){
+            $isResetPermission=$this->resetAllPermissionforRoleId($role_id);
+            if(!$isResetPermission)throw new GlobalException('Not Updated Permission');
+            foreach($accessTab as $tab){
+                $flag=$this->insertAccessRoleTab($role_id,$tab,$functionid,'M','1');
+            }
+        }
+
+        return $flag;
+    }
+    public function insertAccessRoleTab($roleid, $tabid, $function, $tabtype, $status)
+    {
+        $sql = "INSERT INTO access_role_tab (role_id, tab_id, function_id, tab_type, status) VALUES 
+                                                                                 ('$roleid', '$tabid', '$function', '$tabtype', '$status')";
+        mysqli_query($this->conn, $sql) or false;
+    }
+    public function checkPermissionAlreadyExistsorNot($roleid, $tab_id)
+    {
+        $sql = "SELECT id FROM access_role_tab 
+            WHERE role_id='$roleid' AND tab_id='$tab_id'";
+
+        $rs = mysqli_query($this->conn, $sql);
+
+        return ($rs && mysqli_num_rows($rs) > 0);
+    }
+    public function updatePermissionSQL($roleid, $tabid, $functionid, $tabtype='m', $status='1')
+    {
+        $sql = "UPDATE access_role_tab 
+            SET tab_id='$tabid'
+                tab_type='$tabtype', 
+                status='$status' 
+            WHERE role_id='$roleid' AND tab_id='$tabid'";
+
+        mysqli_query($this->conn, $sql) or false;
+    }
+    public function resetAllPermissionforRoleId($role_id)
+    {
+        $sql = "DELETE FROM access_role_tab WHERE role_id='$role_id';";
+        return mysqli_query($this->conn, $sql) or false;
+    }
+
+    public static function getTabBasedOnRoleId($link1,$role_id){
+        $sql="SELECT tab_id FROM `access_role_tab` WHERE role_id='$role_id'";
+        $result=mysqli_query($link1,$sql);
+        if(!$result) throw new GlobalException('Error');
+        $data_role=[];
+        if(mysqli_num_rows($result)){
+            while ($row=mysqli_fetch_assoc($result)){
+                $data_role[]=$row['tab_id'];
+            }
+        }
+        return $data_role;
+    }
+
+
+    public static function updateaccesstab($conn,$userid, $tabid = 0, $status = 0)
+    {
+        $checkSql = "SELECT 1 FROM access_tab 
+                 WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        $result = mysqli_query($conn, $checkSql);
+
+        if (!$result) {
+            throw new GlobalException('Error checking access_tab ' . __LINE__);
+        }
+
+        if (mysqli_num_rows($result) > 0) {
+
+            $sql = "UPDATE access_tab 
+                SET status = '$status' 
+                WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        } else {
+
+            $sql = "INSERT INTO access_tab (userid, tabid, status) 
+                VALUES ('$userid', '$tabid', '$status')";
+        }
+
+        $result = mysqli_query($conn, $sql);
+
+        if (!$result) {
+            throw new GlobalException('Error updating access_tab ' . __LINE__);
+        }
+
+        return $result;
+    }
+
+    public static function resetAllTabs($conn,$userid){
+        $sql = "UPDATE access_tab 
+                SET status = '0' 
+                WHERE userid = '$userid'";
+        return mysqli_query($conn,$sql);
+    }
+
+
 }
 
 ?>

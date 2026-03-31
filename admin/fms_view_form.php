@@ -185,8 +185,7 @@ if($load){
                         </label>
                         <div class="col-md-6">
                             <input name="fmsname" type="text" class="form-control" disabled
-                                   value="<?= $load['fmsname']!==null?$load['fmsname']:''?>"
-                                <?= $is_edit ? '' : '' ?> required>
+                                   value="<?= $load['fmsname']!==null?$load['fmsname']:''?>" required>
 
                         </div>
                     </div>
@@ -194,8 +193,7 @@ if($load){
                         <label for="username" class="col-md-6 control-label">Details<span class="red_small">*</span></label>
                         <div class="col-md-6">
                             <input name="fms_details" type="text" class="form-control" disabled
-                                   value="<?= $load['details']!==null?$load['details']:''?>"
-                                   required>
+                                   value="<?= $load['details']!==null?$load['details']:''?>" required>
                         </div>
                     </div>
                 </div>
@@ -270,8 +268,6 @@ include("../includes/connection_close.php");
 
     okbutton.style.display = "none";
     function showApi(el){
-
-
         const formId = el.dataset.fromid;
         const formName = el.dataset.formname;
         const column = el.dataset.column.split('-');
