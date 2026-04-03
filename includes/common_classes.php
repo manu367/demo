@@ -2014,10 +2014,19 @@ class RoleAssienment{
             $isResetPermission=$this->resetAllPermissionforRoleId($role_id);
             if(!$isResetPermission)throw new GlobalException('Not Updated Permission');
             foreach($accessTab as $tab){
-                $flag=$this->insertAccessRoleTab($role_id,$tab,$functionid,'M','1');
+                if(count($admin_user)>0){
+                    foreach ($admin_user as $admin){
+                        $this->updateaccesstab_1($admin,$tab,'1');
+                    }
+                }
+
+                if($this->checkPermissionAlreadyExistsorNot($role_id,$tab)){
+                    $flag=$this->updatePermissionRoleTab($role_id,$tab);
+                }else{
+                    $flag=$this->insertAccessRoleTab($role_id,$tab,$functionid,'M','1');
+                }
             }
         }
-
         return $flag;
     }
     public function resetAllOperationRight($userid){
