@@ -1,0 +1,96 @@
+
+
+Factory Design Pattern ek creational pattern hai jo object creation ko hide karta hai aur client ko direct new use karne ke bajay ek method ke through object deta hai.
+Object banega… par kaise banega, yeh client ko nahi pata hoga
+
+“Factory pattern me hum object creation logic ko encapsulate kar dete hain aur client ko direct instantiation se decouple karte hain, jisse code flexible aur maintainable ban jaata hai.”
+
+Problem (kyun use karte hain?)
+
+Normal code dekho:
+Shape shape = new Circle();
+
+Aaj Circle chahiye… kal Square… parso Rectangle…
+❌ Har jagah new change karna padega
+❌ Tight coupling ho jaata hai
+
+Factory ka idea
+“Mujhe shape chahiye”
+Factory bolti hai: “kaunsa?”
+Tum bolte ho: “Circle”
+👉 Factory bana ke de deti hai
+Client ko sirf result chahiye… process nahi.
+
+Flow (step-by-step)
+Step 1: Common interface
+interface Shape {
+    void draw();
+}
+
+Step 2: Multiple implementations
+
+class Circle implements Shape {
+    public void draw() {
+        System.out.println("Circle");
+    }
+}
+
+class Square implements Shape {
+    public void draw() {
+        System.out.println("Square");
+    }
+}
+
+Step 3: Factory class
+class ShapeFactory {
+
+    public static Shape getShape(String type) {
+
+        if(type.equals("CIRCLE")) {
+            return new Circle();
+        }
+        else if(type.equals("SQUARE")) {
+            return new Square();
+        }
+
+        return null;
+    }
+}
+
+Step 4: Use
+Shape shape = ShapeFactory.getShape("CIRCLE");
+shape.draw();
+
+Rules (interviewer ke liye crisp)
+Object creation factory class me hota hai
+Client direct new nahi use karta
+Common interface ya abstract class hoti hai
+Factory method input ke basis par object decide karta hai
+
+Types (thoda pro level)
+1. Simple Factory (jo upar kiya) => ek class, ek method
+2. Factory Method Pattern (actual GoF pattern) => subclass decide karega kaunsa object banega
+3. Abstract Factory = related objects ka group banata hai
+
+Features
+Loose coupling
+Centralized object creation
+Easy extension
+Clean code structure
+
+Advantages
+✔ Code flexible ho jata hai
+✔ New classes add karna easy
+✔ Object creation hide hota hai
+✔ Maintainability strong
+
+Disadvantages (ye bolna = maturity)
+❌ Classes zyada ho jaati hain
+❌ Simple case me over-engineering
+❌ Debugging indirect ho jata hai
+
+Real-world Use Cases
+Payment systems (UPI / Card / Netbanking)
+Notification (Email / SMS / Push)
+Spring Framework (BeanFactory)
+JDBC drivers

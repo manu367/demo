@@ -1,0 +1,21 @@
+Behavioral Design Patterns wo patterns hote hain jo objects ke beech communication
+aur responsibility distribution ko define karte hain.
+Objects aapas me kaise interact karte hain.
+
+Core Idea
+Creational → banana
+Structural → jodna
+Behavioral → chalana (behavior control)
+
+Main Behavioral Patterns (11 types)
+1. Observer = Ek object change hota hai → sabko notify
+2. Strategy = Multiple algorithms, runtime pe choose karo
+3. Command = Request ko object bana do , Action ko encapsulate karta hai
+4. Chain of Responsibility = Har handler decide karega handle kare ya pass kare
+5. State = Object ka behavior state pe depend karta hai
+6. Template Method = Algorithm ka skeleton define karo” Steps fix, implementation vary
+7. Iterator = Collection traverse karna”
+8. Mediator = Sab mediator ke through baat kare
+9. Memento = State save & restore
+10. Visitor = Operation add karo without changing class
+11. Interpreter =  Language/grammar interpret karna

@@ -11,7 +11,7 @@ class FMSClone{
     public function setTableName($tableName){
         $this->tableName=$tableName;
     }
-    public function fmsClone($fmsName, $fms_details, $fms_steps, $fms_totalform, $fmsIP) {
+    public function fmsClone($fmsName, $fms_details='', $fms_steps='', $fms_totalform='', $fmsIP) {
 
         $old_fms = $this->getAllData();
 
@@ -42,17 +42,17 @@ class FMSClone{
                 $val = $fmsName;
             }
 
-            if ($key === 'details') {
-                $val = $fms_details;
-            }
-
-            if ($key === 'steps') {
-                $val = $fms_steps;
-            }
-
-            if ($key === 'total_form') {
-                $val = $fms_totalform;
-            }
+//            if ($key === 'details') {
+//                $val = $fms_details;
+//            }
+//
+//            if ($key === 'steps') {
+//                $val = $fms_steps;
+//            }
+//
+//            if ($key === 'total_form') {
+//                $val = $fms_totalform;
+//            }
 
             if ($key === 'updated_ip') {
                 $val = $fmsIP;
@@ -759,6 +759,7 @@ class FormView{
         $display_name   = json_decode($data['display_name'], true);
         $type           = json_decode($data['type'], true);
         $length         = json_decode($data['length'], true);
+        $require        =json_decode($data['param_require'],true);
 
         $total = count($parameter_name);
 
@@ -773,10 +774,16 @@ class FormView{
             $label = $display_name[$i];
             $t     = $type[$i];
             $len   = $length[$i];
+            $req   = $require[$i];
+
+            $reqDiv=$req==='0'?'':'<span class="red_small">*</span>';
+            $reqRequire=$req==='0'?'':'required';
 
             echo "<div class='col-md-6'>";
-            echo "<label class='control-label'>{$label}</label>";
-            echo $this->paramtertype($t, $name, $len);
+            echo "<div>";
+            echo "<label class='control-label'>{$label} {$reqDiv}</label>";
+            echo $this->paramtertype($t, $name, $len,$reqRequire);
+            echo "</div>";
             echo "</div>";
 
             // Close row after 2 columns OR at last item
@@ -797,7 +804,7 @@ class FormView{
         return $data[0];
     }
 
-    public function paramtertype($type, $name, $length)
+    public function paramtertype($type, $name, $length,$reqRequire)
     {
         $inputType = "text";
         $extraAttr = "";
@@ -820,9 +827,19 @@ class FormView{
                 $inputType = "password";
                 $extraAttr = "maxlength='{$length}'";
                 break;
+            case 5:
+                $inputType = "tel";
+                $extraAttr = "maxlength='{$length}'";
+                break;
+            case 6:
+                $inputType = "date";
+                $extraAttr = "maxlength='{$length}'";
+                break;
+
+            default : break;
         }
 
-        return "<input name='{$name}' type='{$inputType}' class='form-control' {$extraAttr} required>";
+        return "<input name='{$name}' type='{$inputType}' class='form-control' {$extraAttr} {$reqRequire}>";
     }
 
     public function saveDataintable($table, $parameter, $data = [])
@@ -1462,7 +1479,7 @@ class UpdatePermission implements Permissions{
         $permissions = [];
         $flag = false;
 
-        if ($this->resetAllTabs($this->userid)) {
+        if ($this->resetAllTabs($this->userid) && $this->resetAllOperationRight($this->userid)) {
 
             foreach ($data['report'] as $tabid) {
 
@@ -1625,9 +1642,21 @@ class UpdatePermission implements Permissions{
                 WHERE userid = '$userid'";
         return mysqli_query($this->conn,$sql);
     }
+    public function resetAllOperationRight($userid){
+        $sql = "UPDATE operation_rights 
+                SET add_rgt='N',
+                    edit_rgt='N',
+                    view_rgt='N',cancel_rgt='N',
+                    print_rgt='N',
+                    download_rgt='N',
+                    approval_rgt='N',
+                    block_price='N'
+                WHERE userid = '$userid'";
+        return mysqli_query($this->conn,$sql);
+    }
 
     public function printfmsName(){
-        $html = "";
+        $html = "<div class='tab-grid' style='margin-top: 10px;margin-bottom: 10px;'>";
 
         $sql = "SELECT id, fmsname FROM fms_master WHERE status='1' ORDER BY fmsname";
         $result = mysqli_query($this->conn, $sql);
@@ -1650,14 +1679,13 @@ class UpdatePermission implements Permissions{
             $state_acc = mysqli_query($this->conn, $acc_sql);
             $checked = (mysqli_num_rows($state_acc) > 0) ? "checked" : "";
 
-            $html .= "<tr style='margin: 10px;'>
-            <td>
+            $html .= "<label class='tab-item'>
                 <input type='checkbox' name='fms[]' value='{$row['id']}' $checked>
                 &nbsp;<i class='fa fa-folder fa-lg'></i>&nbsp;{$row['fmsname']}({$row['id']})
-            </td>
-        </tr>";
+                </label>";
         }
 
+        $html.="</div>";
         return $html;
     }
 
@@ -2005,18 +2033,30 @@ class RoleAssienment{
     }
     public function updatePermission($data){
         $flag=false;
-
         $role_id   = $data['role_id'];
         $accessTab = isset($data['role_per']) ? $data['role_per'] : [];
         $functionid = $data['function_id'];
 
+        $role_updte_permission=new RoleUpdateTabPermission('',$this->conn);
+        $admin_user=$role_updte_permission->getAllRoleID_from_UsersTable($role_id);
+
+        if(count($admin_user)>0){
+            foreach ($admin_user as $admin){
+                self::resetAllTabs($this->conn,$admin);
+            }
+        }
+
+
+
         if(!empty($accessTab) && !empty($role_id) && !empty($functionid)){
-            $isResetPermission=$this->resetAllPermissionforRoleId($role_id);
+            $isResetPermission=$this->resetAllPermissionforRoleId_1($role_id);
             if(!$isResetPermission)throw new GlobalException('Not Updated Permission');
             foreach($accessTab as $tab){
+
                 if(count($admin_user)>0){
                     foreach ($admin_user as $admin){
                         $this->updateaccesstab_1($admin,$tab,'1');
+
                     }
                 }
 
@@ -2029,26 +2069,17 @@ class RoleAssienment{
         }
         return $flag;
     }
-    public function resetAllOperationRight($userid){
-        $sql = "UPDATE operation_rights 
-                SET add_rgt='N',
-                    edit_rgt='N',
-                    view_rgt='N',cancel_rgt='N',
-                    print_rgt='N',
-                    download_rgt='N',
-                    approval_rgt='N',   
-                    block_price='N'
-                WHERE userid = '$userid' and tabid <>1";
-        return mysqli_query($this->conn,$sql);
-    }
-    public function updateaccesstab_1($userid, $tabid = 0, $status = 0){
+    public function updateaccesstab_1($userid, $tabid = 0, $status = 0)
+    {
         $checkSql = "SELECT * FROM access_tab 
                  WHERE userid = '$userid' AND tabid = '$tabid'";
 
         $result = mysqli_query($this->conn, $checkSql);
+
         if (!$result) {
             throw new GlobalException('Error checking access_tab ' . __LINE__);
         }
+
         if (mysqli_num_rows($result) > 0) {
 
             $sql = "UPDATE access_tab 
@@ -2056,20 +2087,24 @@ class RoleAssienment{
                 WHERE userid = '$userid' AND tabid = '$tabid'";
 
         } else {
+
             $sql = "INSERT INTO access_tab (userid, tabid, status) 
                 VALUES ('$userid', '$tabid', '$status')";
         }
+
         $result = mysqli_query($this->conn, $sql);
+
         if (!$result) {
             throw new GlobalException('Error updating access_tab ' . __LINE__);
         }
+
         return $result;
     }
     public function insertAccessRoleTab($roleid, $tabid, $function, $tabtype, $status)
     {
         $sql = "INSERT INTO access_role_tab (role_id, tab_id, function_id, tab_type, status) VALUES 
                                                                                  ('$roleid', '$tabid', '$function', '$tabtype', '$status')";
-        mysqli_query($this->conn, $sql) or false;
+        return mysqli_query($this->conn, $sql) or false;
     }
     public function checkPermissionAlreadyExistsorNot($roleid, $tab_id)
     {
@@ -2080,19 +2115,23 @@ class RoleAssienment{
 
         return ($rs && mysqli_num_rows($rs) > 0);
     }
-    public function updatePermissionSQL($roleid, $tabid, $functionid, $tabtype='m', $status='1')
+    public function updatePermissionRoleTab($roleid, $tabid)
     {
         $sql = "UPDATE access_role_tab 
-            SET tab_id='$tabid'
-                tab_type='$tabtype', 
-                status='$status' 
+            SET  status='1' 
             WHERE role_id='$roleid' AND tab_id='$tabid'";
 
-        mysqli_query($this->conn, $sql) or false;
+        return mysqli_query($this->conn, $sql) or false;
     }
     public function resetAllPermissionforRoleId($role_id)
     {
         $sql = "DELETE FROM access_role_tab WHERE role_id='$role_id';";
+        return mysqli_query($this->conn, $sql) or false;
+    }
+
+    public function resetAllPermissionforRoleId_1($role_id)
+    {
+        $sql = "UPDATE access_role_tab SET status = 0 WHERE role_id ='$role_id'";
         return mysqli_query($this->conn, $sql) or false;
     }
 
@@ -2146,10 +2185,35 @@ class RoleAssienment{
         $sql = "UPDATE access_tab 
                 SET status = '0' 
                 WHERE userid = '$userid'";
-        return mysqli_query($conn,$sql);
+        return mysqli_query($conn, $sql) or false;
+    }
+}
+
+
+class RoleUpdateTabPermission{
+    private $userid,$conn;
+    public function __construct($userid,$conn){
+        $this->userid=$userid;
+        $this->conn=$conn;
     }
 
-
+    // role_id=> muje dega [used_id]
+    public function getAllRoleID_from_UsersTable($roleid){
+        $sql="SELECT username FROM `admin_users` WHERE admin_role='$roleid'";
+        $result=mysqli_query($this->conn,$sql);
+        if(!$result){
+            return false;
+        }
+        $num=mysqli_num_rows($result);
+        if($num===0){
+            return false;
+        }
+        $admin_user_role=[];
+        while ($row=mysqli_fetch_assoc($result)){
+            $admin_user_role[]=$row['username'];
+        }
+        return $admin_user_role;
+    }
 }
 
 ?>

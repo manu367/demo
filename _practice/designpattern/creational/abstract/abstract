@@ -1,0 +1,116 @@
+1. Definition (0 se interview explain)
+
+Abstract Factory ek creational design pattern hai jo related objects ke families create karta hai bina unki exact classes specify kiye.
+
+Simple line:
+👉 “Single object nahi… complete related objects ka group banega.”
+
+🔹 2. Real Problem (kyun bana yeh pattern?)
+
+Maan le tu UI bana raha hai:
+
+Windows UI → Button, Checkbox
+Mac UI → Button, Checkbox
+
+Ab agar tu direct likhe:
+
+new WindowsButton();
+new MacCheckbox();
+
+💥 mismatch ho gaya
+UI toot jayega
+
+👉 Solution:
+✔ Ek hi family ke objects use karo
+
+🔹 3. Concept samajh (core idea)
+
+Factory bolti hai:
+👉 “Shape chahiye? le lo”
+
+Abstract Factory bolti hai:
+👉 “Poora ecosystem chahiye? Windows ya Mac? main sab set dungi.”
+
+🔹 4. Flow (step-by-step)
+Step 1: Abstract products
+interface Button {
+    void paint();
+}
+
+interface Checkbox {
+    void paint();
+}
+Step 2: Concrete products
+class WindowsButton implements Button {
+    public void paint() {
+        System.out.println("Windows Button");
+    }
+}
+
+class MacButton implements Button {
+    public void paint() {
+        System.out.println("Mac Button");
+    }
+}
+Step 3: Abstract Factory
+interface GUIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+Step 4: Concrete Factories
+class WindowsFactory implements GUIFactory {
+    public Button createButton() {
+        return new WindowsButton();
+    }
+
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+
+class MacFactory implements GUIFactory {
+    public Button createButton() {
+        return new MacButton();
+    }
+
+    public Checkbox createCheckbox() {
+        return new MacCheckbox();
+    }
+}
+Step 5: Client Code
+GUIFactory factory = new WindowsFactory();
+
+Button btn = factory.createButton();
+Checkbox cb = factory.createCheckbox();
+
+👉 Same family ke objects mile
+👉 No mismatch
+
+🔹 5. Rules (important for interview)
+Multiple related objects (family) hone chahiye
+Abstract factory define hoti hai
+Concrete factories specific family create karti hain
+Client ko actual class ka pata nahi hota
+🔹 6. Features
+Family-based object creation
+Loose coupling
+Consistency maintain karta hai
+Scalable architecture
+🔹 7. Advantages
+
+✔ Compatible objects ensure karta hai
+✔ Code clean aur modular hota hai
+✔ Easily switch between families
+✔ High-level abstraction
+
+🔹 8. Disadvantages (real baat)
+
+❌ Code ka size explode ho jata hai
+❌ New product add karna painful ho jata hai
+❌ Over-engineering in small projects
+
+🔹 9. Real-world Use Cases
+UI frameworks (Windows / Mac themes)
+Cross-platform apps
+Database drivers families
+Spring (Bean families, configs)
