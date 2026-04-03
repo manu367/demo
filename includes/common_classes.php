@@ -2020,6 +2020,42 @@ class RoleAssienment{
 
         return $flag;
     }
+    public function resetAllOperationRight($userid){
+        $sql = "UPDATE operation_rights 
+                SET add_rgt='N',
+                    edit_rgt='N',
+                    view_rgt='N',cancel_rgt='N',
+                    print_rgt='N',
+                    download_rgt='N',
+                    approval_rgt='N',   
+                    block_price='N'
+                WHERE userid = '$userid' and tabid <>1";
+        return mysqli_query($this->conn,$sql);
+    }
+    public function updateaccesstab_1($userid, $tabid = 0, $status = 0){
+        $checkSql = "SELECT * FROM access_tab 
+                 WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        $result = mysqli_query($this->conn, $checkSql);
+        if (!$result) {
+            throw new GlobalException('Error checking access_tab ' . __LINE__);
+        }
+        if (mysqli_num_rows($result) > 0) {
+
+            $sql = "UPDATE access_tab 
+                SET status = '$status' 
+                WHERE userid = '$userid' AND tabid = '$tabid'";
+
+        } else {
+            $sql = "INSERT INTO access_tab (userid, tabid, status) 
+                VALUES ('$userid', '$tabid', '$status')";
+        }
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            throw new GlobalException('Error updating access_tab ' . __LINE__);
+        }
+        return $result;
+    }
     public function insertAccessRoleTab($roleid, $tabid, $function, $tabtype, $status)
     {
         $sql = "INSERT INTO access_role_tab (role_id, tab_id, function_id, tab_type, status) VALUES 
