@@ -744,6 +744,9 @@ class FormOperations{
         if ($type === "3") {
             return "VARCHAR($length)";
         }
+        if($type==='8'){
+            return "VARCHAR(50)";
+        }
         return "VARCHAR($length)";
     }
 }
@@ -804,39 +807,53 @@ class FormView{
         return $data[0];
     }
 
-    public function paramtertype($type, $name, $length,$reqRequire)
+    public function paramtertype($type, $name, $length, $reqRequire)
     {
         $inputType = "text";
         $extraAttr = "";
+
+        // current date & datetime
+        $currentDate = date('Y-m-d');
+        $currentDateTime = date('Y-m-d\TH:i');
 
         switch ($type) {
             case 1:
                 $inputType = "text";
                 $extraAttr = "maxlength='{$length}'";
                 break;
+
             case 2:
                 $inputType = "email";
                 $extraAttr = "maxlength='{$length}'";
                 break;
+
             case 3:
                 $inputType = "number";
-                $extraAttr = "maxlength='{$length}' pattern='[0-9]{1,{$length}}' oninput=\"this.value=this.value.replace(/[^0-9]/g,'').slice(0,{$length})\"";
+                $extraAttr = "maxlength='{$length}' pattern='[0-9]{1,{$length}}' 
+            oninput=\"this.value=this.value.replace(/[^0-9]/g,'').slice(0,{$length})\"";
                 break;
 
             case 4:
                 $inputType = "password";
                 $extraAttr = "maxlength='{$length}'";
                 break;
+
             case 5:
-                $inputType = "tel";
-                $extraAttr = "maxlength='{$length}'";
-                break;
-            case 6:
                 $inputType = "date";
-                $extraAttr = "maxlength='{$length}'";
+                $extraAttr = "max='{$currentDate}'"; // 👈 future block
                 break;
 
-            default : break;
+            case 6:
+                $inputType = "datetime-local";
+                $extraAttr = "max='{$currentDateTime}'"; // 👈 future block
+                break;
+            case 7:
+                $inputType = "file";
+                $extraAttr = "accept='.pdf,.png,.jpg,.jpeg'";
+                break;
+
+            default:
+                break;
         }
 
         return "<input name='{$name}' type='{$inputType}' class='form-control' {$extraAttr} {$reqRequire}>";
@@ -1680,7 +1697,7 @@ class UpdatePermission implements Permissions{
             $checked = (mysqli_num_rows($state_acc) > 0) ? "checked" : "";
 
             $html .= "<label class='tab-item'>
-                <input type='checkbox' name='fms[]' value='{$row['id']}' $checked>
+                <input type='checkbox' name='ArrayList[]' value='{$row['id']}' $checked>
                 &nbsp;<i class='fa fa-folder fa-lg'></i>&nbsp;{$row['fmsname']}({$row['id']})
                 </label>";
         }

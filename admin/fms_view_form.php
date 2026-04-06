@@ -9,6 +9,10 @@ set_exception_handler(function($e){
     }
 });
 
+if (!isset($_REQUEST['id']) || empty($_REQUEST['id'])) {
+    throw new GlobalException("Id is not valid");
+}
+// here we are getting the FMS_ID and load basic details from the fms_master
 $fsm_id=base64_decode($_REQUEST['id']);
 function loadFSM($link,$sql){
     $result=null;
@@ -52,7 +56,6 @@ if($load){
         });
     </script>
     <script type="text/javascript" src="../js/jquery.validate.js"></script>
-    <!-- Include Date Picker -->
     <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css"/>
     <script>
@@ -133,7 +136,7 @@ if($load){
             padding: 10px;
             margin-top: 10px;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 18px;
             overflow-x: auto;
             white-space: pre-wrap;
         }
@@ -229,43 +232,42 @@ if($load){
 
 <section id="api_view" class="sheet">
     <button class="close" onclick="closeSheet()">X</button>
-
     <div class="content_api">
         <div class="card">
             <div class="header">
                 <h2>Get Form Fields <span class="badge get">GET</span></h2>
-                <button class="btn" onclick="copyText('getReq')">Copy</button>
+                <div style="display: flex;justify-content: space-between">
+                    <button class="btn" onclick="copyText('getReq')">Copy</button>
+                    <a id="download_file" class="btn btn-primary" href="download_ap.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>&id=<?=$_REQUEST['pid']?>">Download</a>
+                </div>
             </div>
-
             <div class="code" id="getReq">
-                curl --location 'http://localhost/demo/fmsapi/fmsconnect.php'
-                --header 'fms_id: <?=$load['id']?>'
-                --header 'fms_name: <?=$load['fmsname']?>'
-                --header 'form_id: <span id="form_id">43</span>'
-                --header 'form_name: <span id="form_name">feedback form</span>'
-                --header 'Content-Type: application/json'
-                --header 'Authorization: Basic dGVzdDoxMjM='
-                --data-raw '{
-                <p id="data_raw"></p>
-                }'
+                <span>curl --location '<span id="curl"></span>'</span>
+                <span>--header   ' Fms-Id: <?=$load['id']?> '</span>
+                <span>--header   ' Fms-Name: <?=$load['fmsname']?> '</span>
+                <span>--header   ' Form-Id: <span id="form_id">43</span> '</span>
+                <span>--header   ' Form-Name: <span id="form_name">feedback form</span> '</span>
+                <span>--header   ' Content-Type: application/json '</span>
+                <span>--header   ' Authorization: Basic dGVzdDoxMjM= '</span>
+                <span>--data-raw  '{</span>
+                <span id="data_raw"></span>
+                <span>}'</span>
             </div>
         </div>
-
     </div>
-
     <button id="ok" class="ok btn btn-primary" onclick="closeSheet()">OK</button>
 </section>
-
 <?php
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
 <script>
+    document.getElementById('curl').textContent=`https://${window.location.host}/fmsapi/fmsconnect.php`;
+    console.log(window.location.host);
     const okbutton=document.getElementById("ok");
     const  data_raw_element=document.getElementById("data_raw");
     const form_id_element=document.getElementById("form_id");
     const  form_name_element=document.getElementById("form_name");
-
     okbutton.style.display = "none";
     function showApi(el){
         const formId = el.dataset.fromid;
@@ -274,17 +276,20 @@ include("../includes/connection_close.php");
         console.log("Form ID:", formId);
         form_id_element.innerHTML = formId;
         form_name_element.innerHTML = formName;
+        let i=0;
         column.forEach(element => {
-            data_raw_element.innerHTML +=`${element} : ' ' ,<br/>`;
+            let space="    ";
+            data_raw_element.innerHTML +=`${i===0?'':space.repeat(4)} <span style="margin-bottom: 15px;margin-top: 15px;">"${element}" : " " ,</span><br/>`;
+            i++;
         })
         // data_raw_element.innerHTML = data_row;?
         openSheet();
+        DownloadFile('<?=$_REQUEST['pid']?>','<?=$_REQUEST['hid']?>','<?=$_REQUEST['id']?>',formId,formName,el.dataset.column);
     }
     function openSheet() {
         document.getElementById("api_view").classList.add("active");
         okbutton.style.display = "block";
     }
-
     function closeSheet() {
         document.getElementById("api_view").classList.remove("active");
         okbutton.style.display = "none";
@@ -296,6 +301,9 @@ include("../includes/connection_close.php");
         const text = document.getElementById(id).innerText;
         navigator.clipboard.writeText(text);
         alert("Copied!");
+    }
+    function DownloadFile(pid,hid,id,formid,formName,col) {
+        document.getElementById("download_file").href = `download_ap.php?pid=${pid}&hid=${hid}&id=${id}&formid=${formid}&formname=${formName}&col=${btoa(col)}`;
     }
 </script>
 </body>

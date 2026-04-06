@@ -1,0 +1,143 @@
+What is LinkedHashMap?
+
+A LinkedHashMap is a HashMap with a memory.
+
+It stores key-value pairs just like HashMap, but also maintains a predictable order.
+
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+🧠 Core Idea
+
+It combines:
+
+⚡ HashMap (fast access)
+🔗 LinkedList (order tracking)
+
+So internally:
+
+Hash table + Doubly Linked List
+⚙️ Internal Structure
+
+Each node looks like:
+
+static class Entry<K,V> extends HashMap.Node<K,V> {
+    Entry<K,V> before, after;
+}
+
+👉 Meaning:
+
+Same hashing mechanism as HashMap
+PLUS links to previous and next entries
+🧩 Visualization
+[Head] <-> [Entry1] <-> [Entry2] <-> [Entry3] <-> [Tail]
+
+So:
+
+HashMap → finds data fast
+Linked list → keeps order intact
+🔑 Key Features
+1. Maintains Order
+
+Two types:
+
+Insertion Order (default)
+Access Order (when enabled)
+2. Allows null
+One null key
+Multiple null values
+3. Not Thread-Safe
+
+Same as HashMap.
+
+4. Slightly Slower than HashMap
+
+Because of extra linking overhead.
+
+⚡ Time Complexity
+Operation	Complexity
+Put	O(1)
+Get	O(1)
+Remove	O(1)
+
+👉 Same as HashMap (on average)
+
+🔄 Insertion Order vs Access Order (VERY IMPORTANT)
+🔹 Insertion Order (default)
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+
+Order stays as inserted:
+
+1 → 2 → 3 → 4
+🔹 Access Order (LRU behavior)
+LinkedHashMap<Integer, String> map =
+    new LinkedHashMap<>(16, 0.75f, true);
+
+Now:
+
+Recently accessed elements move to end
+
+👉 Used in LRU Cache
+
+🧰 Important Methods
+
+Same as HashMap, plus some power moves:
+
+🔹 Basic
+map.put(1, "A");
+map.get(1);
+map.remove(1);
+🔹 Iteration (order preserved!)
+for (Map.Entry<Integer, String> e : map.entrySet()) {
+    System.out.println(e.getKey());
+}
+🔹 removeEldestEntry (Interview Favorite)
+protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+    return size() > 3;
+}
+
+👉 Automatically removes oldest entry
+👉 Used to build LRU Cache
+
+🔥 LRU Cache Example (This impresses interviewers)
+class LRUCache<K,V> extends LinkedHashMap<K,V> {
+    private int capacity;
+
+    LRUCache(int capacity) {
+        super(capacity, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+        return size() > capacity;
+    }
+}
+⚖️ LinkedHashMap vs HashMap
+Feature	HashMap	LinkedHashMap
+Order	No	Yes
+Performance	Faster	Slightly slower
+Memory	Less	More
+Use case	General	Ordered data
+⚖️ LinkedHashMap vs TreeMap
+Feature	LinkedHashMap	TreeMap
+Order	Insertion	Sorted
+Complexity	O(1)	O(log n)
+Structure	Hash + List	Red-Black Tree
+🚨 When to Use LinkedHashMap
+
+Use it when:
+
+You need fast lookup + order preservation
+You’re building LRU cache
+You care about iteration order
+❌ When NOT to Use
+Need sorted data → use TreeMap
+Need max performance → use HashMap
+Memory is tight → avoid it
+🧠 Interview One-Liner
+
+If they ask:
+
+“What is LinkedHashMap?”
+
+Say:
+
+LinkedHashMap is a HashMap implementation that maintains insertion or access order using a doubly linked list along with hashing. It provides O(1) performance for basic operations while preserving order.

@@ -20,9 +20,9 @@ $fms=new FMS_Operations($pid,$hid,$location,$link1);
 if(isset($_POST['clone_system'])){
 
     $fmsName=$_POST['fmsname'];
-    $fms_details=$_POST['fms_details'];
-    $fms_steps=$_POST['steps'];
-    $fms_totalform=$_POST['total_form'];
+//    $fms_details=$_POST['fms_details'];
+//    $fms_steps=$_POST['steps'];
+//    $fms_totalform=$_POST['total_form'];
     $fmsIP=$_SERVER['REMOTE_ADDR'];
 
     $fmsid=$_POST['fms_id'];
@@ -35,6 +35,7 @@ if(isset($_POST['clone_system'])){
 
 
     $value=$fms->tablenameAlreadyExists($db,$fms->spaceRemover($fmsName));
+
     $value=(int)$value;
     if($value===1){
         $data['id']=$_POST['fms_id'];
@@ -48,19 +49,19 @@ if(isset($_POST['clone_system'])){
      *  1. Table create
      *  2. tableName
      *  3. Fms_master me inserting
-     *  4. Form_master -> fms-creates
+     *  4. Form_master -> ArrayList-creates
      */
 
     $fmsclone=new FMSClone($link1,$fmsid);
     $fmsclone->setTableName($fms->spaceRemover($fmsName));
-    $newFmsid=$fmsclone->fmsClone($fmsName,$fms_details,$fms_steps,$fms_totalform,$fmsIP);
+    $newFmsid=$fmsclone->fmsClone($fmsName,'','','',$fmsIP);
 
     $ook=$fmsclone->formCloningStart($newFmsid);
     if($ook){
-        header("Location: fms_master.php?pid=$pid&hid=$hid&type=success&msg={Successfully Cloned}");
+        header("Location: fms_master.php?pid=$pid&hid=$hid&type=success&msg=Successfully Cloned");
         exit();
     }else{
-        header("Location: fms_master.php?pid=$pid&hid=$hid&type=error&msg={Somethings is wrong Fms Cloning}");
+        header("Location: fms_master.php?pid=$pid&hid=$hid&type=error&msg=Somethings is wrong Fms Cloning");
         exit();
     }
 
@@ -186,26 +187,26 @@ if(isset($_REQUEST['msg'])){?>
                                            value="" required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="username" class="col-md-6 control-label">Details<span class="red_small">*</span></label>
-                                <div class="col-md-6">
-                                    <input name="fms_details" type="text" class="form-control" value="" required>
-                                </div>
-                            </div>
+<!--                            <div class="col-md-6">-->
+<!--                                <label for="username" class="col-md-6 control-label">Details<span class="red_small">*</span></label>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input name="fms_details" type="text" class="form-control" value="" required>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6"><label class="col-md-6 control-label">No of Steps</label>
-                                <div class="col-md-6">
-                                    <input name="steps" type="number" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6"><label class="col-md-6 control-label">Total No form<span class="red_small">*</span></label>
-                                <div class="col-md-6">
-                                    <input name="total_form" type="number" class="form-control" value="" required>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <div class="col-md-6"><label class="col-md-6 control-label">No of Steps</label>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input name="steps" type="number" class="form-control" required>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6"><label class="col-md-6 control-label">Total No form<span class="red_small">*</span></label>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input name="total_form" type="number" class="form-control" value="" required>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                 </div>
                 <div class="text-center mt-5">
                     <?php

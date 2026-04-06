@@ -1,0 +1,121 @@
+ArrayList
+
+ArrayList in Java is a resizable array provided in the java.util package. Unlike normal arrays, its size can grow or shrink dynamically as elements are added or removed.
+
+Elements can be accessed using their indices, similar to arrays.
+Duplicates are allowed.
+Elements are stored in the order they are inserted.
+ArrayList is not thread-safe. To make it thread-safe, you must wrap it manually using Collections.synchronizedList().
+
+Key Traits
+Maintains insertion order
+Allows duplicate elements
+Indexed access (fast reads)
+Automatically resizes
+Not synchronized (not thread-safe by default)
+
+Hierarchy of ArrayList
+It implements List Interface which is a sub-interface of Collection Interface.
+https://media.geeksforgeeks.org/wp-content/uploads/20251024111841527624/ArrayList_Java-768.png
+
+
+Internal Implementation:
+Internally an ArrayList uses a dynamically resizable array to store elements.
+Dynamic Array Structure: An ArrayList is internally implemented using a dynamic array (usually an Object[] array). This array stores all the elements of the list.
+Automatic Resizing: When the internal array becomes full, the ArrayList automatically increases its capacity by creating a new larger array and copying the existing elements into it.
+Index-Based Access: Elements are stored in contiguous memory locations, allowing fast access using indexes (e.g., get(index)), typically in O(1) time complexity.
+Element Shifting on Insert/Delete: When an element is added or removed at a specific index, the elements after that position are shifted to maintain order.
+Default Capacity:When an ArrayList is created using the default constructor, its default capacity is 10.
+New Capacity Calculation:
+The new capacity is calculated using the formula:
+New Capacity = Old Capacity + (Old Capacity / 2)
+This increases the capacity by 50% of the old capacity.
+
+Capacity vs Size Management
+ArrayList maintains two values:
+
+Size: number of elements currently stored
+Capacity: total length of the internal array that can hold elements before resizing is required.
+
+Complexity of Java ArrayList
+Operation
+
+Time Complexity
+
+Space Complexity
+
+Inserting Element in ArrayList at the end
+
+O( 1) (amortized)
+
+O(1)
+
+Inserting Element at specific index
+
+O(N)
+
+O(1)
+
+Removing an elements
+
+O(N)
+
+O(1)
+
+Replacing Elements (set)
+
+O(1)
+
+O(1)
+
+Traversing an elements
+
+O(N)
+
+O(1)
+
+
+Important ArrayList Methods
+Basic Operations
+add(E e)              // add element
+add(int index, E e)  // insert at position
+get(int index)       // retrieve
+set(int index, E e)  // update
+remove(int index)    // remove by index
+remove(Object o)     // remove by value
+
+Utility Methods
+size()               // number of elements
+isEmpty()            // check empty
+contains(Object o)   // search
+clear()              // remove all
+
+
+Iteration
+Iterator<Integer> it = list.iterator();
+ensureCapacity(int minCapacity)
+trimToSize()
+
+
+Common Interview Questions
+Array vs ArrayList?
+Answer:
+Array → fixed size, faster, primitive support
+ArrayList → dynamic, more flexible, only objects
+
+How does ArrayList grow?
+When capacity is full:
+newCapacity = oldCapacity + (oldCapacity >> 1)
+That’s 1.5x growth
+
+Why is insertion slow in middle?
+Because elements shift:
+O(n)
+
+Is ArrayList thread-safe?
+No.
+Use:
+Collections.synchronizedList()
+or
+CopyOnWriteArrayList
+

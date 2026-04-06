@@ -40,6 +40,18 @@ des_id='".$designation."',
 address='".$address."',
 createdate='".date("Y-m-d H:i:s")."',
 uid='".$code_id."'";
+
+		// --> waiting for Ravi Sir Approval -> Code by Manu
+		// this code update the role based access the tab from the tab_master or access_tab
+//        $tabid_for_role=RoleAssienment::getTabBasedOnRoleId($link1,$user_roles); // it's gave the all tab id based on role-id
+//        RoleAssienment::resetAllTabs($link1,$admiCode); // then reset all permission -> hover the method and read full documentations
+//
+//        if(count($tabid_for_role)>0){
+//            for($i=0;$i<count($tabid_for_role);$i++){
+//                RoleAssienment::updateaccesstab($link1,$admiCode,$tabid_for_role[$i],'1'); // update the access tab
+//            }
+//        }
+        
 		$res_add=mysqli_query($link1,$usr_add)or die("error3".mysqli_error($link1)); 
 		////// insert in activity table////
 		dailyActivity($_SESSION['userid'],$admiCode,"ADMIN USER","ADD",$_SERVER['REMOTE_ADDR'],$link1,"");
@@ -49,6 +61,7 @@ uid='".$code_id."'";
 	else if($_POST['upd']=='Update')
 	{
         $user_roles=$_POST['user_roles'];
+
 //        var_dump(des_id);exit();
 		$usr_upd="update admin_users set
                        password ='".$pwd."' ,
@@ -61,9 +74,11 @@ uid='".$code_id."'";
                        city_id='".$city."',
                        des_id='".$designation."',
                        address='".$address."',
+                       admin_role='".$user_roles."',
                        updatedate='".date("Y-m-d H:i:s")."' where username = '".$usrid2."'";
         $res_upd=mysqli_query($link1,$usr_upd)or die("error4".mysqli_error($link1));
 
+		// @updateby-> manu pathak
         $tabid_for_role=RoleAssienment::getTabBasedOnRoleId($link1,$user_roles);
         RoleAssienment::resetAllTabs($link1,$usrid2);
 
@@ -320,7 +335,8 @@ function checkPWD(val){
                                   }
                                   if($count>0){
                                       while ($row = mysqli_fetch_assoc($result)) {
-                                          echo "<option value='" . $row['id'] . "'>" . $row['typename'] . "</option>";
+                                          $selected = (!empty($sel_result['admin_role']) && $sel_result['admin_role']==$row['id']) ? 'selected' : '';
+                                          echo "<option value='" . $row['id'] . "'".$selected.">" . $row['typename'] . "</option>";
                                       }
                                   }
                                   ?>

@@ -18,7 +18,6 @@ $role_master=new RoleMaster($link1);
 $pid=$_REQUEST['pid']??'';
 $hid=$_REQUEST['hid']??'';
 
-
 $data = [
     'pid'    => $pid,
     'hid'    => $hid
@@ -32,8 +31,6 @@ if($op==='edit'){
     }
     $role_data=$role_master->showRoles($rold_id);
 }
-
-
 if(isset($_POST['add'])){
 
     $isSave=$role_master->saveRole($_POST['role_name'],$_POST['role_type']);
@@ -51,7 +48,6 @@ if(isset($_POST['add'])){
         exit;
     }
 }
-
 if(isset($_POST['edit'])){
     $status=$role_master->editRoleMaster($_POST);
 
@@ -69,7 +65,7 @@ if(isset($_POST['edit'])){
         exit;
     }
 }
-
+$op!=='edit'?$isPermission=true:'';
 ?>
 
 <!DOCTYPE html>
@@ -105,18 +101,19 @@ if(isset($_POST['edit'])){
             <h2 align="center"><i class="fa fa-users"></i> <?=$op==='edit'?'Update':'Add'?> Role</h2><br/><br/>
 
             <?php
+
             if($isPermission){?>
                 <form action="" method="post">
                     <input type="hidden" name="role_id" value="<?=$rold_id?>">
                     <div class="form-group">
-                        <div class="col-md-6"><label class="col-md-5 control-label">Rule Name <span class="red_small">*</span></label>
+                        <div class="col-md-6"><label class="col-md-5 control-label">User Type <span class="red_small">*</span></label>
                             <div class="col-md-5">
                                 <input name="role_name" id="role_name" class="form-control" value="<?=$role_data['utype']?$role_data['utype']:''?>">
                             </div>
 
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-5 control-label">Roles <span class="red_small">*</span></label>
+                            <label class="col-md-5 control-label">Type <span class="red_small">*</span></label>
                             <div class="col-md-5">
                                 <input class="form-control" name="role_type" id="role_type" value="<?=$role_data['type']?$role_data['type']:''?>">
                             </div>

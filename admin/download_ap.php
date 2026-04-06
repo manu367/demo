@@ -1,7 +1,7 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
-
+// load fms_master
 function loadFSM($link,$sql){
     $result=mysqli_query($link,$sql);
     if($result){
@@ -30,7 +30,7 @@ for($i=0;$i<count($col);$i++){
 $col_header = json_encode($data_array, JSON_PRETTY_PRINT);
 
 // FINAL STRUCTURE (curl format)
-$data = "curl --location 'http://localhost/demo/fmsapi/fmsconnect.php'
+$data = "curl --location 'https://ArrayList.cancrm.in/fmsapi/fmsconnect.php'
 --header 'Fms-Id: {$fsm_id}' 
 --header 'Fms-Name: {$fmsname}' 
 --header 'Form-Id: {$form_id}' 

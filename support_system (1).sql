@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2026 at 03:09 PM
+-- Generation Time: Apr 06, 2026 at 03:21 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -41,8 +41,11 @@ CREATE TABLE `access_fms` (
 --
 
 INSERT INTO `access_fms` (`id`, `userid`, `fmsid`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'test', '47', '1', '2026-03-30 13:13:35', '2026-03-31 06:04:30'),
-(2, 'test', '48', '1', '2026-03-30 13:19:03', '2026-03-31 06:04:30');
+(1, 'test', '47', '1', '2026-03-30 13:13:35', '2026-04-02 07:47:18'),
+(2, 'test', '48', '1', '2026-03-30 13:19:03', '2026-04-02 07:47:18'),
+(7, 'OKAYAUSR002', '47', '1', '2026-04-01 06:49:59', '2026-04-01 06:49:59'),
+(8, 'test', '52', '1', '2026-04-02 07:47:18', '2026-04-02 07:47:18'),
+(9, 'test', '53', '1', '2026-04-02 07:47:18', '2026-04-02 07:47:18');
 
 -- --------------------------------------------------------
 
@@ -64,46 +67,35 @@ CREATE TABLE `access_role_tab` (
 --
 
 INSERT INTO `access_role_tab` (`id`, `role_id`, `tab_id`, `function_id`, `tab_type`, `status`) VALUES
-(30, '1', 189, '293', 'M', 1),
-(29, '1', 65, '293', 'M', 1),
-(28, '1', 2, '293', 'M', 1),
-(27, '1', 4, '293', 'M', 1),
-(26, '1', 1, '293', 'M', 1),
-(31, '1', 248, '293', 'M', 1),
-(32, '1', 270, '293', 'M', 1),
-(33, '1', 197, '293', 'M', 1),
-(34, '1', 204, '293', 'M', 1),
-(35, '1', 292, '293', 'M', 1),
-(36, '1', 290, '293', 'M', 1),
-(37, '1', 190, '293', 'M', 1),
-(38, '1', 64, '293', 'M', 1),
-(39, '1', 263, '293', 'M', 1),
-(40, '1', 155, '293', 'M', 1),
-(41, '1', 6, '293', 'M', 1),
-(42, '1', 8, '293', 'M', 1),
-(43, '1', 119, '293', 'M', 1),
-(44, '1', 9, '293', 'M', 1),
-(45, '1', 205, '293', 'M', 1),
-(46, '1', 223, '293', 'M', 1),
-(47, '1', 222, '293', 'M', 1),
-(48, '1', 7, '293', 'M', 1),
-(49, '1', 12, '293', 'M', 1),
-(50, '1', 293, '293', 'M', 1),
-(51, '1', 282, '293', 'M', 1),
-(52, '1', 106, '293', 'M', 1),
-(53, '1', 10, '293', 'M', 1),
-(54, '1', 96, '293', 'M', 1),
-(55, '15', 4, '293', 'M', 1),
-(56, '15', 2, '293', 'M', 1),
-(57, '15', 248, '293', 'M', 1),
-(58, '15', 270, '293', 'M', 1),
-(72, '6', 197, '293', 'M', 1),
-(71, '6', 270, '293', 'M', 1),
-(70, '6', 248, '293', 'M', 1),
-(69, '6', 189, '293', 'M', 1),
-(68, '6', 65, '293', 'M', 1),
-(67, '6', 2, '293', 'M', 1),
-(66, '6', 4, '293', 'M', 1);
+(264, '1', 263, '293', 'M', 0),
+(263, '1', 64, '293', 'M', 0),
+(262, '1', 290, '293', 'M', 1),
+(261, '1', 292, '293', 'M', 1),
+(260, '1', 204, '293', 'M', 0),
+(259, '1', 197, '293', 'M', 0),
+(258, '1', 270, '293', 'M', 0),
+(257, '1', 248, '293', 'M', 0),
+(256, '1', 189, '293', 'M', 0),
+(255, '1', 65, '293', 'M', 0),
+(254, '1', 2, '293', 'M', 0),
+(253, '1', 4, '293', 'M', 0),
+(252, '1', 1, '293', 'M', 1),
+(265, '1', 155, '293', 'M', 0),
+(266, '1', 8, '293', 'M', 0),
+(267, '1', 119, '293', 'M', 0),
+(268, '1', 9, '293', 'M', 0),
+(269, '1', 223, '293', 'M', 0),
+(270, '1', 222, '293', 'M', 0),
+(271, '1', 7, '293', 'M', 0),
+(272, '1', 293, '293', 'M', 1),
+(273, '1', 106, '293', 'M', 0),
+(274, '1', 10, '293', 'M', 0),
+(275, '1', 225, '293', 'M', 0),
+(276, '1', 260, '293', 'M', 0),
+(277, '1', 97, '293', 'M', 0),
+(278, '1', 170, '293', 'M', 0),
+(279, '1', 157, '293', 'M', 0),
+(280, '1', 98, '293', 'M', 0);
 
 -- --------------------------------------------------------
 
@@ -2290,35 +2282,41 @@ INSERT INTO `access_tab` (`sno`, `userid`, `tabid`, `status`) VALUES
 (2464, 'test', 289, 0),
 (2465, 'test', 290, 1),
 (2466, 'test', 293, 1),
-(2467, 'OKAYAUSR002', 189, 1),
-(2468, 'OKAYAUSR002', 65, 1),
-(2469, 'OKAYAUSR002', 2, 1),
-(2470, 'OKAYAUSR002', 4, 1),
+(2467, 'OKAYAUSR002', 189, 0),
+(2468, 'OKAYAUSR002', 65, 0),
+(2469, 'OKAYAUSR002', 2, 0),
+(2470, 'OKAYAUSR002', 4, 0),
 (2471, 'OKAYAUSR002', 1, 1),
-(2472, 'OKAYAUSR002', 248, 1),
-(2473, 'OKAYAUSR002', 270, 1),
-(2474, 'OKAYAUSR002', 197, 1),
-(2475, 'OKAYAUSR002', 204, 1),
+(2472, 'OKAYAUSR002', 248, 0),
+(2473, 'OKAYAUSR002', 270, 0),
+(2474, 'OKAYAUSR002', 197, 0),
+(2475, 'OKAYAUSR002', 204, 0),
 (2476, 'OKAYAUSR002', 292, 1),
 (2477, 'OKAYAUSR002', 290, 1),
-(2478, 'OKAYAUSR002', 190, 1),
-(2479, 'OKAYAUSR002', 64, 1),
-(2480, 'OKAYAUSR002', 263, 1),
-(2481, 'OKAYAUSR002', 155, 1),
-(2482, 'OKAYAUSR002', 6, 1),
-(2483, 'OKAYAUSR002', 8, 1),
-(2484, 'OKAYAUSR002', 119, 1),
-(2485, 'OKAYAUSR002', 9, 1),
-(2486, 'OKAYAUSR002', 205, 1),
-(2487, 'OKAYAUSR002', 223, 1),
-(2488, 'OKAYAUSR002', 222, 1),
-(2489, 'OKAYAUSR002', 7, 1),
-(2490, 'OKAYAUSR002', 12, 1),
+(2478, 'OKAYAUSR002', 190, 0),
+(2479, 'OKAYAUSR002', 64, 0),
+(2480, 'OKAYAUSR002', 263, 0),
+(2481, 'OKAYAUSR002', 155, 0),
+(2482, 'OKAYAUSR002', 6, 0),
+(2483, 'OKAYAUSR002', 8, 0),
+(2484, 'OKAYAUSR002', 119, 0),
+(2485, 'OKAYAUSR002', 9, 0),
+(2486, 'OKAYAUSR002', 205, 0),
+(2487, 'OKAYAUSR002', 223, 0),
+(2488, 'OKAYAUSR002', 222, 0),
+(2489, 'OKAYAUSR002', 7, 0),
+(2490, 'OKAYAUSR002', 12, 0),
 (2491, 'OKAYAUSR002', 293, 1),
-(2492, 'OKAYAUSR002', 282, 1),
-(2493, 'OKAYAUSR002', 106, 1),
-(2494, 'OKAYAUSR002', 10, 1),
-(2495, 'OKAYAUSR002', 96, 1);
+(2492, 'OKAYAUSR002', 282, 0),
+(2493, 'OKAYAUSR002', 106, 0),
+(2494, 'OKAYAUSR002', 10, 0),
+(2495, 'OKAYAUSR002', 96, 0),
+(2496, 'OKAYAUSR002', 225, 0),
+(2497, 'OKAYAUSR002', 260, 0),
+(2498, 'OKAYAUSR002', 97, 0),
+(2499, 'OKAYAUSR002', 170, 0),
+(2500, 'OKAYAUSR002', 157, 0),
+(2501, 'OKAYAUSR002', 98, 0);
 
 -- --------------------------------------------------------
 
@@ -2342,16 +2340,17 @@ CREATE TABLE `admin_users` (
   `emailid` varchar(50) DEFAULT NULL,
   `status` int(2) NOT NULL DEFAULT 0,
   `createdate` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedate` datetime NOT NULL DEFAULT current_timestamp()
+  `updatedate` datetime NOT NULL DEFAULT current_timestamp(),
+  `admin_role` varchar(5) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `admin_users`
 --
 
-INSERT INTO `admin_users` (`id`, `uid`, `sapid`, `username`, `password`, `name`, `utype`, `phone`, `state_id`, `city_id`, `des_id`, `address`, `emailid`, `status`, `createdate`, `updatedate`) VALUES
-(1, 1, '121212', 'test', '123456', 'Candour (Admin)', 'admin', '8826693946', 4, 1, 4, 'addsddscsress', 'info@candoursoft.com', 1, '0000-00-00 00:00:00', '2026-03-31 17:57:01'),
-(24, 2, NULL, 'OKAYAUSR002', 'manu@123', 'Manu', 'admin', '1231231231', 4, 6, 4, 'scdc', 'd@gmi.com', 1, '2026-03-31 18:09:47', '2026-03-31 18:10:47');
+INSERT INTO `admin_users` (`id`, `uid`, `sapid`, `username`, `password`, `name`, `utype`, `phone`, `state_id`, `city_id`, `des_id`, `address`, `emailid`, `status`, `createdate`, `updatedate`, `admin_role`) VALUES
+(1, 1, '121212', 'test', '123', 'Candour (Admin)', 'admin', '8826693946', 4, 1, 4, 'addsddscsress', 'info@candoursoft.com', 1, '0000-00-00 00:00:00', '2026-04-03 13:25:41', '1'),
+(24, 2, NULL, 'OKAYAUSR002', 'manu@123', 'Manu', 'admin', '1231231231', 4, 6, 4, 'scdc', 'd@gmi.com', 1, '2026-03-31 18:09:47', '2026-04-03 13:00:59', '1');
 
 -- --------------------------------------------------------
 
@@ -4275,7 +4274,27 @@ INSERT INTO `daily_activities` (`id`, `userid`, `ref_no`, `activity_type`, `acti
 (322, 'test', 'adminuser', 'fms', 'CREATE', '2026-03-27', '12:20:43', '::1', '2026-03-27 06:50:43'),
 (323, 'test', 'adminuser', 'fms', 'CREATE', '2026-03-30', '18:27:10', '::1', '2026-03-30 12:57:10'),
 (324, 'test', 'OKAYAUSR002', 'ADMIN USER', 'ADD', '2026-03-31', '18:09:47', '::1', '2026-03-31 12:39:47'),
-(325, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-03-31', '18:10:47', '::1', '2026-03-31 12:40:47');
+(325, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-03-31', '18:10:47', '::1', '2026-03-31 12:40:47'),
+(326, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-04-01', '10:20:28', '::1', '2026-04-01 04:50:28'),
+(327, 'test', 'flipkart user', 'fms', 'CREATE', '2026-04-01', '12:11:28', '::1', '2026-04-01 06:41:28'),
+(328, 'test', 'flipkart user', 'fms', 'CREATE', '2026-04-01', '12:11:28', '::1', '2026-04-01 06:41:28'),
+(329, 'OKAYAUSR002', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-01', '12:20:14', '::1', '2026-04-01 06:50:14'),
+(330, 'OKAYAUSR002', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-01', '12:57:21', '::1', '2026-04-01 07:27:21'),
+(331, 'OKAYAUSR002', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-01', '12:57:21', '::1', '2026-04-01 07:27:21'),
+(332, 'OKAYAUSR002', 'adminuser123', 'fms', 'UPDATED', '2026-04-01', '12:58:28', '::1', '2026-04-01 07:28:28'),
+(333, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-01', '16:25:17', '::1', '2026-04-01 10:55:17'),
+(334, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-01', '16:29:56', '::1', '2026-04-01 10:59:56'),
+(335, 'test', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-02', '13:14:52', '::1', '2026-04-02 07:44:52'),
+(336, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-02', '13:14:59', '::1', '2026-04-02 07:44:59'),
+(337, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-02', '13:15:16', '::1', '2026-04-02 07:45:16'),
+(338, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-02', '13:15:28', '::1', '2026-04-02 07:45:28'),
+(339, 'test', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-02', '14:58:49', '::1', '2026-04-02 09:28:49'),
+(340, 'test', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-02', '15:01:02', '::1', '2026-04-02 09:31:02'),
+(341, 'test', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-02', '15:03:12', '::1', '2026-04-02 09:33:12'),
+(342, 'test', 'fms_adminuser', 'Data Saved In Table', 'Added', '2026-04-02', '15:03:12', '::1', '2026-04-02 09:33:12'),
+(343, 'test', 'fms_adminuser', 'Report Data Uploaded In table', 'Added', '2026-04-02', '17:49:00', '::1', '2026-04-02 12:19:00'),
+(344, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-04-03', '13:00:59', '::1', '2026-04-03 07:30:59'),
+(345, 'test', 'test', 'ADMIN USER', 'UPDATE', '2026-04-03', '13:25:41', '::1', '2026-04-03 07:55:41');
 
 -- --------------------------------------------------------
 
@@ -4303,6 +4322,32 @@ INSERT INTO `designation` (`des_id`, `des_name`) VALUES
 (8, 'HR'),
 (9, 'Intern'),
 (10, 'Support');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dropdown_master`
+--
+
+CREATE TABLE `dropdown_master` (
+  `id` int(10) NOT NULL,
+  `master_name` varchar(50) NOT NULL,
+  `master_table` varchar(50) NOT NULL,
+  `key_id` varchar(20) NOT NULL,
+  `key_value` varchar(100) NOT NULL,
+  `status` int(1) NOT NULL,
+  `updated_by` varchar(20) NOT NULL,
+  `updated_ip` varchar(20) NOT NULL,
+  `update_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `dropdown_master`
+--
+
+INSERT INTO `dropdown_master` (`id`, `master_name`, `master_table`, `key_id`, `key_value`, `status`, `updated_by`, `updated_ip`, `update_date`) VALUES
+(1, 'State Master', 'state_master', 'stateid', 'state', 1, 'test', '', '2026-04-06 17:17:07'),
+(2, 'City Master', 'city_master', 'cityid', 'city', 1, 'test', '', '2026-04-06 17:17:07');
 
 -- --------------------------------------------------------
 
@@ -4355,8 +4400,51 @@ CREATE TABLE `fms_adminuser` (
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(10) DEFAULT NULL,
   `updated_ip` varchar(40) DEFAULT NULL,
-  `nam3` varchar(12) DEFAULT NULL
+  `nam3` varchar(12) DEFAULT NULL,
+  `name` varchar(12) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `phone_number` varchar(10) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `password` varchar(12) DEFAULT NULL,
+  `state` varchar(12) DEFAULT NULL,
+  `city` varchar(12) DEFAULT NULL,
+  `date` varchar(12) DEFAULT NULL,
+  `file` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fms_adminuser`
+--
+
+INSERT INTO `fms_adminuser` (`id`, `created_date`, `update_date`, `updated_by`, `updated_ip`, `nam3`, `name`, `email`, `phone_number`, `address`, `password`, `state`, `city`, `date`, `file`) VALUES
+(1, '2026-04-01 06:50:14', '2026-04-01 06:50:14', 'OKAYAUSR00', '::1', 'sdcdsc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '2026-04-01 07:27:21', '2026-04-01 07:27:21', 'OKAYAUSR00', '::1', 'dvdfvdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, '2026-04-01 07:27:21', '2026-04-01 07:27:21', 'OKAYAUSR00', '::1', 'dvdfvdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'scsd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'dfgd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'gfhrt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'rttr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'juyj', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'yuu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'uiku', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'uiu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'u', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'yuu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'ry', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'trttrhtrhh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'fg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, '2026-04-01 10:53:42', '2026-04-01 10:53:42', 'test', '::1', 'ertet', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, '2026-04-02 07:44:52', '2026-04-02 07:44:52', 'test', '::1', NULL, 'SCSCDS', 'SDC@SCSD.COM', '3232342343', 'SDSD$333223423%%%%', 'FDSSDCSDDSD', 'SDCDSDS', 'SDDCDC', NULL, NULL),
+(19, '2026-04-02 09:28:49', '2026-04-02 09:28:49', 'test', '::1', NULL, 'SDSDSDD', 'DCS@GMAIL.COM', '1736128371', 'DCBCVJDSVCJV$$$$%%%%', 'DCSDC$%^&*()', 'DCSDSD)(*&^%', 'DCSDCSD', NULL, NULL),
+(20, '2026-04-02 09:31:02', '2026-04-02 09:31:02', 'test', '::1', NULL, 'SDSDSDCS', 'SDC@SDCSD.COM', '1231231231', 'DDSSDDC', 'DCSDSCDC', 'SDSDC', 'SDDCDS', NULL, NULL),
+(21, '2026-04-02 09:33:12', '2026-04-02 09:33:12', 'test', '::1', NULL, 'SDSD', 'SDCDS@DSC.CD', '1113523854', 'CSDDS', 'SDSD', 'SDDS', 'DSCDC', NULL, NULL),
+(22, '2026-04-02 09:33:12', '2026-04-02 09:33:12', 'test', '::1', NULL, 'SDSD', 'SDCDS@DSC.CD', '1113523854', 'CSDDS', 'SDSD', 'SDDS', 'DSCDC', NULL, NULL),
+(23, '2026-04-02 11:11:34', '2026-04-02 11:11:34', NULL, NULL, NULL, 'sds', 'ss@gmail.com', '1234567890', 'sdcdsc', 'sdds', 'dsdsc', 'ds', NULL, NULL),
+(24, '2026-04-02 12:18:34', '2026-04-02 12:18:34', NULL, NULL, 'sddscdc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, '2026-04-02 12:18:45', '2026-04-02 12:18:45', NULL, NULL, 'Manu Pathak', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, '2026-04-02 12:30:03', '2026-04-02 12:30:03', NULL, NULL, 'Manu Pathak', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, '2026-04-03 11:11:51', '2026-04-03 11:11:51', NULL, NULL, NULL, 'sdsd', 'dsc@cc.com', '1231232131', 'sddsdsc', 'sddscs', 'sddscds', 'sdcdscdc', NULL, NULL),
+(28, '2026-04-06 09:25:12', '2026-04-06 09:25:12', 'test', '::1', NULL, 'scdsds', 'sd@sdcd.com', '1231231232', 'sddscs', 'sddsdc', 'cdscdsdc', 'scs', '2026-04-06', '1775467512_image.png');
 
 -- --------------------------------------------------------
 
@@ -4371,6 +4459,20 @@ CREATE TABLE `fms_candouruser` (
   `updated_by` varchar(10) DEFAULT NULL,
   `updated_ip` varchar(40) DEFAULT NULL,
   `Nam3` varchar(12) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fms_flipkart_user`
+--
+
+CREATE TABLE `fms_flipkart_user` (
+  `id` int(11) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` varchar(10) DEFAULT NULL,
+  `updated_ip` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -4398,8 +4500,10 @@ CREATE TABLE `fms_master` (
 --
 
 INSERT INTO `fms_master` (`id`, `fmsname`, `details`, `steps`, `total_form`, `created_at`, `updated_at`, `updated_by`, `updated_ip`, `status`, `table_name`) VALUES
-(47, 'adminuser', 'wew', 1, 1, '2026-03-30 12:57:10', '2026-03-30 12:57:10', 'test', '::1', 1, 'fms_adminuser'),
-(48, 'candouruser', 'ddsc', 12, 212, '2026-03-30 12:57:10', '2026-03-30 12:57:10', 'test', '::1', 1, 'fms_candouruser');
+(47, 'adminuser123', 'wew', 1, 1, '2026-03-30 12:57:10', '2026-04-01 07:28:28', 'OKAYAUSR002', '::1', 1, 'fms_adminuser'),
+(48, 'candouruser', 'ddsc', 12, 212, '2026-03-30 12:57:10', '2026-03-30 12:57:10', 'test', '::1', 1, 'fms_candouruser'),
+(52, 'flipkart user', 'dcsdcsk', 1, 2, '2026-04-01 06:41:28', '2026-04-01 06:41:28', 'test', '::1', 1, 'fms_flipkart_user'),
+(53, 'flipkart user', 'dcsdcsk', 1, 2, '2026-04-01 06:41:28', '2026-04-01 06:41:28', 'test', '::1', 1, 'fms_flipkart_user');
 
 -- --------------------------------------------------------
 
@@ -4434,7 +4538,8 @@ CREATE TABLE `form_master` (
 
 INSERT INTO `form_master` (`id`, `created_date`, `updated_date`, `created_by`, `updated_by`, `updated_ip`, `form_id`, `form_name`, `fms_id`, `parameter_name`, `display_name`, `type`, `length`, `api_key_value`, `validation_type`, `status`, `param_require`, `frm_seq`) VALUES
 (69, '2026-03-30 12:57:31', '2026-03-30 12:57:31', 'test', 'test', '::1', '12', 'Manager', '47', '[\"Nam3\"]', '[\"dsds\"]', '[\"1\"]', '[\"12\"]', NULL, NULL, 1, '[\"1\"]', 1),
-(70, '2026-03-30 12:57:31', '2026-03-30 12:57:31', 'test', 'test', '::1', '12', 'Manager', '48', '[\"Nam3\"]', '[\"dsds\"]', '[\"1\"]', '[\"12\"]', NULL, NULL, 1, '[\"1\"]', 1);
+(70, '2026-03-30 12:57:31', '2026-03-30 12:57:31', 'test', 'test', '::1', '12', 'Manager', '48', '[\"Nam3\"]', '[\"dsds\"]', '[\"1\"]', '[\"12\"]', NULL, NULL, 1, '[\"1\"]', 1),
+(74, '2026-04-01 10:59:19', '2026-04-01 10:59:19', 'test', 'test', '::1', '12', 'human_Recourse Department', '47', '[\"name\",\"email\",\"phone_number\",\"address\",\"password\",\"state\",\"city\",\"date\",\"file\"]', '[\"HR Name\",\"Email\",\"HR Number\",\"HR Address\",\"Password\",\"state\",\"City\",\"current date\",\"Filetype\"]', '[\"1\",\"2\",\"3\",\"1\",\"4\",\"1\",\"1\",\"5\",\"7\"]', '[\"12\",\"20\",\"10\",\"50\",\"12\",\"12\",\"12\",\"12\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"0\",\"0\",\"1\",\"0\"]', 1);
 
 -- --------------------------------------------------------
 
@@ -4456,33 +4561,43 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('01piuqh90rfve655etd09kjada', '1763383813', 11),
 ('0g52u431pvecn9s36a9to7sh0p', '1763107379', 5),
 ('0i38kt1ff3tse9dc8h1h13l41t', '1764741378', 44),
+('0isc03uubljku3ud6r47fsrlsv', '1775207579', 195),
 ('0lacrt707t4mvbdft5akcmhjca', '1774845301', 146),
+('0mmc19l5ou4l29dqiedmro43j8', '1775034090', 168),
 ('0vrnh1tonr49msd4fqf8kb2ud0', '1763551144', 18),
 ('11p8ui27td64gvp2ijjh8p8ht5', '1774356672', 122),
 ('124geev3g8kjb768udampaiefn', '1763384107', 12),
 ('1507s0mtdd7f3ing4jn7k8torp', '1763618897', 22),
 ('1p2q5604lvte47ttbb8c73egp3', '1774518264', 133),
 ('1tnfja3cdqgcdfsho9or2sevhu', '1774326552', 114),
+('2jmsld37cu6qm41hrq1erqbecg', '1775207234', 191),
 ('2licgrshb0pn9nft327d12bpvk', '1773981612', 100),
 ('2ptfea7rb4m3fvrcf0f8d7nsfs', '1774262645', 110),
+('2vnkhlht2ghho7er6f5hu45clp', '1775207327', 192),
 ('3aoioe3lnsteef68isq6j5jitv', '1764310397', 37),
 ('3c0lf8hbeb6hmiibrn0go01mi6', '1773897598', 85),
+('3cg3fb8lnlk04oedqli44isg27', '1775202356', 187),
 ('3dspl5tphnfsbkmr3cqllccosd', '1774960918', 163),
 ('3gtcpbtibk8o76ig96dqatebog', '1764672272', 40),
 ('3i2pc38a6chsovpof7leupv86c', '1774606066', 142),
 ('3knbqdvsk7ebmsucnaps3fm95p', '1773897416', 84),
 ('3mievb4u1pavkmgkr2bjsdikk7', '1769346199', 58),
+('3uin6tcm2iuek2sh2bgdg4d6sl', '1775468542', 205),
 ('435ap11cpicjfqotvltre1sl64', '1763384385', 13),
 ('468m3brkfulnsg07od289fc2ph', '1764768289', 50),
 ('5e0jqnmgl5sdhsblbcsuuo8lr4', '1774589966', 138),
+('5ghmktmjci6iq809npog28nfj3', '1775121957', 177),
 ('5kp69ref2fl3o0l65unlhbocsa', '1763615783', 19),
+('5mg3n6vhb51en0mh1s3s4a6j14', '1775202913', 188),
 ('5nvkb4cpm24q3kknor5p3n8l06', '1773850722', 77),
 ('5pevi956ghrr52ban0m26dd8h5', '1764760315', 48),
 ('5rfag0mec94cc6btr1qbqsj9bt', '1763622354', 27),
+('5t48oga6o0illk7vj1c5aktg43', '1775459495', 203),
 ('60g917vdiq9stboi32g9325p0q', '1774861295', 149),
 ('60la79fhai1vnl5hg65rshdg1b', '1763535760', 15),
 ('61g79h0sae4oetoqmvdcakkqgb', '1764824316', 51),
 ('62lkit7pf835apdcse60mn4qa5', '1774930754', 154),
+('62mel2o1745k7t6h0p769ulmk7', '1775208523', 197),
 ('664fto6i7q7i567tqkgmo6vcd9', '1774251150', 107),
 ('6a24p5dp5afage0091mhlaidme', '1764846062', 56),
 ('6b6ksbugg65mo0vr0mf157ejcl', '1773910644', 93),
@@ -4491,31 +4606,44 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('6hbt8sbuee245j8sdu8t9rcq89', '1773898229', 89),
 ('6jbu2mk5kt9clp28t4ro0fp152', '1774418168', 124),
 ('6ofvnm6llphsgp9ttvn6hnt18d', '1774350158', 120),
+('6regq12nvb1aa377d1a6j25062', '1775202950', 189),
+('704nv9jl8ffmtjcv2j43sdi8g5', '1775207544', 194),
 ('73ldi9omq0abcdle7rnmdi4hjl', '1763623944', 28),
 ('76dnd584h12e9elhurbl2odv0t', '1773924510', 99),
 ('770q20l4apvlvrhcmu4o6drmv3', '1764745170', 45),
 ('7cr3h6aaep4bde7jvmrldcoipn', '1774340435', 117),
 ('7ij41fgi9el4a8rb9oluni5nve', '1774854672', 148),
+('7k4dg41k0oeban6i8594ioo8n8', '1775206705', 190),
 ('7ng9ku8h8doasoh2u096jtdtgp', '1773908966', 90),
 ('7qv07o0jfr9tmjfjuitdu9hb2h', '1763618328', 21),
 ('7v9nq5s85m7ibe89jbb6i038vt', '1774522140', 134),
 ('7vni7o8sca5hs31bjiaqbn83vv', '1773882753', 80),
 ('84od6r5j053648558f1i2rsclk', '1774506581', 130),
 ('8a1oac5kmi47fhqvcbe6ncn7de', '1764832048', 53),
+('8g84077t0320ap6420odiav05l', '1775189350', 181),
+('8h2ji8t2ighm7e9jqt8au7jt49', '1775045796', 171),
+('8h44msk379e2idipon9lu471td', '1775041611', 170),
 ('8mps6pseu0vg90ktmj9n4ltbam', '1763121819', 6),
 ('8o0onk6h7m6d8fku02lois26jh', '1764152730', 35),
 ('8o3aga6gk5omnekeljc43r2h6a', '1773850509', 72),
+('8p6igvf3e646896919kmknnd7p', '1775022347', 165),
 ('92ackpihr6avh7g8knmh617rjv', '1774942449', 157),
 ('93v56cvlpehlgttcckqjda43nv', '1774865049', 150),
 ('94hh1tknoe7uncoogcjfo1it54', '1774953474', 160),
 ('96r0gauetrcnedaa70rjkcbbuv', '1774499318', 128),
 ('975a6krdp2rapob2cr7f724a6i', '1764156364', 36),
+('97kramj9i74a5j30vckuanhevs', '1775449924', 201),
+('9eg0sasdij2s86m83i0eq9sn7j', '1775212706', 198),
 ('9helb6dhghj2polboircg7oi7h', '1774949815', 159),
 ('9k3j50l07r6pfftgqi2mqh20nl', '1763988615', 31),
 ('9moqb0kigv9flult680rg0vcrr', '1774586244', 137),
 ('9q6u71hhdo8ga87fl9jmtcni7g', '1763619134', 24),
+('9sj9obcvmffqv6bic5hcjjd7v9', '1775200662', 185),
+('a76tk6ppoa7qke5fb6ke4kuc19', '1775481113', 207),
 ('agbl6r9oi6ssha2bacn74plsk9', '1774613467', 144),
 ('al91dinsmebsu974tdj21o1vqm', '1764838816', 54),
+('as509vp2e3o30j31coscuigl0p', '1775134978', 180),
+('atc8mi4v2j57g0ef7lidaue1v1', '1775114065', 174),
 ('auo95dlgmglevrd5jivvapct3g', '1774243576', 105),
 ('b74ds90eo1hvlultcnh04tk586', '1773920594', 98),
 ('b9a6uj3kubrce6pfn4q7dg1vik', '1774850903', 147),
@@ -4524,6 +4652,8 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('boj5o35uah44ql4lnu80suqpkc', '1774876213', 153),
 ('bs6fua4vj085chtjfueldthejj', '1774938772', 156),
 ('buki7a27qh4scip5o3512o5pf5', '1774435579', 126),
+('bv0per4q67cb9nppeqtf1pp2ta', '1775193411', 183),
+('ccke7jk8s4sql4e9t84l7e3slt', '1775104307', 172),
 ('cucfs906fpb7gnf9dhmoau8q01', '1773909384', 92),
 ('d12ct8qbvb3gkm0cnvv3g8basr', '1764850358', 57),
 ('d39lp0u1f4bpfrc6tpoo8vrmsc', '1763364863', 10),
@@ -4537,10 +4667,12 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('elike2adrqttqh439cc96enjb5', '1764668935', 39),
 ('f3iefajlrelo8sbmqrmnekste9', '1774868887', 151),
 ('f5qc88vho5v7r4d3dj0vamqlve', '1774530318', 136),
+('fg550gkbg2jcvo986508dbrugc', '1775208150', 196),
 ('fljr003rcho6atcg715fqd1jsd', '1774414514', 123),
 ('fnm7m1rllqvldb72bldag6ci8r', '1763622318', 26),
 ('fqdu9bbq09062v0o3ctv4d9320', '1763616837', 20),
 ('g4u930js8ld829u2sl78pkfq01', '1774342884', 118),
+('g72r7ii2a94c24ufd3rtoeij5q', '1775117791', 176),
 ('g7q69h0b43q9v91ap0gd4v795t', '1774502944', 129),
 ('gchkqo2rhdegb6o9a1i44q59s5', '1774263391', 111),
 ('h41pmhu68v28b19o43b81neilo', '1774270632', 113),
@@ -4548,6 +4680,7 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('h64ptf9dhfln54ertvk1pg059u', '1763362856', 9),
 ('h963bmsqvg087einhsl2jhskno', '1764752691', 46),
 ('hdm210vql22fa6ebcd4temd8hn', '1774267014', 112),
+('hepelo1ro1p4b9vqmf2v6jo9v8', '1775025811', 166),
 ('hokvaio77ptmul50okf5s3pfie', '1774353066', 121),
 ('hudnavlrh0klmdjcgj0qkje7ea', '1762866990', 2),
 ('i02cirs1v7the78h8d6cjcc886', '1763719720', 29),
@@ -4562,32 +4695,48 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('j2cvkqqdgi6jensv4d02n0jir3', '1774960824', 162),
 ('j532pb1vl1fi631186837fdn4h', '1774602296', 141),
 ('jdf7v675t20eqgoaujoi5hs84f', '1764681864', 42),
+('jfn0949q7dlbp0jdv3ug6a7i3i', '1775202318', 186),
 ('jod9qmc4am3v005cr2418b22hg', '1773850552', 74),
 ('jqgo1lfs010l369fi6ak58ckvn', '1763619034', 23),
+('jsccie56dkkgjflrbp8oeqkd58', '1775107924', 173),
 ('k2png9ur0pogd4ek2disi0l4r2', '1762864034', 1),
 ('k8obburi2tmn3g5b705tgelf1k', '1763010963', 3),
 ('kff6tor7c99cjjcfc1ri2g0ovf', '1774946165', 158),
 ('kir0c0nlhk6f5dtbleqaq7q7bb', '1764665322', 38),
+('kvtt49gisoa4ennhu7f2g5na13', '1775125579', 178),
+('lm1rdq7dhf50n2uicrjr7j0qug', '1775197020', 184),
+('lt9urt0csnb3vqf53hcbkc4t2q', '1775037711', 169),
 ('mgi36tmms28errh2j8hckot0se', '1773909082', 91),
 ('mk0qfgq81595cvluair0ndkivi', '1764737773', 43),
+('mqi3b6tohudf47fnkro3k16qrc', '1775207415', 193),
 ('mrok7bjmuims2lpsoed2p7ahed', '1773992674', 103),
 ('n0cbqi1p37j3ce5liab25vjv9s', '1763121842', 7),
+('niru0jkbhc2k9aelkoc380vvpl', '1775117791', 175),
 ('nob5nkb2k6veu6gvtruf5ptq8r', '1773896667', 82),
 ('o93orob0fe8cn4il8hru0d27u9', '1774872515', 152),
 ('ofppthsmc1pa86664kiee05rsk', '1773897051', 83),
 ('p39847apkf78behufdpjrhshj6', '1773913036', 96),
 ('p6ro3jab1vgk9g56cf3t1svc3o', '1764764318', 49),
+('p94ug6j455oco3gv61ui9okphj', '1775189355', 182),
 ('pas5hn2m049vf1jv5e1grkr454', '1773850534', 73),
+('pqlkn99akhfb0o0qtsvfrifmnh', '1775026026', 167),
+('q0kdfa6988mm691r8be08u0sir', '1775215482', 199),
 ('q112m2ovksb2cmr6f559mr3a68', '1763384525', 14),
 ('q6rhah2q8jufbsq927rgq9ini3', '1764152027', 34),
+('qa8emhei0nu74ik2sc9n78l24p', '1775477015', 206),
 ('qd68i3112ki2i8o2nmhhc7dn3u', '1773912777', 94),
 ('qm28ig0reuek2ir91i4peljrha', '1773848913', 59),
+('qscp658g87l5h3d3ul1foagp8c', '1775455828', 202),
 ('r1djhkm0aail3h2akm9dq3s9vc', '1764756497', 47),
+('r2cu1r7986p6aa3g0kbgjtkd8v', '1775129285', 179),
+('r7f3hg3blmmd19vfuse2hcbo45', '1775018665', 164),
 ('r9dngq36qpnqc9pjgo2ejinfe5', '1774593594', 139),
 ('rf6jnv65de54g0oaei2sjurmin', '1773897708', 86),
 ('rg10u29utpeehb8fm39f1sqna5', '1774616333', 145),
+('rm2b7ujqvm8b9jn3vqo8p8keoj', '1775219089', 200),
 ('s9nq6k7sbiaqaek5rjrlhjuu5r', '1773850571', 75),
 ('sg6m3t7vgilfk0ot8k8lrr3cgp', '1764678130', 41),
+('sktqu8gpvvudtvjp68fbm70u26', '1775464902', 204),
 ('sm6cve1l2i9qkjm17sb4mlq4qe', '1774525751', 135),
 ('so6pj4nak2uje7r5oo18nh3maf', '1764828385', 52),
 ('suo8ljq5nu1e331e6qu86rjcr5', '1774254967', 108),
@@ -4806,7 +4955,56 @@ INSERT INTO `login_attemps` (`sr_no`, `user_agent`, `user_ip`, `result`, `timest
 (179, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1774960824),
 (180, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1774960897),
 (181, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1774960901),
-(182, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1774960918);
+(182, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1774960918),
+(183, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1775018653),
+(184, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775018665),
+(185, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1775022329),
+(186, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1775022333),
+(187, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775022347),
+(188, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775025811),
+(189, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775026026),
+(190, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775034090),
+(191, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775037711),
+(192, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775041611),
+(193, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775045796),
+(194, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775104306),
+(195, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775107924),
+(196, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775114065),
+(197, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775117791),
+(198, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775117791),
+(199, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775121957),
+(200, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775125579),
+(201, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775129285),
+(202, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775134978),
+(203, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775189346),
+(204, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775189349),
+(205, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775193411),
+(206, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775197020),
+(207, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775200662),
+(208, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775202318),
+(209, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775202356),
+(210, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775202913),
+(211, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1775202945),
+(212, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775202950),
+(213, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 0, 1775206682),
+(214, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775206705),
+(215, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775207234),
+(216, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775207327),
+(217, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775207415),
+(218, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775207544),
+(219, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775207579),
+(220, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775208149),
+(221, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775208523),
+(222, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775212706),
+(223, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775215482),
+(224, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775219089),
+(225, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775449924),
+(226, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775455828),
+(227, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775459495),
+(228, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775464902),
+(229, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775468542),
+(230, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775477015),
+(231, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775481113);
 
 -- --------------------------------------------------------
 
@@ -4990,7 +5188,51 @@ INSERT INTO `login_history` (`sr_no`, `user_id`, `session`, `login_time`, `login
 (160, 'test', '94hh1tknoe7uncoogcjfo1it54', '2026-03-31 16:07:54', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
 (161, 'test', 'tfd2g03mnl8e982pm50ot4tr24', '2026-03-31 17:11:01', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
 (162, 'OKAYAUSR002', 'j2cvkqqdgi6jensv4d02n0jir3', '2026-03-31 18:10:24', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
-(163, 'test', '3dspl5tphnfsbkmr3cqllccosd', '2026-03-31 18:11:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36');
+(163, 'test', '3dspl5tphnfsbkmr3cqllccosd', '2026-03-31 18:11:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(164, 'test', 'r7f3hg3blmmd19vfuse2hcbo45', '2026-04-01 10:14:25', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(165, 'test', '8p6igvf3e646896919kmknnd7p', '2026-04-01 11:15:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(166, 'OKAYAUSR002', 'hepelo1ro1p4b9vqmf2v6jo9v8', '2026-04-01 12:13:31', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(167, 'test', 'pqlkn99akhfb0o0qtsvfrifmnh', '2026-04-01 12:17:06', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(168, 'test', '0mmc19l5ou4l29dqiedmro43j8', '2026-04-01 14:31:30', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(169, 'test', 'lt9urt0csnb3vqf53hcbkc4t2q', '2026-04-01 15:31:51', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(170, 'test', '8h44msk379e2idipon9lu471td', '2026-04-01 16:36:51', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(171, 'test', '8h2ji8t2ighm7e9jqt8au7jt49', '2026-04-01 17:46:36', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(172, 'test', 'ccke7jk8s4sql4e9t84l7e3slt', '2026-04-02 10:01:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(173, 'test', 'jsccie56dkkgjflrbp8oeqkd58', '2026-04-02 11:02:04', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(174, 'test', 'atc8mi4v2j57g0ef7lidaue1v1', '2026-04-02 12:44:25', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(175, 'test', 'niru0jkbhc2k9aelkoc380vvpl', '2026-04-02 13:46:31', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(176, 'test', 'g72r7ii2a94c24ufd3rtoeij5q', '2026-04-02 13:46:31', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(177, 'test', '5ghmktmjci6iq809npog28nfj3', '2026-04-02 14:55:57', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(178, 'test', 'kvtt49gisoa4ennhu7f2g5na13', '2026-04-02 15:56:19', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(179, 'test', 'r2cu1r7986p6aa3g0kbgjtkd8v', '2026-04-02 16:58:05', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(180, 'test', 'as509vp2e3o30j31coscuigl0p', '2026-04-02 18:32:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(181, 'test', '8g84077t0320ap6420odiav05l', '2026-04-03 09:39:08', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(182, 'test', 'p94ug6j455oco3gv61ui9okphj', '2026-04-03 09:39:14', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(183, 'test', 'bv0per4q67cb9nppeqtf1pp2ta', '2026-04-03 10:46:51', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(184, 'test', 'lm1rdq7dhf50n2uicrjr7j0qug', '2026-04-03 11:47:00', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(185, 'test', '9sj9obcvmffqv6bic5hcjjd7v9', '2026-04-03 12:47:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(186, 'test', 'jfn0949q7dlbp0jdv3ug6a7i3i', '2026-04-03 13:15:18', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(187, 'test', '3cg3fb8lnlk04oedqli44isg27', '2026-04-03 13:15:56', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(188, 'test', '5mg3n6vhb51en0mh1s3s4a6j14', '2026-04-03 13:25:13', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(189, 'test', '6regq12nvb1aa377d1a6j25062', '2026-04-03 13:25:50', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(190, 'test', '7k4dg41k0oeban6i8594ioo8n8', '2026-04-03 14:28:25', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(191, 'test', '2jmsld37cu6qm41hrq1erqbecg', '2026-04-03 14:37:14', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(192, 'test', '2vnkhlht2ghho7er6f5hu45clp', '2026-04-03 14:38:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(193, 'test', 'mqi3b6tohudf47fnkro3k16qrc', '2026-04-03 14:40:15', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(194, 'test', '704nv9jl8ffmtjcv2j43sdi8g5', '2026-04-03 14:42:24', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(195, 'test', '0isc03uubljku3ud6r47fsrlsv', '2026-04-03 14:42:59', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(196, 'test', 'fg550gkbg2jcvo986508dbrugc', '2026-04-03 14:52:30', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(197, 'test', '62mel2o1745k7t6h0p769ulmk7', '2026-04-03 14:58:43', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(198, 'test', '9eg0sasdij2s86m83i0eq9sn7j', '2026-04-03 16:08:26', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(199, 'test', 'q0kdfa6988mm691r8be08u0sir', '2026-04-03 16:54:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(200, 'test', 'rm2b7ujqvm8b9jn3vqo8p8keoj', '2026-04-03 17:54:49', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(201, 'test', '97kramj9i74a5j30vckuanhevs', '2026-04-06 10:02:04', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(202, 'test', 'qscp658g87l5h3d3ul1foagp8c', '2026-04-06 11:40:28', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(203, 'test', '5t48oga6o0illk7vj1c5aktg43', '2026-04-06 12:41:35', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(204, 'test', 'sktqu8gpvvudtvjp68fbm70u26', '2026-04-06 14:11:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(205, 'test', '3uin6tcm2iuek2sh2bgdg4d6sl', '2026-04-06 15:12:22', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(206, 'test', 'qa8emhei0nu74ik2sc9n78l24p', '2026-04-06 17:33:35', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(207, 'test', 'a76tk6ppoa7qke5fb6ke4kuc19', '2026-04-06 18:41:53', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36');
 
 -- --------------------------------------------------------
 
@@ -5025,11 +5267,20 @@ CREATE TABLE `operation_rights` (
 --
 
 INSERT INTO `operation_rights` (`id`, `userid`, `tabid`, `maintab`, `subtab`, `add_rgt`, `edit_rgt`, `view_rgt`, `cancel_rgt`, `print_rgt`, `download_rgt`, `approval_rgt`, `approval_rgt2`, `approval_rgt3`, `block_from`, `block_to`, `block_add`, `block_edit`, `block_price`) VALUES
-(500, 'VOUSR014', 33, NULL, NULL, 'N', 'N', 'Y', 'N', 'Y', 'Y', 'N', '', '', '2025-08-31', '2025-08-31', 'Y', 'Y', 'N'),
-(8340, 'test', 293, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(8339, 'test', 290, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(8338, 'test', 292, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(8337, 'test', 1, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y');
+(1, 'test', 1, NULL, NULL, 'Y', 'Y', 'Y', 'N', 'N', 'N', 'N', '', '', '2026-04-02', '2026-04-02', '', '', 'N'),
+(2, 'test', 292, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(3, 'test', 290, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(4, 'test', 293, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(5, 'test', 4, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(6, 'test', 2, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(7, 'test', 65, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(8, 'test', 189, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(9, 'test', 248, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(10, 'test', 270, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(11, 'test', 197, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(12, 'test', 119, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(13, 'test', 222, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(14, 'test', 263, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N');
 
 -- --------------------------------------------------------
 
@@ -5051,7 +5302,11 @@ INSERT INTO `parameter_type` (`pt_id`, `type`, `status`) VALUES
 (1, 'Gentral Text', 1),
 (2, 'email', 1),
 (3, 'number', 1),
-(4, 'password', 1);
+(4, 'password', 1),
+(5, 'Date', 1),
+(6, 'Date and Time', 1),
+(7, 'File- Pdf/Images', 1),
+(8, 'Dropdown', 1);
 
 -- --------------------------------------------------------
 
@@ -5581,6 +5836,12 @@ ALTER TABLE `designation`
   ADD PRIMARY KEY (`des_id`);
 
 --
+-- Indexes for table `dropdown_master`
+--
+ALTER TABLE `dropdown_master`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
@@ -5596,6 +5857,12 @@ ALTER TABLE `fms_adminuser`
 -- Indexes for table `fms_candouruser`
 --
 ALTER TABLE `fms_candouruser`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fms_flipkart_user`
+--
+ALTER TABLE `fms_flipkart_user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -5689,19 +5956,19 @@ ALTER TABLE `usertype_master`
 -- AUTO_INCREMENT for table `access_fms`
 --
 ALTER TABLE `access_fms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `access_role_tab`
 --
 ALTER TABLE `access_role_tab`
-  MODIFY `id` int(55) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(55) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
 
 --
 -- AUTO_INCREMENT for table `access_tab`
 --
 ALTER TABLE `access_tab`
-  MODIFY `sno` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2496;
+  MODIFY `sno` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2502;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
@@ -5719,7 +5986,13 @@ ALTER TABLE `city_master`
 -- AUTO_INCREMENT for table `daily_activities`
 --
 ALTER TABLE `daily_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=326;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=346;
+
+--
+-- AUTO_INCREMENT for table `dropdown_master`
+--
+ALTER TABLE `dropdown_master`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -5731,7 +6004,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `fms_adminuser`
 --
 ALTER TABLE `fms_adminuser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `fms_candouruser`
@@ -5740,40 +6013,46 @@ ALTER TABLE `fms_candouruser`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `fms_flipkart_user`
+--
+ALTER TABLE `fms_flipkart_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `fms_master`
 --
 ALTER TABLE `fms_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `form_master`
 --
 ALTER TABLE `form_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `login_attemps`
 --
 ALTER TABLE `login_attemps`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `operation_rights`
 --
 ALTER TABLE `operation_rights`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8341;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `parameter_type`
 --
 ALTER TABLE `parameter_type`
-  MODIFY `pt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `purchse`

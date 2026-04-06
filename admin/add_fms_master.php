@@ -54,7 +54,7 @@ if(isset($_POST['add'])){
     try{
         $tablename='fms_'.$tablename;
         $response=$fms->addOperation($data,$_SESSION['userid'],$tablename);
-        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"fms","CREATE",$_SERVER['REMOTE_ADDR'],$link1,true);
+        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"ArrayList","CREATE",$_SERVER['REMOTE_ADDR'],$link1,true);
         // $res23=($response['status'] && $flag)
         if($response['status'] && $flag){
             $fms->redirect("success",$response['msg']);
@@ -84,7 +84,7 @@ if(isset($_POST['update'])){
 
     try{
         $resUp=$fms->updateOperation($data,$_SESSION['userid'],$fms_id);
-        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"fms","UPDATED",$_SERVER['REMOTE_ADDR'],$link1,true);
+        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"ArrayList","UPDATED",$_SERVER['REMOTE_ADDR'],$link1,true);
         if($resUp['status'] &&  $flag){
             $show=$resUp['msg'];
 //            header("location:add_fms_master.php?pid=$pid&hid=$hid&msg=".$response['msg']);
@@ -376,6 +376,31 @@ include("../includes/connection_close.php");
     document.querySelectorAll("input").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
+
+    function LNode(data){
+        this.data=data;
+        this.next=null;
+    }
+    function LinkedList(){
+        this.head=null;
+    }
+    LinkedList.prototype.addNode=function (data){
+        const node=new LNode(data);
+        if(this.head===null){
+            this.head=node;
+            return;
+        }
+        let tmep=this.head;
+        while (tmep===null){
+            tmep=temp.next;
+        }
+        temp=node;
+    }
+    const list=new LinkedList();
+    list.addNode(12);
+    list.addNode(14);
+    list.addNode(15);
+
 </script>
 </body>
 </html>

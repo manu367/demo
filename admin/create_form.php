@@ -49,7 +49,7 @@ $hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
 
 if(isset($_POST['save']))
 {
-
+    var_dump($_POST);exit();
    $fmsid=$_POST['fmsid'];
    $frmName=$_POST['frm_name'];
    $frm_seq=$_POST['frm_seq'];
@@ -62,7 +62,7 @@ if(isset($_POST['save']))
     $paraName = json_encode(array_map(function($val){
         $val = trim($val);
         $val = preg_replace('/\s+/', '_', $val);
-        return $val;}, $_POST['param_name']));
+        return strtolower($val);}, $_POST['param_name']));
     $displayName = json_encode($_POST['display_name']);
     $type=json_encode($_POST['type']);
     $length=json_encode($_POST['length']);
@@ -78,11 +78,8 @@ if(isset($_POST['save']))
             "length"=>$length,
         "check"=>$check,
             ];
-
-
-
+    
     $response=$formoperation->addForm($fmsid,$data,$_SESSION['userid']);
-
 
     try{
         $status_column=$formoperation->addColumnInTable($fms_data['table_name'],$_POST['param_name'],$_POST['type'],$_POST['length']);
@@ -102,6 +99,7 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
+    var_dump($_POST);exit();
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $old_column=$_POST['old_column'];
@@ -120,7 +118,7 @@ if(isset($_POST['update']))
         $newColumnName=$_POST['param_name'][$i];
 
         // space convert into the _ underscore
-        $newColumnName = trim($newColumnName);
+        $newColumnName = strtolower(trim($newColumnName));
         $newColumnName = preg_replace('/\s+/', '_', $newColumnName);
 
 
@@ -210,6 +208,8 @@ if($operation==='save'){
     $isPermission=PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
 }
 
+
+$selectedBox=showDropDown_master($link1);
 ?>
 
 
@@ -342,6 +342,8 @@ if($operation==='save'){
     </style>
 </head>
 <body>
+<div style="display:none"><?=$selectedBox?>
+</div>
 <?php
 if(isset($_REQUEST['msg'])):?>
     <div id="errorPopup" class="toast">
@@ -364,6 +366,7 @@ if(isset($_REQUEST['msg'])):?>
         }
     });
 </script>
+
 
 <div class="container-fluid">
     <div class="row content">
@@ -512,6 +515,9 @@ if(isset($_REQUEST['msg'])):?>
                         <button type="submit" style="text-transform: capitalize" name="<?=$operation?>" class="btn btn-success"><?=$operation?></button>
                         <a href="form_master.php?id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
                     </div>
+
+
+
                 </form>
                 <?php } ?>
         </div>
@@ -659,18 +665,6 @@ function showAlert(message, type = "success", duration = 3000) {
         });
     }
     checkboxvalue();
-
-    // const form=document.getElementById("frm1");
-    //     form.addEventListener("submit",function(e){
-    //         const fom=new FormData();
-    //         fom.append("manu",'hello_bro');
-    //     if(true){
-    //         form.submit();
-    //     }else{
-    //         e.preventDefault();
-    //     }
-    //
-    // })
 </script>
 <script>
     document.querySelectorAll("input").forEach((cell) => {
@@ -679,6 +673,26 @@ function showAlert(message, type = "success", duration = 3000) {
     document.querySelectorAll("select").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
+
+
+
+
+    const selectbox="<?=showDropDown_master($link1)?>";
+    document.querySelectorAll("select").forEach((select_box)=>{
+        select_box.addEventListener("change", function(e){
+            if (e.target.value==='8'){
+                const td=e.target.parentElement.nextElementSibling;
+                const input = td.querySelector("input");
+                if(input){
+                    input.value = 50;
+                }
+                // console.log(input.value,input);
+                input.style.display="none";
+                td.insertAdjacentHTML("beforeend", `<?=$selectedBox?>`);
+            }
+        })
+    });
+
 </script>
 </body>
 </html>

@@ -2,6 +2,14 @@
 require_once("../includes/config.php");
 global $link1;
 
+/*
+ #######################################
+   Globally Page Exception Handling here
+   -> Here we are Creating Custom Exception Handling "GlobalException" Whose handle all un-expected problems from here and 
+    redirect to update_permission_3 Page
+  -> Handle by $_REQUEST['type'] || $_REQUEST['msg']
+ #######################################
+*/
 set_exception_handler(function ($exception) {
     if($exception instanceof GlobalException){
         header('location:update_permission_3.php?'.$exception->getMessage());
@@ -11,8 +19,15 @@ set_exception_handler(function ($exception) {
 
 
 
-
+// here we are checking the user id -> if user id is not contain in request then we are used by default value (Session User id)
 $userid=isset($_REQUEST['userid'])?$_REQUEST['userid']:$_SESSION['userid'];
+/*
+ *  Creating UpdatePermssion object-> UpdatePermssion
+ *  are basically Manage Permission Operation :
+ *  Note : When You will wan to use UpdatePermssion anywheere 
+ *    then you will you 2 function as a helper function
+    setConnection , setUserid
+ */
 $updatepermission=new UpdatePermission();
 $updatepermission->setConnection($link1);
 $updatepermission->setUserid($userid);
@@ -74,11 +89,28 @@ if ($_POST['update_home']) {
     }
 }
 
+
+/**
+ * whene user want to update ArrayList permssion then this block is run
+ * 
+ * Flow of Saving the FMS in DB
+ * Step 1.  reset all FMS Permssion fas
+ *  using resentAllFMSPermission(user_id)
+ * 
+ * Step 2. when user submit the ArrayList then all ArrayList store in array $_POST (ArrayList[])
+ * so that we can retrive all data and store in single unit for future processing 
+ * and call updateFMSPermission(fms_id,userid)) => ArrayList already store then updated otherwise inserted based on user_id
+ * 
+ * Step 3= Every things is Updated then redirect to pages
+*/
+
 if($_POST['update_fms_permission']){
+    $user_id_=$_POST['userid'];
+
     $flag=flase;
-    $updatepermission->resentAllFMSPermission($_SESSION['userid']);
-    for($i=0;$i<count($_POST['fms']);$i++){
-        $flag=$updatepermission->updateFMSPermission($_POST['fms'][$i],$_SESSION['userid']);
+    $updatepermission->resentAllFMSPermission($user_id_);
+    for($i=0;$i<count($_POST['ArrayList']);$i++){
+        $flag=$updatepermission->updateFMSPermission($_POST['ArrayList'][$i],$user_id_);
     }
     $data = [
             'userid' => $userid,
@@ -331,6 +363,22 @@ function getCity(stateid){
             }
         });
     </script>
+    <style>
+        .tab-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 per row */
+            gap: 15px; /* row + column spacing */
+        }
+
+        .tab-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
 
@@ -358,7 +406,7 @@ if(isset($_REQUEST['msg'])){?>
                     <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-database fa-lg"></i>&nbsp;&nbsp;Masters / Reports</a></li>
                     <li><a data-toggle="tab" href="#menu1"><i class="fa fa-cogs fa-lg"></i>&nbsp;&nbsp;Region</a></li>
                     <li><a data-toggle="tab" href="#menu2"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;Location</a></li>
-                    <li><a data-toggle="tab" href="#menu3"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;User Roles</a></li>
+                    <!--<li><a data-toggle="tab" href="#menu3"><i class="fa fa-university fa-lg"></i>&nbsp;&nbsp;User Roles</a></li> -->
                     <li><a data-toggle="tab" href="#menu4"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;Product Category</a></li>
                     <li><a data-toggle="tab" href="#menu5"><i class="fa fa-suitcase fa-lg"></i>&nbsp;&nbsp;FMS</a></li>
                 </ul>
@@ -409,7 +457,7 @@ if(isset($_REQUEST['msg'])){?>
                     </div>
             
             <!-- Tab 4 Process Skill Rights-->
-                    <div id="menu3" class="tab-pane fade">
+                    <div id="menu31" class="tab-pane fade">
                         user roles process
                     </div>
 
@@ -420,6 +468,7 @@ if(isset($_REQUEST['msg'])){?>
 
                     <div id="menu5" class="tab-pane fade">
                         <form id="frm4" name="frm4" class="form-horizontal" action="" method="post">
+                            <input type="hidden" name="userid" value="<?=$userid?>">
                             <div class="table-responsive">
                                 <?=$updatepermission->printfmsName()?>
                             </div>
@@ -442,20 +491,5 @@ if(isset($_REQUEST['msg'])){?>
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
-<script>
-function PageSwitch(name){
-    this.pagename=name
-}
-function MasterReport(ui){
-    PageSwitch.call(this,'master_page');
-    this.ui=ui
-}
-MasterReport.prototype=Object.create(PageSwitch.prototype);
-MasterReport.prototype.constructor=MasterReport;
-$(window).on("popstate", function() {
-    var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
-
-});
-</script>
 </body>
 </html>

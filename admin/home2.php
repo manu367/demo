@@ -39,6 +39,60 @@ $(document).ready(function() {
 } );
 </script>
 <title><?=siteTitle?></title>
+    <style>
+        /* Card Base */
+        .card {
+            border: none;
+            border-radius: 12px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Shadow + hover effect */
+        .card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Title */
+        .card h6 {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        /* Numbers */
+        .card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        /* Button */
+        .card .btn {
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+
+        /* Optional: colored cards */
+        .card.primary {
+            border-left: 5px solid #0d6efd;
+        }
+
+        .card.success {
+            border-left: 5px solid #198754;
+        }
+
+        .card.warning {
+            border-left: 5px solid #ffc107;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -54,6 +108,119 @@ $(document).ready(function() {
 		  <?php if($_REQUEST['msg']){?><br>
 		  <h4 align="center" style="color:#FF0000"><?=$_REQUEST['msg']?></h4>
 		  <?php }?>
+
+          <?php
+          if(PermissionManager::checkViewRights($link1,$_SESSION['userid'],'1')){
+          ?>
+          <div class="container-fluid mt-4">
+              <div class="row g-3" style="margin-top: 10px">
+
+                  <!-- Total FMS -->
+                  <div class="col-md-4">
+                      <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div>
+                                  <h6 class="text-muted">Total FMS</h6>
+                                  <h3 class="fw-bold">
+                                      <?php
+                                      $sql="SELECT COUNT(*) as total FROM `fms_master`";
+                                      $result=mysqli_query($link1, $sql);
+                                      $value='';
+                                      while ($row=mysqli_fetch_assoc($result)) {
+                                          echo $row['total'];
+                                      }
+                                      ?>
+                                  </h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div>
+                                  <h6 class="text-muted">Total Users</h6>
+                                  <h3 class="fw-bold">
+                                      <?php
+                                      $sql="SELECT COUNT(*) as total FROM `admin_users`";
+                                      $result=mysqli_query($link1, $sql);
+                                      $value='';
+                                      while ($row=mysqli_fetch_assoc($result)) {
+                                          echo $row['total'];
+                                      }
+                                      ?>
+                                  </h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div>
+                                  <h6 class="text-muted">Total Roles</h6>
+                                  <h3 class="fw-bold">
+                                      <?php
+                                      $sql="SELECT COUNT(*) as total FROM `usertype_master`";
+                                      $result=mysqli_query($link1, $sql);
+                                      $value='';
+                                      while ($row=mysqli_fetch_assoc($result)) {
+                                          echo $row['total'];
+                                      }
+                                      ?>
+                                  </h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="row g-3 card " style="margin-top: 10px;margin-left: 1px;padding: 10px;"> 
+				  <div style="text-align:center">
+				  <h4 style="text-transform: capitalize;font-weight: normal!important;">last Activity : <?= $_SESSION['userid'] ?> </h4>
+				  </div>
+                  <table class="table table-hover table-bordered table-responsive">
+                      <thead class="bg-primary">
+                      <tr>
+                          <td>Sr.</td>
+                          <td>UserId</td>
+                          <td>RefNo</td>
+                          <td>Activity</td>
+                          <td>Action</td>
+                          <td>Date</td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                      $userid=$_SESSION['userid'];
+                      $sql = "SELECT * FROM daily_activities WHERE userid='$userid' ORDER BY id DESC LIMIT 10";
+                      $result = mysqli_query($link1, $sql);
+
+                      if (!$result) {
+                          echo "<tr><td colspan='5'>Query failed</td></tr>";
+                      } else {
+                          $i = 1;
+                          while ($row = mysqli_fetch_assoc($result)) {
+                              echo "<tr>
+                <td>".$i."</td>
+                <td>".$row['userid']."</td>
+                <td>".$row['ref_no']."</td>
+                <td>".$row['activity_type']."</td>
+                <td>".$row['action_taken']."</td>
+                <td>".$row['update_date']."</td>
+              </tr>";
+                              $i++;
+                          }
+                      }
+                      ?>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+          <?php } ?>
 
 	  </div>    
   </div>

@@ -41,11 +41,79 @@ $(document).ready(function() {
 } );
 </script>
 <title><?=siteTitle?></title>
+    <style>
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 250px;
+            max-width: 300px;
+			 z-index: 999;
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .toast.show {
+            right: 20px;
+            opacity: 1;
+        }
+
+        .toast .icon {
+            font-size: 18px;
+        }
+
+        .toast .message {
+            flex: 1;
+        }
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: #fff;
+            animation: progress 60s linear;
+        }
+
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            const toast = document.getElementById("errorPopup");
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add("show");
+                }, 300); // small delay for smooth entry
+
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 50000); // hide after 3s
+            }
+        });
+    </script>
 </head>
 <body>
-<?php if($_REQUEST['msg']){?><br>
-    <h4 align="center" style="color:#FF0000"><?=$_REQUEST['msg']?></h4>
-<?php }?>
+<?php
+if(isset($_REQUEST['msg'])){?>
+    <div id="errorPopup" class="toast" style="background-color: <?= isset($_REQUEST['type']) && $_REQUEST['type']==='error'?'darkred':'green' ?>">
+        <span class="icon">✔</span>
+        <span class="message"><?=htmlspecialchars($_GET['msg'], ENT_QUOTES, 'UTF-8');?></span>
+    </div>
+<?php } ?>
 
 <div class="container-fluid">
 	<div class="row content">
