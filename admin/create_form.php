@@ -99,7 +99,7 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
-    var_dump($_POST);exit();
+//    var_dump($_POST);exit();
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $old_column=$_POST['old_column'];

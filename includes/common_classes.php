@@ -2233,4 +2233,71 @@ class RoleUpdateTabPermission{
     }
 }
 
+
+function getMasterTablesDropdown($link, $selectName = "master_table", $selected = null){
+
+    $options = "";
+
+    $dbNameQuery = mysqli_query($link, "SELECT DATABASE() as db");
+    $dbRow = mysqli_fetch_assoc($dbNameQuery);
+    $dbName = $dbRow['db'];
+
+    $sql = "
+        SELECT table_name 
+        FROM information_schema.tables 
+        WHERE table_schema = '$dbName'
+        AND table_name LIKE '%\\_master'
+    ";
+
+    $result = mysqli_query($link, $sql);
+
+    if($result){
+        while($row = mysqli_fetch_assoc($result)){
+            $table = $row['table_name'];
+            $isSelected = ($selected === $table) ? "selected" : "";
+            $options .= "<option value='{$table}' {$isSelected}>".ucwords(str_replace('_',' ', $table))."</option>";
+        }
+    }
+
+    return "
+        <select name='{$selectName}' class='form-control' onchange='document.frm1.submit()'>
+            <option value=''>-- Select Master Table --</option>
+            {$options}
+        </select>
+    ";
+}
+
+function getMastertablekeys($link, $selectName, $tableName, $selected = null){
+
+    if(empty($tableName)){
+        return "<select class='form-control'><option>No value</option></select>"; // koi table hi nahi select hua
+    }
+
+    $tableName = mysqli_real_escape_string($link, $tableName);
+
+    $options = "";
+
+    $sql = "SHOW COLUMNS FROM `$tableName`";
+    $result = mysqli_query($link, $sql);
+
+    if($result){
+        while($row = mysqli_fetch_assoc($result)){
+            $column = $row['Field'];
+            $isSelected = ($selected === $column) ? "selected" : "";
+
+            $options .= "<option value='{$column}' {$isSelected}>"
+                . ucwords(str_replace('_',' ', $column))
+                . "</option>";
+        }
+    }
+
+    return "
+        <select name='{$selectName}' class='form-control' onchange='document.frm1.submit()'>
+            <option value=''>-- Select Column --</option>
+            {$options}
+        </select>
+    ";
+}
+function getMastertablevalue($link1,$selectvaluename,$selected){}
+
 ?>

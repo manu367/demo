@@ -1,0 +1,14 @@
+
+Note by Manu Pathak :
+
+In this folder , We can contains only data base related functionality.
+
+Ye DB se baat karega. Bas.
+Interfaces
+Custom queries
+
+
+Business logic nahi
+Validation nahi
+
+Rule: Repository = only CRUD + DB queries

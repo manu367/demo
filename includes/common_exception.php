@@ -10,10 +10,14 @@
      }
  }
 
-/**
- *  Global Page , Error Handling from this classes. </br>
- * Uses : throw new FMSException("error","msg","redirect_point_location","pid","hid");
- */
+ class ValidationException extends Exception{
+     private $msg;
+     public function __construct($message,$code = 0, Exception $previous = null){
+         $this->msg=$message;
+         parent::__construct($message, $code, $previous);
+     }
+ }
+
 class FMSExceptionHandler extends Exception{
     protected $type;
     protected $location;
