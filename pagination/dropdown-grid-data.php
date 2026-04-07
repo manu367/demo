@@ -56,7 +56,7 @@ while($row = mysqli_fetch_assoc($res)){
         $row['master_name'],
         $row['master_table'],
         $status,
-        true?'<a href="add_dropdown.php?pid='.$pid.'&hid='.$hid.'&op=edit&dropdown='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Edit</a>':'',
+        PermissionManager::checkEditRights($link1,$_SESSION['userid'],$pid)?'<a href="add_dropdown.php?pid='.$pid.'&hid='.$hid.'&op=edit&dropdown='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Edit</a>':'',
     ];
 }
 

@@ -1,6 +1,13 @@
 <?php
 function ajaxCall($tablename, $url, $data = [], $request_type = 'POST'){
-        $dataJson = json_encode($data);
+//        $dataJson = json_encode($data);
+
+        $data_json="{";
+        foreach($data as $key=>$value){
+            $data_json.="$key:\"$value\",";
+        }
+        $data_json.="}";
+
         return "
     <script>
     $(document).ready(function () {
@@ -10,10 +17,7 @@ function ajaxCall($tablename, $url, $data = [], $request_type = 'POST'){
             ajax: {
     url: '{$url}',
                 type: '{$request_type}',
-                data: function(d){
-        let extraData = {$dataJson};
-                    return $.extend({}, d, extraData);
-                },
+                data: $data_json,
                 error: function () {
         $('#{$tablename}').append(
             '<tbody><tr><td colspan=\"10\">No data found</td></tr></tbody>'

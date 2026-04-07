@@ -99,7 +99,7 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
-//    var_dump($_POST);exit();
+
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $old_column=$_POST['old_column'];
@@ -111,9 +111,11 @@ if(isset($_POST['update']))
     $old_column = json_decode($raw, true);
     $old_column=json_decode($old_column, true);
 
+
     $newData=[];
     $newColumnAddInDB=[];
     $newColumnAddInDB['formid']=$formid;
+    $j=0;
     for($i=0;$i<count($_POST['param_name']);$i++){
         $newColumnName=$_POST['param_name'][$i];
 
@@ -124,6 +126,13 @@ if(isset($_POST['update']))
 
         $displayName=$_POST['display_name'][$i];
         $type=$_POST['type'][$i];
+        $dropdown=0;
+        if($type==='8'){
+            $dropdown=$_POST['drop_down'][$j];
+            $length=50;
+            $j++;
+        }
+
         $length=$_POST['length'][$i];
         $length_1=(int)$length;
         if($length_1>255){
@@ -133,10 +142,9 @@ if(isset($_POST['update']))
         $check=$_POST['check'][$i];
 
         if($old_col===null){
-            $newColumnAddInDB['column'][]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,null);
+            $newColumnAddInDB['column'][]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,null,$dropdown);
         }
-
-        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,$old_col);
+        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,$old_col,$dropdown);
     }
 
     // new-data and old_data store in one unit here
@@ -158,7 +166,6 @@ if(isset($_POST['update']))
     if (!empty($newColumnAddInDB['column']) && count($newColumnAddInDB['column']) > 0) {
         $status = $formoperation->addnewColumnInDb($fms_data_p['table_name'], $newColumnAddInDB);
     }
-
 
     $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);
 
@@ -439,6 +446,7 @@ if(isset($_REQUEST['msg'])):?>
                                 $type   = json_decode($res['type'], true) ?? [];
                                 $length = json_decode($res['length'], true) ?? [];
                                 $param_require=json_decode($res['param_require'],true) ?? [];
+                                $dropdown=json_decode($res['drop_down'],true)??[];
                                 $countleave=0;
 
                                 $result = mysqli_query($link1, "SELECT * FROM parameter_type WHERE status = '1'");
@@ -470,9 +478,14 @@ if(isset($_REQUEST['msg'])):?>
                                             echo "<option value='".$opt['pt_id']."' $selected>".$opt['type']."</option>";
                                         }
                                         echo "</select></td>
-                               <td>
-                               <input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'>
-                               </td>
+                                        <td>";
+                                        if (isset($type[$i]) && $type[$i] == 8) {
+            echo showDropDown_master($link1, $dropdown[$i] ?? '');
+        } else {
+                //<input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'>
+            echo "<input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'>";
+        }
+        echo "</td>
                                <td class='text-center'>
                                <input type='hidden' name='check[]' value='".$hiddenValue."'>
                                <input type='checkbox' class='check_box_hidden' value='".$hiddenValue."' ".$checkedAttr.">
@@ -515,8 +528,6 @@ if(isset($_REQUEST['msg'])):?>
                         <button type="submit" style="text-transform: capitalize" name="<?=$operation?>" class="btn btn-success"><?=$operation?></button>
                         <a href="form_master.php?id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
                     </div>
-
-
 
                 </form>
                 <?php } ?>
@@ -678,21 +689,61 @@ function showAlert(message, type = "success", duration = 3000) {
 
 
     const selectbox="<?=showDropDown_master($link1)?>";
-    document.querySelectorAll("select").forEach((select_box)=>{
-        select_box.addEventListener("change", function(e){
-            if (e.target.value==='8'){
-                const td=e.target.parentElement.nextElementSibling;
+
+    document.addEventListener("change", function(e){
+        if (e.target.matches("select")) {
+            if (e.target.value === '8') {
+                const td = e.target.parentElement.nextElementSibling;
                 const input = td.querySelector("input");
-                if(input){
+
+                if (input) {
                     input.value = 50;
+                    input.style.display = "none";
                 }
-                // console.log(input.value,input);
-                input.style.display="none";
+
                 td.insertAdjacentHTML("beforeend", `<?=$selectedBox?>`);
             }
-        })
+        }
     });
 
+</script>
+<script id="a1b2c3">
+    document.addEventListener("input", function(e){
+        if(e.target.matches("input[name='param_name[]']")){
+            let query = e.target.value.trim();
+            if(query.length < 2){
+                removeSuggestionBox(e.target);
+                return;
+            }
+            fetch(`../pagination/table-column-data.php?formid=<?=$res['id']?>&fmsid=<?=$load['id']?>&q=${query}`)
+                .then(res => res.json())
+                .then(res => {
+                    if(res.status){
+                        showSuggestions(e.target, res.data);
+                    }
+                });
+        }
+    });
+    function showSuggestions(input, data){
+        removeSuggestionBox(input); // clean old
+        let box = document.createElement("div");
+        box.classList.add("suggestion-box");
+        data.forEach(item => {
+            let div = document.createElement("div");
+            div.textContent = item;
+            div.classList.add("suggestion-item");
+            div.addEventListener("click", function(){
+                input.value = item;
+                removeSuggestionBox(input);
+            });
+            box.appendChild(div);
+        });
+        input.parentElement.appendChild(box);
+    }
+    function removeSuggestionBox(input){
+        let old = input.parentElement.querySelector(".suggestion-box");
+        if(old) old.remove();
+    }
 </script>
 </body>
 </html>

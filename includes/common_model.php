@@ -1,13 +1,18 @@
 <?php
 class FormSaveModel{
-    public $parameter,$value,$type,$require,$length,$old_column;
-    public function __construct($parameter,$value,$type,$require,$length,$old_column) {
+    public $parameter,$value,$type,$require,$length,$old_column,$drop_down;
+    public function __construct($parameter,$value,$type,$require,$length,$old_column,$drop_down) {
         $this->parameter = $parameter;
         $this->value = $value;
         $this->type = $type;
         $this->require = $require;
         $this->length = $length;
         $this->old_column = $old_column;
+        $this->drop_down=$drop_down;
+    }
+    public function getdrop_down()
+    {
+        return $this->drop_down;
     }
     public function getparameter(){
         return $this->parameter;

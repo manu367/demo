@@ -40,7 +40,6 @@ if(isset($_REQUEST['formid'])){
     $formid = base64_decode($_REQUEST['formid']);
     $data=$formview->loadform($formid);
     $fms_de=fmsloading($link1,$data['fms_id']);
-//    var_dump($fms_de);
 }
 
 
@@ -54,7 +53,6 @@ if(isset($_POST['save'])){
     $data_save=[];
     for($i=0;$i<$total;$i++){
         $fieldName = $parameter_1[$i];
-
         $uploadedFile = fileUpload($fieldName);
         if($uploadedFile !== false){
             $data_save[] = $uploadedFile;
@@ -68,7 +66,6 @@ if(isset($_POST['save'])){
 
     $data_save[]=$_SESSION['userid'];
     $data_save[]=$_SERVER['REMOTE_ADDR'];
-
 
     $save=$formview->saveDataintable($_POST['table_name'],$parameter_1,$data_save);
 

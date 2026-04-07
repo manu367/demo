@@ -226,7 +226,7 @@ if($flag){
                         <?= $is_edit ? 'Update' : 'Add' ?>
                     </button>
                     <?php } ?>
-                    <span class="btn btn-primary" onclick="window.location.href='dropdown_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>>'">
+                    <span class="btn btn-primary" onclick="window.location.href='dropdown_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>'">
                     <span id="operation_name">Cancel</span>
                 </span>
                 </div>

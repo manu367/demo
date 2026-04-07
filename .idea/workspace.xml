@@ -5,27 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/dropdown_master.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/operations/common_operation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/operations/dropDownOperation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/repo/DropDownRepo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/repo/Introduction_file" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/repo/common_repo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/DropDownService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/common_service.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/service_introduction_file" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pagination/dropdown-grid-data.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pagination/table-column-data.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_dropdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/abc2.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/abc2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/dropdown_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dropdown_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_exception.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_exception.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_sql_manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_ui.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/fms/manu_fms.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/model/FormMasterModal.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/model/common_model.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_ui.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_ui.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagination/dropdown-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/dropdown-grid-data.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +50,24 @@
   }
 }</component>
   <component name="McpProjectServerCommands">
-    <commands />
-    <urls />
+    <McpServerCommand sourceId="UserConfigurationSource">
+      <option name="allowedToolsNames" />
+      <option name="enabled" value="true" />
+      <option name="name" value="" />
+      <option name="programPath" value="" />
+      <option name="arguments" value="" />
+      <option name="workingDirectory" value="" />
+      <envs />
+    </McpServerCommand>
+    <McpServerCommand sourceId="UserConfigurationSource">
+      <option name="allowedToolsNames" />
+      <option name="enabled" value="true" />
+      <option name="name" value="" />
+      <option name="programPath" value="" />
+      <option name="arguments" value="" />
+      <option name="workingDirectory" value="" />
+      <envs />
+    </McpServerCommand>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectColorInfo">{

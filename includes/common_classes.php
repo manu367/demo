@@ -451,6 +451,7 @@ class FormOperations{
         $new_name = [];
         $types    = [];
         $length   = [];
+        $drop_down=[];
 
         foreach ($data['new'] as $formunits) {
 
@@ -463,6 +464,7 @@ class FormOperations{
                 $new_name[] = $newCol;          // new column name
                 $types[]    = 'varchar';
                 $length[]   = $formunits->length;
+                $drop_down[]=$formunits->drop_down;
             }
 
             // agar sirf type/length change hua ho (naam same hai)
@@ -471,6 +473,7 @@ class FormOperations{
                 $new_name[] = $oldCol; // same name
                 $types[]    = 'varchar';
                 $length[]   = $formunits->length;
+                $drop_down[]=$formunits->drop_down;
             }
         }
 
@@ -482,11 +485,11 @@ class FormOperations{
                 $types,
                 $length
             );
-
             if (!mysqli_query($this->conn, $sql_query)) {
                 throw new GlobalException("Alter failed: " . mysqli_error($this->conn) . " | Query: $sql_query");
             }
         }
+
 
 
         // insert final data here
@@ -530,6 +533,7 @@ class FormOperations{
         $type        = [];
         $require     = [];
         $length      = [];
+        $drop_down  = [];
 
 
         foreach ($data as $formunits) {
@@ -538,6 +542,7 @@ class FormOperations{
             $type[]        = $formunits->type;
             $require[]     = $formunits->require;
             $length[]      = $formunits->length;
+            $drop_down[]=$formunits->drop_down;
         }
 
         $parameter   = json_encode($parameter);
@@ -545,6 +550,7 @@ class FormOperations{
         $type        = json_encode($type);
         $require     = json_encode($require);
         $length      = json_encode($length);
+        $drop_down= json_encode($drop_down);
 
         $sql = "UPDATE form_master SET 
                 parameter_name = '$parameter',
@@ -552,9 +558,9 @@ class FormOperations{
                 type = '$type',
                 param_require = '$require',
                 length = '$length',
-                frm_seq='$frm_seq'
+                frm_seq='$frm_seq',
+                drop_down='$drop_down'
             WHERE id = '$formid'";
-
         return mysqli_query($this->conn, $sql);
     }
 
@@ -762,7 +768,8 @@ class FormView{
         $display_name   = json_decode($data['display_name'], true);
         $type           = json_decode($data['type'], true);
         $length         = json_decode($data['length'], true);
-        $require        =json_decode($data['param_require'],true);
+        $require        = json_decode($data['param_require'],true);
+        $drop_down      = json_decode($data['drop_down'],true);
 
         $total = count($parameter_name);
 
@@ -779,13 +786,23 @@ class FormView{
             $len   = $length[$i];
             $req   = $require[$i];
 
+            $drop_down_ui='';
+            if($t==='8'){
+                $drop=$drop_down[$i];
+                $drop_down_ui=getSelectBoxbasedOnTable($this->conn,$drop,$name);
+            }
+
             $reqDiv=$req==='0'?'':'<span class="red_small">*</span>';
             $reqRequire=$req==='0'?'':'required';
 
             echo "<div class='col-md-6'>";
             echo "<div>";
             echo "<label class='control-label'>{$label} {$reqDiv}</label>";
-            echo $this->paramtertype($t, $name, $len,$reqRequire);
+            if($t == '8'){
+                echo $drop_down_ui;
+            } else {
+                echo $this->paramtertype($t, $name, $len, $reqRequire);
+            }
             echo "</div>";
             echo "</div>";
 
@@ -851,6 +868,8 @@ class FormView{
                 $inputType = "file";
                 $extraAttr = "accept='.pdf,.png,.jpg,.jpeg'";
                 break;
+            case 8:
+
 
             default:
                 break;
@@ -868,6 +887,7 @@ class FormView{
         }
         $values = implode(",", $escapedData);
         $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
+        var_dump($sql);exit();
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }
@@ -2299,5 +2319,48 @@ function getMastertablekeys($link, $selectName, $tableName, $selected = null){
     ";
 }
 function getMastertablevalue($link1,$selectvaluename,$selected){}
+
+
+function getSelectBoxbasedOnTable($link1, $id,$label){
+    $id = mysqli_real_escape_string($link1, $id);
+
+    $sql = "SELECT master_table, key_id, key_value 
+            FROM dropdown_master 
+            WHERE id = '$id' AND status = 1";
+
+    $result = mysqli_query($link1, $sql);
+
+    if(!$result || mysqli_num_rows($result) == 0){
+        return "<select class='form-control'><option>No Data</option></select>";
+    }
+
+    $row = mysqli_fetch_assoc($result);
+
+    return createSelectBox($link1, $row['master_table'], $row['key_id'], $row['key_value'],$label);
+}
+function createSelectBox($link1, $tablename, $keyid, $key_value,$label){
+
+    if(empty($tablename) || empty($keyid) || empty($key_value)){
+        return "<select class='form-control'><option>Invalid config</option></select>";
+    }
+
+    $sql = "SELECT $keyid, $key_value FROM $tablename";
+    $result = mysqli_query($link1, $sql);
+
+    if(!$result){
+        return "<select class='form-control'><option>Error loading</option></select>";
+    }
+
+    $html ="<input type='hidden' name='table_name_hidden' value='".$tablename."'>";
+    $html .= "<select name='".$label."' class='form-control dynamic_dropdown'>";
+    $html .= "<option value=''>--Select--</option>";
+
+    while($row = mysqli_fetch_assoc($result)){
+        $html .= "<option value='".$row[$keyid]."'>".$row[$key_value]."</option>";
+    }
+
+    $html .= "</select>";
+    return $html;
+}
 
 ?>

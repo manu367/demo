@@ -16,7 +16,7 @@ require_once("../includes/config.php");
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
     <title><?=siteTitle?></title>
-    <?=ajaxCall('drop_down_grid','../pagination/dropdown-grid-data.php',[$_REQUEST['pid'],$_REQUEST['hid']])?>
+    <?=ajaxCall('drop_down_grid','../pagination/dropdown-grid-data.php',["pid"=>$_REQUEST['pid'],"hid"=>$_REQUEST['hid']])?>
 </head>
 <body>
 <div class="container-fluid">
@@ -34,9 +34,13 @@ require_once("../includes/config.php");
                 <input name="hid" id="hid" type="hidden" value="<?=$_REQUEST['hid']?>"/>
             </form>
 
-            <div class="text-right">
-                <a href="add_dropdown.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>" class="btn btn-primary">Add DropDown</a>
-            </div>
+           <?php
+           if(PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid'])){
+           ?>
+               <div class="text-right">
+                   <a href="add_dropdown.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>" class="btn btn-primary">Add DropDown</a>
+               </div>
+            <?php } ?>
 
             <form class="form-horizontal" role="form">
                 &nbsp;&nbsp;
