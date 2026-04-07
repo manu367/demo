@@ -133,17 +133,19 @@ if(isset($_REQUEST['msg'])){?>
 
       		<form class="form-horizontal" role="form">
         		<div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/>
-       				<table  width="100%" id="emp-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
-                    <thead>
-                        <tr class="<?=$tableheadcolor?>">
-                            <th>S.No</th>
-                            <th>User Type</th>
-                            <th>Type</th>
-                            <th>Tab Rights</th>
-                            <th>View/Edit</th>
-                        </tr>
-                    </thead>
-                	</table>
+       				<div class="col-md-12" style="overflow: scroll">
+                        <table  width="100%" id="emp-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                            <thead>
+                            <tr class="<?=$tableheadcolor?>">
+                                <th>S.No</th>
+                                <th>User Type</th>
+                                <th>Type</th>
+                                <th>Tab Rights</th>
+                                <th>View/Edit</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
       		</form>
     	</div>

@@ -2,25 +2,20 @@
 
 require_once("includes/secuity.php");
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
-$headers = getallheaders();
-$accessToken = $headers['Authorization'] ?? null;
-$fms_id      = $headers['fms_id'] ?? null;
-$fms_name    = $headers['fms_name'] ?? null;
-$form_id     = $headers['form_id'] ?? null;
-$form_name   = $headers['form_name'] ?? null;
-$link1=$conn->getConnection();
 
 
 
+/*
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $accessToken=str_replace("Basic ",'',$accessToken);
     $accessToken=base64_decode($accessToken);
     $accessToken=explode(":",$accessToken);
     $vale=checkuser($link1,$accessToken[0],$accessToken[1]);
-
 
     if(!$vale){
         SendResponse::sendResponseData(false,"user not found");
@@ -45,22 +40,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     SendResponse::sendResponseData(true,$column['parameter_name']);
 
 }
+*/
+
+
+$headers = getallheaders();
+
+$accessToken = $headers['Authorization'] ?? null;
+$fms_id      = $headers['Fms-Id'];
+$fms_name    = $headers['Fms-Name'];
+$form_id     = $headers['Form-Id'] ?? null;
+$form_name   = $headers['Form-Name'] ?? null;
+$link1=$conn->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rawInput = file_get_contents("php://input");
     $body = json_decode($rawInput, true);
+    /*	$headers = [];
+    foreach ($_SERVER as $key => $value) {
+    if (strpos($key, 'HTTP_') === 0) {
+        $headers[strtolower(str_replace('_', '-', substr($key, 5)))] = $value;
+    } }
+    */
 
     if (!$body) {
         SendResponse::sendResponseData(false,"Invalid JSON");
     }
 
     //------ basic validation in post
-
     $accessToken=str_replace("Basic ",'',$accessToken);
     $accessToken=base64_decode($accessToken);
     $accessToken=explode(":",$accessToken);
     $vale=checkuser($link1,$accessToken[0],$accessToken[1]);
-
 
     if(!$vale){
         SendResponse::sendResponseData(false,"user not found");
@@ -94,7 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $share_data=storeDataUnit($share_data);
 
     if(saveData($link1,$body,$share_data,$form_id)){
-        SendResponse::sendResponseData(true,"Successfully Saved Data");
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        SendResponse::sendResponseData(true,"Successfully Saved Data, USER_IP= ".$ip);
     }
 }
 

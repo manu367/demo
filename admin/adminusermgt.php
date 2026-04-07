@@ -88,15 +88,13 @@ $(document).ready(function() {
             <div class="col-md-12" style="padding:10px 0px;">
                 <button title="Bulk Upload" type="button" class="btn<?=$btncolor?>" style="float:right;" onClick="window.location.href='addAdminUser_uploader.php?op=add<?=$pagenav?>'"><span>Bulk Upload</span></button>
                 <button title="Add New User" type="button" class="btn<?=$btncolor?>" style="float:right;margin-right:5px;" onClick="window.location.href='addAdminUser.php?op=add<?=$pagenav?>'"><span>Add User</span></button>
-                <button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='statuslog_view.php'"><span>View Status Log</span></button>
-                <button title="View Status Log" type="button" class="btn<?=$btncolor?>" style="float:left;margin-right:5px;background:#78797b;" onClick="window.location.href='permissionlog_view.php'"><span>View Permission Log</span></button>
             </div>
             <?php }?>
 		</div>
 		
-		<form class="form-horizontal" role="form">
+		<form style="margin-top: 10px;" class="form-horizontal" role="form">
 			<div class="form-group tab-area" id="page-wrap">
-				<div class="col-md-12">
+				<div class="col-md-12" style="overflow: scroll">
 					<table  width="100%" id="admin-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
 						<thead>
 							<tr class="<?=$tableheadcolor?>">

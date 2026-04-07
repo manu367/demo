@@ -103,6 +103,18 @@ require_once("../includes/config.php");
             }
         });
     </script>
+    <style>
+        .hide-scrollbar {
+            overflow: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE & Edge */
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -139,8 +151,7 @@ require_once("../includes/config.php");
 
             <form class="form-horizontal" role="form">
                 &nbsp;&nbsp;
-                <div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/><br/>
-
+                <div class="form-group"  id="page-wrap" style="margin-left:10px;overflow: scroll"><br/><br/>
                     <table  width="100%" id="myacc-users-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
                         <thead>
                         <tr class="<?=$tableheadcolor?>">

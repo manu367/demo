@@ -13,6 +13,9 @@ require_once ("model.php");
 // globally exception handling
 require_once ("globalexceptionhandler.php");
 
+require_once ("model/common_modal.php");
+require_once ("repo/common_repo.php");
+require_once ("operations/common_operations.php");
 
 global $locahost, $locauser, $locapass, $locadatabase;
 global $locaport;

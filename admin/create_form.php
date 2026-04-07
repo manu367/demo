@@ -49,7 +49,6 @@ $hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
 
 if(isset($_POST['save']))
 {
-    var_dump($_POST);exit();
    $fmsid=$_POST['fmsid'];
    $frmName=$_POST['frm_name'];
    $frm_seq=$_POST['frm_seq'];
@@ -156,6 +155,7 @@ if(isset($_POST['update']))
             "old_col"=>$old_column
     ];
 
+
     // here we can get the tble on the basic of ID
     if($fmsid===''){throw new GlobalException('id mismatch error');}
     $fms_data_p=loadFSM($link1,"SELECT table_name FROM fms_master where id=$fmsid");
@@ -233,7 +233,7 @@ $selectedBox=showDropDown_master($link1);
     <link href="../css/abc2.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <title><?=siteTitle?></title>
-<!--    alert box css-->
+    <!--    alert box css-->
     <style>
         .table-wrapper {
             border-top-right-radius: 12px;
@@ -345,6 +345,34 @@ $selectedBox=showDropDown_master($link1);
         @keyframes progress {
             from { width: 100%; }
             to { width: 0%; }
+        }
+    </style>
+    <style>
+        /* Snackbar */
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            max-width: 80%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+
+            /* Magic for center bottom */
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
         }
     </style>
 </head>
@@ -535,6 +563,8 @@ if(isset($_REQUEST['msg'])):?>
     </div>
 </div>
 </div>
+
+<div id="snackbar">This is a snackbar message</div>
 
 <?php
 include("../includes/footer.php");
@@ -743,6 +773,68 @@ function showAlert(message, type = "success", duration = 3000) {
     function removeSuggestionBox(input){
         let old = input.parentElement.querySelector(".suggestion-box");
         if(old) old.remove();
+    }
+</script>
+<script>
+    let invalidInputs = new Set();
+    document.addEventListener("input", function(e) {
+        if (e.target.matches("input[name='param_name[]']")) {
+            ParamtertypeFetch(e.target)
+        }
+    });
+
+    async function ParamtertypeFetch(input){
+        const value = input.value.trim();
+        const normalizedValue = normalize(value);
+
+        let url = `../pagination/table-column-data.php?fms_id=<?=$load['id']?>&formid=<?=$res['id']?>&column=${value}`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+        let isDuplicate = false;
+
+        data.forEach(item => {
+            if (normalize(item) === normalizedValue){
+                isDuplicate = true;
+            }
+        });
+
+        if(isDuplicate){
+            input.style.border = "2px solid red";
+            invalidInputs.add(input);
+            showSnackbar(input, `${value.toUpperCase()} already exists`);
+        } else {
+            input.style.border = "2px solid green";
+            invalidInputs.delete(input);
+        }
+    }
+
+    document.querySelector("form").addEventListener("submit", function(e){
+        if(invalidInputs.size > 0){
+            e.preventDefault();
+            showSnackbar(null, "Fix errors before submitting");
+        }
+    });
+
+    function normalize(str) {
+        return str
+            .toLowerCase()
+            .replace(/[\s_]/g, ''); // remove space + underscore
+    }
+
+
+    function showSnackbar(input=null,msg='') {
+        if(input!==null){
+            input.style.border="2px solid red";
+        }
+        const snackbar = document.getElementById("snackbar");
+        snackbar.textContent = msg;
+        snackbar.classList.add("show");
+
+        setTimeout(() => {
+            snackbar.classList.remove("show");
+        }, 3000);
     }
 </script>
 </body>

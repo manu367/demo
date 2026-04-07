@@ -151,7 +151,6 @@ if($flag){
     echo showToastUI($msg,'success');
 }
 ?>
-
 <div class="container-fluid">
     <div class="row content">
         <?php include("../includes/leftnav2.php"); ?>

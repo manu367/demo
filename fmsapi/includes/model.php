@@ -1,5 +1,4 @@
 <?php
-
 class GlobalValue {
     private $from_id;
     private $form_name;

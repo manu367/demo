@@ -5,17 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/pagination/table-column-data.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/fms-fetch.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/FMSDetails.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/FormMasterModal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/common_modal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/operations/FmsOperations.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/operations/common_operations.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/repo/FmsRepo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fmsapi/includes/repo/common_repo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/startup/startup_file" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/add_dropdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/adminusermgt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/adminusermgt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/dropdown_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dropdown_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/role_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/role_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmsapi/fmsconnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/fmsconnect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmsapi/includes/globalvariables.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/globalvariables.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmsapi/includes/model.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmsapi/includes/secuity.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/secuity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmsapi/includes/security.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/security.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_ui.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_ui.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/dropdown-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/dropdown-grid-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagination/table-column-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/table-column-data.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,5 +195,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sdcdc" />
     <option name="LAST_COMMIT_MESSAGE" value="sdcdc" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/fmsapi/includes/model/FMSDetails.php</url>
+          <line>6</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

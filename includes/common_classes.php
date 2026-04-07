@@ -445,24 +445,24 @@ class FormOperations{
             throw new GlobalException("Please Refresh Page");
         }
 
-
-
         $col_name = [];
         $new_name = [];
         $types    = [];
         $length   = [];
         $drop_down=[];
-
         foreach ($data['new'] as $formunits) {
 
             $oldCol = $formunits->old_column ?? null;
             $newCol = $formunits->parameter;
-
+            var_dump($formunits);
             // agar old column exist karta hai aur change hua hai tabhi ALTER kare
             if ($oldCol !== null && $oldCol !== $newCol) {
                 $col_name[] = $oldCol;          // old column name
                 $new_name[] = $newCol;          // new column name
                 $types[]    = 'varchar';
+                if($formunits->length===null){
+                    $formunits->length =50;
+                }
                 $length[]   = $formunits->length;
                 $drop_down[]=$formunits->drop_down;
             }
@@ -477,6 +477,7 @@ class FormOperations{
             }
         }
 
+        var_dump($length);
         if (count($col_name) > 0) {
             $sql_query = $this->changeColumnNameinDb(
                 $tablename,
@@ -489,8 +490,6 @@ class FormOperations{
                 throw new GlobalException("Alter failed: " . mysqli_error($this->conn) . " | Query: $sql_query");
             }
         }
-
-
 
         // insert final data here
         try{
@@ -572,19 +571,17 @@ class FormOperations{
         ) {
             throw new GlobalException("All Data must have same length");
         }
-
         $queries = [];
-
         foreach ($colNames as $i => $col) {
-            $new = $newNames[$i];
+            $new  = $newNames[$i];
             $type = strtoupper($types[$i]);
 
-            $length = !empty($lengths[$i]) ? "(" . (int)$lengths[$i] . ")" : "";
-            $queries[] = "CHANGE `$col` `$new` $type$length";
+            $len = (!empty($lengths[$i]) && (int)$lengths[$i] > 0)
+                ? (int)$lengths[$i]
+                : 50;
+            $queries[] = "CHANGE `$col` `$new` $type($len)";
         }
-
-        $query = "ALTER TABLE `$table` " . implode(", ", $queries);
-        return $query;
+        return "ALTER TABLE `$table` " . implode(", ", $queries);
     }
 
     public function addnewColumnInDb($table, $col = []) {

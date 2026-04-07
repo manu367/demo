@@ -12,6 +12,7 @@ set_exception_handler(function($e){
 if (!isset($_REQUEST['id']) || empty($_REQUEST['id'])) {
     throw new GlobalException("Id is not valid");
 }
+
 // here we are getting the FMS_ID and load basic details from the fms_master
 $fsm_id=base64_decode($_REQUEST['id']);
 function loadFSM($link,$sql){
@@ -207,20 +208,25 @@ if($load){
             <div class="mt-5 text-right" style="margin-top: 100px;margin-bottom: 10px">
 
             </div>
-
-            <table width="100%" id="myacc-users-grid" class="display table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
-                <thead class="bg-primary">
-                <tr>
-                    <td>#</td>
-                    <td>Form Name</td>
-                    <td>Display Name</td>
-                    <td>Status</td>
-                    <td>View</td>
-                    <td>Upload</td>
-                    <td>API</td>
-                </tr>
-                </thead>
-            </table>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12" style="overflow: scroll">
+                        <table width="100%" id="myacc-users-grid" class="display table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
+                            <thead class="bg-primary">
+                            <tr>
+                                <td>#</td>
+                                <td>Form Name</td>
+                                <td>Display Name</td>
+                                <td>Status</td>
+                                <td>View</td>
+                                <td>Upload</td>
+                                <td>API</td>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <div class="text-center">
                 <span class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
@@ -240,6 +246,10 @@ if($load){
                     <button class="btn" onclick="copyText('getReq')">Copy</button>
                     <a id="download_file" class="btn btn-primary" href="download_ap.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>&id=<?=$_REQUEST['pid']?>">Download</a>
                 </div>
+            </div>
+            <div class="code">
+                <span>curl --location https://fms.cancrm.in/fmsapi/fms-fetch.php</span>
+                <span>--header   ' Authorization: Basic dGVzdDoxMjM= '</span>
             </div>
             <div class="code" id="getReq">
                 <span>curl --location '<span id="curl"></span>'</span>

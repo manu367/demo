@@ -137,12 +137,12 @@ else{
                                     if($tab_array[$row_subtab['tabid']] == 1){
                                         $arr_nav[] = $row_subtab['tabid'];
                                         ?>
-
                                         <a href="<?=$row_subtab['filename'];?>.php?pid=<?=$row_subtab['tabid']?>&hid=<?=$row_maintab['maintabname']?>" style="color:white;text-decoration:none;">
                                             <li <?php
                                             if($_REQUEST['pid']==$row_subtab['tabid'] && $_REQUEST['hid'] == $row_maintab['maintabname'])
                                                 echo "class='active'";
-                                            ?>>
+                                            ?>
+                                            >
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="fa <?=$row_subtab['subtabicon']?> fa-lg"></i>
                                                 &nbsp;<?=$row_subtab['subtabname']?>
