@@ -2356,4 +2356,113 @@ function createSelectBox($link1, $tablename, $keyid, $key_value,$label){
     return $html;
 }
 
+
+class DailyActivity implements JsonSerializable{
+    private $userid,$reference,$activitytype,$type_of_action,$update_date,$updatetime,$ip,$update_on;
+    public function __construct($userid, $reference, $activitytype, $type_of_action, $update_date, $updatetime, $ip, $update_on)
+    {
+        $this->userid = $userid;
+        $this->reference = $reference;
+        $this->activitytype = $activitytype;
+        $this->type_of_action = $type_of_action;
+        $this->update_date = $update_date;
+        $this->updatetime = $updatetime;
+        $this->ip = $ip;
+        $this->update_on = $update_on;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivitytype()
+    {
+        return $this->activitytype;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeOfAction()
+    {
+        return $this->type_of_action;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateDate()
+    {
+        return $this->update_date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatetime()
+    {
+        return $this->updatetime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateOn()
+    {
+        return $this->update_on;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+}
+
+function operationtracker($link1,$userid,$reference,$activitytype,$type_of_action,$ip){
+    $activity=new DailyActivity($userid,$reference, $activitytype, $type_of_action, date('Y-m-d'), date('H:i:s'), $ip, date('Y-m-d H:i:s'));
+
+
+    $flag=dailyActivity($userid,$reference,$activitytype,$type_of_action,$ip,$link1,true);
+//    var_dump($flag);exit();
+    $json=json_encode($activity);
+    $sql = "INSERT INTO audit_trial 
+    (userid, ref_no, activity_type, action_taken, update_date, update_time, system_ip, update_on, activity_data)
+    VALUES (
+        '".$activity->getUserid()."',
+        '".$activity->getReference()."',
+        '".$activity->getActivitytype()."',
+        '".$activity->getTypeOfAction()."',
+        '".$activity->getUpdateDate()."',
+        '".$activity->getUpdatetime()."',
+        '".$activity->getIp()."',
+        '".$activity->getUpdateOn()."',
+        '".$json."'
+    )";
+//    var_dump($sql);exit();
+    return mysqli_query($link1,$sql) or false;
+}
+
 ?>

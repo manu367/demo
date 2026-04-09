@@ -74,7 +74,7 @@ if(isset($_REQUEST['formid'])){
 
 
 if(isset($_POST['save'])){
-
+    var_dump($_POST);exit();
     $data=$formview->loadform($formid);
     $total=count(json_decode($data['parameter_name']));
     $parameter[]=json_decode($data['parameter_name'],true);
@@ -100,6 +100,7 @@ if(isset($_POST['save'])){
     $save=$formview->saveDataintable($_POST['table_name'],$parameter_1,$data_save);
 
     if($save){
+        operationtracker($link1,$_SESSION['userid'],'form_view',"Add form data",'ADD',$_SERVER['REMOTE_ADDR']);
         $tablename=$_POST['table_name'];
         header("location:fms_view.php?msg=saved data successfully in $tablename table");
         exit();

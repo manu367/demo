@@ -72,8 +72,8 @@ if(isset($_POST['upload_file'])){
     }
 
     if($flag){
+        operationtracker($link1,$_SESSION['userid'],'form_upload_data',"Upload form Data",'ADD',$_SERVER['REMOTE_ADDR']);
         header('location:form_upload.php?formid='.$form_id.'&type=scuccess&msg=Successfully uploaded data');
         exit();
     }
-
 }

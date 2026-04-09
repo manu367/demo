@@ -35,6 +35,7 @@ if(isset($_POST['add'])){
 
     $isSave=$role_master->saveRole($_POST['role_name'],$_POST['role_type']);
     if($isSave){
+        operationtracker($link1,$_SESSION['userid'],'add_role',"Add Role",'ADD',$_SERVER['REMOTE_ADDR']);
         $data['type']='success';
         $data['msg']='Role saved successfully';
         $params = http_build_query($data);
@@ -52,6 +53,7 @@ if(isset($_POST['edit'])){
     $status=$role_master->editRoleMaster($_POST);
 
     if($status){
+        operationtracker($link1,$_SESSION['userid'],'add_role',"Update Role",'UPDATE',$_SERVER['REMOTE_ADDR']);
         $data['type']='success';
         $data['msg']='Role updated successfully';
         $params = http_build_query($data);

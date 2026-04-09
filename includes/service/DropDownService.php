@@ -25,15 +25,10 @@ class DropDownService{
         return $this->repo->getDropDownDataByid($id);
     }
     public function updateDropDownData($data=[]){
-        mysqli_autocommit($this->connection, FALSE);
-
         $res=$this->repo->updateDropdown($data['dropdown_id'],$data);
-
         if($res){
-            mysqli_commit($this->connection);
             return true;
         }else{
-            mysqli_rollback($this->connection);
             return false;
         }
     }

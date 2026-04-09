@@ -24,6 +24,7 @@ if(isset($_POST['add'])){
         $drppdowm->setupdateBy_and_IP($_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
         $flag=$drppdowm->saveDropDownData($_POST);
         if($flag){
+            operationtracker($link1,$_SESSION['userid'],'Dropdown page',"dropdown added",'ADD DROPDOWN',$_SERVER['REMOTE_ADDR']);
             redirect('dropdown_master.php','DropDown saced successfully','success',['pid'=>$_REQUEST['pid'],'hid'=>$_REQUEST['hid']]);
         }else{
             $flag=false;
@@ -36,10 +37,12 @@ if(isset($_POST['add'])){
         throw new GlobalException($build);
     }
 }
+
 if(isset($_POST['update'])){
     $drppdowm->setupdateBy_and_IP($_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
     $flag=$drppdowm->updateDateDropDownData($_POST);
     if($flag){
+        $op_p=operationtracker($link1,$_SESSION['userid'],'dropdown',"Dropdown Updated",'UPDATE',$_SERVER['REMOTE_ADDR']);
         redirect('dropdown_master.php','DropDown savedy update successfully','success',['pid'=>$_REQUEST['pid'],'hid'=>$_REQUEST['hid']]);
     }
     else{

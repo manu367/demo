@@ -65,6 +65,7 @@ if ($_POST['update_home']) {
             $data['msg']  = 'Permission not updated';
         }
 
+        operationtracker($link1,$_SESSION['userid'],'update_permission_page',"Permission Updated",'UPDATE',$_SERVER['REMOTE_ADDR']);
         $params = http_build_query($data);
         header("Location: update_permission_3.php?$params");
         exit;
@@ -124,6 +125,7 @@ if($_POST['update_fms_permission']){
     if($flag){
         $data['type'] = 'success';
         $data['msg']  = 'FMS Updated Successfully';
+        operationtracker($link1,$_SESSION['userid'],'update_permission_page',"FMS Updated",'UPDATE',$_SERVER['REMOTE_ADDR']);
         $params = http_build_query($data);
         header("Location: update_permission_3.php?$params");
     }else{

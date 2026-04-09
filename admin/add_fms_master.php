@@ -97,15 +97,7 @@ if(isset($_POST['add'])){
     try{
         $response = $fms->addOperation($data, $_SESSION['userid'], $tablename);
 
-        $flag = dailyActivity(
-                $_SESSION['userid'],
-                $data['fmsname'],
-                "fms create",
-                "CREATE",
-                $_SERVER['REMOTE_ADDR'],
-                $link1,
-                true
-        );
+        $flag=operationtracker($link1,$_SESSION['userid'],'Add fms Master',"Add FMS =".$data['fmsname'],'CREATE',$_SERVER['REMOTE_ADDR']);
 
         if($response['status'] && $flag){
             $fms->redirect("success", $response['msg']);
@@ -149,7 +141,7 @@ if(isset($_POST['update'])){
 
     try{
         $resUp=$fms->updateOperation($data,$_SESSION['userid'],$fms_id);
-        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"ArrayList","UPDATED",$_SERVER['REMOTE_ADDR'],$link1,true);
+        operationtracker($link1,$_SESSION['userid'],'Update fms Master',"Update FMS =".$data['fmsname'],'UPDATE',$_SERVER['REMOTE_ADDR']);
         if($resUp['status'] &&  $flag){
             $show=$resUp['msg'];
 //            header("location:add_fms_master.php?pid=$pid&hid=$hid&msg=".$response['msg']);

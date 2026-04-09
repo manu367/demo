@@ -559,9 +559,11 @@ include("../includes/connection_close.php");
 </script>
 <script>
     function showQRCode(element){
+        const btn = document.getElementById("publishBtn");
         console.log(element)
         const formid=element.dataset.fromid;
         const formname=element.dataset.formname;
+        btn.dataset.formid=formid;
         document.getElementById("qr_name").innerHTML=formname;
         document.getElementById("sideSheet").classList.add("active");
         createQRCode(`https://fms.cancrm.in/admin/publishqrcode.php?formid=${formid}&formname=${formname}`);
@@ -622,6 +624,8 @@ include("../includes/connection_close.php");
         text.innerText = "Publishing...";
         loader.style.display = "inline-block";
 
+        const formid=btn.dataset.formid;
+
         // API call yahan lagao
         setTimeout(() => {
             text.innerText = "Published";
@@ -633,7 +637,7 @@ include("../includes/connection_close.php");
 
             // Redirect after total ~1.5 sec
             setTimeout(() => {
-                window.location.href = "publishqrcode.php?pid=1&hid=Masters&formid=&uuid=&token="+generateToken(12);
+                window.location.href = `../publish/publishqrcode.php?pid=1&hid=Masters&formid=${formid}&uuid=&token=${generateToken(20)}`;
             }, 1500);
 
         }, 2000);

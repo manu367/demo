@@ -180,6 +180,11 @@ function dailyActivity($uid,$refno,$activityType,$actionTaken,$systemIp,$link1,$
 	     $flag = false;
          echo "Error detailsDA: " . mysqli_error($link1) . ".";
 	}
+    if(mysqli_affected_rows($link1)>0){
+        $flag=true;
+    }else{
+        $flag=false;
+    }
 	return $flag;
 }
 

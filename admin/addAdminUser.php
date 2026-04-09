@@ -54,7 +54,7 @@ uid='".$code_id."'";
         
 		$res_add=mysqli_query($link1,$usr_add)or die("error3".mysqli_error($link1)); 
 		////// insert in activity table////
-		dailyActivity($_SESSION['userid'],$admiCode,"ADMIN USER","ADD",$_SERVER['REMOTE_ADDR'],$link1,"");
+        operationtracker($link1,$_SESSION['userid'],$admiCode,"ADMIN USER",'ADD',$_SERVER['REMOTE_ADDR']);
 		////// return message
 		$msg="You have successfully created an user with ref. no. ".$admiCode;
 	}
@@ -88,7 +88,7 @@ uid='".$code_id."'";
             }
         }
 
-		dailyActivity($_SESSION['userid'],$usrid2,"ADMIN USER","UPDATE",$ip,$link1,"");
+        operationtracker($link1,$_SESSION['userid'],$usrid2,"ADMIN USER",'UPDATE',$_SERVER['REMOTE_ADDR']);
 		////// return message
 		######################
 		### By Hemant

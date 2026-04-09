@@ -89,6 +89,7 @@ if(isset($_POST['save']))
         throw new GlobalException($e->getMessage());
     }
     if($response){
+        operationtracker($link1,$_SESSION['userid'],'Create Form',"Create Form".$data['formname'],'ADD',$_SERVER['REMOTE_ADDR']);
         $msg="Form Added Successfully";
         $msgEnc = urlencode($msg);
         header("Location: fms_master.php?msg=$msgEnc");
@@ -174,6 +175,7 @@ if(isset($_POST['update']))
 
     if($response){
         $msg="Form Updated Successfully";
+        operationtracker($link1,$_SESSION['userid'],'update_form ='.$data['formid'],"Update Form = ".$frmName,'UPDATE',$_SERVER['REMOTE_ADDR']);
         $op     = $_REQUEST['op'] ?? '';
         $formid = $_REQUEST['formid'] ?? '';
         $formid=base64_encode($formid);
