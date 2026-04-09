@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/admin/publishqrcode.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/collection/map/HashMap" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/collection/map/HashMap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/collection/map/Hashtable" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/collection/map/Hashtable" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/collection/map/LinkedHashMap" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/collection/map/LinkedHashMap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/collection/map/TreeMap" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/collection/map/TreeMap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/js/prototype.js" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/js/prototype.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/_demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/_demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/blogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/canent.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/canent.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/leftnav21.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav21.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/leftnavemp2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnavemp2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/form-data-grid-view.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/form-data-grid-view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/publishqrcode.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/publishqrcode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/operations/common_operation.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/operations/common_operation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +166,7 @@
       <workItem from="1775521104116" duration="203000" />
       <workItem from="1775521400724" duration="8433000" />
       <workItem from="1775623471901" duration="27037000" />
-      <workItem from="1775708153912" duration="19926000" />
+      <workItem from="1775708153912" duration="21968000" />
     </task>
     <servers />
   </component>
@@ -203,7 +187,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/admin/publishqrcode.php</url>
-          <line>31</line>
+          <line>35</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>

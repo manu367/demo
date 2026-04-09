@@ -177,11 +177,14 @@ if($load){
         }
     </style>
     <style>
+        /* QR alignment */
         #qrcode img,
         #qrcode canvas {
             display: block;
             margin: 0 auto;
         }
+
+        /* Side Sheet Base */
         #sideSheet {
             position: fixed;
             top: 0;
@@ -202,10 +205,6 @@ if($load){
         #sideSheet.active {
             transform: translateX(0);
         }
-
-        /*#sideSheet.active {*/
-        /*    right: 0;*/
-        /*}*/
 
         /* Content layout */
         #sideSheet .sheet-content {
@@ -252,14 +251,14 @@ if($load){
             overflow-y: auto;
             animation: fadeIn 0.4s ease;
         }
-        /* Footer bottom pe chipka rahe */
+
+        /* Footer */
         .sheet-footer {
             padding: 15px 20px;
             border-top: 1px solid #eee;
             background: #fff;
         }
 
-        /* Button full width (mobile friendly) */
         .sheet-footer button {
             width: 100%;
             padding: 12px;
@@ -271,7 +270,19 @@ if($load){
             cursor: pointer;
         }
 
-        /* Smooth fade */
+        /* Spinner */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -283,14 +294,80 @@ if($load){
             }
         }
 
-        /* Mobile full screen */
-        @media (max-width: 600px) {
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        /* Tablets */
+        @media (max-width: 992px) {
+            #sideSheet {
+                width: 360px;
+            }
+        }
+
+        /* Small tablets / large phones */
+        @media (max-width: 768px) {
             #sideSheet {
                 width: 100%;
             }
 
-            .title {
-                font-size: 16px;
+            #sideSheet .sheet-header {
+                padding: 14px 16px;
+            }
+
+            #sideSheet .sheet-body {
+                padding: 16px;
+            }
+
+            .sheet-footer {
+                padding: 12px 16px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            #sideSheet {
+                width: 100%;
+            }
+
+            #sideSheet .title {
+                font-size: 15px;
+            }
+
+            #sideSheet .close-btn {
+                font-size: 14px;
+                padding: 5px 8px;
+            }
+
+            #sideSheet .sheet-body {
+                padding: 14px;
+            }
+
+            .sheet-footer button {
+                font-size: 15px;
+                padding: 11px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            #sideSheet .sheet-header {
+                padding: 12px;
+            }
+
+            #sideSheet .sheet-body {
+                padding: 12px;
+            }
+
+            .sheet-footer {
+                padding: 10px 12px;
+            }
+
+            .sheet-footer button {
+                font-size: 14px;
+                padding: 10px;
             }
         }
         .spinner {

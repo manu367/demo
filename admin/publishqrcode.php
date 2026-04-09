@@ -1,5 +1,11 @@
 <?php
 require_once("../includes/config.php");
+if(isparamValidation([$_REQUEST['formid'],$_REQUEST['token']],false)){
+    var_dump("done");
+}else{
+    var_dump("values are missing");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,8 +24,6 @@ require_once("../includes/config.php");
     <title><?=siteTitle?></title>
     <link rel="stylesheet" href="../css/dataTables.responsive.css">
     <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
-
-    <?=ajaxCall('drop_down_grid','../pagination/dropdown-grid-data.php',["pid"=>$_REQUEST['pid'],"hid"=>$_REQUEST['hid']])?>
 </head>
 <body>
 <div class="container-fluid">
