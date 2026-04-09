@@ -56,7 +56,6 @@ FMSObserver.prototype.updated=function (data){
     this.reportCreated();
 
 }
-
 //operation =>
 FMSObserver.prototype.fmsView=function(){
     if(this.permission.includes(PERMISSION_VIEW)){
@@ -65,6 +64,7 @@ FMSObserver.prototype.fmsView=function(){
         console.log("PERMISSION_VIEW denied");
     }
 }
+
 FMSObserver.prototype.fmsEdit=function (){
     if(this.permission.includes(PERMISSION_WRITE)){
         console.log("PERMISSION_WRITE  allowed");
@@ -79,13 +79,10 @@ FMSObserver.prototype.reportCreated=function(){
         console.log("Required Permission denied");
     }
 }
-
-
 const permission=new PermissionObserver();
 const fms=new FMSObserver();
 permission.attach(fms);
 permission.setData(PERMISSION_READ);
 permission.setData(PERMISSION_REQUIRED);
 permission.notify();
-
 

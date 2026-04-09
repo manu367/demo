@@ -176,6 +176,139 @@ if($load){
             background: orange;
         }
     </style>
+    <style>
+        #qrcode img,
+        #qrcode canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #sideSheet {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            max-width: 100%;
+            height: 100%;
+            background: #fff;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+            z-index: 1000;
+            display: flex;
+        }
+
+        #sideSheet.active {
+            transform: translateX(0);
+        }
+
+        /*#sideSheet.active {*/
+        /*    right: 0;*/
+        /*}*/
+
+        /* Content layout */
+        #sideSheet .sheet-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        #sideSheet .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        #sideSheet .title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Close button */
+        #sideSheet .close-btn {
+            border: none;
+            background: #f1f1f1;
+            font-size: 16px;
+            padding: 6px 10px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        #sideSheet .close-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Body */
+        #sideSheet .sheet-body {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            animation: fadeIn 0.4s ease;
+        }
+        /* Footer bottom pe chipka rahe */
+        .sheet-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #fff;
+        }
+
+        /* Button full width (mobile friendly) */
+        .sheet-footer button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: black;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Smooth fade */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile full screen */
+        @media (max-width: 600px) {
+            #sideSheet {
+                width: 100%;
+            }
+
+            .title {
+                font-size: 16px;
+            }
+        }
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -225,6 +358,7 @@ if($load){
                                 <td>View</td>
                                 <td>Upload</td>
                                 <td>API</td>
+                                <td>Publish</td>
                             </tr>
                             </thead>
                         </table>
@@ -270,6 +404,33 @@ if($load){
     </div>
     <button id="ok" class="ok btn btn-primary" onclick="closeSheet()">OK</button>
 </section>
+
+<section id="sideSheet">
+    <div class="sheet-content">
+
+        <div class="sheet-header">
+            <h2 class="title">Publish Form</h2>
+            <button class="close-btn" onclick="closeSheet_1()">✕</button>
+        </div>
+
+        <div class="sheet-body">
+            <h3 style="text-align: center">QR Code = <span id="qr_name"></span></h3>
+            <div id="qrcode"></div>
+        </div>
+        <div class="sheet-footer">
+            <div style="display: flex;justify-content: space-between;margin-bottom: 5px;">
+                <button style="margin-right: 5px;" onclick="downloadQR()">Download QR</button>
+                <button id="publishBtn" onclick="handlePublish()"
+                        style="margin-left:5px; background-color:#00CC00; color:white; padding:8px 16px; border:none; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                    <span id="btnText">Publish</span>
+                    <span id="loader" style="display:none;" class="spinner"></span>
+                </button>
+            </div>
+            <button style="background-color: darkred;" onclick="closeSheet_1()">Cancel</button>
+        </div>
+    </div>
+</section>
+
 <?php
 include("../includes/footer.php");
 include("../includes/connection_close.php");
@@ -317,6 +478,94 @@ include("../includes/connection_close.php");
     }
     function DownloadFile(pid,hid,id,formid,formName,col) {
         document.getElementById("download_file").href = `download_ap.php?pid=${pid}&hid=${hid}&id=${id}&formid=${formid}&formname=${formName}&col=${btoa(col)}`;
+    }
+</script>
+<script>
+    function showQRCode(element){
+        console.log(element)
+        const formid=element.dataset.fromid;
+        const formname=element.dataset.formname;
+        document.getElementById("qr_name").innerHTML=formname;
+        document.getElementById("sideSheet").classList.add("active");
+        createQRCode(`https://fms.cancrm.in/admin/publishqrcode.php?formid=${formid}&formname=${formname}`);
+    }
+
+    function closeSheet_1(){
+        document.getElementById("sideSheet").classList.remove("active");
+    }
+
+
+    function createQRCode(data){
+        const container = document.getElementById("qrcode");
+
+        container.innerHTML = ""; // clear old QR
+
+        new QRCode(container, {
+            text: data,
+            width: 200,
+            height: 200
+        });
+
+        document.getElementById("sideSheet").classList.add("active");
+    }
+    function downloadQR(){
+        const qrContainer = document.getElementById("qrcode");
+
+        // case 1: canvas (qrcodejs default)
+        const canvas = qrContainer.querySelector("canvas");
+
+        if(canvas){
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "qr-code-form.png";
+            link.click();
+            return;
+        }
+
+        // case 2: img (agar PHP ya API use kar rahe ho)
+        const img = qrContainer.querySelector("img");
+
+        if(img){
+            const link = document.createElement("a");
+            link.href = img.src;
+            link.download = "qr-code.png";
+            link.click();
+            return;
+        }
+
+        alert("QR code not found!");
+    }
+
+    function handlePublish() {
+        const btn = document.getElementById("publishBtn");
+        const text = document.getElementById("btnText");
+        const loader = document.getElementById("loader");
+
+        btn.disabled = true;
+        text.innerText = "Publishing...";
+        loader.style.display = "inline-block";
+
+        // API call yahan lagao
+        setTimeout(() => {
+            text.innerText = "Published";
+            loader.style.display = "none";
+            btn.disabled = false;
+
+            // Close sheet after 1 sec
+            setTimeout(closeSheet_1, 1000);
+
+            // Redirect after total ~1.5 sec
+            setTimeout(() => {
+                window.location.href = "publishqrcode.php?pid=1&hid=Masters&formid=&uuid=&token="+generateToken(12);
+            }, 1500);
+
+        }, 2000);
+    }
+
+    function generateToken(length = 6) {
+        return Math.floor(Math.random() * Math.pow(10, length))
+            .toString()
+            .padStart(length, '0');
     }
 </script>
 </body>

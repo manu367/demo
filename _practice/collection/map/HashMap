@@ -2,61 +2,38 @@ HashMap
 A HashMap in Java is a data structure that stores data in key → value pairs.
 HashMap<String, Integer> map = new HashMap<>();
 
-HashMap works on hashing.
-You give a key
-Java converts it into a number using hashCode()
-That number decides where the data is stored
+ye internally map (interface ) ko extence kiye hue hai
+
+Method :
+
+void clear()
+V compute(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+=key ke liye value nikaal — agar hai toh use use kar, nahi hai toh null se start kar.
+=  map.put("A", 10);
+=  map.compute("A", (k, v) -> v + 5);  // A=15
+
+V computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction)
+= Agar key absent hai, tabhi value bana aur daal. Warna kuch mat kar.
+= map.computeIfAbsent("A", k -> 10); // A=10;
+
+V computeIfPresent(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+= Agar key present hai, tabhi update kar. Warna ignore
+=  map.computeIfPresent("B", (k, v) -> v + 5);
+
+V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction)
+
+boolean containsKey(Object key)
+boolean containsValue(Object value)
+
+Set<Map.Entry<K,V>> entrySet()  // Map ke key + value pairs (entries) ka set deta hai
+Set<K> keySet()   // Map ki saari keys ka set return karta hai
 
 
-Internal Structure
-At its core:
-Array of buckets → Each bucket stores nodes (entries)
+V get(Object key)
+boolean isEmpty()
 
-Key Features
-Stores key-value pairs
-Keys must be unique
-Values can be duplicated
-Allows one null key
-Allows multiple null values
-Not synchronized (not thread-safe)
-No guaranteed order
-
-| Operation | Average | Worst Case |
-| --------- | ------- | ---------- |
-| Put       | O(1)    | O(log n)   |
-| Get       | O(1)    | O(log n)   |
-| Remove    | O(1)    | O(log n)   |
-
-
-Important Method
-put
-get
-remove
-containsKey
-containsValue
-size
-clear
-
-How Put Works Internally
-Steps:
-Compute hash of key
-Find bucket index
-Check:
-If empty → insert
-If key exists → update value
-If collision → add to list/tree
-If size exceeds threshold → resize
-
-Capacity, Load Factor, Rehashing
-Capacity = Initial size = 16
-Load Factor = Default = 0.75
-Threshold =  capacity × loadFactor
-👉 When size crosses threshold → rehash (resize)
-
-Rehashing
-Capacity doubles
-All elements redistributed
-👉 Costly operation → O(n)
-
-
-Method of HashMap
+V put(K key, V value)
+V putAll(Map<? extends K,? extends V> m)
+V remove(Object key)
+int size()
+Collection values()

@@ -1,8 +1,7 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
-
-PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
+PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid']);
 ?>
 <!DOCTYPE html>
 <html>

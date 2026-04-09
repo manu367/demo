@@ -76,7 +76,7 @@ if($_SESSION['id_type']=="admin"){
         ?>
         <div class="col-sm-3 nav-side-menu" style="padding-left:0px;padding-right:0px;border: 1px solid #2e353d;">
             <div class="brand" style="padding: 5px; text-align:center;background-color:#FFFFFF">
-                <img src="../images/blogo.png" style="width:76%;display:block;margin:0px auto;max-height:100px;" />
+                <img src="../images/blogo1.png" style="width:76%;display:block;margin:0px auto;max-height:100px;" />
             </div>
             <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
             <div class="menu-list">

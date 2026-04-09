@@ -200,11 +200,6 @@ class FormClone{
 
 }
 
-
-
-
-
-
 class FMsBasicOperation{
     public static function loadFMS($link,$fabid){
         $result=mysqli_query($link,"select * from fms_master where id='$fabid'");
@@ -297,7 +292,6 @@ class FMS_Operations{
                 updated_ip  = '$updated_ip',
                 category    = '$category'
             WHERE id = '$fms_id'";
-
         $rs=mysqli_query($this->conn, $sql);
         if(!rs){
             return ['status'=>false, "msg"=>'Some thins is wrong, Not Updated'];
@@ -318,7 +312,6 @@ class FMS_Operations{
         VALUES 
         ('$fname', '$details', $steps, $total_form, '$updated_by', '$updated_ip', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '$tablname','$category')";
 
-//        var_dump($sql);exit();
         if(!mysqli_query($this->conn, $sql)){
             return ['status'=>false, "msg"=>mysqli_error($this->conn)];
         }
@@ -888,7 +881,6 @@ class FormView{
         }
         $values = implode(",", $escapedData);
         $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
-        var_dump($sql);exit();
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }

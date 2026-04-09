@@ -135,7 +135,7 @@ if($menutab=="H"){
 }else{
 ?>
 <div class="col-sm-3 nav-side-menu" style="padding-left:0px;padding-right:0px;border: 1px solid #2e353d;">
-    <!--<h4><img src="../img/inner_logo.png" width="200"/></h4>--><div style="padding: 5px; text-align:center; background-color:#FFFFFF"><img style="width:76%;display:block;margin:0px auto;max-height:100px;" src="../images/blogo.png"/></div>
+    <!--<h4><img src="../img/inner_logo.png" width="200"/></h4>--><div style="padding: 5px; text-align:center; background-color:#FFFFFF"><img style="width:76%;display:block;margin:0px auto;max-height:100px;" src="../images/blogo1.png"/></div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
         <div class="menu-list">
             <br>

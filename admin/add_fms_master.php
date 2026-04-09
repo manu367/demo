@@ -7,8 +7,8 @@ set_exception_handler(function ($exception) {
         exit();
     }
     if ($exception instanceof GlobalException) {
-        $msg = urlencode($exception->getMessage());
-        header("Location: add_fms_master.php?op=add&pid=1&hid=1&msg={$msg}");
+        $msg = ($exception->getMessage());
+        header("Location: add_fms_master.php?pid=".$_REQUEST['pid']."&hid=".$_REQUEST['hid']."&op=add&pid=1&hid=1&msg={$msg}");
         exit();
     }
 });
@@ -61,58 +61,60 @@ if(isset($_POST['add'])){
     $data['total_form']=$_POST['total_form'];
     $data['ip']=$_SERVER['REMOTE_ADDR'];
     $data['category']=$_POST['category'];
-    $tablename=$fms->spaceRemover($data['fmsname']);
-    $tablename='fms_'.$tablename;
 
+    // clean base name
+    $baseName = $fms->spaceRemover($data['fmsname']);
 
+    // here we are decide prefix FIRST
+    if($data['category'] === '0'){
+        $data['category'] = 'fms';
+        $tablename = 'fms_' . $baseName;
 
-    // here we can check table is already exsits or not
-    $str=$fms->checkAlreadyExist($data['fmsname']);
+    } elseif($data['category'] === '1'){
+        $data['category'] = 'other';
+        $tablename = 'dv0_' . $baseName . '_master';
 
-    // check data is already table exist or not
-    if(in_array($tablename,$str)){
-        throw new GlobalException("Table already exist");
+    } else {
+        throw new GlobalException("Invalid category");
     }
-    // if not then create a table
-    if(!$table=$fms->createTable($data['fmsname'])){
-        throw new GlobalException("Table is not created, Somethings things happened");
+
+    // NOW check existence (after final name is ready)
+    $existingTables = $fms->checkAlreadyExist($tablename);
+
+    if(in_array($tablename, $existingTables)){
+        throw new GlobalException("Table already exists");
     }
 
-    /*
-     * this block of code is checking that category is
-     *  0(FMS) then category is fms_tableName
-     *  1(other) then category is dyo_table_name
-     *       case 1= check the already is exist or not
-     *       case 2= if not then create table in db
-     */
-    if($data['category']==='0'){
-        $data['category']=$tablename;
-    }else if ($data['category']==='1'){
-        $data['category']='dy0_'.$tablename.'_master';
-        $str_1=$fms->checkAlreadyExist($data['category']);
-        // check data is already table exist or not
-        if(in_array($data['category'],$str_1)){
-            throw new GlobalException("Table already exist");
-        }else{
-            createTableDMS($link1,$data['category']);
+    // create table
+    if($data['category'] === 'fms'){
+        if(!$fms->createTable($tablename)){
+            throw new GlobalException("Table not created");
         }
-    }else{
-
+    } else {
+        createTableDMS($link1, $tablename);
     }
-
 
     try{
+        $response = $fms->addOperation($data, $_SESSION['userid'], $tablename);
 
-        $response=$fms->addOperation($data,$_SESSION['userid'],$tablename);
-        $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"ArrayList","CREATE",$_SERVER['REMOTE_ADDR'],$link1,true);
-        // $res23=($response['status'] && $flag)
+        $flag = dailyActivity(
+                $_SESSION['userid'],
+                $data['fmsname'],
+                "fms create",
+                "CREATE",
+                $_SERVER['REMOTE_ADDR'],
+                $link1,
+                true
+        );
+
         if($response['status'] && $flag){
-            $fms->redirect("success",$response['msg']);
-        }else{
-            $fms->redirect("error",$response['msg']);
+            $fms->redirect("success", $response['msg']);
+        } else {
+            $fms->redirect("error", $response['msg']);
         }
-    }catch (Exception $e){
-        throw new FMSExceptionHandler("error","some things is wrong",$location,$pid,$hid);
+
+    } catch (Exception $e){
+        throw new FMSExceptionHandler("error","something went wrong",$location,$pid,$hid);
     }
 }
 
@@ -125,6 +127,7 @@ if(isset($_POST['add'])){
  *   step 4= accoding to status you will perform next task
  */
 if(isset($_POST['update'])){
+
     $data=[];
     $data['fmsname']=$_POST['fmsname'];
     $data['details']=$_POST['fms_details'];
@@ -133,25 +136,16 @@ if(isset($_POST['update'])){
     $data['ip']=$_SERVER['REMOTE_ADDR'];
     $data['category']=$_POST['category'];
 
-    $tablename=$fms->spaceRemover($data['fmsname']);
-    $tablename='fms_'.$tablename;
+    // here we are decide prefix FIRST
+    if($data['category'] === '0'){
+        $data['category'] = 'fms';
 
-    if($data['category']==='0'){
-        $data['category']=$tablename;
+    } elseif($data['category'] === '1'){
+        $data['category'] = 'other';
+    } else {
+        throw new GlobalException("Invalid category");
     }
-    else if ($data['category']==='1'){
-        $data['category']='dy0_'.$tablename.'_master';
-        $str_1=$fms->checkAlreadyExist($data['category']);
-        if(in_array($data['category'],$str_1)){
-            // do nothing
-            var_dump("do nothinhs");
-        }else{
-            createTableDMS($link1,$data['category']);
-            var_dump("create table");
-        }
-    }else{
 
-    }
 
     try{
         $resUp=$fms->updateOperation($data,$_SESSION['userid'],$fms_id);
@@ -187,9 +181,6 @@ if($is_edit){
 }else{
     $isPermissionGrant=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -371,7 +362,7 @@ if($is_edit){
                                         if (strpos($edit_data['category'], 'fms')===0) {
                                             $selected_fms = 'selected';
                                         }
-                                        if (strpos($edit_data['category'], 'dy')===0) {
+                                        if (strpos($edit_data['category'], 'other')===0) {
                                             $selected_other = 'selected';
                                         }else{
                                             $selected_fms = 'selected';
@@ -476,6 +467,7 @@ include("../includes/connection_close.php");
     document.querySelectorAll("input").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
+
 </script>
 </body>
 </html>

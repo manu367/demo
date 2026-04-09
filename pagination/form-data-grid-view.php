@@ -61,6 +61,7 @@ while($row = mysqli_fetch_assoc($res)){
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="form_view.php?pid='.$pid.'&hid='.$hid.'&formid='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>':'',
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="form_upload.php?pid='.$pid.'&hid='.$hid.'&formid='.($row['id']).'" class="btn btn-sm btn-success">Upload</a>':'',
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<button onclick="showApi(this)" data-fromid="'.$row['id'].'" data-formName="'.$row['form_name'].'" data-column="'.implode('-',json_decode($row['parameter_name'])).'"  class="btn btn-sm btn-danger">API</button>':'',
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<button onclick="showQRCode(this)" data-fromid="'.$row['id'].'" data-formName="'.$row['form_name'].'" class="btn btn-sm btn-primary">Publish</button>':'',
     ];
 }
 

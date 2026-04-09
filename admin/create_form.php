@@ -40,6 +40,7 @@ $id_fms=0;
 if(isset($_REQUEST['id'])){
     $id=$_REQUEST['id'];
     $load=loadFSM($link1,"SELECT * FROM fms_master where id=$id");
+    $id_fms=$load['id'];
 }
 
 $msg=null;
@@ -52,6 +53,7 @@ if(isset($_POST['save']))
    $fmsid=$_POST['fmsid'];
    $frmName=$_POST['frm_name'];
    $frm_seq=$_POST['frm_seq'];
+    $id_fms=$fmsid;
 
    // load fsm
    $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
@@ -104,6 +106,8 @@ if(isset($_POST['update']))
     $old_column=$_POST['old_column'];
     $frmName    = $_POST['frm_name'];
     $frm_seq=$_POST['frm_seq'];
+
+    $id_fms=$fmsid;
 
     $raw = $_POST['old_column'];
     $raw = trim($raw, "'");
@@ -761,7 +765,6 @@ function showAlert(message, type = "success", duration = 3000) {
     }
     ConnectionStablish.prototype.checkConnection=function(){}
 
-
     function DupblicationRemover(){
         this.old_col=null;
         this.dbCol=null;
@@ -875,7 +878,6 @@ function showAlert(message, type = "success", duration = 3000) {
             console.log([...error]);
         });
     };
-
 
     document.addEventListener("DOMContentLoaded", async function(){
         const operations="<?=isset($_REQUEST['op'])?$_REQUEST['op']:''?>";

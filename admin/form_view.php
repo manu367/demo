@@ -12,24 +12,54 @@
  *
  */
 
-
 function fileUpload($field){
     if(isset($_FILES[$field]) && $_FILES[$field]['error'] == 0){
         $fileName = $_FILES[$field]['name'];
         $tmpName  = $_FILES[$field]['tmp_name'];
         $fileSize = $_FILES[$field]['size'];
+
+        // File size limit (6MB)
         if($fileSize > 6 * 1024 * 1024){
             die("File too large");
         }
-        $uploadDir = "../upload_fms_file/";
+
+        // Current date folder (YYYY-MM-DD)
+        $dateFolder = date("Y-m-d");
+        $uploadDir = "../upload_fms_file/" . $dateFolder . "/";
+
+        // Create folder if not exists
+        if(!is_dir($uploadDir)){
+            mkdir($uploadDir, 0777, true);
+        }
+
+        // Unique file name
         $newName = time() . "_" . basename($fileName);
         $destination = $uploadDir . $newName;
+
         if(move_uploaded_file($tmpName, $destination)){
-            return $newName;
+            return $destination;
         }
     }
     return false;
 }
+
+//function fileUpload($field){
+//    if(isset($_FILES[$field]) && $_FILES[$field]['error'] == 0){
+//        $fileName = $_FILES[$field]['name'];
+//        $tmpName  = $_FILES[$field]['tmp_name'];
+//        $fileSize = $_FILES[$field]['size'];
+//        if($fileSize > 6 * 1024 * 1024){
+//            die("File too large");
+//        }
+//        $uploadDir = "../upload_fms_file/";
+//        $newName = time() . "_" . basename($fileName);
+//        $destination = $uploadDir . $newName;
+//        if(move_uploaded_file($tmpName, $destination)){
+//            return $uploadDir.$newName;
+//        }
+//    }
+//    return false;
+//}
 
 require_once("../includes/config.php");
 global $link1;

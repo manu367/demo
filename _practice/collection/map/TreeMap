@@ -1,0 +1,98 @@
+TreeMap
+Java ka TreeMap ek Map implementation hai jo data ko sorted order me store karta hai
+— by default keys ke natural order me (jaise numbers ascending, strings alphabetical).
+Ye internally Red-Black Tree use karta hai,
+isliye operations (put, get, remove) generally O(log n) time lete hain.
+
+Basic baat samajh le:
+Duplicate keys allowed ❌
+Values duplicate ho sakti hain ✅
+Keys sorted rehte hain automatically ✅
+Null key allowed nahi hoti ❌ (HashMap me hoti hai)
+
+TreeMap ke “extra” methods
+1. Navigation methods
+Ye sorted nature ka fayda uthate hain:
+firstKey() → sabse chhoti key
+lastKey() → sabse badi key
+higherKey(k) → given key se just badi key
+lowerKey(k) → given key se just chhoti key
+ceilingKey(k) → >= k
+floorKey(k) → <= k
+
+2. Entry-based navigation
+Same cheez, par key + value dono ke saath:
+firstEntry()
+lastEntry()
+higherEntry(k)
+lowerEntry(k)
+ceilingEntry(k)
+floorEntry(k)
+
+3. Range operations (bahut powerful)
+subMap(fromKey, toKey) → ek range ka map
+headMap(toKey) → chhoti keys ka part
+tailMap(fromKey) → badi keys ka part
+
+4. Reverse order
+descendingMap() → ulta sorted map
+descendingKeySet()
+
+5.Poll methods (remove + return)
+pollFirstEntry()
+pollLastEntry()
+
+
+Methods
+
+Map.Entry<K,V> ceilingEntry(K key)
+Map.Entry<K,V> floorEntry(K key)
+Set<Map.Entry<K,V>> entrySet()
+Map.Entry<K,V> firstEntry()
+
+K ceilingKey(K key)
+void clear()
+Comparator<? super K> comparator()
+
+V compute(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+V computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction)
+V computeIfPresent(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+
+boolean containsKey(Object key)
+boolean containsValue(object value)
+
+NavigableSet<K> descendingKeySet()
+NavigableMap<K,V> descendingMap()
+
+
+K firstKey()
+K floorKey(K key)
+
+V get(Object key)
+SortedMap<K,V> headMap(K toKey)
+NavigableMap<K,V> headMap(K toKey, boolean inclusive)
+Map.Entry<K,V> higherEntry(K key)
+K higherKey(K key)
+Set<K> keySet()
+Map.Entry<K,V> lastEntry()
+Map.Entry<K,V> lowerEntry(K key)
+K lastKey()
+K lowerKey(K key)
+
+V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction)
+NavigableSet<K> navigableKeySet()
+Map.Entry<K,V> pollFirstEntry()
+Map.Entry<K,V> pollLastEntry()
+
+V put(K key, V value)
+void putAll(Map<? extends K,? extends V> map)
+V putFirst(K k, V v)
+V putLast(K k, V v)
+
+V remove(Object key)
+int size()
+NavigableMap<K,V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)
+SortedMap<K,V> subMap(K fromKey, K toKey)
+SortedMap<K,V> tailMap(K fromKey)
+NavigableMap<K,V> tailMap(K fromKey, boolean inclusive)
+Collection<V> values()

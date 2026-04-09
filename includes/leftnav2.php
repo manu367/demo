@@ -83,7 +83,7 @@ else{
     <div class="col-sm-3 nav-side-menu" style="padding-left:0px;padding-right:0px;border: 1px solid #2e353d;">
 
         <div class="brand" style="padding: 5px; text-align:center;background-color:#FFFFFF">
-            <img src="../images/blogo.png" style="width:76%;display:block;margin:0px auto;max-height:100px;" />
+            <img src="../images/blogo.png" style="width:75%;background-color:white ;display:block;margin:0px auto;max-height:100px;object-fit:contain" />
         </div>
 
         <div class="menu-list">
