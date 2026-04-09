@@ -160,11 +160,11 @@ body {
 .red_small{
    color:#F00;
 }
-<!--jquery error validation ->
-* {
-	font-family: Verdana;
-	font-size: 96%;
-}
+/*<!--jquery error validation ->*/
+/** {*/
+/*	font-family: Verdana;*/
+/*	font-size: 96%;*/
+/*}*/
 label.error {
 	float: none;
 	color: red;

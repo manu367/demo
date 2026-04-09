@@ -70,6 +70,7 @@ while($row = mysqli_fetch_assoc($res)){
         $serial++,
         $row['fmsname'],
         $row['details'],
+        $row['category']??'',
         $row['created_at'],
         $row['updated_at'],
         $status,

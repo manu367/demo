@@ -49,20 +49,19 @@ $hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
 
 if(isset($_POST['save']))
 {
-   $fmsid=$_POST['fmsid'];
-   $frmName=$_POST['frm_name'];
-   $frm_seq=$_POST['frm_seq'];
+    $fmsid=$_POST['fmsid'];
+    $frmName=$_POST['frm_name'];
+    $frm_seq=$_POST['frm_seq'];
 
-   // load fsm
-   $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
+    // load fsm
+    $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
 
 
-   // partname space = Part_SPACE_Name
+    // partname space = Part_SPACE_Name
     $paraName = json_encode(array_map(function($val){
         $val = trim($val);
         $val = preg_replace('/\s+/', '_', $val);
         return strtolower($val);}, $_POST['param_name']));
-
     $displayName = json_encode($_POST['display_name']);
     $type=json_encode($_POST['type']);
     $length=json_encode($_POST['length']);
@@ -70,15 +69,15 @@ if(isset($_POST['save']))
 
     // store all data in one unit
     $data=["fmsid"=>$fmsid,
-            "formname"=>$frmName,
-            'frm_seq'=>$frm_seq,
-            "name"=>$paraName,
-            "displayName"=>$displayName,
-            "type"=>$type,
-            "length"=>$length,
+        "formname"=>$frmName,
+        'frm_seq'=>$frm_seq,
+        "name"=>$paraName,
+        "displayName"=>$displayName,
+        "type"=>$type,
+        "length"=>$length,
         "check"=>$check,
-            ];
-    
+    ];
+
     $response=$formoperation->addForm($fmsid,$data,$_SESSION['userid']);
 
     try{
@@ -99,6 +98,7 @@ if(isset($_POST['save']))
 
 if(isset($_POST['update']))
 {
+
     $fmsid      = $_POST['fmsid'];
     $formid=$_POST['formid'];
     $old_column=$_POST['old_column'];
@@ -128,11 +128,11 @@ if(isset($_POST['update']))
         $dropdown=0;
         if($type==='8'){
             $dropdown=$_POST['drop_down'][$j];
-            $length='50';
+            $length=50;
             $j++;
-        }else{
-            $length=$_POST['length'][$i];
         }
+
+        $length=$_POST['length'][$i];
         $length_1=(int)$length;
         if($length_1>255){
             $length='255';
@@ -141,19 +141,20 @@ if(isset($_POST['update']))
         $check=$_POST['check'][$i];
 
         if($old_col===null){
-            $newColumnAddInDB['column'][]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length??'50',null,$dropdown);
+            $newColumnAddInDB['column'][]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,null,$dropdown);
         }
-        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length??'50',$old_col,$dropdown);
+        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length,$old_col,$dropdown);
     }
 
     // new-data and old_data store in one unit here
     $data=[
-            "fms_id"=>'',
-            "formid"=>$formid,
-            "frm_seq"=>$frm_seq,
-            "new"=>$newData,
-            "old_col"=>$old_column
+        "fms_id"=>'',
+        "formid"=>$formid,
+        "frm_seq"=>$frm_seq,
+        "new"=>$newData,
+        "old_col"=>$old_column
     ];
+
 
     // here we can get the tble on the basic of ID
     if($fmsid===''){throw new GlobalException('id mismatch error');}
@@ -414,9 +415,9 @@ if(isset($_REQUEST['msg'])):?>
                     <input type="text" id="formid" name="formid" value="<?=$res['id']?>" style="display: none;">
                     <?php
                     if (!empty($res['parameter_name'])) {
-                        echo '<input type="hidden" id="old_column" name="old_column" value="'
-                                . htmlspecialchars(json_encode($res['parameter_name']), ENT_QUOTES, 'UTF-8')
-                                . '">';
+                        echo '<input type="hidden" name="old_column" value="'
+                            . htmlspecialchars(json_encode($res['parameter_name']), ENT_QUOTES, 'UTF-8')
+                            . '">';
                     }
                     ?>
                     <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
@@ -495,8 +496,8 @@ if(isset($_REQUEST['msg'])):?>
 //                                        var_dump($param_require[$i], $checkedAttr);
                                         echo "<tr>
             <td>".($i+1)."</td>
-            <td><input type='text' class='form-control' name='param_name[]' data-old='".($co[$i] ?? "")."' value='".($co[$i] ?? "")."'></td>
-            <td><input type='text' class='form-control' name='display_name[]' data-old='".($dis[$i] ?? "")."' value='".($dis[$i] ?? "")."'></td>
+            <td><input type='text' class='form-control' name='param_name[]' value='".($co[$i] ?? "")."'></td>
+            <td><input type='text' class='form-control' name='display_name[]' value='".($dis[$i] ?? "")."'></td>
             <td>
                 <select name='type[]' class='form-control type_form'>
                     <option>-Select option-</option>";
@@ -507,7 +508,6 @@ if(isset($_REQUEST['msg'])):?>
                                         echo "</select></td>
                                         <td>";
                                         if (isset($type[$i]) && $type[$i] == 8) {
-                                            echo "<input type='hidden' name='length[]' class='form-control' value='".($length[$i] ?? "50")."'>";
                                             echo showDropDown_master($link1, $dropdown[$i] ?? '');
                                         } else {
                                             //<input type='number' name='length[]' class='form-control' value='".($length[$i] ?? "")."'>
@@ -554,11 +554,11 @@ if(isset($_REQUEST['msg'])):?>
 
                     <div class="text-center">
                         <button type="submit" style="text-transform: capitalize" name="<?=$operation?>" class="btn btn-success"><?=$operation?></button>
-                        <a href="form_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>&id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
+                        <a href="form_master.php?id=<?=base64_encode($id_fms)?>" class="btn btn-warning">Back</a>
                     </div>
 
                 </form>
-                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 </div>
@@ -672,26 +672,26 @@ include("../includes/connection_close.php");
         });
     });
 
-// showAlert("Form submitted successfully!", "success");
-// showAlert("Something went wrong!", "error");
-// showAlert("Check your input!", "warning");
+    // showAlert("Form submitted successfully!", "success");
+    // showAlert("Something went wrong!", "error");
+    // showAlert("Check your input!", "warning");
 
-function showAlert(message, type = "success", duration = 3000) {
-    const container = document.getElementById("customAlertContainer");
-    const alert = document.createElement("div");
-    alert.classList.add("alert-box", `alert-${type}`);
-    alert.innerHTML = `
+    function showAlert(message, type = "success", duration = 3000) {
+        const container = document.getElementById("customAlertContainer");
+        const alert = document.createElement("div");
+        alert.classList.add("alert-box", `alert-${type}`);
+        alert.innerHTML = `
         <span>${message}</span>
         <span class="close-btn">&times;</span>
     `;
-    container.appendChild(alert);
-    alert.querySelector(".close-btn").addEventListener("click", () => {
-        alert.remove();
-    });
-    setTimeout(() => {
-        alert.remove();
-    }, duration);
-}
+        container.appendChild(alert);
+        alert.querySelector(".close-btn").addEventListener("click", () => {
+            alert.remove();
+        });
+        setTimeout(() => {
+            alert.remove();
+        }, duration);
+    }
 </script>
 
 <script>
@@ -708,13 +708,15 @@ function showAlert(message, type = "success", duration = 3000) {
     checkboxvalue();
 </script>
 <script>
-    // ye select box code
     document.querySelectorAll("input").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
     document.querySelectorAll("select").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
+
+
+
 
     const selectbox="<?=showDropDown_master($link1)?>";
 
@@ -726,7 +728,7 @@ function showAlert(message, type = "success", duration = 3000) {
 
                 if (input) {
                     input.value = 50;
-                    input.type='hidden'
+                    input.style.display = "none";
                 }
 
                 td.insertAdjacentHTML("beforeend", `<?=$selectedBox?>`);
@@ -735,161 +737,105 @@ function showAlert(message, type = "success", duration = 3000) {
     });
 
 </script>
-
+<script id="a1b2c3">
+    document.addEventListener("input", function(e){
+        if(e.target.matches("input[name='param_name[]']")){
+            let query = e.target.value.trim();
+            if(query.length < 2){
+                removeSuggestionBox(e.target);
+                return;
+            }
+            fetch(`../pagination/table-column-data.php?formid=<?=$res['id']?>&fmsid=<?=$load['id']?>&q=${query}`)
+                .then(res => res.json())
+                .then(res => {
+                    if(res.status){
+                        showSuggestions(e.target, res.data);
+                    }
+                });
+        }
+    });
+    function showSuggestions(input, data){
+        removeSuggestionBox(input); // clean old
+        let box = document.createElement("div");
+        box.classList.add("suggestion-box");
+        data.forEach(item => {
+            let div = document.createElement("div");
+            div.textContent = item;
+            div.classList.add("suggestion-item");
+            div.addEventListener("click", function(){
+                input.value = item;
+                removeSuggestionBox(input);
+            });
+            box.appendChild(div);
+        });
+        input.parentElement.appendChild(box);
+    }
+    function removeSuggestionBox(input){
+        let old = input.parentElement.querySelector(".suggestion-box");
+        if(old) old.remove();
+    }
+</script>
 <script>
-    function LNode(data){
-        this.data=data;
-    }
-    function ConnectionStablish(){
-        this.connection=new Map();
-    }
-    ConnectionStablish.prototype.addNode=function(key,node){
-        if(!this.connection.has(key)){
-            this.connection.add(key,new LNode(node));
+    let invalidInputs = new Set();
+    document.addEventListener("input", function(e) {
+        if (e.target.matches("input[name='param_name[]']")) {
+            ParamtertypeFetch(e.target)
         }
-    }
-    ConnectionStablish.prototype.deleteNode=function(key,node){
-        if(this.connection.has(key)){
-            this.connection.delete(key);
-        }
-    }
-    ConnectionStablish.prototype.getConnection=function(key){
-        if(!this.connection.has(key)){
-            return this.connection.get(key);
-        }
-        return null;
-    }
-    ConnectionStablish.prototype.checkConnection=function(){}
+    });
 
+    async function ParamtertypeFetch(input){
+        const value = input.value.trim();
+        const normalizedValue = normalize(value);
 
-    function DupblicationRemover(){
-        this.old_col=null;
-        this.dbCol=null;
-        this.invalidInput=new Set();
-        this.error=new Set();
-    }
-    DupblicationRemover.prototype.dbParamterFetch=async function(){
-        let url = `../pagination/table-column-data.php?fms_id=<?=$load['id']?>&formid=<?=$res['id']?>&column=${''}`;
+        let url = `../pagination/table-column-data.php?fms_id=<?=$load['id']?>&formid=<?=$res['id']?>&column=${value}`;
+
         const response = await fetch(url);
         const data = await response.json();
-        this.dbCol=await data;
+        console.log(data);
+        let isDuplicate = false;
+
+        data.forEach(item => {
+            if (normalize(item) === normalizedValue){
+                isDuplicate = true;
+            }
+        });
+
+        if(isDuplicate){
+            input.style.border = "2px solid red";
+            invalidInputs.add(input);
+            showSnackbar(input, `${value.toUpperCase()} already exists`);
+        } else {
+            input.style.border = "2px solid green";
+            invalidInputs.delete(input);
+        }
     }
-    DupblicationRemover.prototype.noromilizeFun=function(str){
+
+    document.querySelector("form").addEventListener("submit", function(e){
+        if(invalidInputs.size > 0){
+            e.preventDefault();
+            showSnackbar(null, "Fix errors before submitting");
+        }
+    });
+
+    function normalize(str) {
         return str
             .toLowerCase()
-            .replace(/\s+/g, '_'); // space → underscore
+            .replace(/[\s_]/g, ''); // remove space + underscore
     }
-    DupblicationRemover.prototype.showSnackbar= function(input=null,msg='') {
+
+
+    function showSnackbar(input=null,msg='') {
         if(input!==null){
             input.style.border="2px solid red";
         }
         const snackbar = document.getElementById("snackbar");
         snackbar.textContent = msg;
         snackbar.classList.add("show");
+
         setTimeout(() => {
             snackbar.classList.remove("show");
         }, 3000);
     }
-
-    DupblicationRemover.prototype.stopFormSubmit = function(){
-        const self = this;
-        document.querySelector("form").addEventListener("submit", function(e){
-            if(self.error.size > 0){
-                e.preventDefault();
-                self.showSnackbar(null, "Fix errors before submitting");
-            }
-        });
-    }
-
-    DupblicationRemover.prototype.loadAllTable=function(){}
-    DupblicationRemover.prototype.addForm=function (){
-        if(this.dbCol!==null){
-            this.dbCol.forEach((col)=>{
-               this.invalidInput.add(col);
-            });
-        }
-        console.log(this.invalidInput);
-        const set=this.invalidInput;
-        const error=this.error;
-        document.addEventListener("input", function(e) {
-            if (e.target.matches("input[name='param_name[]']")) {
-                let value=DupblicationRemover.prototype.noromilizeFun(e.target.value);
-                if(set.has(value)){
-                    error.add(e.target);
-                    DupblicationRemover.prototype.showSnackbar(e.target,'Already exists');
-                    DupblicationRemover.prototype.stopFormSubmit();
-                }
-                else{
-                    error.delete(e.target);
-                    e.target.style.border="0px solid";
-                }
-            }
-            console.log(error);
-        });
-    }
-
-    DupblicationRemover.prototype.updateForm = function(){
-
-        if(this.dbCol !== null){
-            this.dbCol.forEach((col)=>{
-                this.invalidInput.add(this.noromilizeFun(col));
-            });
-        }
-
-        let old_col = document.getElementById("old_column");
-        let old_col_value = JSON.parse(JSON.parse(old_col.value));
-
-        const set = this.invalidInput;
-        const error = this.error;
-        const self = this;
-
-        document.addEventListener("input", function(e){
-
-            if (e.target.matches("input[name='param_name[]']")) {
-
-                const element = e.target;
-
-                const newValue = self.noromilizeFun(element.value);
-                const oldValue = self.noromilizeFun(element.dataset.old ?? '');
-
-                //case 1: same as old -> always valid
-                if(newValue === oldValue){
-                    error.delete(element);
-                    element.style.border = "1px solid #ccc";
-                    return;
-                }
-
-                // case 2: changed but already exists in DB -> error
-                if(set.has(newValue)){
-                    error.add(element);
-                    self.showSnackbar(element, 'Already exists');
-                    element.style.border = "2px solid red";
-                }
-                //  case 3: changed and unique -> valid
-                else{
-                    error.delete(element);
-                    element.style.border = "1px solid #ccc";
-                }
-            }
-
-            console.log([...error]);
-        });
-    };
-
-
-    document.addEventListener("DOMContentLoaded", async function(){
-        const operations="<?=isset($_REQUEST['op'])?$_REQUEST['op']:''?>";
-        const validation=new DupblicationRemover();
-        await validation.dbParamterFetch();
-
-        if(operations===''){
-            validation.addForm();
-        }else{
-            console.log(validation.dbCol);
-            validation.updateForm();
-        }
-        validation.stopFormSubmit();
-    });
 </script>
 </body>
 </html>

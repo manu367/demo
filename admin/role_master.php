@@ -9,25 +9,28 @@ $hid=$_REQUEST['hid'];
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
-<link href="../css/font-awesome.min.css" rel="stylesheet">
-<link href="../css/abc.css" rel="stylesheet">
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<link href="../css/abc2.css" rel="stylesheet">
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/jquery.dataTables.min.css">
-<script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript">
-$(document).ready(function() {
-	var dataTable = $('#emp-grid').DataTable( {
-		"processing": true,
-		"serverSide": true,
-		"bStateSave": true,
-		"ajax":{
-			url :"../pagination/role-grid-data.php", // json datasource
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/abc.css" rel="stylesheet">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link href="../css/abc2.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            var dataTable = $('#emp-grid').DataTable( {
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
+                "bStateSave": true,
+                "ajax":{
+                    url :"../pagination/role-grid-data.php", // json datasource
 			data: { "pid": "<?=$_REQUEST['pid']?>", "hid": "<?=$_REQUEST['hid']?>"},
 			type: "post",  // method  , by default get
 			error: function(){  // error handling
@@ -134,7 +137,7 @@ if(isset($_REQUEST['msg'])){?>
       		<form class="form-horizontal" role="form">
         		<div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/>
        				<div class="col-md-12" style="overflow: scroll">
-                        <table  width="100%" id="emp-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                        <table  width="95%" id="emp-grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
                             <thead>
                             <tr class="<?=$tableheadcolor?>">
                                 <th>S.No</th>

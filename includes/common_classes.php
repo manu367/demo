@@ -284,6 +284,8 @@ class FMS_Operations{
         $total_form  = (int)$data['total_form'];
         $updated_by  = $updateBy;
         $updated_ip  = $_SERVER['REMOTE_ADDR'];
+        $category    = $data['category'];
+
 
         $sql = "UPDATE fms_master SET 
                 fmsname     = '$fname',
@@ -292,9 +294,9 @@ class FMS_Operations{
                 total_form  = $total_form,
                 updated_at  = CURRENT_TIMESTAMP,
                 updated_by  = '$updated_by',
-                updated_ip  = '$updated_ip'
+                updated_ip  = '$updated_ip',
+                category    = '$category'
             WHERE id = '$fms_id'";
-
 
         $rs=mysqli_query($this->conn, $sql);
         if(!rs){
@@ -309,12 +311,14 @@ class FMS_Operations{
         $total_form  = (int)$data['total_form'];
         $updated_by  = mysqli_real_escape_string($this->conn, $updateBy);
         $updated_ip  = $_SERVER['REMOTE_ADDR'];
+        $category=$data['category']??$this->spaceRemover('fms_'.$fname);
 
         $sql = "INSERT INTO fms_master 
-        (fmsname, details, steps, total_form, updated_by, updated_ip, created_at, updated_at, table_name)
+        (fmsname, details, steps, total_form, updated_by, updated_ip, created_at, updated_at, table_name,category)
         VALUES 
-        ('$fname', '$details', $steps, $total_form, '$updated_by', '$updated_ip', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '$tablname')";
+        ('$fname', '$details', $steps, $total_form, '$updated_by', '$updated_ip', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '$tablname','$category')";
 
+//        var_dump($sql);exit();
         if(!mysqli_query($this->conn, $sql)){
             return ['status'=>false, "msg"=>mysqli_error($this->conn)];
         }
@@ -2055,7 +2059,7 @@ class RoleAssienment{
                 <label class='tab-item'>
                     <input type='checkbox' name='role_per[]' value='{$row['tabid']}' $checked>
                     <i class='fa {$row['subtabicon']}'></i>
-                    {$row['subtabname']} ({$row['tabid']})
+                    <span>{$row['subtabname']} ({$row['tabid']})</span>
                 </label>
             ";
             }

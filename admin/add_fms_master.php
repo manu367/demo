@@ -23,6 +23,28 @@ $fms_id=isset($_REQUEST['id'])?base64_decode($_REQUEST['id']):'';
 $fms=new FMS_Operations($pid,$hid,$location,$link1);
 $show=null;
 
+function createTableDMS($link1,$name){
+    try {
+        $tableName=$name;
+        $sql = "CREATE TABLE IF NOT EXISTS `$tableName` (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by varchar(10),
+    updated_ip varchar(40)
+        ) ENGINE=InnoDB";
+
+        if (!mysqli_query($link1,$sql)) {
+            throw new GlobalException("Error creating table: " . $link1->error);
+        }
+
+        return true;
+
+    } catch (Exception $e) {
+        throw new GlobalException($e->getMessage());
+    }
+}
+
 /**
  *  Add the FRM Form Data
  *   Step 1= get All the in single unit (Array)
@@ -31,15 +53,20 @@ $show=null;
  *   step 4= accoding to status you will perform next task
  */
 if(isset($_POST['add'])){
+
     $data=[];
     $data['fmsname']=$_POST['fmsname'];
     $data['details']=$_POST['fms_details'];
     $data['steps']=$_POST['steps'];
     $data['total_form']=$_POST['total_form'];
     $data['ip']=$_SERVER['REMOTE_ADDR'];
-
+    $data['category']=$_POST['category'];
     $tablename=$fms->spaceRemover($data['fmsname']);
+    $tablename='fms_'.$tablename;
 
+
+
+    // here we can check table is already exsits or not
     $str=$fms->checkAlreadyExist($data['fmsname']);
 
     // check data is already table exist or not
@@ -51,8 +78,31 @@ if(isset($_POST['add'])){
         throw new GlobalException("Table is not created, Somethings things happened");
     }
 
+    /*
+     * this block of code is checking that category is
+     *  0(FMS) then category is fms_tableName
+     *  1(other) then category is dyo_table_name
+     *       case 1= check the already is exist or not
+     *       case 2= if not then create table in db
+     */
+    if($data['category']==='0'){
+        $data['category']=$tablename;
+    }else if ($data['category']==='1'){
+        $data['category']='dy0_'.$tablename.'_master';
+        $str_1=$fms->checkAlreadyExist($data['category']);
+        // check data is already table exist or not
+        if(in_array($data['category'],$str_1)){
+            throw new GlobalException("Table already exist");
+        }else{
+            createTableDMS($link1,$data['category']);
+        }
+    }else{
+
+    }
+
+
     try{
-        $tablename='fms_'.$tablename;
+
         $response=$fms->addOperation($data,$_SESSION['userid'],$tablename);
         $flag = dailyActivity($_SESSION['userid'],$data['fmsname'],"ArrayList","CREATE",$_SERVER['REMOTE_ADDR'],$link1,true);
         // $res23=($response['status'] && $flag)
@@ -81,6 +131,27 @@ if(isset($_POST['update'])){
     $data['steps']=$_POST['steps'];
     $data['total_form']=$_POST['total_form'];
     $data['ip']=$_SERVER['REMOTE_ADDR'];
+    $data['category']=$_POST['category'];
+
+    $tablename=$fms->spaceRemover($data['fmsname']);
+    $tablename='fms_'.$tablename;
+
+    if($data['category']==='0'){
+        $data['category']=$tablename;
+    }
+    else if ($data['category']==='1'){
+        $data['category']='dy0_'.$tablename.'_master';
+        $str_1=$fms->checkAlreadyExist($data['category']);
+        if(in_array($data['category'],$str_1)){
+            // do nothing
+            var_dump("do nothinhs");
+        }else{
+            createTableDMS($link1,$data['category']);
+            var_dump("create table");
+        }
+    }else{
+
+    }
 
     try{
         $resUp=$fms->updateOperation($data,$_SESSION['userid'],$fms_id);
@@ -282,12 +353,44 @@ if($is_edit){
                                 Name<span class="red_small">*</span>
                             </label>
                             <div class="col-md-6">
-                                <input name="fmsname" type="text" class="form-control"
+                                <input id="fmsname" name="fmsname" type="text" class="form-control"
                                        value="<?= $is_edit ? $edit_data['fmsname'] : '' ?>"
                                         <?= $is_edit ? '' : '' ?> required>
 
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label for="username" class="col-md-6 control-label">Category<span class="red_small">*</span></label>
+                            <div class="col-md-6">
+                                <select id="select_category" name="category" class="form-control">
+                                    <?php
+                                    $selected_fms = '';
+                                    $selected_other = '';
+
+                                    if ($is_edit) {
+                                        if (strpos($edit_data['category'], 'fms')===0) {
+                                            $selected_fms = 'selected';
+                                        }
+                                        if (strpos($edit_data['category'], 'dy')===0) {
+                                            $selected_other = 'selected';
+                                        }else{
+                                            $selected_fms = 'selected';
+                                        }
+                                    } else {
+                                        // default when not editing
+                                        $selected_fms = 'selected';
+                                    }
+
+                                    ?>
+
+                                    <option value="0" <?= $selected_fms ?>>FMS</option>
+                                    <option value="1" <?= $selected_other ?>>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <div class="col-md-6">
                             <label for="username" class="col-md-6 control-label">Details<span class="red_small">*</span></label>
                             <div class="col-md-6">
@@ -296,20 +399,18 @@ if($is_edit){
                                        required>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
                         <div class="col-md-6"><label class="col-md-6 control-label">No of Steps</label>
                             <div class="col-md-6">
-                                <input name="steps" type="number" class="form-control"
-                                       value="<?= $is_edit ? $edit_data['steps'] : '' ?>" required>
+                                <input name="steps" type="number" class="form-control" min="0" max="99" value="<?= $is_edit ? $edit_data['steps'] : '' ?>" required>
 
                             </div>
                         </div>
+
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-6"><label class="col-md-6 control-label">Total No form<span class="red_small">*</span></label>
                             <div class="col-md-6">
-                                <input name="total_form" type="number" class="form-control"
-                                       value="<?= $is_edit ? $edit_data['total_form'] : '' ?>" required>
+                                <input name="total_form" type="number" class="form-control" min="0" max="99" value="<?= $is_edit ? $edit_data['total_form'] : '' ?>" required>
                             </div>
                         </div>
                     </div>
@@ -371,36 +472,10 @@ include("../includes/connection_close.php");
     }
     ?>
 </script>
-
 <script>
     document.querySelectorAll("input").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
-
-    function LNode(data){
-        this.data=data;
-        this.next=null;
-    }
-    function LinkedList(){
-        this.head=null;
-    }
-    LinkedList.prototype.addNode=function (data){
-        const node=new LNode(data);
-        if(this.head===null){
-            this.head=node;
-            return;
-        }
-        let tmep=this.head;
-        while (tmep===null){
-            tmep=temp.next;
-        }
-        temp=node;
-    }
-    const list=new LinkedList();
-    list.addNode(12);
-    list.addNode(14);
-    list.addNode(15);
-
 </script>
 </body>
 </html>

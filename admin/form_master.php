@@ -67,11 +67,16 @@ if($load){
     <!-- Include Date Picker -->
     <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css"/>
+
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#myacc-users-grid').DataTable({
-                processing: true,
-                serverSide: true,
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
                 ajax: {
                     url: "../pagination/form-data-grid.php",
                     type: "POST",
@@ -136,7 +141,7 @@ if($load){
                 ?>
             </div>
 
-            <table width="100%" id="myacc-users-grid" class="display table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
+            <table width="95%" id="myacc-users-grid" class="display table-striped table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
                 <thead class="bg-primary">
                 <tr>
                     <td>#</td>

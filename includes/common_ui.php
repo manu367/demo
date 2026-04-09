@@ -12,8 +12,9 @@ function ajaxCall($tablename, $url, $data = [], $request_type = 'POST'){
     <script>
     $(document).ready(function () {
         $('#{$tablename}').DataTable({
-            processing: true,
-            serverSide: true,
+            'responsive': true,
+             'processing': true,
+              'serverSide': true,
             ajax: {
     url: '{$url}',
                 type: '{$request_type}',

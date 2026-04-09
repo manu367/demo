@@ -5,31 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/fmsapi/fms-fetch.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/FMSDetails.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/FormMasterModal.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/model/common_modal.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/operations/FmsOperations.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/operations/common_operations.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/repo/FmsRepo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fmsapi/includes/repo/common_repo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/startup/startup_file" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/backup.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/_demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/_demo_.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/table_responsive.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/add_dropdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/first.http" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/first.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/adminusermgt.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/adminusermgt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/dropdown_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dropdown_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/form_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/home2.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/home2.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/role_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/role_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmsapi/fmsconnect.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/fmsconnect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmsapi/includes/globalvariables.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/globalvariables.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmsapi/includes/model.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmsapi/includes/secuity.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/secuity.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmsapi/includes/security.php" beforeDir="false" afterPath="$PROJECT_DIR$/fmsapi/includes/security.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/role_tabrights.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/role_tabrights.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/abc.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/abc.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/abc2.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/abc2.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/table-column-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/table-column-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_ui.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_ui.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/verify.php" beforeDir="false" afterPath="$PROJECT_DIR$/verify.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +40,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
         <option value="PHP File" />
       </list>
     </option>
@@ -83,7 +81,7 @@
       <envs />
     </McpServerCommand>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp1\php\php.exe" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -128,11 +126,11 @@
       <recent name="C:\xampp1\htdocs\demo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp1\htdocs\demo\js" />
+      <recent name="C:\xampp1\htdocs\demo\css" />
       <recent name="C:\xampp1\htdocs\demo\_practice\collection\list" />
       <recent name="C:\xampp1\htdocs\demo\_practice" />
       <recent name="C:\xampp1\htdocs\demo\_practice\collection" />
-      <recent name="C:\xampp1\htdocs\demo\admin" />
-      <recent name="C:\xampp1\htdocs\demo\fmsapi\includes" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.prototype.js">
@@ -152,8 +150,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.30387.85" />
-        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.30387.85" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-PS-252.28238.9" />
+        <option value="bundled-php-predefined-a98d8de5180a-58f58c5035b3-com.jetbrains.php.sharedIndexes-PS-252.28238.9" />
       </set>
     </attachedChunks>
   </component>
@@ -186,6 +184,8 @@
       <workItem from="1775489319189" duration="3999000" />
       <workItem from="1775521104116" duration="203000" />
       <workItem from="1775521400724" duration="8433000" />
+      <workItem from="1775623471901" duration="27037000" />
+      <workItem from="1775708153912" duration="5250000" />
     </task>
     <servers />
   </component>

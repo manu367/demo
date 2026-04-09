@@ -19,11 +19,14 @@ $tab_for = '';
  <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="../css/home_new.css">
  <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
  <script type="text/javascript" language="javascript" >
 $(document).ready(function() {
 	var dataTable = $('#admin-grid').DataTable( {
-		"processing": true,
-		"serverSide": true,
+		"responsive": true,
+        "processing": true,
+        "serverSide": true,
 		"ajax":{
 			url :"../pagination/adminusr-grid-data.php", // json datasource
 			data: { "pid": "<?=$_REQUEST['pid']?>", "hid": "<?=$_REQUEST['hid']?>", "status": "<?=$_REQUEST['status']?>"},
@@ -181,7 +184,7 @@ $(document).ready(function() {
 				  <div style="text-align:center">
 				  <h4 style="text-transform: capitalize;font-weight: normal!important;">last Activity : <?= $_SESSION['userid'] ?> </h4>
 				  </div>
-                  <table class="table table-hover table-bordered table-responsive">
+                  <table width="95%" class="table table-striped table-hover table-bordered table-responsive">
                       <thead class="bg-primary">
                       <tr>
                           <td>Sr.</td>

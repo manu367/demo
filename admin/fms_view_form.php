@@ -59,11 +59,15 @@ if($load){
     <script type="text/javascript" src="../js/jquery.validate.js"></script>
     <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css"/>
+
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#myacc-users-grid').DataTable({
-                processing: true,
-                serverSide: true,
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
                 ajax: {
                     url: "../pagination/form-data-grid-view.php",
                     type: "POST",
@@ -210,8 +214,8 @@ if($load){
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12" style="overflow: scroll">
-                        <table width="100%" id="myacc-users-grid" class="display table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
+                    <div class="col-md-12">
+                        <table width="95%" id="myacc-users-grid" class="display table-striped table table-hover" style="margin-top:4px;" align="center" cellpadding="4" cellspacing="0" border="1">
                             <thead class="bg-primary">
                             <tr>
                                 <td>#</td>
@@ -227,7 +231,6 @@ if($load){
                     </div>
                 </div>
             </div>
-
             <div class="text-center">
                 <span class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>'" style="text-transform: capitalize"><span id="operation_name">back</span></span>
             </div>

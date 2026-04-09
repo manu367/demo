@@ -52,20 +52,77 @@ if (isset($flag) && $flag) {
  }
  </script>
  <script type="text/javascript" src="../js/jquery.validate.js"></script>
-    <style>
+    <style  >
         .tab-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 per row */
-            gap: 15px; /* row + column spacing */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            padding: 10px;
         }
 
         .tab-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        /* Checkbox spacing */
+        .tab-item input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        /* Icon styling */
+        .tab-item i {
+            font-size: 16px;
+            min-width: 20px;
+            text-align: center;
+        }
+        /* Hover vibe */
+        .tab-item:hover {
+            border-color: #007bff;
+            background: #f0f7ff;
+        }
+        /* Checked state */
+        .tab-item input:checked + i {
+            color: #007bff;
+        }
+
+        .tab-item input:checked ~ span {
+            font-weight: 600;
+        }
+
+        /* Mobile tuning */
+        @media (max-width: 600px) {
+            .tab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-item {
+                padding: 14px;
+                font-size: 15px;
+            }
+        }
+
+        /* Tablet tuning */
+        @media (min-width: 601px) and (max-width: 992px) {
+            .tab-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 993px) {
+            .tab-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
     </style>
     <style>

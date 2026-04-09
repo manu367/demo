@@ -17,13 +17,16 @@ PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
     <link href="../css/abc2.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
     <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
     <title><?=siteTitle?></title>
     <script>
         $(document).ready(function () {
             $('#myacc-users-grid').DataTable({
-                processing: true,
-                serverSide: true,
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
                 ajax: {
                     url: "../pagination/fms-grid-data.php",
                     type: "POST",
@@ -153,17 +156,18 @@ PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
                 }
                 ?>
             </div>
-            <!--            main form for showing data-->
+
             <form class="form-horizontal" role="form">
                 &nbsp;&nbsp;
-                <div class="form-group"  id="page-wrap" style="margin-left:10px;overflow: scroll"><br/><br/>
+                <div class="form-group"  id="page-wrap" style="margin-left:10px;margin-right: 5px;"><br/><br/>
 
-                    <table  width="100%" id="myacc-users-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                    <table  width="95%" id="myacc-users-grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
                         <thead>
                         <tr class="<?=$tableheadcolor?>">
                             <th>S.No</th>
                             <th>FMS Name</th>
                             <th>Details</th>
+                            <th>category</th>
                             <th>create Date</th>
                             <th>update Date</th>
                             <th>Status</th>
@@ -174,7 +178,6 @@ PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid'])
                         </thead>
                     </table>
                 </div>
-                <!--</div>-->
             </form>
         </div>
     </div>

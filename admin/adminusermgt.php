@@ -15,15 +15,18 @@ require_once("../includes/config.php");
  <link rel="stylesheet" href="../css/bootstrap.min.css">
  <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
 
+
  <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
+
  <script type="text/javascript" language="javascript" >
-/*$(document).ready(function(){
-    $('#myTable').dataTable();
-});*/
-$(document).ready(function() {
+     $(document).ready(function() {
 	var dataTable = $('#admin-grid').DataTable( {
-		"processing": true,
-		"serverSide": true,
+        "responsive": true,
+        "processing": true,
+        "serverSide": true,
 		"ajax":{
 			url :"../pagination/adminusr-grid-data.php", // json datasource
 			data: { "pid": "<?=$_REQUEST['pid']?>", "hid": "<?=$_REQUEST['hid']?>", "status": "<?=$_REQUEST['status']?>"},
@@ -37,7 +40,7 @@ $(document).ready(function() {
 		}
 	} );
 } );
-</script>
+ </script>
 <title><?=siteTitle?></title>
 </head>
 <body>
@@ -95,7 +98,7 @@ $(document).ready(function() {
 		<form style="margin-top: 10px;" class="form-horizontal" role="form">
 			<div class="form-group tab-area" id="page-wrap">
 				<div class="col-md-12" style="overflow: scroll">
-					<table  width="100%" id="admin-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+					<table  width="95%" id="admin-grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
 						<thead>
 							<tr class="<?=$tableheadcolor?>">
 								<th>S.No</th>

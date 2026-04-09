@@ -16,6 +16,9 @@ require_once("../includes/config.php");
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
     <title><?=siteTitle?></title>
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
+
     <?=ajaxCall('drop_down_grid','../pagination/dropdown-grid-data.php',["pid"=>$_REQUEST['pid'],"hid"=>$_REQUEST['hid']])?>
 </head>
 <body>
@@ -38,7 +41,8 @@ require_once("../includes/config.php");
            if(PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid'])){
            ?>
                <div class="text-right">
-                   <a href="add_dropdown.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>" class="btn btn-primary">Add DropDown</a>
+                   <a href="add_dropdown.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>"
+                      class="btn btn-primary">Add Dropdown</a>
                </div>
             <?php } ?>
 
@@ -46,7 +50,7 @@ require_once("../includes/config.php");
                 &nbsp;&nbsp;
                 <div class="form-group"  id="page-wrap" style="margin-left:10px;"><br/><br/>
 
-                    <table  width="100%" id="drop_down_grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                    <table  width="95%" id="drop_down_grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
                         <thead>
                         <tr class="<?=$tableheadcolor?>">
                             <th>S.No</th>

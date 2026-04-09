@@ -16,11 +16,14 @@ require_once("../includes/config.php");
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
     <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
     <title><?=siteTitle?></title>
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#myacc-users-grid').DataTable({
-                processing: true,
-                serverSide: true,
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
                 ajax: {
                     url: "../pagination/fms-grid-data-view.php",
                     type: "POST",
@@ -151,8 +154,8 @@ require_once("../includes/config.php");
 
             <form class="form-horizontal" role="form">
                 &nbsp;&nbsp;
-                <div class="form-group"  id="page-wrap" style="margin-left:10px;overflow: scroll"><br/><br/>
-                    <table  width="100%" id="myacc-users-grid" class="display" align="center" cellpadding="4" cellspacing="0" border="1">
+                <div class="form-group"  id="page-wrap" style="margin-left:10px;margin-right: 10px;"><br/><br/>
+                    <table  width="95%" id="myacc-users-grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
                         <thead>
                         <tr class="<?=$tableheadcolor?>">
                             <th>S.No</th>

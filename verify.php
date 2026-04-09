@@ -3,6 +3,7 @@ $page_type = "insecure";
 require_once("security/backend.php");
 global $acc;
 global $link1;
+global $root;
 if(!isset($_SESSION["userid"]))
 {
 	$user = $_POST['userid'];
