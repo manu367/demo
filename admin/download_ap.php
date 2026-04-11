@@ -30,12 +30,12 @@ for($i=0;$i<count($col);$i++){
 $col_header = json_encode($data_array, JSON_PRETTY_PRINT);
 
 // FINAL STRUCTURE (curl format)
-$data = "curl --location 'https://ArrayList.cancrm.in/fmsapi/fmsconnect.php'
---header 'Fms-Id: {$fsm_id}' 
---header 'Fms-Name: {$fmsname}' 
---header 'Form-Id: {$form_id}' 
---header 'Form-Name: {$form_name}' 
---header 'Content-Type: application/json' 
+$data = "curl --location 'https://fms.cancrm.in/fmsapi/fmsconnect.php'
+--header 'Fms-Id: {$fsm_id}'
+--header 'Fms-Name: {$fmsname}'
+--header 'Form-Id: {$form_id}'
+--header 'Form-Name: {$form_name}'
+--header 'Content-Type: application/json'
 --data-raw '{$col_header}'";
 
 

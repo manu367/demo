@@ -566,7 +566,7 @@ include("../includes/connection_close.php");
         btn.dataset.formid=formid;
         document.getElementById("qr_name").innerHTML=formname;
         document.getElementById("sideSheet").classList.add("active");
-        createQRCode(`https://fms.cancrm.in/admin/publishqrcode.php?formid=${formid}&formname=${formname}`);
+        createQRCode(`https://fms.cancrm.in/publish/publishqrcode.php?formid=${formid}&formname=${formname}`);
     }
 
     function closeSheet_1(){

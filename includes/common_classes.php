@@ -447,11 +447,11 @@ class FormOperations{
         $types    = [];
         $length   = [];
         $drop_down=[];
+
         foreach ($data['new'] as $formunits) {
 
             $oldCol = $formunits->old_column ?? null;
             $newCol = $formunits->parameter;
-            var_dump($formunits);
             // agar old column exist karta hai aur change hua hai tabhi ALTER kare
             if ($oldCol !== null && $oldCol !== $newCol) {
                 $col_name[] = $oldCol;          // old column name
@@ -460,8 +460,8 @@ class FormOperations{
                 if($formunits->length===null){
                     $formunits->length =50;
                 }
-                $length[]   = $formunits->length;
-                $drop_down[]=$formunits->drop_down;
+                $length[]   = $formunits->length??150;
+                $drop_down[]=$formunits->drop_down??0;
             }
 
             // agar sirf type/length change hua ho (naam same hai)
@@ -469,12 +469,11 @@ class FormOperations{
                 $col_name[] = $oldCol;
                 $new_name[] = $oldCol; // same name
                 $types[]    = 'varchar';
-                $length[]   = $formunits->length;
-                $drop_down[]=$formunits->drop_down;
+                $length[]   = $formunits->length??150;
+                $drop_down[]=$formunits->drop_down??0;
             }
         }
 
-        var_dump($length);
         if (count($col_name) > 0) {
             $sql_query = $this->changeColumnNameinDb(
                 $tablename,
@@ -487,7 +486,6 @@ class FormOperations{
                 throw new GlobalException("Alter failed: " . mysqli_error($this->conn) . " | Query: $sql_query");
             }
         }
-
         // insert final data here
         try{
             $result=$this->updateFormMaster_1($data['formid'],$data['new'],$data['frm_seq']);
