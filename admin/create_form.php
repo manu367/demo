@@ -382,7 +382,8 @@ $selectedBox=showDropDown_master($link1);
     </style>
 </head>
 <body>
-<div style="display:none"><?=$selectedBox?>
+<div style="display:none">
+    <?=$selectedBox?>
 </div>
 <?php
 if(isset($_REQUEST['msg'])):?>
@@ -390,22 +391,23 @@ if(isset($_REQUEST['msg'])):?>
         <span class="icon">⚠️</span>
         <span class="message"><?=$_REQUEST['msg']?></span>
     </div>
+    <script>
+        $(document).ready(function(){
+            let toast = $("#errorPopup");
+
+            if(toast.length){
+                setTimeout(() => {
+                    toast.addClass("show");
+                }, 500);
+
+                setTimeout(() => {
+                    toast.removeClass("show");
+                }, 60000);
+            }
+        });
+    </script>
 <?php endif; ?>
-<script>
-    $(document).ready(function(){
-        let toast = $("#errorPopup");
 
-        if(toast.length){
-            setTimeout(() => {
-                toast.addClass("show");
-            }, 500);
-
-            setTimeout(() => {
-                toast.removeClass("show");
-            }, 60000);
-        }
-    });
-</script>
 
 
 <div class="container-fluid">
@@ -772,6 +774,7 @@ function showAlert(message, type = "success", duration = 3000) {
         this.dbCol=null;
         this.invalidInput=new Set();
         this.error=new Set();
+        this.connection=new ConnectionStablish();
     }
     DupblicationRemover.prototype.dbParamterFetch=async function(){
         let url = `../pagination/table-column-data.php?fms_id=<?=$load['id']?>&formid=<?=$res['id']?>&column=${''}`;
@@ -782,8 +785,9 @@ function showAlert(message, type = "success", duration = 3000) {
     DupblicationRemover.prototype.noromilizeFun=function(str){
         return str
             .toLowerCase()
-            .replace(/\s+/g, '_'); // space → underscore
+            .replace(/\s+/g, '_'); // space -> underscore ( Candour Software => Candour_software)
     }
+
     DupblicationRemover.prototype.showSnackbar= function(input=null,msg='') {
         if(input!==null){
             input.style.border="2px solid red";
@@ -807,15 +811,18 @@ function showAlert(message, type = "success", duration = 3000) {
     }
 
     DupblicationRemover.prototype.loadAllTable=function(){}
+
     DupblicationRemover.prototype.addForm=function (){
         if(this.dbCol!==null){
             this.dbCol.forEach((col)=>{
                this.invalidInput.add(col);
             });
         }
-        console.log(this.invalidInput);
+        // console.log(this.invalidInput);
+
         const set=this.invalidInput;
         const error=this.error;
+
         document.addEventListener("input", function(e) {
             if (e.target.matches("input[name='param_name[]']")) {
                 let value=DupblicationRemover.prototype.noromilizeFun(e.target.value);
@@ -829,7 +836,7 @@ function showAlert(message, type = "success", duration = 3000) {
                     e.target.style.border="0px solid";
                 }
             }
-            console.log(error);
+            // console.log(error);
         });
     }
 
@@ -857,14 +864,14 @@ function showAlert(message, type = "success", duration = 3000) {
                 const newValue = self.noromilizeFun(element.value);
                 const oldValue = self.noromilizeFun(element.dataset.old ?? '');
 
-                //case 1: same as old -> always valid
+                //case 1: same as old => always valid (manu_pathak = [manu_pathak]=old_col)
                 if(newValue === oldValue){
                     error.delete(element);
                     element.style.border = "1px solid #ccc";
                     return;
                 }
 
-                // case 2: changed but already exists in DB -> error
+                // case 2: changed but already exists in DB - error
                 if(set.has(newValue)){
                     error.add(element);
                     self.showSnackbar(element, 'Already exists');

@@ -96,6 +96,8 @@ $(document).ready(function() {
             border-left: 5px solid #ffc107;
         }
     </style>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -104,6 +106,7 @@ $(document).ready(function() {
 	<?php
     include("../includes/leftnav2.php");
     ?>
+
 
 	  <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
 		  
@@ -122,65 +125,71 @@ $(document).ready(function() {
                   <div class="col-md-4">
                       <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
                           <div class="d-flex justify-content-between align-items-center">
-                              <div>
-                                  <h6 class="text-muted">Total FMS</h6>
-                                  <h3 class="fw-bold">
-                                      <?php
-                                      $sql="SELECT COUNT(*) as total FROM `fms_master`";
-                                      $result=mysqli_query($link1, $sql);
-                                      $value='';
-                                      while ($row=mysqli_fetch_assoc($result)) {
-                                          echo $row['total'];
-                                      }
-                                      ?>
-                                  </h3>
-                              </div>
+                              <a href="fms_master.php" style="text-decoration: none">
+                                  <div>
+                                      <h6 class="text-muted">Total FMS</h6>
+                                      <h3 class="fw-bold">
+                                          <?php
+                                          $sql="SELECT COUNT(*) as total FROM `fms_master`";
+                                          $result=mysqli_query($link1, $sql);
+                                          $value='';
+                                          while ($row=mysqli_fetch_assoc($result)) {
+                                              echo $row['total'];
+                                          }
+                                          ?>
+                                      </h3>
+                                  </div>
+                              </a>
                           </div>
                       </div>
                   </div>
 
                   <div class="col-md-4">
-                      <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
-                          <div class="d-flex justify-content-between align-items-center">
-                              <div>
-                                  <h6 class="text-muted">Total Users</h6>
-                                  <h3 class="fw-bold">
-                                      <?php
-                                      $sql="SELECT COUNT(*) as total FROM `admin_users`";
-                                      $result=mysqli_query($link1, $sql);
-                                      $value='';
-                                      while ($row=mysqli_fetch_assoc($result)) {
-                                          echo $row['total'];
-                                      }
-                                      ?>
-                                  </h3>
+                          <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
+                              <div class="d-flex justify-content-between align-items-center">
+                                  <a href="adminusermgt.php" style="text-decoration: none;cursor: pointer">
+                                      <div>
+                                          <h6 class="text-muted">Total Users</h6>
+                                          <h3 class="fw-bold">
+                                              <?php
+                                              $sql="SELECT COUNT(*) as total FROM `admin_users`";
+                                              $result=mysqli_query($link1, $sql);
+                                              $value='';
+                                              while ($row=mysqli_fetch_assoc($result)) {
+                                                  echo $row['total'];
+                                              }
+                                              ?>
+                                          </h3>
+                                      </div>
+                                  </a>
                               </div>
                           </div>
-                      </div>
                   </div>
 
                   <div class="col-md-4">
                       <div class="card shadow-sm" style="padding: 10px;text-align: center;border: 0.5px solid rgba(128,128,128,0.46)">
                           <div class="d-flex justify-content-between align-items-center">
-                              <div>
-                                  <h6 class="text-muted">Total Roles</h6>
-                                  <h3 class="fw-bold">
-                                      <?php
-                                      $sql="SELECT COUNT(*) as total FROM `usertype_master`";
-                                      $result=mysqli_query($link1, $sql);
-                                      $value='';
-                                      while ($row=mysqli_fetch_assoc($result)) {
-                                          echo $row['total'];
-                                      }
-                                      ?>
-                                  </h3>
-                              </div>
+                              <a href="role_master.php" style="text-decoration: none">
+                                  <div>
+                                      <h6 class="text-muted">Total Roles</h6>
+                                      <h3 class="fw-bold">
+                                          <?php
+                                          $sql="SELECT COUNT(*) as total FROM `usertype_master`";
+                                          $result=mysqli_query($link1, $sql);
+                                          $value='';
+                                          while ($row=mysqli_fetch_assoc($result)) {
+                                              echo $row['total'];
+                                          }
+                                          ?>
+                                      </h3>
+                                  </div>
+                              </a>
                           </div>
                       </div>
                   </div>
-
               </div>
-              <div class="row g-3 card " style="margin-top: 10px;margin-left: 1px;padding: 10px;"> 
+
+              <div class="row g-3 card " style="margin-top: 10px;margin-left: 1px;padding: 10px;">
 				  <div style="text-align:center">
 				  <h4 style="text-transform: capitalize;font-weight: normal!important;">last Activity : <?= $_SESSION['userid'] ?> </h4>
 				  </div>
@@ -221,16 +230,139 @@ $(document).ready(function() {
                       </tbody>
                   </table>
               </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div id="pie_chart"></div>
+<!--                      ["PIE","BAR","LINE","AREA","SCATTER","COLUMN"] -->
+                      <?=renderChart($_REQUEST['chart']??'LINE',
+                              'this is Pie chart',
+                              'Pie Chart subtitle','left','pie_chart')?>
+                  </div>
+                  <div class="col-md-6">
+                      <div id="container_1"></div>
+                  </div>
+              </div>
+              <div class="row g-3">
+                  <div class="col-md-6">
+                      <div id="container_2"></div>
+
+                  </div>
+                  <div class="col-md-6">
+                      <div id="container_3"></div>
+
+                  </div>
+              </div>
           </div>
 
           <?php } ?>
 
-	  </div>    
+	  </div>
+
+
   </div>
 </div>
 <?php
 include("../includes/footer.php");
 include("../includes/connection_close.php");
 ?>
+<script>
+    /*
+     * Zero COnditional statement = universal fact ke liye use hota h , jo hamesh sach ho
+     *   = Present Simple condition -> result present simple me banate hai
+     *
+     * First Condition statement = future me possible situations
+     *   = if + Present Simple Condition -> result will+verb 1st form
+     *
+     * Second Conditional Statement ->  Present ya Future me unreal ( imageinary ) situations
+     *  if + Past Simple Conditions -> would+base verb ke 1st form
+     *
+     * third conditional statement -> Past me kuch aur hota to result different hota.
+     *  if +had + v3 , would have + v3
+     *  If I had studied, I would have passed.
+     */
+    function Observer(){}
+    Observer.prototype.notify=function(){
+        throw new Error('Method not implemented.');
+    }
+    Observer.prototype.attach=function(){
+        throw new Error('Method not implemented.');
+    }
+    Observer.prototype.detech=function(){
+        throw new Error('Method not implemented.');
+    }
+    function Subscriber(){}
+    Subscriber.prototype.update=function(update){
+        throw new Error('Method not implemented.');
+    }
+    function ChartObserver(){
+        Observer.call(this);
+        this.data=null;
+        this._observers=[];
+    }
+    ChartObserver.prototype=Object.create(Observer.prototype);
+    ChartObserver.prototype.constructor=ChartObserver;
+    ChartObserver.prototype.attach=function(subscriber){
+        this._observers.push(subscriber);
+    }
+    ChartObserver.prototype.notify=function(){
+        this._observers.forEach(subscriber=>{
+            subscriber.update(this.data);
+        });
+    }
+    ChartObserver.prototype.setData=function(data){
+        this.data=data;
+    }
+    function BarSubscriber(){
+        Subscriber.call(this);
+    }
+    BarSubscriber.prototype=Object.create(Subscriber.prototype);
+    BarSubscriber.prototype.constructor=BarSubscriber;
+    BarSubscriber.prototype.update=function(data){
+        console.log(data);
+    }
+
+    function LineSubscrier(){
+        Subscriber.call(this);
+    }
+    LineSubscrier.prototype=Object.create(Subscriber.prototype);
+    LineSubscrier.prototype.constructor=LineSubscrier;
+    LineSubscrier.prototype.update=function(data){
+        console.log(data);
+    }
+
+
+    function LNode(data){
+        this.data=data;
+        this.next=null;
+    }
+    function LinkedList(){
+        this.head=null;
+    }
+
+    LinkedList.prototype.addNode=function(data){
+        const node=new LNode(data);
+        if(this.head===null){
+            this.head=node;
+            return node;
+        }
+        let temp=this.head;
+        while (temp.next!==null){
+            temp=temp.next;
+        }
+        temp.next=node;
+        return node;
+    }
+
+    const observer=new ChartObserver();
+    observer.attach(new BarSubscriber());
+    observer.attach(new LineSubscrier());
+    const data_=new LinkedList();
+    data_.addNode(12);
+    data_.addNode(13);
+    data_.addNode(14);
+    data_.addNode(15);
+    observer.setData(data_);
+    observer.notify();
+</script>
 </body>
 </html>

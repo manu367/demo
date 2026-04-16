@@ -1,6 +1,19 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
+
+/**
+ * Global Exception Handler
+ * Purpose:
+ * Catches all uncaught exceptions in the application and redirects
+ * the user to a safe fallback page.
+ *
+ * Behavior:
+ * Intercepts any unhandled exception
+ * Extracts the exception message
+ * Redirects the user to "add_dropdown.php" with error details
+ *
+ */
 set_exception_handler(function ($exception) {
     header("location: add_dropdown.php?".$exception->getMessage());
     exit();
@@ -19,6 +32,29 @@ $paramter=[
 $flag=false;
 $msg=null;
 $operationSuccess=false;
+
+/**
+ * Handles the creation of a new dropdown entry via POST request.
+ * Workflow:
+ * Retrieve the current user's ID and IP address from session/server.
+ * Pass all POST data to the dropdown handler (saveDropDownData).
+ * Validate and process data through layered architecture:
+ * - dropdownOperations: validates incoming data
+ *       - dropdownService: applies business logic
+ *             - dropdownRepo: performs database operations
+ *  If the operation succeeds:
+ * - Log the activity using operationtracker
+ * - Redirect user with success message
+ * If the operation fails:
+ * - Set error flag and message
+ * Error Handling:
+ * Any exception is caught and wrapped into a GlobalException
+ * Error details are passed as a query string
+ * Dependencies: $_SESSION['userid'] $_SERVER['REMOTE_ADDR'] operationtracker() redirect() GlobalException
+ * Notes:
+ *  Ensure POST parameters are validated before processing
+ * Avoid direct use of $_REQUEST where possible (prefer $_POST)
+ */
 if(isset($_POST['add'])){
     try{
         $drppdowm->setupdateBy_and_IP($_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
@@ -38,6 +74,21 @@ if(isset($_POST['add'])){
     }
 }
 
+/**
+ * Handles the updation of a  dropdown entry via POST request.
+ * Workflow :
+ *    Retrieve the current user's ID and IP address from session/server.
+ *    Pass all POST data to the dropdown handler (updateDateDropDownData).
+ *   Validate and process data through layered architecture:
+ *         dropdownOperations: validates incoming data
+ *                 - dropdownService: applies business logic
+ *                           - dropdownRepo: performs database operations
+ *   If the operation succeeds:
+ *  - Log the activity using operationtracker
+ *  - Redirect user with success message
+ *             If the operation fails:
+ *              - Set error flag and message
+ */
 if(isset($_POST['update'])){
     $drppdowm->setupdateBy_and_IP($_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
     $flag=$drppdowm->updateDateDropDownData($_POST);
@@ -51,13 +102,36 @@ if(isset($_POST['update'])){
     }
 }
 
-
+/**
+ * Check if both 'op' and 'dropdown' parameters are received
+ * Work flow :
+ *   Step 1 : Validate 'op' parameter , If empty, redirect with error message
+ *   Step 2 : Validate 'dropdown' parameter , If empty, redirect with error message
+ *   Step 3 : Decode dropdown ID from base64
+ *   Step 4 : Fetch dropdown data using decoded ID
+ */
 if(isset($_REQUEST['op']) && $_REQUEST['dropdown']){
+    // Trim values to avoid spaces issue
+    $op = trim($_REQUEST['op']);
+    $dropdown = trim($_REQUEST['dropdown']);
+
+    if(empty($op)){
+        redirect('dropdown_master.php','Opertions is not empty','error',['pid'=>$_REQUEST['pid'],'hid'=>$_REQUEST['hid']]);
+    }
+    if(empty($dropdown)){
+        redirect('dropdown_master.php','dropdown is not empty','error',['pid'=>$_REQUEST['pid'],'hid'=>$_REQUEST['hid']]);
+    }
     $dropdownId=base64_decode($_REQUEST['dropdown']);
     $edit_data=$drppdowm->getDropDownData($dropdownId);
 }
 
 
+/*
+workflows
+-> jab bhi koe user table_name select karega from the <select> se tab automatically submit hoga
+-> then table value aayege wo value currenttale and previous table me set ho jayege
+-> $isTableChanged change hone par he key and value reset ho jaaye otherwise form $formData['keyid'] and $formData['keyvalue'] se aaye data
+*/
 $currentTable = $_REQUEST['master_table'] ?? '';
 $prevTable = $_REQUEST['prev_table'] ?? '';
 

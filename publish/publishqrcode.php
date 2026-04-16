@@ -2,7 +2,7 @@
 require_once("../security/dbh.php");
 require_once ("formlogic.php");
 global $link1;
-
+$file_type='enctype="multipart/form-data"';
 if(isset($_REQUEST['formid'])){
     $formid = $_REQUEST['formid'];
     $data=loadform_1($link1,$formid);
@@ -27,6 +27,14 @@ if(isset($_REQUEST['formid'])){
     }
 
     $form_data=new FormViewSHow($data['id'],$data['form_name'],$data['fms_id'],$data['frm_seq'],$basic_details);
+
+    $isfile=false;
+
+    foreach ($form_data->form_data as $form) {
+        if($form->type==='7'){
+            $isfile=true;
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -34,38 +42,70 @@ if(isset($_REQUEST['formid'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
     <title> <?=$data['form_name']?> Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/frmvalidate.js"></script>
+    <script type="text/javascript" src="../js/jquery.validate.js"></script>
+    <script>
+        // $.validator.addMethod("date", function(value, element) {
+        //     return this.optional(element) || !isNaN(Date.parse(value));
+        // }, "Please enter a valid date.");
+        //
+        // $(document).ready(function(){
+        //     $("#myForm").validate();
+        // });
+    </script>
+    <style>
+        .error{
+            color: red;
+        }
+        label{
+            text-transform: capitalize;
+        }
+        input{
+            text-transform: uppercase;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-sans">
+<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
+<!-- Main Content Wrapper -->
+<div class="flex-grow flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-lg border border-gray-200">
+        <!-- Header -->
+        <div class="px-6 py-4 border-b flex items-center gap-3">
+            <img src="../images/titleimg.png" alt="Logo" class="w-10 h-10 object-contain">
+            <h2 class="text-xl font-semibold text-gray-800">
+                <?=$data['form_name']?> Form
+            </h2>
+        </div>
+        <!-- Form -->
+        <form id="myForm" action="publisformsubmit.php" <?=$isfile?$file_type:''?> method="post"  class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-<div class="w-full max-w-3xl bg-white rounded-2xl shadow-lg border border-gray-200">
+            <input type="hidden" name="fmsid" value="<?=$form_data->fms_id?>">
+            <input type="hidden" name="formid" value="<?=$form_data->formid?>">
+            <input type="hidden" name="pid" value="<?=$_REQUEST['pid']?>">
+            <input type="hidden" name="hid" value="<?=$_REQUEST['hid']?>">
 
-    <!-- Header -->
-    <div class="px-6 py-4 border-b">
-        <h2 class="text-xl font-semibold text-gray-800">
-            <?=$data['form_name']?> Form
-        </h2>
+            <?=createForm($link1,$form_data)?>
+
+            <!-- Button -->
+            <div class="sm:col-span-2 pt-2">
+                <button type="submit" name="save"
+                        class="w-full bg-gray-900 text-white py-2.5 rounded-lg font-medium hover:bg-gray-800 active:scale-95 transition">
+                    Submit Form
+                </button>
+            </div>
+        </form>
+
     </div>
 
-    <!-- Form -->
-    <form action="publisformsubmit.php" enctype="multipart/form-data" method="post"  class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <input type="hidden" name="fmsid" value="<?=$form_data->fms_id?>">
-        <input type="hidden" name="formid" value="<?=$form_data->formid?>">
-        <input type="hidden" name="pid" value="<?=$_REQUEST['pid']?>">
-        <input type="hidden" name="hid" value="<?=$_REQUEST['hid']?>">
-
-        <?=createForm($link1,$form_data)?>
-        <!-- Button -->
-        <div class="sm:col-span-2 pt-2">
-            <button type="submit" name="save"
-                    class="w-full bg-gray-900 text-white py-2.5 rounded-lg font-medium hover:bg-gray-800 active:scale-95 transition">
-                Submit Form
-            </button>
-        </div>
-    </form>
-
 </div>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white text-center py-3 text-sm">
+    <p align="center">Copyright © Okaya <?=date('Y')?>. All Rights Reserved. Powered By : <a href="http://www.candoursoft.com/" target="_blank">CANDOUR SOFTWARE</a></p>
+</footer>
 
 <!-- Styles -->
 <style>
@@ -164,6 +204,10 @@ if(isset($_REQUEST['msg']) && isset($_REQUEST['type'])){
 
 <?php } ?>
 
-
+<script>
+    document.getElementById("myForm").addEventListener("submit", function(e) {
+        // e.preventDefault();
+    });
+</script>
 </body>
 </html>

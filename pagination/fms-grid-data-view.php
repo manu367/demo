@@ -76,7 +76,7 @@ while($row = mysqli_fetch_assoc($res)){
         $row['created_at'],
         $row['updated_at'],
         $status,
-        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<div>
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<div style="display: flex; flex-direction: column; gap: 6px;">
 <a href="fms_view_form.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">View</a>
 <a href="fms_report.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Reports</a>
 </div>':'',

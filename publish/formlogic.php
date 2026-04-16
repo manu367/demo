@@ -38,7 +38,7 @@ class FormBaiscData{
 }
 
 function reqiuireOrNot($req){
-    $reqDiv=$req==='0'?'':'<span class="red_small">*</span>';
+    $reqDiv=$req==='0'?'':'<span class="red_small" style="color: red">*</span>';
     $reqRequire=$req==='0'?'':'required';
     return [$reqDiv,$reqRequire];
 }
@@ -107,9 +107,6 @@ function inputtype($paraname,$displayname,$inputType,$length,$req=[]){
             $inputType = "file";
             $extraAttr = "accept='.pdf,.png,.jpg,.jpeg'";
             break;
-        case 8:
-
-
         default:
             break;
     }

@@ -3,6 +3,7 @@ require_once("../includes/config.php");
 $dt = date("Y-m-d H:i:s");
 
 $arrstatus = getFullStatus("master",$link1);
+
 @extract($_POST);
 if($_REQUEST['op']=='edit')
 {
@@ -11,6 +12,24 @@ if($_REQUEST['op']=='edit')
 	$sel_result=mysqli_fetch_assoc($sel_res12);
 }
 
+/**
+ *  Workflow
+ *     = Yha post request aayege
+ *     = check karega kis type ka use hai using barcheck function
+ *     = process type of request (save , update) and otherwise redirect to adminusermgt.php page
+ *
+ * Add WorkFlow=
+ *      step 1 = get Max uid of admin users
+ *      step 2 = create Userid
+ *               $code_id=$arr_result2[0]+1;
+ *               $pad=str_pad($code_id,3,"0",STR_PAD_LEFT);
+ *               $admiCode=strtoupper(BRANDNAME)."USR".$pad;
+ *      Step 3 = insert data into admin_users
+ *
+ * update Workflow=
+ *      Step 1= get user type of roles
+ *
+ */
 if($_POST)
 {
 	barCheck($link1);
@@ -58,6 +77,7 @@ uid='".$code_id."'";
 		////// return message
 		$msg="You have successfully created an user with ref. no. ".$admiCode;
 	}
+
 	else if($_POST['upd']=='Update')
 	{
         $user_roles=$_POST['user_roles'];
@@ -184,6 +204,7 @@ function checkPWD(val){
 </script>
 <script src="../js/frmvalidate.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.js"></script>
+
 </head>
 <body>
 <div class="container-fluid">

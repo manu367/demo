@@ -8,9 +8,6 @@ if(isset($_REQUEST['formid'])){
 //    var_dump($fms_form,$fms_data);
 }
 
-
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -118,12 +115,16 @@ if(isset($_REQUEST['msg'])){?>
             <h2 align="center"><i class="fa fa-upload"></i>Upload FMS Form</h2>
 <!--            template-->
             <div style="display:inline-block;float:right">
-                <a href="../templates/fms_form_template.php?tabname=<?=$fms_data['table_name']?>" title="Download Excel Template">
+                <a href="../templates/fms_form_template.php?tabname=<?=$fms_data['table_name']?>&formid=<?=$_REQUEST['formid']?>" title="Download Excel Template">
                     <img src="../images/template.png" title="Download Excel Template"/>
                 </a>
             </div>
             <div class="form-group"  id="page-wrap" style="margin-left:10px;">
                 <form  name="frm1"  id="frm1" class="form-horizontal" action="form_upload_data.php" method="post"  enctype="multipart/form-data">
+
+                    <input type="hidden" name="pid" value="<?=$_REQUEST['pid']?>">
+                    <input type="hidden" name="hid" value="<?=$_REQUEST['hid']?>">
+
                     <input name="fms_id" value="<?=$fms_data['id']?>" type="hidden">
                     <input name="form_id" value="<?=$fms_form['id']?>" type="hidden">
                     <input name="table_name" value="<?=$fms_data['table_name']?>" type="hidden">

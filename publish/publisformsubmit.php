@@ -42,8 +42,8 @@ if(isset($_POST['save'])){
     $hid=$_POST['hid'];
     $formid=$_POST['formid'];
 
-
     $data=$formview->loadform(isset($_REQUEST['formid'])?$_REQUEST['formid']:'');
+
     $total=count(json_decode($data['parameter_name']));
     $parameter[]=json_decode($data['parameter_name'],true);
 
@@ -68,8 +68,16 @@ if(isset($_POST['save'])){
 
     $tablename=getTablename($link1,isset($_POST['fmsid'])?$_POST['fmsid']:'');
 
+
     if($tablename){
-        $save=$formview->saveDataintable($tablename,$parameter_1,$data_save);
+        $save=null;
+        try{
+            $save=$formview->saveDataintable($tablename,$parameter_1,$data_save);
+        }catch (Exception $e){
+            $msg=$e->getMessage();
+            header("location:publishqrcode.php?pid=$pid&hid=$hid&formid=$formid&uuid=&token=&type=error&msg=We couldn’t save your data in the $tablename table. $msg");
+            exit();
+        }
         if ($save) {
             operationtracker($link1,'ANNOYMOUS','publish_qr_code',"Add form data",'ADD',$_SERVER['REMOTE_ADDR']);
             header("location:publishqrcode.php?pid=$pid&hid=$hid&formid=$formid&uuid=&token=&type=success&msg=Your data has been successfully saved in the $tablename table.");

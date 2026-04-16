@@ -1130,7 +1130,7 @@
         },
 
         /**
-         * Unbinds the whole plugin.
+         * Unbinds the whole chart_plugin.
          */
         destroy: function() {
             this.$container.remove();
@@ -1403,7 +1403,7 @@
         },
 
         /**
-         * Rebuild the plugin.
+         * Rebuild the chart_plugin.
          *
          * Rebuilds the dropdown, the filter and the select all option.
          */

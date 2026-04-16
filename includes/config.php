@@ -22,6 +22,6 @@ require_once ("repo/common_repo.php");
 require_once ("service/common_service.php");
 require_once ("util/commom_utilization.php");
 require_once ("operations/common_operation.php");
-
+require_once("chart_plugin/run_plugin.php");
 
 ?>

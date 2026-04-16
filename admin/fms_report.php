@@ -117,6 +117,8 @@ $isPermission=PermissionManager::checkdownloadRights($link1,$_SESSION['userid'],
             cursor: pointer;
         }
     </style>
+    <link rel="stylesheet" href="../css/dataTables.responsive.css">
+    <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -228,8 +230,9 @@ if($flag){
     <script>
         $(document).ready(function () {
             $('#report_generation').DataTable({
-                processing: true,
-                serverSide: true,
+                "responsive": true,
+                "processing": true,
+                "serverSide": true,
                 ajax: {
                     url: "../pagination/fms_report-data-grid.php",
                     type: "POST",

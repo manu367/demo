@@ -74,7 +74,7 @@ if(isset($_REQUEST['formid'])){
 
 
 if(isset($_POST['save'])){
-    var_dump($_POST);exit();
+
     $data=$formview->loadform($formid);
     $total=count(json_decode($data['parameter_name']));
     $parameter[]=json_decode($data['parameter_name'],true);

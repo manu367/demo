@@ -2,7 +2,7 @@
  *  BarCode Coder Library (BCC Library)
  *  BCCL Version 2.0
  *    
- *  Porting : jQuery barcode plugin 
+ *  Porting : jQuery barcode chart_plugin
  *  Version : 2.0.3
  *   
  *  Date    : 2013-01-06

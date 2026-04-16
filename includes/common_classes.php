@@ -872,14 +872,19 @@ class FormView{
 
     public function saveDataintable($table, $parameter, $data = [])
     {
-        $columns = implode(",", $parameter);
-        $escapedData = [];
-        foreach ($data as $value) {
-            $escapedData[] = "'" . mysqli_real_escape_string($this->conn, $value) . "'";
+        $result=null;
+        try{
+            $columns = implode(",", $parameter);
+            $escapedData = [];
+            foreach ($data as $value) {
+                $escapedData[] = "'" . mysqli_real_escape_string($this->conn, $value) . "'";
+            }
+            $values = implode(",", $escapedData);
+            $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
+            $result = mysqli_query($this->conn, $sql);
+        }catch (Exception $e){
+            throw new Exception(mysqli_error($this->conn));
         }
-        $values = implode(",", $escapedData);
-        $sql = "INSERT INTO `$table` ($columns) VALUES ($values)";
-        $result = mysqli_query($this->conn, $sql);
         return $result;
     }
 
@@ -1210,30 +1215,27 @@ class Reportuploader{
     public function __construct($conn){
         $this->conn = $conn;
     }
-    private function getAllTableColumn($tablename,$remove=['id','created_date','update_date','updated_by','updated_ip']){
+    private function getAllTableColumn($tablename,$remove=['id','created_date','update_date','updated_by','updated_ip'],$form_id){
         $columns = [];
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM `$tablename`");
+        $result = mysqli_query($this->conn, "SELECT parameter_name FROM form_master WHERE id = '$form_id'");
 
         if($result){
             while($row = mysqli_fetch_assoc($result)){
-                $columns[] = $row['Field'];
+                $columns[] = json_decode($row['parameter_name']);
             }
         }
         $columns=FMsBasicOperation::removeColumn($columns,$remove);
-        return $columns;
+        return $columns[0];
     }
 
-    public function validateSheetColumn($tablename, $sheetColumns = []){
+    public function validateSheetColumn($form_id,$tablename, $sheetColumns = []){
 
         if(empty($sheetColumns)){
             throw new Exception("Sheet columns empty");
         }
 
 
-
-        $dbColumns = $this->getAllTableColumn($tablename);
-
-
+        $dbColumns = $this->getAllTableColumn($tablename,[],$form_id);
         $sheetColumns=normalizeColumns($sheetColumns);
 
 
@@ -1259,10 +1261,9 @@ class Reportuploader{
         return true;
     }
 
-    public function insertData($data, $table, $updateby, $updateip){
+    public function insertData($data, $table, $updateby, $updateip,$formid){
 
-        $columns = $this->getAllTableColumn($table, ['id','created_date']);
-
+        $columns = $this->getAllTableColumn($table, ['id','created_date'],$formid);
         mysqli_commit($this->conn,false);
         $error_data = [];
 
@@ -2347,7 +2348,7 @@ function createSelectBox($link1, $tablename, $keyid, $key_value,$label){
     $html .= "<option value=''>--Select--</option>";
 
     while($row = mysqli_fetch_assoc($result)){
-        $html .= "<option value='".$row[$keyid]."'>".$row[$key_value]."</option>";
+        $html .= "<option value='".$row[$key_value]."'>".$row[$key_value]."</option>";
     }
 
     $html .= "</select>";
@@ -2461,6 +2462,45 @@ function operationtracker($link1,$userid,$reference,$activitytype,$type_of_actio
     )";
 //    var_dump($sql);exit();
     return mysqli_query($link1,$sql) or false;
+}
+
+
+function convertDataintoPojo($paramter='',
+                             $display='',
+                             $type='',
+                             $drop_down='',
+                             $length='',
+                             $param_require=''){
+
+}
+function getAllFormUnits($link1=null,$formid=0){
+
+    if(!$link1){
+        return false;
+    }
+    if($formid===0){
+        return false;
+    }
+    $form_units=array();
+    $sql="SELECT * FROM `form_master` where id='$formid'";
+    $result=mysqli_query($link1,$sql);
+    if(!$result){
+        return false;
+    }
+    if(mysqli_num_rows($result)===0){
+        return false;
+    }
+    while($row=mysqli_fetch_assoc($result)){
+        $parameter_name=json_decode($row['parameter_name']);
+        $display_name=json_decode($row['display_name']);
+        $type=json_decode($row['type']);
+        $drop_down=json_decode($row['drop_down']);
+        $length=json_decode($row['length']);
+        $param_require=json_decode($row['param_require']);
+        $form_units[]=[$parameter_name,$display_name,$type,$drop_down,$length,$param_require];
+    }
+    var_dump($form_units[0]);exit();
+    return $form_units;
 }
 
 ?>

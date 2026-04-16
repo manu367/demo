@@ -837,5 +837,16 @@ include("../includes/connection_close.php");
         }, 3000);
     }
 </script>
+<script>
+    /*
+         ek condition (shart) hoti hai aur uska result.
+         Types of Condonitional Sentences
+         1. Zero Conditional Sentences
+         2. First Conditional Sentences
+         3. Second Conditional
+         4. Third Conditional
+
+     */
+</script>
 </body>
 </html>

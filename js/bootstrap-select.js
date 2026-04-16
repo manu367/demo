@@ -596,7 +596,7 @@
           titleOption.value = '';
           element.insertBefore(titleOption, element.firstChild);
           // Check if selected or data-selected attribute is already set on an option. If not, select the titleOption option.
-          // the selected item may have been changed by user or programmatically before the bootstrap select plugin runs,
+          // the selected item may have been changed by user or programmatically before the bootstrap select chart_plugin runs,
           // if so, the select will have the data-selected attribute
           var $opt = $(element.options[element.selectedIndex]);
           if ($opt.attr('selected') === undefined && this.$element.data('selected') === undefined) {

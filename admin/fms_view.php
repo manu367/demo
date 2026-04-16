@@ -135,6 +135,29 @@ require_once("../includes/config.php");
                 </div>
             <?php } ?>
 
+            <style>
+                .explained_class {
+                    display: inline-block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    cursor: pointer;
+                }
+            </style>
+            <span class="explained_class">This is a very long text example</span>
+            <script>
+                if (window.innerWidth > 768) {
+                    document.querySelectorAll('.explained_class').forEach(el => {
+                        let fullText = el.textContent.trim();
+
+                        if (fullText.length > 12) {
+                            let shortText = fullText.substring(0, 12) + '...';
+                            el.textContent = shortText;
+                            el.setAttribute('title', fullText);
+                        }
+                    });
+                }
+            </script>
             <!--            pid and hid hidden form-->
             <form class="form-horizontal" role="form" name="form1" action="" method="get">
                 <div class="form-group">

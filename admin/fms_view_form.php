@@ -573,7 +573,6 @@ include("../includes/connection_close.php");
         document.getElementById("sideSheet").classList.remove("active");
     }
 
-
     function createQRCode(data){
         const container = document.getElementById("qrcode");
 

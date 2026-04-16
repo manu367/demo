@@ -1109,7 +1109,7 @@
                         if (collapseData && collapseData.transitioning) {
                             return;
                         }
-                        if (expanded.collapse) { // if collapse plugin is available through bootstrap.js then use it
+                        if (expanded.collapse) { // if collapse chart_plugin is available through bootstrap.js then use it
                             expanded.collapse('hide');
                             closed.collapse('show');
                         } else { // otherwise just toggle in class on the two views
@@ -2381,7 +2381,7 @@
 
     /********************************************************************************
      *
-     * jQuery plugin constructor and defaults object
+     * jQuery chart_plugin constructor and defaults object
      *
      ********************************************************************************/
 
