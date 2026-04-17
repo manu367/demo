@@ -5,44 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/admin/_testing.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/Core.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/Plugin.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/demo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/ManuDemo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/file_stucture" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/java_sy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/fms_analysis.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/form_analysis.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/documentation/Application.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/documentation/Doc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/operations/FMS_Master.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/repo/FMS_Master_Repo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/service/FMS_Master_Service.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/service/Form_Master_Service.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/backup.php" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/backup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/js/promises.js" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/js/promises.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/_demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/_demo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/addAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/addAdminUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/add_dropdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/clone_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/clone_fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/download_ap.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/download_ap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/form_upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_upload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/form_upload_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_upload_data.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/home2.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/home2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fms_report_2026-04-08 (1)_files/filelist.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fms_report_2026-04-08 (1)_files/sheet001.htm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fms_report_2026-04-08 (1)_files/stylesheet.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fms_report_2026-04-08 (1)_files/tabstrip.htm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/role_tabrights.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/role_tabrights.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/permission.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Plugin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bootstrap-datetimepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/bootstrap-datetimepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bootstrap-multiselect.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/bootstrap-multiselect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bootstrap-select.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/bootstrap-select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/frmvalidate.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/frmvalidate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/jquery-1.10.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/jquery-1.10.2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/jquery-barcode.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/jquery-barcode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/jquery.validate.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/jquery.validate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data-view.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data-view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/publish/formlogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/publish/formlogic.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/publish/publisformsubmit.php" beforeDir="false" afterPath="$PROJECT_DIR$/publish/publisformsubmit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/publish/publishqrcode.php" beforeDir="false" afterPath="$PROJECT_DIR$/publish/publishqrcode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fms_form_template.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fms_form_template.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/common_exception.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_exception.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,6 +133,7 @@
     "Node.js.promises.js.executor": "Run",
     "Node.js.prototype.js.executor": "Run",
     "PHP Script.Add.php.executor": "Run",
+    "PHP Script.ManuDemo.php.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -150,7 +142,7 @@
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/xampp1/htdocs/demo/images",
+    "last_opened_file_path": "C:/xampp1/htdocs/demo/admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -164,11 +156,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp1\htdocs\demo\admin" />
+      <recent name="C:\xampp1\htdocs\demo\includes\service" />
       <recent name="C:\xampp1\htdocs\demo\images" />
       <recent name="C:\xampp1\htdocs\demo\pagination" />
       <recent name="C:\xampp1\htdocs\demo\_practice" />
-      <recent name="C:\xampp1\htdocs\demo\admin" />
-      <recent name="C:\xampp1\htdocs\demo\fmsapi\includes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp1\htdocs\demo" />
@@ -178,7 +170,7 @@
       <recent name="C:\xampp1\htdocs\demo\_practice\collection\list" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.promises.js">
+  <component name="RunManager" selected="PHP Script.ManuDemo.php">
     <configuration name="promises.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/js/promises.js" working-dir="$PROJECT_DIR$/_practice/js">
       <method v="2" />
     </configuration>
@@ -188,8 +180,12 @@
     <configuration name="Add.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/designpattern/behaviorial/Interpreter/Add.php">
       <method v="2" />
     </configuration>
+    <configuration name="ManuDemo.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/_practice/ManuDemo.php">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="PHP Script.ManuDemo.php" />
         <item itemvalue="Node.js.promises.js" />
         <item itemvalue="Node.js.prototype.js" />
         <item itemvalue="PHP Script.Add.php" />
@@ -238,6 +234,8 @@
       <workItem from="1775786380046" duration="9957000" />
       <workItem from="1775876599757" duration="5129000" />
       <workItem from="1776226918461" duration="29699000" />
+      <workItem from="1776313529965" duration="26983000" />
+      <workItem from="1776400191288" duration="24731000" />
     </task>
     <servers />
   </component>
@@ -260,6 +258,10 @@
           <url>file://$PROJECT_DIR$/admin/home2.php</url>
           <line>43</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$USER_HOME$/Downloads/home_dashboard_datewise.php</url>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/publish/formlogic.php</url>

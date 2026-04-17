@@ -1,4 +1,16 @@
 <?php
+/**
+ * Workflow of the Page
+ *   Step 1 =  when page is load then ajax call using DataTable
+ *   Step 2 = Ready page and used
+ *   Step 3 = This Page is Perform some Operations : ADD , View , Create , Clone Button
+ *
+ *   Note :
+ *      View Button = pid , hid , op=[ADD ,EDIT] , id= based64_encode(fms_id)
+ *      Create Button = Open Formmaster.php , pid, hid , id= based64_encode(fms_id)
+ *      Clone Button = clone_fms_master.php , take paramter pid ,hid, id=fms_id
+ */
+
 require_once("../includes/config.php");
 global $link1;
 PermissionManager::checkaddRights($link1,$_SESSION['userid'], $_REQUEST['pid']);

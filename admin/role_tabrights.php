@@ -11,7 +11,8 @@ if(isset($_POST['role_permission'])){
 }
 
 if (isset($flag) && $flag) {
-    header("location: home2.php?pid=homeadmin&hid=home");
+    $rold_id=$_POST['role_id']??'0';
+    header("location: home2.php?pid=homeadmin&hid=home&role=$rold_id&msg=Successfully Role Updated");
     exit();
 }
 
@@ -234,6 +235,7 @@ if($flag){?>
     	</div><!--End col-sm-9-->
 	</div><!--End row content-->
 </div><!--End container fluid-->
+
 <?php
 include("../includes/footer.php");
 include("../includes/connection_close.php");

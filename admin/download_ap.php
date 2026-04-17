@@ -1,4 +1,24 @@
 <?php
+/**
+ * This page facilitates downloading the FMS API format and returns API data in JSON format,
+ * which can be directly imported into Postman.
+ *
+ * Usage Instructions:
+ * 1. Open Postman.
+ * 2. Select the "Import" option.
+ * 3. Import the downloaded file.
+ * 4. Execute the requests directly from Postman.
+ *
+ * Note:
+ * - To send requests, valid user credentials (User ID and Password) are required.
+ *
+ * Workflow:
+ * Step 1: Retrieve FMS_ID, Form_ID, and Form Name.
+ * Step 2: Call the loadFSM() function.
+ * Step 3: Export the required data into the $data array.
+ * Step 4: Configure and set the necessary headers.
+ */
+
 require_once("../includes/config.php");
 global $link1;
 // load fms_master

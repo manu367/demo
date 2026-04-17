@@ -48,6 +48,18 @@ $msg=null;
 $pid=isset($_REQUEST['pid'])?$_REQUEST['pid']:'';
 $hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
 
+
+/**
+ *  Workflow to Save form data
+ *     Step 1 = get All Basic data ( FMsId , formid , old_column ,form_name, $from_sequeance , raw_data)
+ *     Step 2 = loadFSM for checking fms id is correct or not
+ *     Step 3 = parameter name and all important arument store as a json_encode format me
+ *     Step 4 = all jsonformat data store in data[] unit (Working from data unit)
+ *     Step 5 = we are called addForm() for store the data units
+ *     Step 6 = addColumnInTable() are used to add Column into the table
+ *     Step 7 = if everythings is good then return to the page and otherwise the redirect to
+ *              fms_master with error message
+ */
 if(isset($_POST['save']))
 {
    $fmsid=$_POST['fmsid'];
@@ -92,13 +104,30 @@ if(isset($_POST['save']))
         operationtracker($link1,$_SESSION['userid'],'Create Form',"Create Form".$data['formname'],'ADD',$_SERVER['REMOTE_ADDR']);
         $msg="Form Added Successfully";
         $msgEnc = urlencode($msg);
-        header("Location: fms_master.php?msg=$msgEnc");
+
+        header("Location: fms_master.php?pid=$pid&hid=$hid&msg=$msgEnc");
         exit;
     }else{
         throw new Exception("some things is wrong");
     }
 }
 
+/**
+ *  Workflow to Update Form Data
+ *     Step 1= get All Basic data ( FMsId , formid , old_column ,form_name, $from_sequeance , raw_data)
+ *     Step 2= store in single unit
+ *     Step 3= store all data FormSaveModel and use time check karna h ke
+ *            old column is eual to new column or not
+ *           Condition 1 = if not then add in new name in formSaveModel
+ *           Condition 2 = else { flow are normally end}
+ *    Step 4 = check fmsId is null || " " , if  yes then throw exceptions
+ *    Step 5 = get all fms_data based om fms_id
+ *    Step 6 = then update the form
+ *             calling this function updateForm();
+ *   Step 7 = if somethings is wrong in updateform() then throw the exception and redirect the page
+ *            else same page with success message
+ *
+ */
 
 if(isset($_POST['update']))
 {
@@ -151,6 +180,7 @@ if(isset($_POST['update']))
         $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length??'50',$old_col,$dropdown);
     }
 
+
     // new-data and old_data store in one unit here
     $data=[
             "fms_id"=>'',
@@ -171,7 +201,16 @@ if(isset($_POST['update']))
         $status = $formoperation->addnewColumnInDb($fms_data_p['table_name'], $newColumnAddInDB);
     }
 
-    $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);
+    $response=null;
+    try{
+        $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);
+    }catch (Exception $e){
+        $op     = $_REQUEST['op'] ?? '';
+        $msg=$e->getMessage();
+        $formid=base64_encode($formid);
+        header("Location: create_form.php?pid={$pid}&hid={$hid}&op={$op}&type=error&msg={$msg}&formid={$formid}");
+        exit;
+    }
 
     if($response){
         $msg="Form Updated Successfully";
@@ -307,7 +346,6 @@ $selectedBox=showDropDown_master($link1);
             display: flex;
             align-items: center;
             gap: 10px;
-            background: green;
             backdrop-filter: blur(8px);
             z-index: 9999;
             color: #fff;
@@ -387,7 +425,7 @@ $selectedBox=showDropDown_master($link1);
 </div>
 <?php
 if(isset($_REQUEST['msg'])):?>
-    <div id="errorPopup" class="toast">
+    <div id="errorPopup" class="toast" style="background-color: <?=isset($_REQUEST['type'])?'darkred':'green'?>">
         <span class="icon">⚠️</span>
         <span class="message"><?=$_REQUEST['msg']?></span>
     </div>
@@ -602,7 +640,7 @@ include("../includes/connection_close.php");
     }
 
     document.addEventListener("DOMContentLoaded",function(){
-        let count=counterLe('<?=$countleave===0?2:$countleave?>');
+        let count=counterLe('<?=$countleave===0?2:$countleave+=1?>');
         $("#row").click(function () {
             let i=count();
 
@@ -723,9 +761,7 @@ function showAlert(message, type = "success", duration = 3000) {
     document.querySelectorAll("select").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
-
     const selectbox="<?=showDropDown_master($link1)?>";
-
     document.addEventListener("change", function(e){
         if (e.target.matches("select")) {
             if (e.target.value === '8') {
@@ -741,7 +777,6 @@ function showAlert(message, type = "success", duration = 3000) {
             }
         }
     });
-
 </script>
 
 <script>
@@ -767,6 +802,7 @@ function showAlert(message, type = "success", duration = 3000) {
         }
         return null;
     }
+
     ConnectionStablish.prototype.checkConnection=function(){}
 
     function DupblicationRemover(){
@@ -776,12 +812,14 @@ function showAlert(message, type = "success", duration = 3000) {
         this.error=new Set();
         this.connection=new ConnectionStablish();
     }
+
     DupblicationRemover.prototype.dbParamterFetch=async function(){
         let url = `../pagination/table-column-data.php?fms_id=<?=$load['id']?>&formid=<?=$res['id']?>&column=${''}`;
         const response = await fetch(url);
         const data = await response.json();
         this.dbCol=await data;
     }
+
     DupblicationRemover.prototype.noromilizeFun=function(str){
         return str
             .toLowerCase()
@@ -825,7 +863,11 @@ function showAlert(message, type = "success", duration = 3000) {
 
         document.addEventListener("input", function(e) {
             if (e.target.matches("input[name='param_name[]']")) {
+                // Remove special characters (keep letters + numbers only)
+                let cleanValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '');
+                e.target.value = cleanValue;
                 let value=DupblicationRemover.prototype.noromilizeFun(e.target.value);
+                value=value.trim();
                 if(set.has(value)){
                     error.add(e.target);
                     DupblicationRemover.prototype.showSnackbar(e.target,'Already exists');
@@ -835,6 +877,7 @@ function showAlert(message, type = "success", duration = 3000) {
                     error.delete(e.target);
                     e.target.style.border="0px solid";
                 }
+
             }
             // console.log(error);
         });
@@ -859,9 +902,12 @@ function showAlert(message, type = "success", duration = 3000) {
 
             if (e.target.matches("input[name='param_name[]']")) {
 
-                const element = e.target;
-
-                const newValue = self.noromilizeFun(element.value);
+                // Remove special characters (keep letters + numbers only)
+                let cleanValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '');
+                e.target.value = cleanValue;
+                let element = e.target;
+                element.value = cleanValue; // ishke pass ab clean value h
+                const newValue = self.noromilizeFun(element.value.trim());
                 const oldValue = self.noromilizeFun(element.dataset.old ?? '');
 
                 //case 1: same as old => always valid (manu_pathak = [manu_pathak]=old_col)
@@ -900,6 +946,13 @@ function showAlert(message, type = "success", duration = 3000) {
             validation.updateForm();
         }
         validation.stopFormSubmit();
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("input[name=param_name]").forEach((inputs_paramter) => {
+            console.log(inputs_paramter);
+        });
     });
 </script>
 </body>

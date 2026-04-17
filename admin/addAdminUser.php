@@ -2,6 +2,7 @@
 require_once("../includes/config.php");
 $dt = date("Y-m-d H:i:s");
 
+// get user status from status_master
 $arrstatus = getFullStatus("master",$link1);
 
 @extract($_POST);
@@ -27,7 +28,10 @@ if($_REQUEST['op']=='edit')
  *      Step 3 = insert data into admin_users
  *
  * update Workflow=
- *      Step 1= get user type of roles
+ *      Step 1 = get user type of roles
+ *      Step 2 = update sql query
+ *      Step 3 = Update Tab bases Role and update access tab
+ *      step 4 = track daily activity
  *
  */
 if($_POST)

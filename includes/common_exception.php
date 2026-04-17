@@ -32,6 +32,9 @@ class FMSExceptionHandler extends Exception{
         parent::__construct($message, 0, null);
     }
     public function location(){
+        if (ob_get_length()) {
+            ob_clean();
+        }
         header("location:$this->location?pid=$this->pid&hid=$this->hid&type=$this->type&msg=$this->message");
         exit();
     }

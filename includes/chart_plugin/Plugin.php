@@ -59,27 +59,76 @@ function my_plugin_function() {
     return ['data'=>[1,2,3,4,5,6],'msg'=>'"Hello from chart_plugin!"'];
 }
 
-//####################################### admin_users ############################
-function activeUser_expose(){}
-function statebyUser_expose(){}
-function cityByUsers_expose(){}
-function desitationsByUser_expose(){}
+//################# fms_master #############
+function getFMsMaste_Data($link1, $date_wise_chart_data){
 
+    $dates = explode(" - ", $date_wise_chart_data);
 
-//####################################### Dropdown_master ############################
-function getAllActiveDropDowneChart_expose(){}
+    $start_date = date("Y-m-d 00:00:00", strtotime($dates[0]));
+    $end_date   = date("Y-m-d 23:59:59", strtotime($dates[1]));
 
+    $sql = "SELECT category, status, COUNT(*) as total 
+            FROM fms_master 
+            WHERE created_at BETWEEN '$start_date' AND '$end_date'
+            GROUP BY category, status";
 
-//####################################### role_master ############################
-function activeRole_expose(){}
+    $result = mysqli_query($link1, $sql);
 
+    $data = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $data[] = $row;
+    }
+    return $data;
+}
+function getFormMaster_data($link1,$date_wise_chart_data){
+    $dates = explode(" - ", $date_wise_chart_data);
 
-//###################################### FMS_Master #############################
-function activeFmsMaster_expose(){}
-function activeFMSwithSteps_and_totalform_expose(){}
-function fms_with_table_name_expose(){}
+    $start_date = date("Y-m-d 00:00:00", strtotime($dates[0]));
+    $end_date   = date("Y-m-d 23:59:59", strtotime($dates[1]));
 
-// ############################### Form Master ##################################
-function active_formMaster_expose(){}
-function from_seq_expose(){}
-function formDataWise_expose(){}
+    $sql = "SELECT * FROM form_master WHERE created_date BETWEEN '$start_date' AND '$end_date'";
+
+    $result = mysqli_query($link1, $sql);
+
+    $data = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $data[] = $row;
+    }
+    return $data;
+}
+function prepareChartData($data) {
+    $categories = [];
+    $statusData = [];
+
+    foreach ($data as $row) {
+        $cat = $row['category'];
+        $status = $row['status'];
+        $total = (int)$row['total'];
+
+        if (!in_array($cat, $categories)) {
+            $categories[] = $cat;
+        }
+
+        $statusData[$status][$cat] = $total;
+    }
+
+    // build series
+    $series = [];
+    foreach ($statusData as $status => $values) {
+        $dataArr = [];
+
+        foreach ($categories as $cat) {
+            $dataArr[] = $values[$cat] ?? 0;
+        }
+
+        $series[] = [
+            "name" => $status,
+            "data" => $dataArr
+        ];
+    }
+
+    return [
+        "categories" => $categories,
+        "series" => $series
+    ];
+}

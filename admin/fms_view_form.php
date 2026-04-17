@@ -632,14 +632,14 @@ include("../includes/connection_close.php");
             btn.disabled = false;
 
             // Close sheet after 1 sec
-            setTimeout(closeSheet_1, 1000);
+            setTimeout(closeSheet_1, 500);
 
             // Redirect after total ~1.5 sec
             setTimeout(() => {
                 window.location.href = `../publish/publishqrcode.php?pid=1&hid=Masters&formid=${formid}&uuid=&token=${generateToken(20)}`;
-            }, 1500);
+            }, 1000);
 
-        }, 2000);
+        }, 1000);
     }
 
     function generateToken(length = 6) {

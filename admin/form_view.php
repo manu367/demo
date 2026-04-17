@@ -71,8 +71,6 @@ if(isset($_REQUEST['formid'])){
     $data=$formview->loadform($formid);
     $fms_de=fmsloading($link1,$data['fms_id']);
 }
-
-
 if(isset($_POST['save'])){
 
     $data=$formview->loadform($formid);
@@ -111,7 +109,6 @@ if(isset($_POST['save'])){
 }
 
 $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -233,7 +230,7 @@ $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQ
         include("../includes/leftnav2.php");
         ?>
         <div class="<?=$screenwidth?>">
-            <h2 align="center"><i class="fa fa-users"></i> Form View </h2><br/><br/>
+            <h2 align="center"><i class="fa fa-users"></i> <?=$data['form_name']?> View </h2><br/><br/>
             <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
                 <?php
                 if($isPermission){

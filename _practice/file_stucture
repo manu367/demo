@@ -1,0 +1,14 @@
+file Sturtcture
+
+/ path folder / file
+
+/security folder/file
+
+/operations_folder
+  file = yha jaise file rakhne hai ho controler , service , reop , model ke sabi file ko import kar le apne aap he
+  project run hote he (one time = matab koe new file add hue to wo automaticlly add hoge and jo file already h jaise h waise he rahe)
+   /operations_folder/controller
+   /operations_folder/ model
+   /operations_folder/ service
+   /operations_folder/ repo
+   /operations_folder/ util

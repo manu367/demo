@@ -1,7 +1,17 @@
 <?php
+/**
+ *  Workflow of clone_fms_master page
+ *     Step 1 = get all data based on fms_id from fms_master
+ *     step 2= set important  data into hidden field in form
+ *     step 3 = when user submit details then you will use it
+ */
+
 require_once("../includes/config.php");
 global $link1,$db;
 
+/**
+ * Globally Exception handler
+ */
 set_exception_handler(function ($exception) {
     if ($exception instanceof GlobalException) {
         $msg = $exception->getMessage();

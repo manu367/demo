@@ -13,14 +13,21 @@ if($menutab=="H"){
       <a class="navbar-brand" href="#">CRM</a>
     </div>
     <ul class="nav navbar-nav ">
-      <li <?php if($_REQUEST['pid']=="homeadmin" && $_REQUEST['hid']=="home")
-      { echo "class='active'";}
-      if($_SESSION['utype']=="ASP")
-      { $hmdir="asp";}
-      else{ $hmdir="admin";}?>>
+      <li
+              <?php
+              if($_REQUEST['pid']=="homeadmin" && $_REQUEST['hid']=="home") {
+                  echo "class='active'";
+              }
+              if($_SESSION['utype']=="ASP") {
+                  $hmdir="asp";
+              } else {
+                  $hmdir="admin";
+              }
+              ?>
+      >
           <a href="../<?=$hmdir?>/home2.php?pid=homeadmin&hid=home"><i class="fa fa-home fa-lg"></i> Home</a>
       </li>
-      	<?php
+        <?php
 		$arr_nav[] = "homeadmin";
 		///////////////////// select main tab ///////// 
 	    $res_maintab=mysqli_query($link1,"select maintabname , maintabicon from tab_master where status = '1' and tabfor='admin' group by maintabname order by maintabseq")or die("error1".mysqli_error($link1));
@@ -30,12 +37,13 @@ if($menutab=="H"){
                 while($row_maintab=mysqli_fetch_array($res_maintab)){ ////// start main tab while 
 				$icon = $row_maintab['maintabicon'];
 		?>
-      <li class="dropdown <?php
-      if($_REQUEST['hid'] == $row_maintab['maintabname']){ echo "active";} ?>">
+      <li class="dropdown
+      <?php if($_REQUEST['hid'] == $row_maintab['maintabname']){
+          echo "active";
+      } ?>"
+      >
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa <?=$icon?> fa-lg"></i>
-              <?=$row_maintab['maintabname']?>
-              <span class="caret"></span>
+              <i class="fa <?=$icon?> fa-lg"></i><?=$row_maintab['maintabname']?><span class="caret"></span>
           </a>
         <ul class="dropdown-menu ">
         <?php 
@@ -64,13 +72,14 @@ if($menutab=="H"){
 			  ?>
        <li>
           <a href="../logout.php">
-          <i class="fa fa-power-off fa-lg"></i> Logout
+          <i class="fa fa-power-off fa-lg"></i>
           </a>
+
         </li>       
     </ul>
   </div>
 </nav>
-<?php 
+<?php
 }
 else{
 ?>
@@ -109,7 +118,7 @@ else{
                 <?php
                 $arr_nav[] = "homeadmin";
 
-                $res_maintab=mysqli_query($link1,"select maintabname , maintabicon from tab_master where status = '1' and tabfor='admin' group by maintabname order by maintabseq");
+                $res_maintab=mysqli_query($link1,"select maintabname , maintabicon from tab_master where status = '1' and tabfor='admin' group by maintabname  order by maintabseq DESC");
 
                 if (mysqli_num_rows($res_maintab) > 0) {
                     $i=1;

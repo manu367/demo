@@ -101,25 +101,21 @@ $(document).ready(function() {
 </head>
 <body>
 <div class="container-fluid">
-  <div class="row content">
+    <div class="row content">
+        <?php
+        include("../includes/leftnav2.php");
+        ?>
+        <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
+            <h2 align="center" class="ntxt" style="border-bottom:1px solid #aaa8a8;padding:25px 0px;margin:0px;"><i class="fa fa-users"></i> Welcome Page </h2>
+            <?php if($_REQUEST['msg']){?><br>
+                <h4 align="center" style="color:#FF0000"><?=$_REQUEST['msg']?></h4>
+            <?php }?>
 
-	<?php
-    include("../includes/leftnav2.php");
-    ?>
-
-
-	  <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
-		  
-		  <h2 align="center" class="ntxt" style="border-bottom:1px solid #aaa8a8;padding:25px 0px;margin:0px;"><i class="fa fa-users"></i> Welcome Page </h2>
-		  <?php if($_REQUEST['msg']){?><br>
-		  <h4 align="center" style="color:#FF0000"><?=$_REQUEST['msg']?></h4>
-		  <?php }?>
-
-          <?php
-          if(PermissionManager::checkViewRights($link1,$_SESSION['userid'],'1')){
-          ?>
-          <div class="container-fluid mt-4">
-              <div class="row g-3" style="margin-top: 10px">
+            <?php
+            if(PermissionManager::checkViewRights($link1,$_SESSION['userid'],'1')){
+                ?>
+                <div class="container-fluid mt-4">
+                    <div class="row g-3" style="margin-top: 10px">
 
                   <!-- Total FMS -->
                   <div class="col-md-4">
@@ -188,8 +184,7 @@ $(document).ready(function() {
                       </div>
                   </div>
               </div>
-
-              <div class="row g-3 card " style="margin-top: 10px;margin-left: 1px;padding: 10px;">
+                    <div class="row g-3 card " style="margin-top: 10px;margin-left: 1px;padding: 10px;">
 				  <div style="text-align:center">
 				  <h4 style="text-transform: capitalize;font-weight: normal!important;">last Activity : <?= $_SESSION['userid'] ?> </h4>
 				  </div>
@@ -230,9 +225,9 @@ $(document).ready(function() {
                       </tbody>
                   </table>
               </div>
-              <div class="row">
-                  <div class="col-md-6">
-                      <div id="pie_chart"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="pie_chart"></div>
 <!--                      ["PIE","BAR","LINE","AREA","SCATTER","COLUMN"] -->
                       <?=renderChart($_REQUEST['chart']??'LINE',
                               'this is Pie chart',

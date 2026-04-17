@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Complete Page Workflow
+ *   Step 1 = This page is open in 2 mode [ADD , UPDATE]
+ *   Step 2= if $_REQUEST['op'] h or value hai tab update otherwise ADD Opertation
+ *   Step 3 = loadFMs based on id , if id is not exit then show the exceptions
+ */
 require_once("../includes/config.php");
 global $link1;
 set_exception_handler(function ($exception) {
@@ -54,6 +61,7 @@ function createTableDMS($link1,$name){
  */
 if(isset($_POST['add'])){
 
+    // get all data in one unit
     $data=[];
     $data['fmsname']=$_POST['fmsname'];
     $data['details']=$_POST['fms_details'];
@@ -62,13 +70,14 @@ if(isset($_POST['add'])){
     $data['ip']=$_SERVER['REMOTE_ADDR'];
     $data['category']=$_POST['category'];
 
-    // clean base name
+    // clean base name = Manu pathak = Manu_Pathak
     $baseName = $fms->spaceRemover($data['fmsname']);
+
 
     // here we are decide prefix FIRST
     if($data['category'] === '0'){
         $data['category'] = 'fms';
-        $tablename = 'fms_' . $baseName;
+        $tablename = $baseName;
 
     } elseif($data['category'] === '1'){
         $data['category'] = 'other';
@@ -85,11 +94,16 @@ if(isset($_POST['add'])){
         throw new GlobalException("Table already exists");
     }
 
-    // create table
+    // create table = jab user other and fms choose karega tab
+    // by default fms hoga yha check kar rha hai ke category fms hai tab
+    // fms_tableName crate ho  otherwise dy0 prefix ke name se create ho.
+
+
     if($data['category'] === 'fms'){
         if(!$fms->createTable($tablename)){
             throw new GlobalException("Table not created");
         }
+        $tablename = 'fms_'.$baseName;
     } else {
         createTableDMS($link1, $tablename);
     }
@@ -140,8 +154,11 @@ if(isset($_POST['update'])){
 
 
     try{
+        // update operations
         $resUp=$fms->updateOperation($data,$_SESSION['userid'],$fms_id);
+        // dailyactivity
         operationtracker($link1,$_SESSION['userid'],'Update fms Master',"Update FMS =".$data['fmsname'],'UPDATE',$_SERVER['REMOTE_ADDR']);
+
         if($resUp['status'] &&  $flag){
             $show=$resUp['msg'];
 //            header("location:add_fms_master.php?pid=$pid&hid=$hid&msg=".$response['msg']);
@@ -170,7 +187,8 @@ $isPermissionGrant=false;
 
 if($is_edit){
     $isPermissionGrant=PermissionManager::checkEditRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
-}else{
+}
+else{
     $isPermissionGrant=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
 }
 ?>
@@ -354,7 +372,7 @@ if($is_edit){
                                         if (strpos($edit_data['category'], 'fms')===0) {
                                             $selected_fms = 'selected';
                                         }
-                                        if (strpos($edit_data['category'], 'other')===0) {
+                                        if (strpos($edit_data['category'], 'other')===1) {
                                             $selected_other = 'selected';
                                         }else{
                                             $selected_fms = 'selected';

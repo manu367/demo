@@ -183,12 +183,22 @@ class FormClone{
 
         return mysqli_query($this->conn, $sql);
     }
-    private function spaceRemover($name){
+    public function spaceRemover($name){
         $name = trim($name);
-        $tableName = str_replace(' ', '_', $name);
-        $tableName = preg_replace('/[^A-Za-z0-9_]/', '', $tableName);
-        $tableName=strtolower($tableName);
-        return $tableName;
+        if (empty($name)) {
+            throw new GlobalException("Table name cannot be empty");
+        }
+        // multiple spaces => single underscore
+        $name = preg_replace('/\s+/', '_', $name);
+        // remove invalid characters
+        $name = preg_replace('/[^A-Za-z0-9_]/', '', $name);
+        // multiple underscores => single underscore (extra safety)
+        $name = preg_replace('/_+/', '_', $name);
+        $name = strtolower($name);
+        if (empty($name)) {
+            throw new GlobalException("Invalid table name after sanitization");
+        }
+        return $name;
     }
 
     public function columnType($type, $length) {
@@ -271,6 +281,20 @@ class FMS_Operations{
         $this->location = $location;
         $this->conn = $conn;
     }
+
+    /**
+     * this method update data into the sql
+     *  workflow of updateOperation <br/>
+     *    Step 1=  get all the data and set into the sql query <br/>
+     *    STep 2 = run sql query if success then return array <br/>
+     *  <br/>
+     *  Dependecy
+     *  mysqli_query
+     * @param $data = store all data into the signle unit
+     * @param $updateBy = which user are update by fms
+     * @param $fms_id = Here fms_id help to which FMS is updated
+     * @return array = if every things is ook , then return array [status ,messgae]
+     */
     public function updateOperation($data = [], $updateBy, $fms_id){
 //        var_dump($data,$updateBy,$fms_id);exit();
         $fname       = $data['fmsname'];
@@ -298,6 +322,23 @@ class FMS_Operations{
         }
         return ['status'=>true, "msg"=>'Successfully Updated'];
     }
+
+    /**
+     * this method save data into the sql
+     * workflow of addOperations <br/>
+     *   Step 1=  get all the data and set into the sql query <br/>
+     *   STep 2 = run sql query if success then return array <br/>
+     * <br/>
+     * Dependecy
+     * mysqli_query
+     *
+     * @param $data = this is array where store all data unit
+     * @param $updateBy = which user update the fms
+     * @param $tablname = table name
+     * @return array = if every things is ook , then return array [status ,messgae]
+     * @throws GlobalException = if any problem in execution then thorow the exceptions
+     *
+     */
     public function addOperation($data = [], $updateBy,$tablname){
         $fname       = mysqli_real_escape_string($this->conn, $data['fmsname']);
         $details     = mysqli_real_escape_string($this->conn, $data['details']);
@@ -372,11 +413,9 @@ class FMS_Operations{
     updated_by varchar(10),
     updated_ip varchar(40)
         ) ENGINE=InnoDB";
-
             if (!mysqli_query($this->conn,$sql)) {
                 throw new GlobalException("Error creating table: " . $this->conn->error);
             }
-
             return true;
 
         } catch (Exception $e) {
@@ -389,15 +428,17 @@ class FMS_Operations{
         if (empty($name)) {
             throw new GlobalException("Table name cannot be empty");
         }
-
-        $tableName = str_replace(' ', '_', $name);
-        $tableName = preg_replace('/[^A-Za-z0-9_]/', '', $tableName);
-
-        if (empty($tableName)) {
+        // multiple spaces => single underscore
+        $name = preg_replace('/\s+/', '_', $name);
+        // remove invalid characters
+        $name = preg_replace('/[^A-Za-z0-9_]/', '', $name);
+        // multiple underscores => single underscore (extra safety)
+        $name = preg_replace('/_+/', '_', $name);
+        $name = strtolower($name);
+        if (empty($name)) {
             throw new GlobalException("Invalid table name after sanitization");
         }
-        $tableName=strtolower($tableName);
-        return $tableName;
+        return $name;
     }
     public function tablenameAlreadyExists($db,$tablname){
         $tablname=strtolower($tablname);
@@ -424,15 +465,17 @@ class FormOperations{
         if (empty($name)) {
             throw new GlobalException("Table name cannot be empty");
         }
-
-        $tableName = str_replace(' ', '_', $name);
-        $tableName = preg_replace('/[^A-Za-z0-9_]/', '', $tableName);
-
-        if (empty($tableName)) {
+        // multiple spaces => single underscore
+        $name = preg_replace('/\s+/', '_', $name);
+        // remove invalid characters
+        $name = preg_replace('/[^A-Za-z0-9_]/', '', $name);
+        // multiple underscores => single underscore (extra safety)
+        $name = preg_replace('/_+/', '_', $name);
+        $name = strtolower($name);
+        if (empty($name)) {
             throw new GlobalException("Invalid table name after sanitization");
         }
-        $tableName=strtolower($tableName);
-        return $tableName;
+        return $name;
     }
     public function loadForm($fms_id,$form_id){}
     public function updateForm($id, $fms_id, $data = [], $updatedBy, $tablename = "")
@@ -482,10 +525,12 @@ class FormOperations{
                 $types,
                 $length
             );
+
             if (!mysqli_query($this->conn, $sql_query)) {
                 throw new GlobalException("Alter failed: " . mysqli_error($this->conn) . " | Query: $sql_query");
             }
         }
+
         // insert final data here
         try{
             $result=$this->updateFormMaster_1($data['formid'],$data['new'],$data['frm_seq']);
@@ -2304,7 +2349,7 @@ function getMastertablekeys($link, $selectName, $tableName, $selected = null){
     }
 
     return "
-        <select name='{$selectName}' class='form-control' onchange='document.frm1.submit()'>
+        <select name='{$selectName}' class='form-control'>
             <option value=''>-- Select Column --</option>
             {$options}
         </select>
@@ -2464,14 +2509,12 @@ function operationtracker($link1,$userid,$reference,$activitytype,$type_of_actio
     return mysqli_query($link1,$sql) or false;
 }
 
-
 function convertDataintoPojo($paramter='',
                              $display='',
                              $type='',
                              $drop_down='',
                              $length='',
                              $param_require=''){
-
 }
 function getAllFormUnits($link1=null,$formid=0){
 
@@ -2501,6 +2544,10 @@ function getAllFormUnits($link1=null,$formid=0){
     }
     var_dump($form_units[0]);exit();
     return $form_units;
+}
+
+function cloze(){
+
 }
 
 ?>
