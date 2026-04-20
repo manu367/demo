@@ -144,7 +144,7 @@ require_once("../includes/config.php");
                     cursor: pointer;
                 }
             </style>
-            <span class="explained_class">This is a very long text example</span>
+            <span class="explained_class" style="display: none;">This is a very long text example</span>
             <script>
                 if (window.innerWidth > 768) {
                     document.querySelectorAll('.explained_class').forEach(el => {
@@ -206,5 +206,14 @@ include("../includes/connection_close.php");
     document.querySelectorAll("table td, table th").forEach((cell) => {
         cell.style.textTransform = "capitalize";
     });
+</script>
+<script>
+    function FmsViewPage(){
+        this.page=null;
+    }
+    FmsViewPage.prototype.showPage=function (){
+        console.log("show page");
+    }
+    // node js ke help se practice 
 </script>
 </html>

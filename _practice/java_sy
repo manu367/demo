@@ -1,28 +1,26 @@
-What is Java?
-JIT compiler.
-JVM Architecture
-JVM , JDK , JRE
-Why is Java "Platform Independent"?
-== vs. .equals
-Why is Java a platform independent language?
-Why is Java not a pure object oriented language?
-Heap and Stack Memory in java. And how java utilizes this.
-How is Java different from C++?
-Pointers are used in C/ C++. Why does Java not make use of pointers?
- What do you understand by an instance variable and a local variable?
- What are the default values assigned to variables and instances in java?
- main objective of garbage collection?
- What is a ClassLoader?
- Which of the below generates a compile-time error? State the reason.
- Using relevant properties highlight the differences between interfaces and abstract classes.
- Is this program giving a compile-time error? If Yes then state the reason and number of errors it will give. If not then state the reason.
+Getting Familiar with internet of Things (IoT):
+Definition, Characteristics,
+History and Evolution of loT.
+Physical Design of IoT: Things in IoT,
+IoT Protocols.
+Logical Design of IoT: Functional block, Communication Models and APIs,
+IoT Stack
 
+Enabling Technologies:
+Sensors,
+Cloud Computing,
+Big Data analytics,
+Embedded Computing Boards,
+Communication Protocols,
+IoT Challenges,
+IoT Levels,
+Overview of Domain Specific IoTs applications Like Smart Cities,
+Smart Agriculture and industrial IoT Applications.
+The IoT Paradigm: Comparison with User interface related Technologies like SCADA, M2M, SDN. IoT Design Methodology: IoT Components.
 
-
-Ooops
-What are the four pillars of OOP?
-What do you mean by data encapsulation?
- Comparator in java
- serialization
-
-
+Transport Protocols:
+,
+Network Protocol: 6LoWPAN.
+Physical Design of IoT: Functional Block, Cloud Storage Models, Communication Models, and
+Communication APls: REST based, Web Socket
+Based, Cloud for IoT: Challenges, Fog Computing.

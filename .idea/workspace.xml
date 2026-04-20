@@ -5,35 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/_practice/ManuDemo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/file_stucture" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/java_sy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/fms_analysis.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/form_analysis.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/documentation/Application.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/documentation/Doc.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/operations/FMS_Master.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/repo/FMS_Master_Repo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/FMS_Master_Service.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/Form_Master_Service.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/db/db.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/model/Category.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/model/TabMaster.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/model/User.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/repo/userRepo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/route/AuthRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/services/authService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_practice/crm/src/util/fakeDB.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/demo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/addAdminUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/addAdminUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/Collections" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/list/ArrayList" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/list/LinkedList" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/map/HashMap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/map/Hashtable" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/map/LinkedHashMap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/collection/map/TreeMap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/Structural patterns" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/adapter/Adapter_Patterns" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/adapter/Main.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/adapter/SendMessage.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/adapter/WhatsAppSender.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/Structural/bridge/bridge" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/aaa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Interpreter/Add.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Interpreter/Expression.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Interpreter/Number.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Interpreter/_introduction" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Iterator/ArrayIteratorCustom.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Iterator/myiterator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/Strategy/strategy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/behavioralpattern" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/memento/Editor.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/memento/History.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/memento/d" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/memento/memento.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/memento/runing.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/observer/RolePermissionObserver.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/visitior/Visitior.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/behaviorial/visitior/visitor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/creational/abstract/abstract" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/creational/creational_design_pattern" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/creational/factory/factory" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/creational/prototype/prototype" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/creational/singleton/singleton" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/designpattern/designpattern" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/file_stucture" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/file_stucture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/java_sy" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/java_sy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/js/asyn_await.js" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/crm/src/repo/categoryRepo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/js/practice.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/js/promises.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/js/prototype.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/node_js/BasicOperations.js" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/BasicOperations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/clone_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/clone_fms_master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/download_ap.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/download_ap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_view_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/home2.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/home2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/role_tabrights.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/role_tabrights.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/permission.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_exception.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_exception.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/fms_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/Doc.php" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/Doc.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,9 +76,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="PHP File" />
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -125,35 +155,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.promises.js.executor": "Run",
-    "Node.js.prototype.js.executor": "Run",
-    "PHP Script.Add.php.executor": "Run",
-    "PHP Script.ManuDemo.php.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/xampp1/htdocs/demo/admin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "copyright",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.BasicOperations.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.app.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.db.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.promises.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.prototype.js.executor&quot;: &quot;Run&quot;,
+    &quot;PHP Script.Add.php.executor&quot;: &quot;Run&quot;,
+    &quot;PHP Script.ManuDemo.php.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;24.12.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;24.12.2&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp1/htdocs/demo/admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.tslint&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\xampp1\\htdocs\\demo\\_practice\\crm\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp1\htdocs\demo\admin" />
@@ -163,21 +199,24 @@
       <recent name="C:\xampp1\htdocs\demo\_practice" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp1\htdocs\demo\_practice\crm\src" />
+      <recent name="C:\xampp1\htdocs\demo\_practice" />
       <recent name="C:\xampp1\htdocs\demo" />
       <recent name="C:\xampp1\htdocs\demo\publish" />
       <recent name="C:\xampp1\htdocs\demo\js" />
-      <recent name="C:\xampp1\htdocs\demo\css" />
-      <recent name="C:\xampp1\htdocs\demo\_practice\collection\list" />
     </key>
   </component>
-  <component name="RunManager" selected="PHP Script.ManuDemo.php">
-    <configuration name="promises.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/js/promises.js" working-dir="$PROJECT_DIR$/_practice/js">
+  <component name="RunManager" selected="Node.js.db.ts">
+    <configuration name="BasicOperations.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/BasicOperations.js" working-dir="$PROJECT_DIR$/_practice/node_js">
       <method v="2" />
     </configuration>
-    <configuration name="prototype.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/js/prototype.js" working-dir="$PROJECT_DIR$/_practice/js">
+    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/crm/src/app.js" working-dir="$PROJECT_DIR$/_practice/crm/src">
       <method v="2" />
     </configuration>
-    <configuration name="Add.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/designpattern/behaviorial/Interpreter/Add.php">
+    <configuration name="app.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/crm/src/app.ts" working-dir="$PROJECT_DIR$/_practice/crm">
+      <method v="2" />
+    </configuration>
+    <configuration name="db.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/_practice/crm/src/db/db.ts" working-dir="$PROJECT_DIR$/_practice/crm/src/db">
       <method v="2" />
     </configuration>
     <configuration name="ManuDemo.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/_practice/ManuDemo.php">
@@ -185,10 +224,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.db.ts" />
+        <item itemvalue="Node.js.app.js" />
+        <item itemvalue="Node.js.app.ts" />
+        <item itemvalue="Node.js.BasicOperations.js" />
         <item itemvalue="PHP Script.ManuDemo.php" />
-        <item itemvalue="Node.js.promises.js" />
-        <item itemvalue="Node.js.prototype.js" />
-        <item itemvalue="PHP Script.Add.php" />
       </list>
     </recent_temporary>
   </component>
@@ -235,8 +275,19 @@
       <workItem from="1775876599757" duration="5129000" />
       <workItem from="1776226918461" duration="29699000" />
       <workItem from="1776313529965" duration="26983000" />
-      <workItem from="1776400191288" duration="24731000" />
+      <workItem from="1776400191288" duration="26573000" />
+      <workItem from="1776659043479" duration="19651000" />
+      <workItem from="1776682794004" duration="3910000" />
     </task>
+    <task id="LOCAL-00001" summary="basic operations">
+      <option name="closed" value="true" />
+      <created>1776667407483</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1776667407483</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,7 +295,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sdcdc" />
-    <option name="LAST_COMMIT_MESSAGE" value="sdcdc" />
+    <MESSAGE value="basic operations" />
+    <option name="LAST_COMMIT_MESSAGE" value="basic operations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -835,7 +835,7 @@ function showAlert(message, type = "success", duration = 3000) {
         snackbar.classList.add("show");
         setTimeout(() => {
             snackbar.classList.remove("show");
-        }, 3000);
+        }, 5000);
     }
 
     DupblicationRemover.prototype.stopFormSubmit = function(){
@@ -870,7 +870,7 @@ function showAlert(message, type = "success", duration = 3000) {
                 value=value.trim();
                 if(set.has(value)){
                     error.add(e.target);
-                    DupblicationRemover.prototype.showSnackbar(e.target,'Already exists');
+                    DupblicationRemover.prototype.showSnackbar(e.target,`Already exists ${e.target.value} in the table`);
                     DupblicationRemover.prototype.stopFormSubmit();
                 }
                 else{
@@ -920,7 +920,7 @@ function showAlert(message, type = "success", duration = 3000) {
                 // case 2: changed but already exists in DB - error
                 if(set.has(newValue)){
                     error.add(element);
-                    self.showSnackbar(element, 'Already exists');
+                    self.showSnackbar(element, `Already exists ${e.target.value} in the table`);
                     element.style.border = "2px solid red";
                 }
                 //  case 3: changed and unique -> valid

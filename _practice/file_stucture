@@ -1,14 +1,30 @@
-file Sturtcture
+Pehle questions dekh (30–40 sec)
+Passage pe toot padne se pehle questions scan kar:
 
-/ path folder / file
+Kis type ke hain? (fact, inference, vocab, tone)
+Keywords pakad le (names, dates, terms)
 
-/security folder/file
 
-/operations_folder
-  file = yha jaise file rakhne hai ho controler , service , reop , model ke sabi file ko import kar le apne aap he
-  project run hote he (one time = matab koe new file add hue to wo automaticlly add hoge and jo file already h jaise h waise he rahe)
-   /operations_folder/controller
-   /operations_folder/ model
-   /operations_folder/ service
-   /operations_folder/ repo
-   /operations_folder/ util
+2. Skimming + scanning combo use kar
+First para aur last para dhyaan se padh (ye backbone hota hai)
+
+
+3. Har para ka mini-summary dimaag me bana
+
+4.Direct questions = direct hunt
+Fact-based questions me:
+
+5. Inference questions me trap hota hai
+Yaha students fail hote hain.
+
+
+6. Options elimination technique
+Kabhi bhi pehle correct dhundhne mat baitho.
+
+7. Vocab in RC (synonym/antonym)
+
+word ka exact meaning nahi aata? context pakad
+sentence ka tone samajh → positive/negative
+
+8.Time management (bahut important)
+1 passage = max 6–8 min

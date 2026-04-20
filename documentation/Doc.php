@@ -1,5 +1,6 @@
 <?php
 require_once("../includes/config.php");
+global $screenwidth;
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,9 +29,7 @@ require_once("../includes/config.php");
         ?>
         <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
             <h2 align="center" style="font-style: italic"><i class="fa fa-users"></i> Dropdown Master</h2>
-
-
-            <!--            pid and hid hidden form-->
+            <!-- pid and hid hidden form-->
             <form class="form-horizontal" role="form" name="form1" action="" method="get">
                 <input name="pid" id="pid" type="hidden" value="<?=$_REQUEST['pid']?>"/>
                 <input name="hid" id="hid" type="hidden" value="<?=$_REQUEST['hid']?>"/>
