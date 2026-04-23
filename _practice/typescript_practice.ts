@@ -1,3 +1,79 @@
+enum Align {
+    LEFT = "left",
+    RIGHT = "right",
+    TOP = "top",
+    BOTTOM = "bottom"
+}
+
+interface PieDataPoint {
+    name: string;
+    y: number;
+}
+
+interface PieSeries {
+    type: "pie";
+    name?: string;
+    data: PieDataPoint[];
+}
+
+interface PieChartProps {
+    containerId: string;
+    title: string;
+    subtitle?: string;
+    align?: Align;
+    series: PieSeries[];
+}
+
+class PieChart {
+    private config: any;
+
+    constructor(props: PieChartProps) {
+        this.config = {
+            chart: {
+                type: "pie"
+            },
+            title: {
+                text: props.title,
+                align: props.align || Align.TOP
+            },
+            subtitle: {
+                text: props.subtitle || ""
+            },
+            tooltip: {
+                valueSuffix: "%"
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: "pointer",
+                    dataLabels: [
+                        {
+                            enabled: true,
+                            distance: 20
+                        },
+                        {
+                            enabled: true,
+                            distance: -40,
+                            format: "{point.percentage:.1f}%",
+                            style: {
+                                fontSize: "1.2em",
+                                textOutline: "none",
+                                opacity: 0.7
+                            },
+                            filter: {
+                                operator: ">",
+                                property: "percentage",
+                                value: 10
+                            }
+                        }
+                    ]
+                }
+            },
+            series: props.series
+        };
+    }
+}
+
 class GraphNode {
     private data: string | number;
     private neighbors: GraphNode[];

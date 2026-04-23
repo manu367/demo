@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
+      <change afterPath="$PROJECT_DIR$/admin/gui_master_2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/gui_master.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_practice/typescript_practice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/typescript_practice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/gui_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/gui_master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Chartfunction.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Chartfunction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Core.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Core.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,10 +26,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
-        <option value="PHP File" />
         <option value="tsconfig.json" />
         <option value="TypeScript File" />
+        <option value="PHP File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -230,7 +234,7 @@
       <workItem from="1776691446616" duration="92000" />
       <workItem from="1776745422997" duration="25093000" />
       <workItem from="1776833048787" duration="27586000" />
-      <workItem from="1776918199374" duration="20121000" />
+      <workItem from="1776918199374" duration="26419000" />
     </task>
     <task id="LOCAL-00001" summary="basic operations">
       <option name="closed" value="true" />

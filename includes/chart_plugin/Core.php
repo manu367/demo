@@ -508,8 +508,6 @@ function areaChart($containerId, $title, $subtitle, $align = 'left',$methodname,
 function lineChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
     $getData=dynamicBinding($methodname,$fms_id);
-    var_dump($methodname,$xAxis,$yAxis,$fms_id);
-    var_dump($getData);
 
     $series = [
         [
@@ -539,7 +537,7 @@ function lineChart($containerId, $title, $subtitle, $align = 'left',$methodname,
         ]
     ];
 
-    $jsonSeries = json_encode($series);
+    $jsonSeries = json_encode($getData);
 
     return "
     <script>
@@ -601,25 +599,23 @@ function lineChart($containerId, $title, $subtitle, $align = 'left',$methodname,
 function barChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
     $getData=dynamicBinding($methodname,$fms_id);
-    var_dump($methodname,$xAxis,$yAxis,$fms_id);
-    var_dump($getData);
-    $series = [
-        [
-            "name" => "Year 1990",
-            "data" => [632, 727, 3202, 721]
-        ],
-        [
-            "name" => "Year 2000",
-            "data" => [814, 841, 3714, 726]
-        ],
-        [
-            "name" => "Year 2021",
-            "data" => [1393, 1031, 4695, 745]
-        ]
-    ];
+//    $series = [
+//        [
+//            "name" => "Year 1990",
+//            "data" => [632, 727, 3202, 721]
+//        ],
+//        [
+//            "name" => "Year 2000",
+//            "data" => [814, 841, 3714, 726]
+//        ],
+//        [
+//            "name" => "Year 2021",
+//            "data" => [1393, 1031, 4695, 745]
+//        ]
+//    ];
     $customization=[];
 
-    $jsonSeries = json_encode($series);
+    $jsonSeries = json_encode($getData);
 
     return "
     <script>
@@ -635,7 +631,7 @@ function barChart($containerId, $title, $subtitle, $align = 'left',$methodname,$
             text: '$subtitle'
         },
         xAxis: {
-            categories: ['Africa', 'America', 'Asia', 'Europe'],
+            categories: ['1', '2', '3', '4'],
             title: { text: null },
             gridLineWidth: 1,
             lineWidth: 0
@@ -686,8 +682,7 @@ function barChart($containerId, $title, $subtitle, $align = 'left',$methodname,$
 function pieChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id){
 
     $getData=dynamicBinding($methodname,$fms_id);
-    var_dump($methodname,$xAxis,$yAxis,$fms_id);
-    var_dump($getData);
+
     $data = [
         [
             "name" => $title,
@@ -700,7 +695,7 @@ function pieChart($containerId, $title, $subtitle, $align = 'left',$methodname,$
         ]
     ];
 
-    $jsonData = json_encode($data);
+    $jsonData = json_encode($getData);
 
     return "
     <script>

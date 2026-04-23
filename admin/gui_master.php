@@ -48,15 +48,25 @@ if(isset($_POST['save'])){
     var_dump("Stopped Form Submit");
 //    try{
 //        if((new SaveChartsData($link1))->saveChartData($_POST)){
-//            $msg="Data Saved Successfully";
+//            $response['msg']="Data Saved Successfully";
+//            $response['type']="sucess";
+//            $response['back']='back';
 //            operationtracker($link1,$_SESSION['userid'],'add chart in gui master','ADD','ADD',$_SERVER['REMOTE_ADDR']);
+//            $param=http_build_query($response);
+//            var_dump($param);exit();
+//            header("Location: gui_master.php?{$param}");
+//            exit;
 //        }else{
-//            $msg="Data not Saved";
-//            $type="error";
+//            $response['msg']="Data not Saved";
+//            $response['type']="error";
+//            $response['back']='back';
+//            $param=http_build_query($response);
+//            redirect('gui_master.php',$param,'error');
 //        }
 //    }catch (Exception $e){
 //        $response['msg']=$e->getMessage();
-//        $response['error']="error";
+//        $response['type']="error";
+//        $response['back']='back';
 //        $param=http_build_query($response);
 //        throw new GlobalException($param);
 //    }
@@ -143,7 +153,7 @@ if(isset($_POST['save'])){
 <?php
 if (!empty($msg) || isset($_REQUEST['msg'])) {
     $message = $_REQUEST['msg'] ?? $msg ?? '';
-    $type    = $_REQUEST['error'] ?? $type ?? 'success';
+    $type    = $_REQUEST['type'] ?? $type ?? 'success';
 
     echo showToastUI($message, $type);
 }
@@ -295,11 +305,12 @@ if (!empty($msg) || isset($_REQUEST['msg'])) {
                 </div>
                 <div class="text-center" style="margin-top: 20px;">
                     <?php
-                    if(isset($data['id']) && !$back){
-                        echo '<button type="submit" name="save" class="btn btn-success" style="margin: 20px;">Go</button>';
+                    if(isset($data['id']) && !isset($_REQUEST['back'])){
+                        echo '<button type="submit" name="save" class="btn btn-primary" style="margin: 20px;">Go</button>';
+                        echo '<button type="submit" name="go_save" class="btn btn-success" style="margin: 20px;">Save</button>';
                     }else{
-                        $path="";
-                        echo '<button type="button" class="btn btn-success" style="margin: 20px;" onclick="window.location.href=">back</button>';
+                        $path = "fms_master.php?pid=" . $_REQUEST['pid'] . "&hid=" . $_REQUEST['hid'];
+                        echo '<button type="button" class="btn btn-danger" style="margin: 20px;" onclick="window.location.href=\'' . $path . '\'">back</button>';
                     }
                     ?>
                 </div>
