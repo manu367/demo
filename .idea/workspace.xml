@@ -5,46 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/_practice/LMS_FEatures" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/creationdesignpatterns.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/mains/dbms/syllabus" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_practice/typescript_practice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/gui_master.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/ChartModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/Chartfunction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/common_chart_function.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/operations/SaveChartsData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/repo/ChartRepo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/service/ChartService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/BasicOperations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/db/db.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/model/Category.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/model/TabMaster.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/model/User.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/repo/categoryRepo.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/repo/userRepo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/route/AuthRoute.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/services/authService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/src/util/fakeDB.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/crm/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/add_fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/dropdown_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dropdown_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/fms_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/fms_master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Core.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Core.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_classes.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_classes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/common_ui.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/common_ui.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/operations/common_operation.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/operations/common_operation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/repo/common_repo.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/repo/common_repo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/service/common_service.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/service/common_service.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/create_form.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/create_form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/publish/publishqrcode.php" beforeDir="false" afterPath="$PROJECT_DIR$/publish/publishqrcode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_practice/typescript_practice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/typescript_practice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/gui_master.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/gui_master.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +230,7 @@
       <workItem from="1776691446616" duration="92000" />
       <workItem from="1776745422997" duration="25093000" />
       <workItem from="1776833048787" duration="27586000" />
-      <workItem from="1776918199374" duration="17129000" />
+      <workItem from="1776918199374" duration="20121000" />
     </task>
     <task id="LOCAL-00001" summary="basic operations">
       <option name="closed" value="true" />

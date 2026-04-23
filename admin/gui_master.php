@@ -10,6 +10,17 @@
  *                hidde now go button
  *       Step 4= dynamic functon or fms_id ke base par chart render karna
  *       step 5= hide go button
+ *       Step 6 =
+ *
+ *  Uses of Variables type's in the file
+ *  $flag = is used to check fms_id is exist or not in http_query_param
+ *          if not , then don't show page and go button
+ *  $back = if form is submit then restrict to agian form submit , 1st go to back and then come again
+ *          for filling the form ( one time saving the data)
+ *  $response = used to handle http_param_data ( when we are redirect the page we can store all in single unit)
+ *              then convert into http_build_query and send all data to the page
+ *  $msg = used to showing the mssage  to query message if form submit , error and any exception show message
+ *  showToastUI() = used to shwoing the message (Toast UI)
  */
 require_once("../includes/config.php");
 $msg=null;
