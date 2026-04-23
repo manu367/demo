@@ -104,7 +104,7 @@ if(isset($_REQUEST['formid'])){
 
 <!-- Footer -->
 <footer class="bg-gray-900 text-white text-center py-3 text-sm">
-    <p align="center">Copyright © Okaya <?=date('Y')?>. All Rights Reserved. Powered By : <a href="http://www.candoursoft.com/" target="_blank">CANDOUR SOFTWARE</a></p>
+    <p align="center">Copyright © fms <?=date('Y')?>. All Rights Reserved. Powered By : <a href="http://www.candoursoft.com/" target="_blank">CANDOUR SOFTWARE</a></p>
 </footer>
 
 <!-- Styles -->

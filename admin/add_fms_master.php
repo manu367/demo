@@ -29,7 +29,6 @@ $fms_id=isset($_REQUEST['id'])?base64_decode($_REQUEST['id']):'';
 
 $fms=new FMS_Operations($pid,$hid,$location,$link1);
 $show=null;
-
 function createTableDMS($link1,$name){
     try {
         $tableName=$name;
@@ -479,5 +478,6 @@ include("../includes/connection_close.php");
     });
 
 </script>
+
 </body>
 </html>

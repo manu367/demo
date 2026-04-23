@@ -1,5 +1,6 @@
 <?php
 require_once("../includes/config.php");
+global $screenwidth,$link1,$tableheadcolor;
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,8 +19,11 @@ require_once("../includes/config.php");
     <title><?=siteTitle?></title>
     <link rel="stylesheet" href="../css/dataTables.responsive.css">
     <script type="text/javascript" src="../js/dataTables.responsive.min.js"></script>
-
-    <?=ajaxCall('drop_down_grid','../pagination/dropdown-grid-data.php',["pid"=>$_REQUEST['pid'],"hid"=>$_REQUEST['hid']])?>
+    <?=
+    ajaxCall('drop_down_grid',
+            '../pagination/dropdown-grid-data.php',
+            ["pid"=>$_REQUEST['pid'],"hid"=>$_REQUEST['hid'],"id"=>2,"manu"=>"Manu Pathak"])
+    ?>
 </head>
 <body>
 <div class="container-fluid">

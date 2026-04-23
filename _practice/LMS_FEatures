@@ -1,0 +1,79 @@
+Access Control & Authorization
+1. Permission Definition
+Define granular permissions to control system actions:
+Read
+Add (Create)
+Update
+Delete
+Manage Order (Ordering / Sorting)
+
+2. Role-Based Access Control (RBAC)
+Each user is assigned a role, and each role has specific permissions.
+Example Roles: Admin Instructor Content Manager Student (Read-only)
+Each role maps to allowed actions on modules (Course, Lesson, Content, etc.).
+
+3. OAuth Integration
+Use OAuth for secure authentication:
+Supports third-party login (Google, GitHub, etc.)
+Token-based access (JWT or similar)
+Scoped permissions per role
+Course Management System
+Course Entity
+
+Each course contains: Create / Update / Delete
+Status: Active / Inactive isFree: Boolean (Free or Paid)
+Category: Assigned category
+
+Selling Category: Top Features Top Selling Top Rated Courses Default Course List Order Management (Display priority)
+
+Course Metadata (Description, tags, duration, etc.)
+Lesson Management
+Each course includes multiple lessons:
+Create / Update / Delete
+Status: Active / Inactive
+Course ID (Relation to Course)
+Order (Sequence within course)
+Content Management
+
+Each lesson can contain different types of content:
+
+Content Types:
+Quiz
+Practice Set
+Learning Content (Videos, Docs, etc.)
+Content Behavior (Use Cases)
+
+Case 1: Quiz
+
+Opens Quiz Page
+Mapped to Lesson
+Linked with Course + Category
+
+Case 2: Practice Set
+
+Opens Practice Set Page
+Mapped to Lesson
+Linked with Course + Category
+
+Case 3: Learning Content
+
+Opens Content Page
+Mapped to Lesson
+Mapping Structure
+Module	Mapping
+Course	Category, Selling Category
+Lesson	Course
+Content	Lesson
+Quiz	Course + Category + Lesson
+Practice Set	Course + Category + Lesson
+Selling Category Logic
+
+Courses can be dynamically categorized for visibility:
+Top Features
+Top Selling
+Top Rated
+Default Listing
+
+Each category supports:
+Add / Update
+Order Management (drag & drop priority)

@@ -2546,8 +2546,40 @@ function getAllFormUnits($link1=null,$formid=0){
     return $form_units;
 }
 
-function cloze(){
+function getFMsbyid($link, $id) {
+    $id = intval($id); // basic safety
 
+    $sql = "SELECT * FROM `fms_master` WHERE id = $id LIMIT 1";
+    $result = mysqli_query($link, $sql);
+
+    if (!$result || mysqli_num_rows($result) === 0) {
+        return false;
+    }
+
+    return mysqli_fetch_assoc($result);
 }
-
+function getAllTableColumnByTableName($link, $tablename) {
+    $tablename = mysqli_real_escape_string($link, $tablename);
+    $exclude = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
+    $columns = [];
+    $sql = "SHOW COLUMNS FROM `$tablename`";
+    $result = mysqli_query($link, $sql);
+    if (!$result) {
+        return false;
+    }
+    while ($row = mysqli_fetch_assoc($result)) {
+        $col = $row['Field'];
+        if (!in_array($col, $exclude)) {
+            $columns[] = $col;
+        }
+    }
+    return $columns;
+}
+function columntoSelectbox($column=[]){
+    $options="";
+    for($i=0;$i<count($column);$i++){
+        $options.="<option>".$column[$i]."</option>";
+    }
+    return $options;
+}
 ?>

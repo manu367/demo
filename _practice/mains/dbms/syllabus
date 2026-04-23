@@ -1,0 +1,43 @@
+Relational data Model and Language:
+Relational Data Model Concepts :Relation (table) Tuple (row) Attribute (column) Degree (no. of columns) Cardinality (no. of rows) Schema vs Instance,
+
+🔷 3. Integrity Constraints (Direct theory MCQ)
+(a) Entity Integrity
+Primary key NULL nahi ho sakti
+👉 Straight question aata hai
+(b) Referential Integrity
+Foreign key → parent table me exist kare
+👉 Trap:
+“foreign key NULL ho sakti hai ya nahi?” → ho sakti hai
+(c) Domain Constraints
+Attribute ki values restricted hoti hain
+(jaise age > 0)
+(d) Key Constraints
+Uniqueness maintain karte hain
+
+
+Entity Integrity,
+Referential Integrity,
+Keys Constraints : Super Key Candidate Key Primary Key Alternate Key Foreign Key ,
+
+
+Domain Constraints,
+Relational Algebra = selection , projection , union , set differnece , intersection, Cartesian Product,
+Relational Calculus= Tuple Relational Calculus  , Domain Relational Calculus , ,
+Tuple and Domain Calculus.
+
+Introduction to SQL:
+Characteristics of SQL,
+Advantage of SQL.
+SQL Data Type and Literals.
+Types of SQL Commands.
+SQL Operators and their Procedure.
+Tables,
+Views and Indexes.
+Queries and Sub Queries.
+Aggregate Functions.
+Insert, Update and Delete Operations,
+Joins, Unions, Intersection,
+Minus, Cursors,
+Triggers,
+Procedures in SQL/PL SQL

@@ -1,13 +1,16 @@
 <?php
 function ajaxCall($tablename, $url, $data = [], $request_type = 'POST'){
 //        $dataJson = json_encode($data);
-
-        $data_json="{";
-        foreach($data as $key=>$value){
-            $data_json.="$key:\"$value\",";
-        }
-        $data_json.="}";
-
+//        $data_json="{";
+//        foreach($data as $key=>$value){
+//            $data_json.="$key:\"$value\",";
+//        }
+//        $data_json.="}";
+    $parts = [];
+    foreach ($data as $key => $value) {
+        $parts[] = "$key:\"$value\"";
+    }
+    $data_json = "{" . implode(",", $parts) . "}";
         return "
     <script>
     $(document).ready(function () {
@@ -32,7 +35,7 @@ function ajaxCall($tablename, $url, $data = [], $request_type = 'POST'){
 function showToastUI($message = "", $type = "error"){
 
     $safeMessage = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
-    $bgColor = ($type === "success") ? "green" : "red";
+    $bgColor = ($type === "success") ? "green" : "darkred";
     $toastId = "toast_" . rand(1000,9999); // unique id
 
     return '

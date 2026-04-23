@@ -11,40 +11,273 @@ $chart_name = ["PIE","BAR","LINE","AREA","SCATTER","COLUMN"];
  * @return null
  * @throws Exception
  */
-function renderChart($chartname, $title, $subtitle = '', $align = 'center',$container) {
-
-    $chartname = strtoupper($chartname);
-
-    if (!in_array($chartname, $GLOBALS['chart_name'])) {
-        throw new Exception("Invalid chart type: $chartname");
-    }
-
-    switch ($chartname) {
-        case "PIE":
-            return pieChart($container, $title, $subtitle, $align = 'center');
-
-        case "BAR":
-            return barChart($container, $title, $subtitle, $align = 'center');
-
-        case "LINE":
-            return lineChart($container, $title, $subtitle, $align = 'center');
-
-        case "AREA":
-            return areaChart($container, $title, $subtitle, $align = 'center');
-
-        case "COLUMN":
-            return columnChart($container, $title, $subtitle, $align = 'center');
-
-        case "SCATTER":
-            return scatterChart($container, $title, $subtitle, $align = 'center');
-
+function renderChart($chart,
+                     $title,
+                     $subtitle = '',
+                     $align = 'center',
+                     $container, $methodname,
+                     $xAxis,
+                     $yAxis,
+                     $fms_id) {
+    $methodname=$methodname.'_Chart';
+    switch ($chart) {
+        case 1:return barChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 2:return lineChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 3:return pieChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 4:return areaChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 5:return scatterChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 6:return geoChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 7:return funnelChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 8:return candleskChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 9:return gaugeChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 10:return choroplethChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
+        case 11:return columnChart($container, $title, $subtitle, $align = 'center',$methodname,$xAxis,$yAxis,$fms_id);
         default:
-            throw new Exception("Chart type not handled");
+            throw new GlobalException("Chart type not handled");
     }
 }
 
-function scatterChart($containerId, $title, $subtitle, $align = 'left')
+function choroplethChart($container, $title, $subtitle, string $param,$methodname,$xAxis,$yAxis,$fms_id)
 {
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
+}
+
+function gaugeChart($container, $title, $subtitle, string $param,$methodname,$xAxis,$yAxis,$fms_id)
+{
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
+    $value = 65; // sample value (0–100)
+
+    return "
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        Highcharts.chart('$container', {
+
+            chart: {
+                type: 'gauge'
+            },
+
+            title: {
+                text: '$title'
+            },
+
+            subtitle: {
+                text: '$subtitle'
+            },
+
+            pane: {
+                startAngle: -150,
+                endAngle: 150
+            },
+
+            yAxis: {
+                min: 0,
+                max: 100,
+
+                tickPixelInterval: 30,
+
+                plotBands: [{
+                    from: 0,
+                    to: 60,
+                    color: '#55BF3B' // green
+                }, {
+                    from: 60,
+                    to: 80,
+                    color: '#DDDF0D' // yellow
+                }, {
+                    from: 80,
+                    to: 100,
+                    color: '#DF5353' // red
+                }]
+            },
+
+            series: [{
+                name: '$param',
+                data: [$value],
+                tooltip: {
+                    valueSuffix: ' %'
+                },
+                dataLabels: {
+                    format: '{y} %'
+                }
+            }]
+
+        });
+
+    });
+    </script>
+    ";
+}
+
+function candleskChart($container, $title, $subtitle, string $param,$methodname,$xAxis,$yAxis,$fms_id)
+{
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+    // Sample OHLC data: [timestamp, open, high, low, close]
+    $data = [
+        [Date.UTC(2024, 0, 1), 100, 110, 90, 105],
+        [Date.UTC(2024, 0, 2), 105, 115, 95, 110],
+        [Date.UTC(2024, 0, 3), 110, 120, 100, 115],
+        [Date.UTC(2024, 0, 4), 115, 125, 105, 120],
+        [Date.UTC(2024, 0, 5), 120, 130, 110, 125]
+    ];
+
+    $jsonData = json_encode($data);
+
+    return "
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        Highcharts.stockChart('$container', {
+
+            rangeSelector: {
+                selected: 1
+            },
+
+            title: {
+                text: '$title'
+            },
+
+            subtitle: {
+                text: '$subtitle'
+            },
+
+            series: [{
+                type: 'candlestick',
+                name: '$param',
+                data: $jsonData,
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+
+        });
+
+    });
+    </script>
+    ";
+}
+
+function funnelChart($container, $title, $subtitle, string $param,$methodname,$xAxis,$yAxis,$fms_id)
+{
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
+    $data = [
+        ["Website Visits", 15654],
+        ["Downloads", 4064],
+        ["Requested Price List", 1987],
+        ["Invoice Sent", 976],
+        ["Finalized", 846]
+    ];
+
+    $jsonData = json_encode($data);
+
+    return "
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        Highcharts.chart('$container', {
+
+            chart: {
+                type: 'funnel'
+            },
+
+            title: {
+                text: '$title'
+            },
+
+            subtitle: {
+                text: '$subtitle'
+            },
+
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y}',
+                        softConnector: true
+                    },
+                    center: ['50%', '50%'],
+                    width: '80%',
+                    neckWidth: '30%',
+                    neckHeight: '25%'
+                }
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            series: [{
+                name: '$param',
+                data: $jsonData
+            }]
+
+        });
+
+    });
+    </script>
+    ";
+}
+
+
+function geoChart($container, $title, $subtitle, string $param,$methodname,$xAxis,$yAxis,$fms_id)
+{
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
+    return "
+    <div style='width:100%;'>
+        <h3 style='margin:0;text-align: center;text-transform: uppercase';>$title</h3>
+        <p style='margin:0 0 10px 0; color:#666;text-align: center;text-transform: uppercase;'>$subtitle</p>
+        <div id='$container' style='width:100%; height:500px;'></div>
+    </div>
+
+    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+    
+    google.charts.load('current', {'packages':['geochart']});
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Country', '$param'],
+            ['Germany', 200],
+            ['United States', 300],
+            ['India', 700],
+            ['France', 600]
+        ]);
+
+        var options = {
+            colorAxis: {colors: ['#e0f3f8', '#08589e']},
+            datalessRegionColor: '#eeeeee'
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('$container'));
+        chart.draw(data, options);
+    }
+    </script>
+    ";
+}
+
+
+function scatterChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
+{
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
     $series = [
         [
             "data" => [
@@ -65,7 +298,7 @@ function scatterChart($containerId, $title, $subtitle, $align = 'left')
                 ["x"=>64,"y"=>82.9,"z"=>31.3,"name"=>"NZ","country"=>"New Zealand"]
             ],
             "colorByPoint" => true
-        ]
+        ],
     ];
 
     $jsonSeries = json_encode($series);
@@ -118,8 +351,12 @@ function scatterChart($containerId, $title, $subtitle, $align = 'left')
     ";
 }
 
-function columnChart($containerId, $title, $subtitle, $align = 'left')
+function columnChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
     $series = [
         [
             "name" => "Norway",
@@ -182,7 +419,7 @@ function columnChart($containerId, $title, $subtitle, $align = 'left')
     ";
 }
 
-function areaChart($containerId, $title, $subtitle, $align = 'left')
+function areaChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
     $series = [
         [
@@ -214,6 +451,9 @@ function areaChart($containerId, $title, $subtitle, $align = 'left')
             ]
         ]
     ];
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
 
     $jsonSeries = json_encode($series);
 
@@ -265,8 +505,12 @@ function areaChart($containerId, $title, $subtitle, $align = 'left')
     ";
 }
 
-function lineChart($containerId, $title, $subtitle, $align = 'left')
+function lineChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
+
     $series = [
         [
             "name" => "Installation & Developers",
@@ -354,8 +598,11 @@ function lineChart($containerId, $title, $subtitle, $align = 'left')
     ";
 }
 
-function barChart($containerId, $title, $subtitle, $align = 'left')
+function barChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id)
 {
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
     $series = [
         [
             "name" => "Year 1990",
@@ -370,6 +617,7 @@ function barChart($containerId, $title, $subtitle, $align = 'left')
             "data" => [1393, 1031, 4695, 745]
         ]
     ];
+    $customization=[];
 
     $jsonSeries = json_encode($series);
 
@@ -435,8 +683,11 @@ function barChart($containerId, $title, $subtitle, $align = 'left')
     ";
 }
 
-function pieChart($containerId, $title, $subtitle, $align = 'left'){
+function pieChart($containerId, $title, $subtitle, $align = 'left',$methodname,$xAxis,$yAxis,$fms_id){
 
+    $getData=dynamicBinding($methodname,$fms_id);
+    var_dump($methodname,$xAxis,$yAxis,$fms_id);
+    var_dump($getData);
     $data = [
         [
             "name" => $title,
