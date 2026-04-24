@@ -1,228 +1,138 @@
-enum Align {
-    LEFT = "left",
-    RIGHT = "right",
-    TOP = "top",
-    BOTTOM = "bottom"
-}
-
-interface PieDataPoint {
-    name: string;
-    y: number;
-}
-
-interface PieSeries {
-    type: "pie";
-    name?: string;
-    data: PieDataPoint[];
-}
-
-interface PieChartProps {
-    containerId: string;
-    title: string;
-    subtitle?: string;
-    align?: Align;
-    series: PieSeries[];
-}
-
-class PieChart {
-    private config: any;
-
-    constructor(props: PieChartProps) {
-        this.config = {
-            chart: {
-                type: "pie"
-            },
-            title: {
-                text: props.title,
-                align: props.align || Align.TOP
-            },
-            subtitle: {
-                text: props.subtitle || ""
-            },
-            tooltip: {
-                valueSuffix: "%"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: "pointer",
-                    dataLabels: [
-                        {
-                            enabled: true,
-                            distance: 20
-                        },
-                        {
-                            enabled: true,
-                            distance: -40,
-                            format: "{point.percentage:.1f}%",
-                            style: {
-                                fontSize: "1.2em",
-                                textOutline: "none",
-                                opacity: 0.7
-                            },
-                            filter: {
-                                operator: ">",
-                                property: "percentage",
-                                value: 10
-                            }
-                        }
-                    ]
-                }
-            },
-            series: props.series
-        };
-    }
-}
-
-class GraphNode {
-    private data: string | number;
-    private neighbors: GraphNode[];
-
-    public constructor(data: string | number) {
-        this.data = data;
-        this.neighbors = [];
-    }
-
-    public addNeighbor(node: GraphNode) {
-        this.neighbors.push(node);
-    }
-
-    public getNeighbors(): GraphNode[] {
-        return this.neighbors;
-    }
-
-    public getData(): string | number {
-        return this.data;
-    }
-}
-
-class GraphDataStructure {
-    public adjacency: Map<number, GraphNode>;
-
-    public constructor() {
-        this.adjacency = new Map<number, GraphNode>();
-    }
-
-    public addNode(data: number) {
-        if (!this.adjacency.has(data)) {
-            this.adjacency.set(data, new GraphNode(data));
-        }
-    }
-    //https://t.me/radhika17777
-
-    public addEdges(data1: number, data2: number) {
-        const node1 = this.adjacency.get(data1);
-        const node2 = this.adjacency.get(data2);
-
-        if (node1 && node2) {
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1); // undirected graph
-        }
-    }
-    public bfs(start: number): (string | number)[] {
-        const startNode = this.adjacency.get(start);
-        if (!startNode) return [];
-
-        const visited = new Set<GraphNode>();
-        const queue: GraphNode[] = [];
-        const result: (string | number)[] = [];
-
-        queue.push(startNode);
-        visited.add(startNode);
-        console.log(visited);;
-        while (queue.length > 0) {
-            const current = queue.shift()!;
-            result.push(current.getData());
-
-            for (const neighbor of current.getNeighbors()) {
-                if (!visited.has(neighbor)) {
-                    visited.add(neighbor);
-                    queue.push(neighbor);
-                }
-            }
-        }
-
-        return result;
-    }
-}
-
-const graph=new GraphDataStructure();
-graph.addNode(12);graph.addNode(13);
-graph.addNode(14);graph.addNode(15);
-graph.addNode(16);graph.addNode(17);
-
-graph.addEdges(12,13);
-graph.addEdges(13,14);
-graph.addEdges(14,15);
-graph.addEdges(15,16);
-graph.addEdges(16,17);
-graph.addEdges(17,12);
-
-console.log(graph.bfs(12));
-
-interface Charts{
-    disPlayCharts():void;
-}
-interface  Observer{
+/*
+    User Inputs
+       |
+--------------------------------------
+|  Data Source (Store all data)       |
+|        |                            |
+|  validator to check data            |
+|       |                             |
+|     render Chart with data          |
+|      |                              |
+|   re-render charts                  |
+|                                     |
+---------------------------------------
+ */
+interface Observer{
+    attach(sub:Subscriber):void;
+    detach(sub:Subscriber):void;
+    setData(data:any):void;
     notify():void;
-    attach(sub:SubScriber):void;
-    detech(sub:SubScriber):void;
 }
-class PaymentObserver implements Observer{
-    private observer:SubScriber[];
-    private data:number|string|undefined;
+interface Subscriber{
+    update(data:any):void;
+}
+class ChartObserver implements Observer{
+    private observer:Subscriber[];
+    private data:any;
     public constructor() {
         this.observer=[];
-        this.data='';
+        this.data=null;
     }
-    attach(sub: SubScriber): void {
+    attach(sub: Subscriber): void {
         this.observer.push(sub);
     }
 
-    detech(sub: SubScriber): void {
-        this.observer.filter((item=>{
-            return item!==sub;
-        }));
+    detach(sub1: Subscriber): void {
+        this.observer=this.observer.filter(sub=>{
+            return sub!==sub1;
+        });
     }
 
     notify(): void {
-        this.observer.forEach((item)=>{
-            item.update(this.data);
-        })
+        this.observer.forEach((sub:Subscriber)=>{
+            sub.update(this.data)
+        });
     }
-    setData(data:number|string|undefined) {
+
+    setData(data: any): void {
         this.data=data;
-        this.notify();
+    }
+}
+
+class ChartObserverSubscripber implements Subscriber{
+    update(data: any): void {
+        const set={
+            charttype:data.charttype??'line',
+            chartName:data.chartname??'Null value',
+            chartSubName:data.chartSubName??'Null value',
+            XParamerName:data.xParamerName??'Null value',
+            YParamerName:data.yParamerName??'Null value',
+            aligment:data.aligment??'center',
+        }
+        const datasurce:DataSource=new DataSource(set);
+    }
+}
+
+
+interface DataSetProps{
+    charttype:string;
+    chartName:string;
+    chartSubName:string;
+    XParamerName:string;
+    YParamerName:string;
+    aligment:string;
+}
+class DataSource{
+    private _charttype:string;
+    private _chartName:string;
+    private _chartSubName:string;
+    private _XParamerName:string;
+    private _YParamerName:string;
+    private _aligment:string;
+    constructor(props:DataSetProps) {
+        this._charttype=props.charttype;
+        this._chartName=props.chartName;
+        this._chartSubName=props.chartSubName;
+        this._XParamerName=props.XParamerName;
+        this._YParamerName=props.YParamerName;
+        this._aligment=props.aligment;
     }
 
-}
-interface SubScriber {
-    update(data:number|string|undefined):void;
-}
-class PaymenetHandle implements SubScriber {
-    update(data: number | string | undefined): void {
-        console.log("PaymenetHandle update", data);
+    get charttype(): string {
+        return this._charttype;
     }
-}
-class RecipitObserver implements SubScriber {
-    update(data: number | string | undefined): void {
-        console.log("Recipit send to the User", data);
-    }
-}
-class MessageObserver implements SubScriber {
-    update(data: number | string | undefined): void {
-        console.log("Messae send to the User", data);
-    }
-}
-class NotificationsObserver implements SubScriber {
-    update(data: number | string | undefined): void {
-        console.log("Notification send to the User", data);
-    }
-}
-const payment=new PaymentObserver();
-payment.attach(new PaymenetHandle());
-payment.attach(new RecipitObserver());
-payment.attach(new MessageObserver());
-payment.attach(new NotificationsObserver());
-payment.setData("{payment=1JHBSDC89239DSKB,NAME:'MANU PATHAK',PHONENUMER:6395896677}");
 
+    set charttype(value: string) {
+        this._charttype = value;
+    }
+
+    get chartName(): string {
+        return this._chartName;
+    }
+
+    set chartName(value: string) {
+        this._chartName = value;
+    }
+
+    get chartSubName(): string {
+        return this._chartSubName;
+    }
+
+    set chartSubName(value: string) {
+        this._chartSubName = value;
+    }
+
+    get XParamerName(): string {
+        return this._XParamerName;
+    }
+
+    set XParamerName(value: string) {
+        this._XParamerName = value;
+    }
+
+    get YParamerName(): string {
+        return this._YParamerName;
+    }
+
+    set YParamerName(value: string) {
+        this._YParamerName = value;
+    }
+
+    get aligment(): string {
+        return this._aligment;
+    }
+
+    set aligment(value: string) {
+        this._aligment = value;
+    }
+}

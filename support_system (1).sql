@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2026 at 03:01 PM
+-- Generation Time: Apr 24, 2026 at 02:55 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -41,12 +41,13 @@ CREATE TABLE `access_fms` (
 --
 
 INSERT INTO `access_fms` (`id`, `userid`, `fmsid`, `status`, `created_at`, `updated_at`) VALUES
-(5, 'test', '50', '1', '2026-04-02 10:46:38', '2026-04-09 09:24:40'),
-(6, 'test', '51', '1', '2026-04-02 10:47:11', '2026-04-09 09:24:40'),
-(7, 'test', '52', '1', '2026-04-02 13:22:13', '2026-04-09 09:24:40'),
-(8, 'test', '53', '1', '2026-04-06 06:07:48', '2026-04-09 09:24:40'),
-(9, 'test', '54', '1', '2026-04-08 12:16:49', '2026-04-09 09:24:40'),
-(10, 'test', '55', '1', '2026-04-09 09:24:40', '2026-04-09 09:24:40');
+(1, 'test', '1', '1', '2026-04-17 05:43:28', '2026-04-17 10:49:41'),
+(2, 'test', '2', '1', '2026-04-17 06:14:41', '2026-04-17 10:49:41'),
+(3, 'test', '4', '1', '2026-04-17 06:16:50', '2026-04-17 10:49:41'),
+(4, 'test', '5', '1', '2026-04-17 06:16:50', '2026-04-17 10:49:41'),
+(5, 'test', '6', '1', '2026-04-17 06:16:50', '2026-04-17 10:49:41'),
+(6, 'test', '3', '1', '2026-04-17 06:16:50', '2026-04-17 10:49:41'),
+(7, 'test', '7', '1', '2026-04-17 10:49:41', '2026-04-17 10:49:41');
 
 -- --------------------------------------------------------
 
@@ -68,17 +69,23 @@ CREATE TABLE `access_role_tab` (
 --
 
 INSERT INTO `access_role_tab` (`id`, `role_id`, `tab_id`, `function_id`, `tab_type`, `status`) VALUES
-(1, '1', 1, '293', 'M', 1),
-(2, '1', 204, '293', 'M', 0),
-(3, '1', 292, '293', 'M', 0),
-(4, '1', 290, '293', 'M', 0),
-(5, '1', 119, '293', 'M', 0),
-(6, '1', 293, '293', 'M', 0),
-(7, '5', 1, '293', 'M', 1),
-(8, '5', 65, '293', 'M', 1),
-(9, '1', 65, '293', 'M', 1),
-(10, '1', 189, '293', 'M', 1),
-(11, '1', 197, '293', 'M', 1);
+(1, '5', 65, '293', 'M', 1),
+(2, '5', 189, '293', 'M', 1),
+(3, '5', 294, '293', 'M', 1),
+(4, '5', 197, '293', 'M', 1),
+(5, '5', 204, '293', 'M', 1),
+(6, '5', 222, '293', 'M', 1),
+(7, '5', 293, '293', 'M', 1),
+(8, '13', 197, '293', 'M', 1),
+(9, '13', 204, '293', 'M', 1),
+(10, '10', 223, '293', 'M', 1),
+(11, '10', 222, '293', 'M', 1),
+(12, '10', 293, '293', 'M', 1),
+(13, '10', 295, '293', 'M', 1),
+(14, '10', 296, '293', 'M', 1),
+(15, '10', 297, '293', 'M', 1),
+(16, '17', 292, '293', 'M', 1),
+(17, '17', 290, '293', 'M', 1);
 
 -- --------------------------------------------------------
 
@@ -99,16 +106,14 @@ CREATE TABLE `access_tab` (
 
 INSERT INTO `access_tab` (`sno`, `userid`, `tabid`, `status`) VALUES
 (1, 'test', 1, 1),
-(2513, 'test', 292, 1),
-(2514, 'test', 290, 1),
-(2515, 'test', 204, 0),
-(2516, 'test', 119, 0),
-(2517, 'test', 293, 1),
-(2518, 'test', 65, 1),
-(2519, 'test', 189, 1),
-(2520, 'test', 197, 1),
-(2521, 'test', 294, 1),
-(2522, 'test', 295, 1);
+(2, 'test', 296, 1),
+(3, 'test', 297, 1),
+(4, 'test', 294, 1),
+(5, 'test', 292, 1),
+(6, 'test', 290, 1),
+(7, 'test', 293, 1),
+(8, 'OKAYAUSR002', 292, 1),
+(9, 'OKAYAUSR002', 290, 1);
 
 -- --------------------------------------------------------
 
@@ -141,7 +146,8 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `uid`, `sapid`, `username`, `password`, `name`, `utype`, `phone`, `state_id`, `city_id`, `des_id`, `address`, `emailid`, `status`, `createdate`, `updatedate`, `admin_role`) VALUES
-(1, 1, '121212', 'test', '123', 'Candour (Admin)', 'admin', '8826693946', 4, 1, 4, 'addsddscsress', 'info@candoursoft.com', 1, '0000-00-00 00:00:00', '2026-04-03 11:55:22', '1');
+(1, 1, '121212', 'test', '123', 'Candour (Admin)', 'admin', '8826693946', 4, 1, 4, 'addsddscsress', 'info@candoursoft.com', 1, '0000-00-00 00:00:00', '2026-04-03 11:55:22', '1'),
+(26, 2, NULL, 'OKAYAUSR002', 'Manu@123', 'Manu Subordinate', 'admin', '1234567890', 24, 1413, 4, 'sdcsdcdc', 'manu@gmail.com', 1, '2026-04-17 11:11:44', '2026-04-17 11:11:57', '17');
 
 -- --------------------------------------------------------
 
@@ -173,7 +179,173 @@ INSERT INTO `audit_trial` (`id`, `userid`, `ref_no`, `activity_type`, `action_ta
 (4, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-09', '17:12:16', '::1', '2026-04-09 11:42:16', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-09\",\"updatetime\":\"17:12:16\",\"ip\":\"::1\",\"update_on\":\"2026-04-09 17:12:16\"}'),
 (12, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-09', '17:29:30', '::1', '2026-04-09 11:59:30', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-09\",\"updatetime\":\"17:29:30\",\"ip\":\"::1\",\"update_on\":\"2026-04-09 17:29:30\"}'),
 (15, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-09', '17:33:59', '::1', '2026-04-09 12:03:59', '{\"userid\":\"test\",\"reference\":\"dropdown\",\"activitytype\":\"Dropdown Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-09\",\"updatetime\":\"17:33:59\",\"ip\":\"::1\",\"update_on\":\"2026-04-09 17:33:59\"}'),
-(16, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-09', '17:45:02', '::1', '2026-04-09 12:15:02', '{\"userid\":\"test\",\"reference\":\"update_form =71\",\"activitytype\":\"Update Form = Feedback\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-09\",\"updatetime\":\"17:45:02\",\"ip\":\"::1\",\"update_on\":\"2026-04-09 17:45:02\"}');
+(16, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-09', '17:45:02', '::1', '2026-04-09 12:15:02', '{\"userid\":\"test\",\"reference\":\"update_form =71\",\"activitytype\":\"Update Form = Feedback\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-09\",\"updatetime\":\"17:45:02\",\"ip\":\"::1\",\"update_on\":\"2026-04-09 17:45:02\"}'),
+(18, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-15', '12:42:53', '::1', '2026-04-15 07:12:53', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-15\",\"updatetime\":\"12:42:53\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 12:42:53\"}'),
+(20, 'test', 'form_view', 'Add form data', 'ADD', '2026-04-15', '14:56:52', '::1', '2026-04-15 09:26:52', '{\"userid\":\"test\",\"reference\":\"form_view\",\"activitytype\":\"Add form data\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-15\",\"updatetime\":\"14:56:52\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 14:56:52\"}'),
+(21, 'test', 'update_form =74', 'Update Form = Order Number', 'UPDATE', '2026-04-15', '16:16:44', '::1', '2026-04-15 10:46:44', '{\"userid\":\"test\",\"reference\":\"update_form =74\",\"activitytype\":\"Update Form = Order Number\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-15\",\"updatetime\":\"16:16:44\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 16:16:44\"}'),
+(22, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:51:35', '::1', '2026-04-15 07:21:35', '{\"userid\":\"ANNOYMOUS\",\"reference\":\"publish_qr_code\",\"activitytype\":\"Add form data\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-15\",\"updatetime\":\"12:51:35\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 12:51:35\"}'),
+(23, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:52:05', '::1', '2026-04-15 07:22:05', '{\"userid\":\"ANNOYMOUS\",\"reference\":\"publish_qr_code\",\"activitytype\":\"Add form data\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-15\",\"updatetime\":\"12:52:05\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 12:52:05\"}'),
+(24, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:52:46', '::1', '2026-04-15 07:22:46', '{\"userid\":\"ANNOYMOUS\",\"reference\":\"publish_qr_code\",\"activitytype\":\"Add form data\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-15\",\"updatetime\":\"12:52:46\",\"ip\":\"::1\",\"update_on\":\"2026-04-15 12:52:46\"}'),
+(25, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-16', '11:23:52', '::1', '2026-04-16 05:53:52', '{\"userid\":\"test\",\"reference\":\"update_form =71\",\"activitytype\":\"Update Form = Feedback\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-16\",\"updatetime\":\"11:23:52\",\"ip\":\"::1\",\"update_on\":\"2026-04-16 11:23:52\"}'),
+(26, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-16', '11:37:20', '::1', '2026-04-16 06:07:20', '{\"userid\":\"test\",\"reference\":\"update_form =71\",\"activitytype\":\"Update Form = Feedback\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-16\",\"updatetime\":\"11:37:20\",\"ip\":\"::1\",\"update_on\":\"2026-04-16 11:37:20\"}'),
+(27, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-16', '12:41:37', '::1', '2026-04-16 07:11:37', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-16\",\"updatetime\":\"12:41:37\",\"ip\":\"::1\",\"update_on\":\"2026-04-16 12:41:37\"}'),
+(28, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-16', '15:20:25', '::1', '2026-04-16 09:50:25', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-16\",\"updatetime\":\"15:20:25\",\"ip\":\"::1\",\"update_on\":\"2026-04-16 15:20:25\"}'),
+(29, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '10:24:49', '::1', '2026-04-17 04:54:49', '{\"userid\":\"test\",\"reference\":\"dropdown\",\"activitytype\":\"Dropdown Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"10:24:49\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 10:24:49\"}'),
+(30, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:01:49', '::1', '2026-04-17 05:31:49', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:01:49\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:01:49\"}'),
+(31, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:02:34', '::1', '2026-04-17 05:32:34', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:02:34\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:02:34\"}'),
+(33, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '11:03:31', '::1', '2026-04-17 05:33:31', '{\"userid\":\"test\",\"reference\":\"dropdown\",\"activitytype\":\"Dropdown Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:03:31\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:03:31\"}'),
+(34, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '11:03:38', '::1', '2026-04-17 05:33:38', '{\"userid\":\"test\",\"reference\":\"dropdown\",\"activitytype\":\"Dropdown Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:03:38\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:03:38\"}'),
+(35, 'test', 'add_role', 'Add Role', 'ADD', '2026-04-17', '11:10:30', '::1', '2026-04-17 05:40:30', '{\"userid\":\"test\",\"reference\":\"add_role\",\"activitytype\":\"Add Role\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:10:30\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:10:30\"}'),
+(36, 'test', 'OKAYAUSR002', 'ADMIN USER', 'ADD', '2026-04-17', '11:11:44', '::1', '2026-04-17 05:41:44', '{\"userid\":\"test\",\"reference\":\"OKAYAUSR002\",\"activitytype\":\"ADMIN USER\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:11:44\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:11:44\"}'),
+(37, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-04-17', '11:11:57', '::1', '2026-04-17 05:41:57', '{\"userid\":\"test\",\"reference\":\"OKAYAUSR002\",\"activitytype\":\"ADMIN USER\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:11:57\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:11:57\"}'),
+(38, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:12:12', '::1', '2026-04-17 05:42:12', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"Permission Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:12:12\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:12:12\"}'),
+(39, 'test', 'Add fms Master', 'Add FMS =Ecommerce Fms', 'CREATE', '2026-04-17', '11:13:14', '::1', '2026-04-17 05:43:14', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Ecommerce Fms\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:13:14\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:13:14\"}'),
+(40, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:13:28', '::1', '2026-04-17 05:43:28', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"FMS Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:13:28\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:13:28\"}'),
+(41, 'test', 'Update fms Master', 'Update FMS =Ecommerce Fms', 'UPDATE', '2026-04-17', '11:14:27', '::1', '2026-04-17 05:44:27', '{\"userid\":\"test\",\"reference\":\"Update fms Master\",\"activitytype\":\"Update FMS =Ecommerce Fms\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:14:27\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:14:27\"}'),
+(42, 'test', 'Update fms Master', 'Update FMS =Ecommerce Fms', 'UPDATE', '2026-04-17', '11:14:33', '::1', '2026-04-17 05:44:33', '{\"userid\":\"test\",\"reference\":\"Update fms Master\",\"activitytype\":\"Update FMS =Ecommerce Fms\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:14:33\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:14:33\"}'),
+(43, 'test', 'Create Form', 'Create FormUser Registration F', 'ADD', '2026-04-17', '11:19:09', '::1', '2026-04-17 05:49:09', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormUser Registration Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:19:09\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:19:09\"}'),
+(44, 'test', 'update_form =1', 'Update Form = User Registratio', 'UPDATE', '2026-04-17', '11:21:26', '::1', '2026-04-17 05:51:26', '{\"userid\":\"test\",\"reference\":\"update_form =1\",\"activitytype\":\"Update Form = User Registration Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:21:26\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:21:26\"}'),
+(45, 'test', 'Create Form', 'Create FormLogin Form', 'ADD', '2026-04-17', '11:23:10', '::1', '2026-04-17 05:53:10', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormLogin Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:23:10\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:23:10\"}'),
+(46, 'test', 'Create Form', 'Create FormAddress Form Shippi', 'ADD', '2026-04-17', '11:30:43', '::1', '2026-04-17 06:00:43', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormAddress Form Shipping\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:30:43\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:30:43\"}'),
+(47, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:30:50', '::1', '2026-04-17 06:00:50', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:30:50\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:30:50\"}'),
+(48, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:30:56', '::1', '2026-04-17 06:00:56', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:30:56\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:30:56\"}'),
+(49, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:16', '::1', '2026-04-17 06:01:16', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:31:16\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:31:16\"}'),
+(50, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:32', '::1', '2026-04-17 06:01:32', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:31:32\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:31:32\"}'),
+(51, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:43', '::1', '2026-04-17 06:01:43', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:31:43\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:31:43\"}'),
+(52, 'test', 'Create Form', 'Create FormPayment Form', 'ADD', '2026-04-17', '11:33:40', '::1', '2026-04-17 06:03:40', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormPayment Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:33:40\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:33:40\"}'),
+(53, 'test', 'Create Form', 'Create FormOrder Review', 'ADD', '2026-04-17', '11:37:04', '::1', '2026-04-17 06:07:04', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormOrder Review\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:37:04\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:37:04\"}'),
+(54, 'test', 'Create Form', 'Create FormRating Form', 'ADD', '2026-04-17', '11:38:46', '::1', '2026-04-17 06:08:46', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormRating Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:38:46\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:38:46\"}'),
+(55, 'test', 'update_form =6', 'Update Form = Rating Form', 'UPDATE', '2026-04-17', '11:38:51', '::1', '2026-04-17 06:08:51', '{\"userid\":\"test\",\"reference\":\"update_form =6\",\"activitytype\":\"Update Form = Rating Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:38:51\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:38:51\"}'),
+(56, 'test', 'Create Form', 'Create FormSupport Form', 'ADD', '2026-04-17', '11:40:51', '::1', '2026-04-17 06:10:51', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormSupport Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:40:51\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:40:51\"}'),
+(57, 'test', 'Create Form', 'Create FormRefund Request Form', 'ADD', '2026-04-17', '11:42:50', '::1', '2026-04-17 06:12:50', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormRefund Request Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:42:50\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:42:50\"}'),
+(58, 'test', 'update_form =8', 'Update Form = Refund Request F', 'UPDATE', '2026-04-17', '11:42:59', '::1', '2026-04-17 06:12:59', '{\"userid\":\"test\",\"reference\":\"update_form =8\",\"activitytype\":\"Update Form = Refund Request Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:42:59\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:42:59\"}'),
+(59, 'test', 'Add fms Master', 'Add FMS =Learning Management S', 'CREATE', '2026-04-17', '11:44:33', '::1', '2026-04-17 06:14:33', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Learning Management System\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:44:33\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:44:33\"}'),
+(60, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:44:41', '::1', '2026-04-17 06:14:41', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"FMS Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:44:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:44:41\"}'),
+(61, 'test', 'Add fms Master', 'Add FMS =Recruitment System', 'CREATE', '2026-04-17', '11:45:41', '::1', '2026-04-17 06:15:41', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Recruitment System\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:45:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:45:41\"}'),
+(62, 'test', 'Add fms Master', 'Add FMS =Booking System', 'CREATE', '2026-04-17', '11:45:53', '::1', '2026-04-17 06:15:53', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Booking System\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:45:53\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:45:53\"}'),
+(63, 'test', 'Add fms Master', 'Add FMS =Food Delivery', 'CREATE', '2026-04-17', '11:46:07', '::1', '2026-04-17 06:16:07', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Food Delivery\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:46:07\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:46:07\"}'),
+(64, 'test', 'Add fms Master', 'Add FMS =Inventory ERP Systems', 'CREATE', '2026-04-17', '11:46:30', '::1', '2026-04-17 06:16:30', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =Inventory ERP Systems\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:46:30\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:46:30\"}'),
+(65, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:46:50', '::1', '2026-04-17 06:16:50', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"FMS Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:46:50\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:46:50\"}'),
+(66, 'test', 'Create Form', 'Create FormAvailability Form', 'ADD', '2026-04-17', '11:49:20', '::1', '2026-04-17 06:19:20', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormAvailability Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:49:20\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:49:20\"}'),
+(67, 'test', 'Create Form', 'Create FormUser Authentication', 'ADD', '2026-04-17', '11:51:41', '::1', '2026-04-17 06:21:41', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormUser Authentication Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:51:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:51:41\"}'),
+(68, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '11:51:46', '::1', '2026-04-17 06:21:46', '{\"userid\":\"test\",\"reference\":\"update_form =10\",\"activitytype\":\"Update Form = User Authentication Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:51:46\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:51:46\"}'),
+(69, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '11:51:51', '::1', '2026-04-17 06:21:51', '{\"userid\":\"test\",\"reference\":\"update_form =10\",\"activitytype\":\"Update Form = User Authentication Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:51:51\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:51:51\"}'),
+(70, 'test', 'Create Form', 'Create FormBooking Details For', 'ADD', '2026-04-17', '11:54:57', '::1', '2026-04-17 06:24:57', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormBooking Details Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:54:57\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:54:57\"}'),
+(71, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '11:55:03', '::1', '2026-04-17 06:25:03', '{\"userid\":\"test\",\"reference\":\"update_form =11\",\"activitytype\":\"Update Form = Booking Details Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:55:03\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:55:03\"}'),
+(72, 'test', 'Create Form', 'Create FormGuest Information F', 'ADD', '2026-04-17', '11:58:05', '::1', '2026-04-17 06:28:05', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormGuest Information Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"11:58:05\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 11:58:05\"}'),
+(73, 'test', 'Create Form', 'Create FormBooking Review', 'ADD', '2026-04-17', '12:03:41', '::1', '2026-04-17 06:33:41', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormBooking Review\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:03:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:03:41\"}'),
+(74, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '12:03:47', '::1', '2026-04-17 06:33:47', '{\"userid\":\"test\",\"reference\":\"update_form =11\",\"activitytype\":\"Update Form = Booking Details Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:03:47\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:03:47\"}'),
+(75, 'test', 'Create Form', 'Create FormCancellation Form', 'ADD', '2026-04-17', '12:05:28', '::1', '2026-04-17 06:35:28', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormCancellation Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:05:28\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:05:28\"}'),
+(76, 'test', 'Create Form', 'Create FormAddress Selection F', 'ADD', '2026-04-17', '12:13:11', '::1', '2026-04-17 06:43:11', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormAddress Selection Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:13:11\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:13:11\"}'),
+(77, 'test', 'Create Form', 'Create FormCheckout Form', 'ADD', '2026-04-17', '12:14:31', '::1', '2026-04-17 06:44:31', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormCheckout Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:14:31\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:14:31\"}'),
+(78, 'test', 'Create Form', 'Create FormRestaurant Registra', 'ADD', '2026-04-17', '12:16:22', '::1', '2026-04-17 06:46:22', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormRestaurant Registration Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:16:22\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:16:22\"}'),
+(79, 'test', 'Create Form', 'Create FormProduct Master Form', 'ADD', '2026-04-17', '12:19:35', '::1', '2026-04-17 06:49:35', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormProduct Master Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:19:35\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:19:35\"}'),
+(80, 'test', 'Create Form', 'Create FormSupplier  Vendor Fo', 'ADD', '2026-04-17', '12:21:25', '::1', '2026-04-17 06:51:25', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormSupplier  Vendor Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:21:25\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:21:25\"}'),
+(81, 'test', 'Create Form', 'Create FormPurchase Order (PO)', 'ADD', '2026-04-17', '12:23:15', '::1', '2026-04-17 06:53:15', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormPurchase Order (PO) Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:23:15\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:23:15\"}'),
+(82, 'test', 'Create Form', 'Create FormGoods Receipt (GRN)', 'ADD', '2026-04-17', '12:24:51', '::1', '2026-04-17 06:54:51', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormGoods Receipt (GRN) Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:24:51\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:24:51\"}'),
+(83, 'test', 'update_form =21', 'Update Form = Goods Receipt (G', 'UPDATE', '2026-04-17', '12:24:59', '::1', '2026-04-17 06:54:59', '{\"userid\":\"test\",\"reference\":\"update_form =21\",\"activitytype\":\"Update Form = Goods Receipt (GRN) Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:24:59\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:24:59\"}'),
+(84, 'test', 'Create Form', 'Create FormInventory / Stock E', 'ADD', '2026-04-17', '12:26:33', '::1', '2026-04-17 06:56:33', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormInventory / Stock Entry Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:26:33\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:26:33\"}'),
+(85, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '12:32:32', '::1', '2026-04-17 07:02:32', '{\"userid\":\"test\",\"reference\":\"update_form =22\",\"activitytype\":\"Update Form = Inventory / Stock Entry Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:32:32\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:32:32\"}'),
+(86, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '12:32:36', '::1', '2026-04-17 07:02:36', '{\"userid\":\"test\",\"reference\":\"update_form =22\",\"activitytype\":\"Update Form = Inventory / Stock Entry Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:32:36\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:32:36\"}'),
+(87, 'test', 'Create Form', 'Create FormSales Order Form', 'ADD', '2026-04-17', '12:34:34', '::1', '2026-04-17 07:04:34', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormSales Order Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:34:34\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:34:34\"}'),
+(88, 'test', 'Create Form', 'Create FormStock Transfer Form', 'ADD', '2026-04-17', '12:36:22', '::1', '2026-04-17 07:06:22', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormStock Transfer Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:36:22\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:36:22\"}'),
+(89, 'test', 'update_form =24', 'Update Form = Stock Transfer F', 'UPDATE', '2026-04-17', '12:36:40', '::1', '2026-04-17 07:06:40', '{\"userid\":\"test\",\"reference\":\"update_form =24\",\"activitytype\":\"Update Form = Stock Transfer Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:36:40\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:36:40\"}'),
+(90, 'test', 'Create Form', 'Create FormRegistration / Sign', 'ADD', '2026-04-17', '12:39:22', '::1', '2026-04-17 07:09:22', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create FormRegistration / Sign Up Form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:39:22\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:39:22\"}'),
+(91, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '12:39:29', '::1', '2026-04-17 07:09:29', '{\"userid\":\"test\",\"reference\":\"update_form =25\",\"activitytype\":\"Update Form = Registration / Sign Up Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:39:29\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:39:29\"}'),
+(92, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '12:52:15', '::1', '2026-04-17 07:22:15', '{\"userid\":\"test\",\"reference\":\"update_form =25\",\"activitytype\":\"Update Form = Registration / Sign Up Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"12:52:15\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 12:52:15\"}'),
+(93, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-17', '16:08:26', '::1', '2026-04-17 10:38:26', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:08:26\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:08:26\"}'),
+(94, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '16:08:34', '::1', '2026-04-17 10:38:34', '{\"userid\":\"test\",\"reference\":\"update_form =11\",\"activitytype\":\"Update Form = Booking Details Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:08:34\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:08:34\"}'),
+(95, 'test', 'update_form =13', 'Update Form = Booking Review', 'UPDATE', '2026-04-17', '16:08:41', '::1', '2026-04-17 10:38:41', '{\"userid\":\"test\",\"reference\":\"update_form =13\",\"activitytype\":\"Update Form = Booking Review\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:08:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:08:41\"}'),
+(96, 'test', 'update_form =14', 'Update Form = Cancellation For', 'UPDATE', '2026-04-17', '16:08:47', '::1', '2026-04-17 10:38:47', '{\"userid\":\"test\",\"reference\":\"update_form =14\",\"activitytype\":\"Update Form = Cancellation Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:08:47\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:08:47\"}'),
+(97, 'test', 'update_form =12', 'Update Form = Guest Informatio', 'UPDATE', '2026-04-17', '16:08:51', '::1', '2026-04-17 10:38:51', '{\"userid\":\"test\",\"reference\":\"update_form =12\",\"activitytype\":\"Update Form = Guest Information Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:08:51\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:08:51\"}'),
+(98, 'test', 'update_form =26', 'Update Form = testing manu', 'UPDATE', '2026-04-17', '16:10:00', '::1', '2026-04-17 10:40:00', '{\"userid\":\"test\",\"reference\":\"update_form =26\",\"activitytype\":\"Update Form = testing manu\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:00\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:00\"}'),
+(99, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '16:10:06', '::1', '2026-04-17 10:40:06', '{\"userid\":\"test\",\"reference\":\"update_form =10\",\"activitytype\":\"Update Form = User Authentication Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:06\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:06\"}'),
+(100, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '16:10:23', '::1', '2026-04-17 10:40:23', '{\"userid\":\"test\",\"reference\":\"update_form =25\",\"activitytype\":\"Update Form = Registration / Sign Up Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:23\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:23\"}'),
+(101, 'test', 'update_form =19', 'Update Form = Supplier  Vendor', 'UPDATE', '2026-04-17', '16:10:39', '::1', '2026-04-17 10:40:39', '{\"userid\":\"test\",\"reference\":\"update_form =19\",\"activitytype\":\"Update Form = Supplier  Vendor Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:39\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:39\"}'),
+(102, 'test', 'update_form =24', 'Update Form = Stock Transfer F', 'UPDATE', '2026-04-17', '16:10:44', '::1', '2026-04-17 10:40:44', '{\"userid\":\"test\",\"reference\":\"update_form =24\",\"activitytype\":\"Update Form = Stock Transfer Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:44\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:44\"}'),
+(103, 'test', 'update_form =23', 'Update Form = Sales Order Form', 'UPDATE', '2026-04-17', '16:10:50', '::1', '2026-04-17 10:40:50', '{\"userid\":\"test\",\"reference\":\"update_form =23\",\"activitytype\":\"Update Form = Sales Order Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:50\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:50\"}'),
+(104, 'test', 'update_form =20', 'Update Form = Purchase Order (', 'UPDATE', '2026-04-17', '16:10:56', '::1', '2026-04-17 10:40:56', '{\"userid\":\"test\",\"reference\":\"update_form =20\",\"activitytype\":\"Update Form = Purchase Order (PO) Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:10:56\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:10:56\"}'),
+(105, 'test', 'update_form =18', 'Update Form = Product Master F', 'UPDATE', '2026-04-17', '16:11:02', '::1', '2026-04-17 10:41:02', '{\"userid\":\"test\",\"reference\":\"update_form =18\",\"activitytype\":\"Update Form = Product Master Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:11:02\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:11:02\"}'),
+(106, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '16:11:10', '::1', '2026-04-17 10:41:10', '{\"userid\":\"test\",\"reference\":\"update_form =22\",\"activitytype\":\"Update Form = Inventory / Stock Entry Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:11:10\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:11:10\"}'),
+(107, 'test', 'update_form =21', 'Update Form = Goods Receipt (G', 'UPDATE', '2026-04-17', '16:11:14', '::1', '2026-04-17 10:41:14', '{\"userid\":\"test\",\"reference\":\"update_form =21\",\"activitytype\":\"Update Form = Goods Receipt (GRN) Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:11:14\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:11:14\"}'),
+(108, 'test', 'update_form =15', 'Update Form = Address Selectio', 'UPDATE', '2026-04-17', '16:12:33', '::1', '2026-04-17 10:42:33', '{\"userid\":\"test\",\"reference\":\"update_form =15\",\"activitytype\":\"Update Form = Address Selection Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:12:33\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:12:33\"}'),
+(109, 'test', 'update_form =15', 'Update Form = Address Selectio', 'UPDATE', '2026-04-17', '16:12:39', '::1', '2026-04-17 10:42:39', '{\"userid\":\"test\",\"reference\":\"update_form =15\",\"activitytype\":\"Update Form = Address Selection Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:12:39\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:12:39\"}'),
+(110, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '16:12:53', '::1', '2026-04-17 10:42:53', '{\"userid\":\"test\",\"reference\":\"update_form =3\",\"activitytype\":\"Update Form = Address Form Shipping\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:12:53\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:12:53\"}'),
+(111, 'test', 'update_form =2', 'Update Form = Login Form', 'UPDATE', '2026-04-17', '16:12:57', '::1', '2026-04-17 10:42:57', '{\"userid\":\"test\",\"reference\":\"update_form =2\",\"activitytype\":\"Update Form = Login Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:12:57\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:12:57\"}'),
+(112, 'test', 'update_form =5', 'Update Form = Order Review', 'UPDATE', '2026-04-17', '16:13:02', '::1', '2026-04-17 10:43:02', '{\"userid\":\"test\",\"reference\":\"update_form =5\",\"activitytype\":\"Update Form = Order Review\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:13:02\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:13:02\"}'),
+(113, 'test', 'update_form =4', 'Update Form = Payment Form', 'UPDATE', '2026-04-17', '16:13:07', '::1', '2026-04-17 10:43:07', '{\"userid\":\"test\",\"reference\":\"update_form =4\",\"activitytype\":\"Update Form = Payment Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:13:07\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:13:07\"}'),
+(114, 'test', 'update_form =1', 'Update Form = User Registratio', 'UPDATE', '2026-04-17', '16:13:13', '::1', '2026-04-17 10:43:13', '{\"userid\":\"test\",\"reference\":\"update_form =1\",\"activitytype\":\"Update Form = User Registration Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:13:13\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:13:13\"}'),
+(115, 'test', 'Add fms Master', 'Add FMS =testing              ', 'CREATE', '2026-04-17', '16:19:18', '::1', '2026-04-17 10:49:18', '{\"userid\":\"test\",\"reference\":\"Add fms Master\",\"activitytype\":\"Add FMS =testing                   Manu\",\"type_of_action\":\"CREATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:19:18\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:19:18\"}'),
+(116, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '16:19:41', '::1', '2026-04-17 10:49:41', '{\"userid\":\"test\",\"reference\":\"update_permission_page\",\"activitytype\":\"FMS Updated\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:19:41\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:19:41\"}'),
+(117, 'test', 'Create Form', 'Create Formtesting form', 'ADD', '2026-04-17', '16:20:06', '::1', '2026-04-17 10:50:06', '{\"userid\":\"test\",\"reference\":\"Create Form\",\"activitytype\":\"Create Formtesting form\",\"type_of_action\":\"ADD\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:20:06\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:20:06\"}'),
+(118, 'test', 'update_form =27', 'Update Form = testing form', 'UPDATE', '2026-04-17', '16:20:12', '::1', '2026-04-17 10:50:12', '{\"userid\":\"test\",\"reference\":\"update_form =27\",\"activitytype\":\"Update Form = testing form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"16:20:12\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 16:20:12\"}'),
+(119, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '17:44:35', '::1', '2026-04-17 12:14:35', '{\"userid\":\"test\",\"reference\":\"update_form =11\",\"activitytype\":\"Update Form = Booking Details Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-17\",\"updatetime\":\"17:44:35\",\"ip\":\"::1\",\"update_on\":\"2026-04-17 17:44:35\"}'),
+(120, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-20', '12:10:21', '::1', '2026-04-20 06:40:21', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-20\",\"updatetime\":\"12:10:21\",\"ip\":\"::1\",\"update_on\":\"2026-04-20 12:10:21\"}'),
+(121, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-20', '13:00:17', '::1', '2026-04-20 07:30:17', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-20\",\"updatetime\":\"13:00:17\",\"ip\":\"::1\",\"update_on\":\"2026-04-20 13:00:17\"}'),
+(122, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-21', '17:01:22', '::1', '2026-04-21 11:31:22', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-21\",\"updatetime\":\"17:01:22\",\"ip\":\"::1\",\"update_on\":\"2026-04-21 17:01:22\"}'),
+(123, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-22', '12:45:00', '::1', '2026-04-22 07:15:00', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-22\",\"updatetime\":\"12:45:00\",\"ip\":\"::1\",\"update_on\":\"2026-04-22 12:45:00\"}'),
+(124, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-22', '12:45:05', '::1', '2026-04-22 07:15:05', '{\"userid\":\"test\",\"reference\":\"update_form =9\",\"activitytype\":\"Update Form = Availability Form\",\"type_of_action\":\"UPDATE\",\"update_date\":\"2026-04-22\",\"updatetime\":\"12:45:05\",\"ip\":\"::1\",\"update_on\":\"2026-04-22 12:45:05\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `charts_master`
+--
+
+CREATE TABLE `charts_master` (
+  `id` int(11) NOT NULL,
+  `chart_name` varchar(100) NOT NULL,
+  `chart_type` varchar(50) NOT NULL,
+  `status` varchar(2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `attribute` varchar(255) DEFAULT NULL,
+  `operations` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `charts_master`
+--
+
+INSERT INTO `charts_master` (`id`, `chart_name`, `chart_type`, `status`, `created_at`, `updated_at`, `attribute`, `operations`) VALUES
+(1, 'Bar Chart', 'bar_chart', '0', '2026-04-22 09:52:30', '2026-04-24 06:25:57', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":[],\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"data\":[]}', '[1,2,3,4,5,6]'),
+(2, 'Line Chart', 'line_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:06:56', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(3, 'Pie Chart', 'pie_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:00', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(4, 'Area Chart', 'area_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:05', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(5, 'Scatter Plot', 'scatter_plot', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:10', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(6, 'Geo Map', 'geo_map', '0', '2026-04-22 09:52:30', '2026-04-24 06:25:38', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(7, 'Funnel Chart', 'funnel_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:17', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(8, 'Candlestick Chart', 'candlestick_chart', '0', '2026-04-22 09:52:30', '2026-04-24 05:07:20', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(9, 'Gauge Chart', 'gauge_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:24', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(10, 'Choropleth Map', 'Cchoropleth_map', '0', '2026-04-22 09:52:30', '2026-04-24 05:07:27', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]'),
+(11, 'COLUMN Chart', 'column_chart', '1', '2026-04-22 09:52:30', '2026-04-24 05:07:30', '{\"title\":\"\",\"subtitle\":\"\",\"x_axis_name\":\"\",\"gridLineWidth\":0,\"Linewidth\":0,\"Yaxis_name\":\"\",\"alginment\":\"\",\"color\":\"\",\"paramter_1\":\"\",\"paramter_2\":\"\",\"other_paramter\":\"\"}', '[1,2,3,4,5,6]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chart_operation`
+--
+
+CREATE TABLE `chart_operation` (
+  `id` int(11) NOT NULL,
+  `operation` varchar(50) NOT NULL,
+  `status` int(1) DEFAULT 1 COMMENT '1=active, 0=inactive',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chart_operation`
+--
+
+INSERT INTO `chart_operation` (`id`, `operation`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'count', 1, '2026-04-22 12:19:46', '2026-04-23 04:54:36'),
+(2, 'sum', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46'),
+(3, 'average', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46'),
+(4, 'week', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46'),
+(5, 'month', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46'),
+(6, 'yearly', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46'),
+(7, 'ratio', 1, '2026-04-22 12:19:46', '2026-04-22 12:19:46');
 
 -- --------------------------------------------------------
 
@@ -2138,7 +2310,150 @@ INSERT INTO `daily_activities` (`id`, `userid`, `ref_no`, `activity_type`, `acti
 (375, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-09', '17:29:21', '::1', '2026-04-09 11:59:21'),
 (376, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-09', '17:29:30', '::1', '2026-04-09 11:59:30'),
 (379, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-09', '17:33:59', '::1', '2026-04-09 12:03:59'),
-(380, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-09', '17:45:02', '::1', '2026-04-09 12:15:02');
+(380, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-09', '17:45:02', '::1', '2026-04-09 12:15:02'),
+(382, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-15', '12:42:53', '::1', '2026-04-15 07:12:53'),
+(384, 'test', 'form_view', 'Add form data', 'ADD', '2026-04-15', '14:56:52', '::1', '2026-04-15 09:26:52'),
+(385, 'test', 'update_form =74', 'Update Form = Order Number', 'UPDATE', '2026-04-15', '16:16:44', '::1', '2026-04-15 10:46:44'),
+(386, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:51:35', '::1', '2026-04-15 10:51:35'),
+(387, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:52:05', '::1', '2026-04-15 10:52:05'),
+(388, 'ANNOYMOUS', 'publish_qr_code', 'Add form data', 'ADD', '2026-04-15', '12:52:46', '::1', '2026-04-15 10:52:46'),
+(389, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-16', '11:23:52', '::1', '2026-04-16 05:53:52'),
+(390, 'test', 'update_form =71', 'Update Form = Feedback', 'UPDATE', '2026-04-16', '11:37:20', '::1', '2026-04-16 06:07:20'),
+(391, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-16', '12:41:37', '::1', '2026-04-16 07:11:37'),
+(392, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-16', '15:20:25', '::1', '2026-04-16 09:50:25'),
+(393, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '10:24:49', '::1', '2026-04-17 04:54:49'),
+(394, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:01:49', '::1', '2026-04-17 05:31:49'),
+(395, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:02:34', '::1', '2026-04-17 05:32:34'),
+(397, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '11:03:31', '::1', '2026-04-17 05:33:31'),
+(398, 'test', 'dropdown', 'Dropdown Updated', 'UPDATE', '2026-04-17', '11:03:38', '::1', '2026-04-17 05:33:38'),
+(399, 'test', 'add_role', 'Add Role', 'ADD', '2026-04-17', '11:10:30', '::1', '2026-04-17 05:40:30'),
+(400, 'test', 'OKAYAUSR002', 'ADMIN USER', 'ADD', '2026-04-17', '11:11:44', '::1', '2026-04-17 05:41:44'),
+(401, 'test', 'OKAYAUSR002', 'ADMIN USER', 'UPDATE', '2026-04-17', '11:11:57', '::1', '2026-04-17 05:41:57'),
+(402, 'test', 'update_permission_page', 'Permission Updated', 'UPDATE', '2026-04-17', '11:12:12', '::1', '2026-04-17 05:42:12'),
+(403, 'test', 'Add fms Master', 'Add FMS =Ecommerce Fms', 'CREATE', '2026-04-17', '11:13:14', '::1', '2026-04-17 05:43:14'),
+(404, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:13:28', '::1', '2026-04-17 05:43:28'),
+(405, 'test', 'Update fms Master', 'Update FMS =Ecommerce Fms', 'UPDATE', '2026-04-17', '11:14:27', '::1', '2026-04-17 05:44:27'),
+(406, 'test', 'Update fms Master', 'Update FMS =Ecommerce Fms', 'UPDATE', '2026-04-17', '11:14:33', '::1', '2026-04-17 05:44:33'),
+(407, 'test', 'Create Form', 'Create FormUser Registration F', 'ADD', '2026-04-17', '11:19:09', '::1', '2026-04-17 05:49:09'),
+(408, 'test', 'update_form =1', 'Update Form = User Registratio', 'UPDATE', '2026-04-17', '11:21:26', '::1', '2026-04-17 05:51:26'),
+(409, 'test', 'Create Form', 'Create FormLogin Form', 'ADD', '2026-04-17', '11:23:10', '::1', '2026-04-17 05:53:10'),
+(410, 'test', 'Create Form', 'Create FormAddress Form Shippi', 'ADD', '2026-04-17', '11:30:43', '::1', '2026-04-17 06:00:43'),
+(411, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:30:50', '::1', '2026-04-17 06:00:50'),
+(412, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:30:56', '::1', '2026-04-17 06:00:56'),
+(413, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:16', '::1', '2026-04-17 06:01:16'),
+(414, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:32', '::1', '2026-04-17 06:01:32'),
+(415, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '11:31:43', '::1', '2026-04-17 06:01:43'),
+(416, 'test', 'Create Form', 'Create FormPayment Form', 'ADD', '2026-04-17', '11:33:40', '::1', '2026-04-17 06:03:40'),
+(417, 'test', 'Create Form', 'Create FormOrder Review', 'ADD', '2026-04-17', '11:37:04', '::1', '2026-04-17 06:07:04'),
+(418, 'test', 'Create Form', 'Create FormRating Form', 'ADD', '2026-04-17', '11:38:46', '::1', '2026-04-17 06:08:46'),
+(419, 'test', 'update_form =6', 'Update Form = Rating Form', 'UPDATE', '2026-04-17', '11:38:51', '::1', '2026-04-17 06:08:51'),
+(420, 'test', 'Create Form', 'Create FormSupport Form', 'ADD', '2026-04-17', '11:40:51', '::1', '2026-04-17 06:10:51'),
+(421, 'test', 'Create Form', 'Create FormRefund Request Form', 'ADD', '2026-04-17', '11:42:50', '::1', '2026-04-17 06:12:50'),
+(422, 'test', 'update_form =8', 'Update Form = Refund Request F', 'UPDATE', '2026-04-17', '11:42:59', '::1', '2026-04-17 06:12:59'),
+(423, 'test', 'Add fms Master', 'Add FMS =Learning Management S', 'CREATE', '2026-04-17', '11:44:33', '::1', '2026-04-17 06:14:33'),
+(424, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:44:41', '::1', '2026-04-17 06:14:41'),
+(425, 'test', 'Add fms Master', 'Add FMS =Recruitment System', 'CREATE', '2026-04-17', '11:45:41', '::1', '2026-04-17 06:15:41'),
+(426, 'test', 'Add fms Master', 'Add FMS =Booking System', 'CREATE', '2026-04-17', '11:45:53', '::1', '2026-04-17 06:15:53'),
+(427, 'test', 'Add fms Master', 'Add FMS =Food Delivery', 'CREATE', '2026-04-17', '11:46:07', '::1', '2026-04-17 06:16:07'),
+(428, 'test', 'Add fms Master', 'Add FMS =Inventory ERP Systems', 'CREATE', '2026-04-17', '11:46:30', '::1', '2026-04-17 06:16:30'),
+(429, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '11:46:50', '::1', '2026-04-17 06:16:50'),
+(430, 'test', 'Create Form', 'Create FormAvailability Form', 'ADD', '2026-04-17', '11:49:20', '::1', '2026-04-17 06:19:20'),
+(431, 'test', 'Create Form', 'Create FormUser Authentication', 'ADD', '2026-04-17', '11:51:41', '::1', '2026-04-17 06:21:41'),
+(432, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '11:51:46', '::1', '2026-04-17 06:21:46'),
+(433, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '11:51:51', '::1', '2026-04-17 06:21:51'),
+(434, 'test', 'Create Form', 'Create FormBooking Details For', 'ADD', '2026-04-17', '11:54:57', '::1', '2026-04-17 06:24:57'),
+(435, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '11:55:03', '::1', '2026-04-17 06:25:03'),
+(436, 'test', 'Create Form', 'Create FormGuest Information F', 'ADD', '2026-04-17', '11:58:05', '::1', '2026-04-17 06:28:05'),
+(437, 'test', 'Create Form', 'Create FormBooking Review', 'ADD', '2026-04-17', '12:03:41', '::1', '2026-04-17 06:33:41'),
+(438, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '12:03:47', '::1', '2026-04-17 06:33:47'),
+(439, 'test', 'Create Form', 'Create FormCancellation Form', 'ADD', '2026-04-17', '12:05:28', '::1', '2026-04-17 06:35:28'),
+(440, 'test', 'Create Form', 'Create FormAddress Selection F', 'ADD', '2026-04-17', '12:13:11', '::1', '2026-04-17 06:43:11'),
+(441, 'test', 'Create Form', 'Create FormCheckout Form', 'ADD', '2026-04-17', '12:14:31', '::1', '2026-04-17 06:44:31'),
+(442, 'test', 'Create Form', 'Create FormRestaurant Registra', 'ADD', '2026-04-17', '12:16:22', '::1', '2026-04-17 06:46:22'),
+(443, 'test', 'Create Form', 'Create FormProduct Master Form', 'ADD', '2026-04-17', '12:19:35', '::1', '2026-04-17 06:49:35'),
+(444, 'test', 'Create Form', 'Create FormSupplier  Vendor Fo', 'ADD', '2026-04-17', '12:21:25', '::1', '2026-04-17 06:51:25'),
+(445, 'test', 'Create Form', 'Create FormPurchase Order (PO)', 'ADD', '2026-04-17', '12:23:15', '::1', '2026-04-17 06:53:15'),
+(446, 'test', 'Create Form', 'Create FormGoods Receipt (GRN)', 'ADD', '2026-04-17', '12:24:51', '::1', '2026-04-17 06:54:51'),
+(447, 'test', 'update_form =21', 'Update Form = Goods Receipt (G', 'UPDATE', '2026-04-17', '12:24:59', '::1', '2026-04-17 06:54:59'),
+(448, 'test', 'Create Form', 'Create FormInventory / Stock E', 'ADD', '2026-04-17', '12:26:33', '::1', '2026-04-17 06:56:33'),
+(449, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '12:32:32', '::1', '2026-04-17 07:02:32'),
+(450, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '12:32:36', '::1', '2026-04-17 07:02:36'),
+(451, 'test', 'Create Form', 'Create FormSales Order Form', 'ADD', '2026-04-17', '12:34:34', '::1', '2026-04-17 07:04:34'),
+(452, 'test', 'Create Form', 'Create FormStock Transfer Form', 'ADD', '2026-04-17', '12:36:22', '::1', '2026-04-17 07:06:22'),
+(453, 'test', 'update_form =24', 'Update Form = Stock Transfer F', 'UPDATE', '2026-04-17', '12:36:40', '::1', '2026-04-17 07:06:40'),
+(454, 'test', 'Create Form', 'Create FormRegistration / Sign', 'ADD', '2026-04-17', '12:39:22', '::1', '2026-04-17 07:09:22'),
+(455, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '12:39:29', '::1', '2026-04-17 07:09:29'),
+(456, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '12:52:15', '::1', '2026-04-17 07:22:15'),
+(457, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-17', '16:08:26', '::1', '2026-04-17 10:38:26'),
+(458, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '16:08:34', '::1', '2026-04-17 10:38:34'),
+(459, 'test', 'update_form =13', 'Update Form = Booking Review', 'UPDATE', '2026-04-17', '16:08:41', '::1', '2026-04-17 10:38:41'),
+(460, 'test', 'update_form =14', 'Update Form = Cancellation For', 'UPDATE', '2026-04-17', '16:08:47', '::1', '2026-04-17 10:38:47'),
+(461, 'test', 'update_form =12', 'Update Form = Guest Informatio', 'UPDATE', '2026-04-17', '16:08:51', '::1', '2026-04-17 10:38:51'),
+(462, 'test', 'update_form =26', 'Update Form = testing manu', 'UPDATE', '2026-04-17', '16:10:00', '::1', '2026-04-17 10:40:00'),
+(463, 'test', 'update_form =10', 'Update Form = User Authenticat', 'UPDATE', '2026-04-17', '16:10:06', '::1', '2026-04-17 10:40:06'),
+(464, 'test', 'update_form =25', 'Update Form = Registration / S', 'UPDATE', '2026-04-17', '16:10:23', '::1', '2026-04-17 10:40:23'),
+(465, 'test', 'update_form =19', 'Update Form = Supplier  Vendor', 'UPDATE', '2026-04-17', '16:10:39', '::1', '2026-04-17 10:40:39'),
+(466, 'test', 'update_form =24', 'Update Form = Stock Transfer F', 'UPDATE', '2026-04-17', '16:10:44', '::1', '2026-04-17 10:40:44'),
+(467, 'test', 'update_form =23', 'Update Form = Sales Order Form', 'UPDATE', '2026-04-17', '16:10:50', '::1', '2026-04-17 10:40:50'),
+(468, 'test', 'update_form =20', 'Update Form = Purchase Order (', 'UPDATE', '2026-04-17', '16:10:56', '::1', '2026-04-17 10:40:56'),
+(469, 'test', 'update_form =18', 'Update Form = Product Master F', 'UPDATE', '2026-04-17', '16:11:02', '::1', '2026-04-17 10:41:02'),
+(470, 'test', 'update_form =22', 'Update Form = Inventory / Stoc', 'UPDATE', '2026-04-17', '16:11:10', '::1', '2026-04-17 10:41:10'),
+(471, 'test', 'update_form =21', 'Update Form = Goods Receipt (G', 'UPDATE', '2026-04-17', '16:11:14', '::1', '2026-04-17 10:41:14'),
+(472, 'test', 'update_form =15', 'Update Form = Address Selectio', 'UPDATE', '2026-04-17', '16:12:33', '::1', '2026-04-17 10:42:33'),
+(473, 'test', 'update_form =15', 'Update Form = Address Selectio', 'UPDATE', '2026-04-17', '16:12:39', '::1', '2026-04-17 10:42:39'),
+(474, 'test', 'update_form =3', 'Update Form = Address Form Shi', 'UPDATE', '2026-04-17', '16:12:53', '::1', '2026-04-17 10:42:53'),
+(475, 'test', 'update_form =2', 'Update Form = Login Form', 'UPDATE', '2026-04-17', '16:12:57', '::1', '2026-04-17 10:42:57'),
+(476, 'test', 'update_form =5', 'Update Form = Order Review', 'UPDATE', '2026-04-17', '16:13:02', '::1', '2026-04-17 10:43:02'),
+(477, 'test', 'update_form =4', 'Update Form = Payment Form', 'UPDATE', '2026-04-17', '16:13:07', '::1', '2026-04-17 10:43:07'),
+(478, 'test', 'update_form =1', 'Update Form = User Registratio', 'UPDATE', '2026-04-17', '16:13:13', '::1', '2026-04-17 10:43:13'),
+(479, 'test', 'Add fms Master', 'Add FMS =testing              ', 'CREATE', '2026-04-17', '16:19:18', '::1', '2026-04-17 10:49:18'),
+(480, 'test', 'update_permission_page', 'FMS Updated', 'UPDATE', '2026-04-17', '16:19:41', '::1', '2026-04-17 10:49:41'),
+(481, 'test', 'Create Form', 'Create Formtesting form', 'ADD', '2026-04-17', '16:20:06', '::1', '2026-04-17 10:50:06'),
+(482, 'test', 'update_form =27', 'Update Form = testing form', 'UPDATE', '2026-04-17', '16:20:12', '::1', '2026-04-17 10:50:12'),
+(483, 'test', 'update_form =11', 'Update Form = Booking Details ', 'UPDATE', '2026-04-17', '17:44:35', '::1', '2026-04-17 12:14:35'),
+(484, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-20', '12:10:21', '::1', '2026-04-20 06:40:21'),
+(485, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-20', '13:00:17', '::1', '2026-04-20 07:30:17'),
+(486, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-21', '17:01:22', '::1', '2026-04-21 11:31:22'),
+(487, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-22', '12:45:00', '::1', '2026-04-22 07:15:00'),
+(488, 'test', 'update_form =9', 'Update Form = Availability For', 'UPDATE', '2026-04-22', '12:45:05', '::1', '2026-04-22 07:15:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dashboard_master`
+--
+
+CREATE TABLE `dashboard_master` (
+  `id` int(11) NOT NULL,
+  `chart_type` varchar(50) NOT NULL,
+  `chart_title` varchar(255) NOT NULL,
+  `table_name` varchar(100) NOT NULL,
+  `x_axis` varchar(100) DEFAULT NULL,
+  `y_axis` varchar(100) DEFAULT NULL,
+  `operation` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` int(1) NOT NULL,
+  `updated_by` varchar(99) NOT NULL,
+  `updated_ip` varchar(25) NOT NULL,
+  `fms_id` int(10) NOT NULL,
+  `remarks` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dashboard_master`
+--
+
+INSERT INTO `dashboard_master` (`id`, `chart_type`, `chart_title`, `table_name`, `x_axis`, `y_axis`, `operation`, `created_at`, `updated_at`, `status`, `updated_by`, `updated_ip`, `fms_id`, `remarks`) VALUES
+(1, '1', 'dcsdcsdc', 'dv0_booking_system_master', 'booking_location', 'type_of_guest', 'sum', '2026-04-22 13:26:39', '2026-04-23 06:19:11', 1, 'test', '::1', 4, NULL),
+(2, '1', 'dcsdcsdc', 'dv0_booking_system_master', 'booking_location', 'type_of_guest', 'sum', '2026-04-22 13:27:16', '2026-04-23 06:19:14', 1, 'test', '::1', 4, NULL),
+(3, '1', 'deererferf', 'dv0_booking_system_master', 'booking_location', 'booking_location', 'sum', '2026-04-23 04:37:33', '2026-04-23 06:19:17', 1, 'test', '::1', 4, NULL),
+(4, '1', 'deererferf', 'dv0_booking_system_master', 'booking_location', 'booking_location', 'sum', '2026-04-23 04:39:33', '2026-04-23 06:19:19', 1, 'test', '::1', 4, NULL),
+(5, '2', 'dfvdfv', 'dv0_booking_system_master', 'booking_out_date', 'email', 'week', '2026-04-23 10:48:17', '2026-04-23 10:48:17', 1, 'test', '::1', 0, NULL),
+(6, '6', 'sdcsdc', 'dv0_booking_system_master', 'booking_location', 'booking_out_date', 'average', '2026-04-23 10:50:13', '2026-04-23 10:50:13', 1, 'test', '::1', 0, NULL),
+(7, '6', 'sdcsdc', 'dv0_booking_system_master', 'booking_location', 'booking_out_date', 'average', '2026-04-23 10:50:41', '2026-04-23 10:50:41', 1, 'test', '::1', 0, NULL),
+(8, '6', 'sdcsdc', 'dv0_booking_system_master', 'booking_location', 'booking_out_date', 'average', '2026-04-23 10:51:04', '2026-04-23 10:51:04', 1, 'test', '::1', 0, NULL),
+(9, '6', 'sdcsdc', 'dv0_booking_system_master', 'booking_location', 'booking_out_date', 'average', '2026-04-23 10:51:26', '2026-04-23 10:51:26', 1, 'test', '::1', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -2190,175 +2505,220 @@ CREATE TABLE `dropdown_master` (
 --
 
 INSERT INTO `dropdown_master` (`id`, `master_name`, `master_table`, `key_id`, `key_value`, `status`, `updated_by`, `updated_ip`, `update_date`) VALUES
-(1, 'State Master', 'state_master', 'stateid', 'state', 1, 'test', '', '2026-04-06 17:17:07'),
-(2, 'City Master', 'city_master', 'cityid', 'city', 1, 'test', '::1', '2026-04-09 17:33:59'),
-(3, 'sddsc', 'city_master', 'stateid', 'state', 1, 'test', '::1', '2026-04-09 17:28:13'),
-(4, 'sddsc', 'city_master', 'stateid', 'state', 1, 'test', '::1', '2026-04-09 17:28:21');
+(1, 'City Master', 'city_master', 'cityid', 'city', 1, 'test', '::1', '2026-04-17 11:03:38');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dv0_dscdc_master`
+-- Table structure for table `dv0_booking_system_master`
 --
 
-CREATE TABLE `dv0_dscdc_master` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dv0_manudkbsdkjbc_master`
---
-
-CREATE TABLE `dv0_manudkbsdkjbc_master` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dy0_fms_adminuser_master`
---
-
-CREATE TABLE `dy0_fms_adminuser_master` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dy0_fms_ecommerce_master`
---
-
-CREATE TABLE `dy0_fms_ecommerce_master` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dy0_sdds_master`
---
-
-CREATE TABLE `dy0_sdds_master` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fms_adminuser`
---
-
-CREATE TABLE `fms_adminuser` (
+CREATE TABLE `dv0_booking_system_master` (
   `id` int(11) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(10) DEFAULT NULL,
   `updated_ip` varchar(40) DEFAULT NULL,
-  `name` varchar(12) DEFAULT NULL,
+  `booking_location` varchar(20) DEFAULT NULL,
+  `booking_date` varchar(20) DEFAULT NULL,
+  `booking_out_date` varchar(20) DEFAULT NULL,
+  `type_of_guest` varchar(20) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
-  `phonenumer` varchar(23) DEFAULT NULL,
-  `address` varchar(24) DEFAULT NULL,
-  `createing_date` varchar(12) DEFAULT NULL,
-  `feedback_report` varchar(20) DEFAULT NULL,
-  `state` varchar(50) DEFAULT NULL,
-  `rwerewrewrewr` varchar(123) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `fms_adminuser`
---
-
-INSERT INTO `fms_adminuser` (`id`, `created_date`, `update_date`, `updated_by`, `updated_ip`, `name`, `email`, `phonenumer`, `address`, `createing_date`, `feedback_report`, `state`, `rwerewrewrewr`, `city`) VALUES
-(1, '2026-04-02 10:50:41', '2026-04-02 10:50:41', 'test', '122.176.50.152', 'sd', 'sdc@dd.com', '1313123123123123', 'sdcdsdcdc', NULL, NULL, NULL, NULL, NULL),
-(2, '2026-04-02 10:50:58', '2026-04-02 10:50:58', 'test', '122.176.50.152', 'sddsc', 'sd@s.com', '1312312321323', 'sddsdc', NULL, NULL, NULL, NULL, NULL),
-(3, '2026-04-02 13:15:04', '2026-04-02 13:15:04', NULL, '122.176.50.152', 'Manu', 'pathak@gmai.com', '6395896677', 'sdcsdcs', NULL, NULL, NULL, NULL, NULL),
-(4, '2026-04-02 13:18:36', '2026-04-02 13:18:36', NULL, NULL, 'sdc', 'dc@mm.com', '123123123', 'ddcdsds', NULL, NULL, NULL, NULL, NULL),
-(5, '2026-04-03 04:43:20', '2026-04-03 04:43:20', NULL, NULL, 'dscdcds', 'S@ddd.com', '1231231232', 'dscdscdccds', NULL, NULL, NULL, NULL, NULL),
-(6, '2026-04-03 10:29:44', '2026-04-03 10:29:44', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(7, '2026-04-03 10:54:25', '2026-04-03 10:54:25', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(8, '2026-04-03 10:55:17', '2026-04-03 10:55:17', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(9, '2026-04-03 11:01:20', '2026-04-03 11:01:20', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(10, '2026-04-03 11:02:45', '2026-04-03 11:02:45', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(11, '2026-04-03 11:04:35', '2026-04-03 11:04:35', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(12, '2026-04-03 11:04:49', '2026-04-03 11:04:49', NULL, NULL, 'manu pathak', 'demo@gmail.com', '123123123213', 'sddcds', NULL, NULL, NULL, NULL, NULL),
-(13, '2026-04-06 06:27:38', '2026-04-06 06:27:38', 'test', '122.176.50.152', 'sddsc', 'sdcds@gmail.com', '23123123213123123123', 'sdd', '2026-04-06', NULL, NULL, NULL, NULL),
-(14, '2026-04-06 09:31:51', '2026-04-06 09:31:51', 'test', '122.176.50.152', 'scsdds', 'sc@gmail.com', '12345678900', 'sddcdscdc', '2026-04-06', '1775467911_image.png', NULL, NULL, NULL),
-(15, '2026-04-06 09:35:41', '2026-04-06 09:35:41', 'test', '122.176.50.152', 'sdcdcd', 'dsdcs@sdcdsc.com', '312631367', 'dcbcvjhdvc', '2026-04-06', '1775468141_Screensho', NULL, NULL, NULL),
-(16, '2026-04-07 06:31:11', '2026-04-07 06:31:11', 'test', '122.176.50.152', 'sddsc', 'sddc@sdc.com', '12312312321', 'dcsddsc', '2026-04-07', '1775543471_image.png', '16', NULL, NULL),
-(17, '2026-04-09 07:25:36', '2026-04-09 07:25:36', 'test', '::1', 'Manu Pathak', 'pathak@gmail.com', '6395896677', 'this is manu pathak', '2026-04-09', '../upload_fms_file/2', '5', NULL, '4');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fms_dcsdefvfvfvfdv`
---
-
-CREATE TABLE `fms_dcsdefvfvfvfdv` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
+  `phone` varchar(10) DEFAULT NULL,
+  `password` varchar(6) DEFAULT NULL,
+  `select_item` varchar(2) DEFAULT NULL,
+  `date_and_time` varchar(10) DEFAULT NULL,
+  `number_of_guest` varchar(1) DEFAULT NULL,
+  `room_type` varchar(10) DEFAULT NULL,
+  `speical_requests` varchar(50) DEFAULT NULL,
+  `full_name` varchar(10) DEFAULT NULL,
+  `guest_age` varchar(2) DEFAULT NULL,
+  `gender` varchar(8) DEFAULT NULL,
+  `id_prrof` varchar(30) DEFAULT NULL,
+  `id_number` varchar(20) DEFAULT NULL,
+  `booking_summery` varchar(20) DEFAULT NULL,
+  `total_date` varchar(10) DEFAULT NULL,
+  `total_guest` varchar(2) DEFAULT NULL,
+  `total_cost` varchar(5) DEFAULT NULL,
+  `apply_coupon` varchar(10) DEFAULT NULL,
+  `booking_id` varchar(10) DEFAULT NULL,
+  `reason_for_cancellation` varchar(50) DEFAULT NULL,
+  `refund_method` varchar(20) DEFAULT NULL,
+  `manu_pathak` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fms_ecommerce`
+-- Table structure for table `fms_ecommerce_fms`
 --
 
-CREATE TABLE `fms_ecommerce` (
+CREATE TABLE `fms_ecommerce_fms` (
   `id` int(11) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(10) DEFAULT NULL,
   `updated_ip` varchar(40) DEFAULT NULL,
-  `customer_name` varchar(20) DEFAULT NULL,
-  `order_item` varchar(20) DEFAULT NULL,
-  `address` varchar(30) DEFAULT NULL,
-  `phone` varchar(10) DEFAULT NULL,
-  `payment_mode` varchar(5) DEFAULT NULL,
-  `delivery_person` varchar(10) DEFAULT NULL,
-  `order_pin` varchar(10) DEFAULT NULL,
-  `pin_code` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_name` varchar(20) DEFAULT NULL,
+  `user_email` varchar(20) DEFAULT NULL,
+  `user_phone_number` varchar(10) DEFAULT NULL,
+  `password` varchar(15) DEFAULT NULL,
+  `confirm_password` varchar(15) DEFAULT NULL,
+  `gender` varchar(7) DEFAULT NULL,
+  `date_of_birth` varchar(10) DEFAULT NULL,
+  `refferal_code` varchar(10) DEFAULT NULL,
+  `login_name` varchar(12) DEFAULT NULL,
+  `login_password` varchar(15) DEFAULT NULL,
+  `full_name` varchar(10) DEFAULT NULL,
+  `phone_number` varchar(10) DEFAULT NULL,
+  `address_1` varchar(20) DEFAULT NULL,
+  `address_2` varchar(20) DEFAULT NULL,
+  `shipping_city` varchar(50) DEFAULT NULL,
+  `shipping_state` varchar(20) DEFAULT NULL,
+  `country` varchar(10) DEFAULT NULL,
+  `zip_code` varchar(6) DEFAULT NULL,
+  `landmark` varchar(10) DEFAULT NULL,
+  `address_type` varchar(7) DEFAULT NULL,
+  `card_number` varchar(15) DEFAULT NULL,
+  `card_holder_name` varchar(12) DEFAULT NULL,
+  `expirt_date` varchar(12) DEFAULT NULL,
+  `cvv_number` varchar(3) DEFAULT NULL,
+  `payment_options` varchar(12) DEFAULT NULL,
+  `billing_address` varchar(20) DEFAULT NULL,
+  `product_summary` varchar(20) DEFAULT NULL,
+  `total_price` varchar(5) DEFAULT NULL,
+  `taxes` varchar(12) DEFAULT NULL,
+  `shipping_address` varchar(20) DEFAULT NULL,
+  `payment_method` varchar(5) DEFAULT NULL,
+  `confirm_order_button` varchar(12) DEFAULT NULL,
+  `rating_form` varchar(1) DEFAULT NULL,
+  `review_title` varchar(15) DEFAULT NULL,
+  `review_comment` varchar(50) DEFAULT NULL,
+  `upload_image` varchar(30) DEFAULT NULL,
+  `support_name` varchar(12) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `order_id` varchar(15) DEFAULT NULL,
+  `support_title` varchar(15) DEFAULT NULL,
+  `support_message` varchar(50) DEFAULT NULL,
+  `order_id_number` varchar(15) DEFAULT NULL,
+  `product_name` varchar(50) DEFAULT NULL,
+  `reason_for_return` varchar(50) DEFAULT NULL,
+  `redunt_image` varchar(30) DEFAULT NULL,
+  `refund_method` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fms_fms_dscdc`
+-- Table structure for table `fms_food_delivery`
 --
 
-CREATE TABLE `fms_fms_dscdc` (
+CREATE TABLE `fms_food_delivery` (
   `id` int(11) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL
+  `updated_ip` varchar(40) DEFAULT NULL,
+  `current_location_gps_autodetect` varchar(20) DEFAULT NULL,
+  `saved_addresses_home_work` varchar(20) DEFAULT NULL,
+  `houseflat_no` varchar(20) DEFAULT NULL,
+  `street_area` varchar(20) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `state` varchar(20) DEFAULT NULL,
+  `pincode` varchar(6) DEFAULT NULL,
+  `landmark` varchar(20) DEFAULT NULL,
+  `address_type_homeoffice` varchar(50) DEFAULT NULL,
+  `delivery_address` varchar(50) DEFAULT NULL,
+  `contact_number` varchar(10) DEFAULT NULL,
+  `delivery_instructions` varchar(20) DEFAULT NULL,
+  `restaurant_name` varchar(20) DEFAULT NULL,
+  `owner_name` varchar(20) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `fssai_license` varchar(19) DEFAULT NULL,
+  `bank_details` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fms_inventory_erp_systems`
+--
+
+CREATE TABLE `fms_inventory_erp_systems` (
+  `id` int(11) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` varchar(10) DEFAULT NULL,
+  `updated_ip` varchar(40) DEFAULT NULL,
+  `product_name` varchar(30) DEFAULT NULL,
+  `sku_unique_code` varchar(30) DEFAULT NULL,
+  `category` varchar(30) DEFAULT NULL,
+  `brand` varchar(30) DEFAULT NULL,
+  `unit_pcs_kg_liter` varchar(30) DEFAULT NULL,
+  `cost_price` varchar(30) DEFAULT NULL,
+  `selling_price` varchar(30) DEFAULT NULL,
+  `tax_gst` varchar(30) DEFAULT NULL,
+  `barcode` varchar(30) DEFAULT NULL,
+  `description` varchar(30) DEFAULT NULL,
+  `supplier_name` varchar(30) DEFAULT NULL,
+  `contact_person` varchar(30) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `gst_number` varchar(10) DEFAULT NULL,
+  `bank_details` varchar(30) DEFAULT NULL,
+  `po_number` varchar(20) DEFAULT NULL,
+  `supplier_name_po` varchar(20) DEFAULT NULL,
+  `order_date` varchar(20) DEFAULT NULL,
+  `expected_delivery_date` varchar(20) DEFAULT NULL,
+  `product_list` varchar(20) DEFAULT NULL,
+  `total_amount` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `grn_number` varchar(20) DEFAULT NULL,
+  `po_reference` varchar(20) DEFAULT NULL,
+  `received_date` varchar(20) DEFAULT NULL,
+  `product_list_good` varchar(20) DEFAULT NULL,
+  `warehouse_location` varchar(20) DEFAULT NULL,
+  `product_name_inventory` varchar(20) DEFAULT NULL,
+  `quantity_added__removed` varchar(20) DEFAULT NULL,
+  `reason` varchar(10) DEFAULT NULL,
+  `date` varchar(10) DEFAULT NULL,
+  `quantity_added_removed` varchar(20) DEFAULT NULL,
+  `order_id_sales` varchar(20) DEFAULT NULL,
+  `customer_name` varchar(20) DEFAULT NULL,
+  `product_lis_sales` varchar(20) DEFAULT NULL,
+  `discount_sales` varchar(20) DEFAULT NULL,
+  `total_amount_sales` varchar(20) DEFAULT NULL,
+  `order_status` varchar(20) DEFAULT NULL,
+  `from_warehouse` varchar(30) DEFAULT NULL,
+  `to_warehouse` varchar(30) DEFAULT NULL,
+  `product_stock` varchar(30) DEFAULT NULL,
+  `quantity_stock` varchar(30) DEFAULT NULL,
+  `transfer_date` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fms_learning_management_system`
+--
+
+CREATE TABLE `fms_learning_management_system` (
+  `id` int(11) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` varchar(10) DEFAULT NULL,
+  `updated_ip` varchar(40) DEFAULT NULL,
+  `full_name` varchar(20) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `confirm_password` varchar(20) DEFAULT NULL,
+  `country` varchar(20) DEFAULT NULL,
+  `accept_terms` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -2387,62 +2747,21 @@ CREATE TABLE `fms_master` (
 --
 
 INSERT INTO `fms_master` (`id`, `category`, `fmsname`, `details`, `steps`, `total_form`, `created_at`, `updated_at`, `updated_by`, `updated_ip`, `status`, `table_name`) VALUES
-(50, 'other', 'AdminUser', 'sdds', 1, 12, '2026-04-02 10:46:31', '2026-04-09 09:29:14', 'test', '::1', 1, 'fms_adminuser'),
-(51, 'other', 'Organization', 'sdcdcdc', 1, 1, '2026-04-02 10:47:05', '2026-04-09 09:25:13', 'test', '::1', 1, 'fms_organization'),
-(52, 'other', 'Ecommerce', 'tskdbskdb', 12, 12, '2026-04-02 13:22:05', '2026-04-09 09:25:10', 'test', '::1', 1, 'fms_ecommerce'),
-(53, 'fms', 'O2D', 'Order To Dlivery', 8, 8, '2026-04-06 06:07:32', '2026-04-09 09:29:23', 'test', '::1', 1, 'fms_o2d'),
-(54, 'other', 'Xyz', 'xyz master', 1, 1, '2026-04-08 12:16:33', '2026-04-09 09:24:55', 'test', '::1', 1, 'fms_xyz'),
-(55, 'other', 'manudkbsdkjbc', 'dcdcsdcdc', 12, 3, '2026-04-09 09:23:35', '2026-04-09 09:23:35', 'test', '::1', 1, 'dv0_manudkbsdkjbc_master');
+(1, 'fms', 'Ecommerce Fms', 'THis is Ecommer FMS', 2, 2, '2026-04-17 05:43:14', '2026-04-17 05:44:33', 'test', '::1', 1, 'fms_ecommerce_fms'),
+(2, 'fms', 'Learning Management System', 'Learning Management System', 1, 1, '2026-04-17 06:14:33', '2026-04-17 06:14:33', 'test', '::1', 1, 'fms_learning_management_system'),
+(3, 'fms', 'Recruitment System', 'Recruitment System', 1, 1, '2026-04-17 06:15:41', '2026-04-17 06:15:41', 'test', '::1', 1, 'fms_recruitment_system'),
+(4, 'other', 'Booking System', 'Booking System', 1, 1, '2026-04-17 06:15:53', '2026-04-17 06:15:53', 'test', '::1', 1, 'dv0_booking_system_master'),
+(5, 'fms', 'Food Delivery', 'Food Delivery', 1, 1, '2026-04-17 06:16:07', '2026-04-17 06:16:07', 'test', '::1', 1, 'fms_food_delivery'),
+(6, 'fms', 'Inventory ERP Systems', 'Inventory / ERP Systems', 1, 1, '2026-04-17 06:16:30', '2026-04-17 06:16:30', 'test', '::1', 1, 'fms_inventory_erp_systems'),
+(7, 'fms', 'testing                   Manu', 'dcsdc', 1, 1, '2026-04-17 10:49:18', '2026-04-17 10:49:18', 'test', '::1', 1, 'fms_testing_manu');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fms_o2d`
+-- Table structure for table `fms_recruitment_system`
 --
 
-CREATE TABLE `fms_o2d` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL,
-  `customer_name` varchar(50) DEFAULT NULL,
-  `contact_no` varchar(10) DEFAULT NULL,
-  `address` varchar(150) DEFAULT NULL,
-  `email` varchar(150) DEFAULT NULL,
-  `lead_source` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fms_organization`
---
-
-CREATE TABLE `fms_organization` (
-  `id` int(11) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_by` varchar(10) DEFAULT NULL,
-  `updated_ip` varchar(40) DEFAULT NULL,
-  `name` varchar(12) DEFAULT NULL,
-  `email` varchar(12) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `fms_organization`
---
-
-INSERT INTO `fms_organization` (`id`, `created_date`, `update_date`, `updated_by`, `updated_ip`, `name`, `email`) VALUES
-(1, '2026-04-02 10:51:08', '2026-04-02 10:51:08', 'test', '122.176.50.152', 'sdcdsc', 'sddc@gmail.c');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fms_sdds`
---
-
-CREATE TABLE `fms_sdds` (
+CREATE TABLE `fms_recruitment_system` (
   `id` int(11) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -2453,17 +2772,17 @@ CREATE TABLE `fms_sdds` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fms_xyz`
+-- Table structure for table `fms_testing_manu`
 --
 
-CREATE TABLE `fms_xyz` (
+CREATE TABLE `fms_testing_manu` (
   `id` int(11) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(10) DEFAULT NULL,
   `updated_ip` varchar(40) DEFAULT NULL,
-  `ssd` varchar(22) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `manu_testing` varchar(12) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2498,13 +2817,33 @@ CREATE TABLE `form_master` (
 --
 
 INSERT INTO `form_master` (`id`, `created_date`, `updated_date`, `created_by`, `updated_by`, `updated_ip`, `form_id`, `form_name`, `fms_id`, `parameter_name`, `display_name`, `type`, `drop_down`, `length`, `api_key_value`, `validation_type`, `status`, `param_require`, `frm_seq`) VALUES
-(71, '2026-04-02 10:48:21', '2026-04-02 10:48:21', 'test', 'test', '122.176.50.152', '12', 'Feedback', '50', '[\"name\",\"email\",\"phonenumer\",\"address\",\"createing_date\",\"feedback_report\",\"state\",\"city\"]', '[\"User Name\",\"User Email\",\"Phone\",\"Address\",\"Date\",\"Report\",\"State\",\"city\"]', '[\"1\",\"2\",\"3\",\"1\",\"5\",\"7\",\"8\",\"8\"]', '[0,0,0,0,0,0,\"1\",\"2\"]', '[\"12\",\"20\",\"23\",\"24\",\"12\",\"20\",\"50\",\"50\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
-(72, '2026-04-02 10:49:17', '2026-04-02 10:49:17', 'test', 'test', '122.176.50.152', '12', 'Users', '50', '[\"name\",\"user_type\",\"user_id\"]', '[\"Name\",\"User Type\",\"user id \"]', '[\"1\",\"1\",\"1\"]', NULL, '[\"12\",\"5\",\"8\"]', NULL, NULL, 1, '[\"1\",\"1\",\"0\"]', 1),
-(73, '2026-04-02 10:50:05', '2026-04-02 10:50:05', 'test', 'test', '122.176.50.152', '12', 'HR DepartMent', '51', '[\"name\",\"email\"]', '[\"HR Name\",\"HR EMail\"]', '[\"1\",\"2\"]', NULL, '[\"12\",\"12\"]', NULL, NULL, 1, '[\"1\",\"0\"]', 1),
-(74, '2026-04-02 13:28:40', '2026-04-02 13:28:40', 'test', 'test', '122.176.50.152', '12', 'Order Number', '52', '[\"customer_name\",\"order_item\",\"address\",\"phone\",\"payment_mode\",\"delivery_person\",\"order_pin\",\"pin_code\"]', '[\"Customer Name\",\"Order Item\",\"Customer Address\",\"Customer Phone\",\"Payment Mode\",\"Delivery Patner\",\"Order Pin Number\",\"Zip Code\"]', '[\"1\",\"3\",\"1\",\"3\",\"1\",\"1\",\"3\",\"3\"]', NULL, '[\"20\",\"20\",\"30\",\"10\",\"5\",\"10\",\"10\",\"5\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
-(75, '2026-04-02 13:31:08', '2026-04-02 13:31:08', 'test', 'test', '122.176.50.152', '12', 'Order Feedback Form', '52', '[\"customer_name\",\"customer_phone\",\"customer_email\",\"order_number\",\"feedback\",\"quaility_of_order\"]', '[\"Customer Name\",\"Phone\",\"Email\",\"Order Number\",\"Feedback\",\"Quaility of Order\"]', '[\"1\",\"3\",\"2\",\"3\",\"1\",\"3\"]', NULL, '[\"12\",\"10\",\"20\",\"20\",\"200\",\"10\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
-(76, '2026-04-06 06:13:19', '2026-04-06 06:13:19', 'test', 'test', '122.176.50.152', '12', 'Lead', '53', '[\"customer_name\",\"contact_no\",\"address\",\"email\",\"lead_source\"]', '[\"Customer Name\",\"contact No\",\"address\",\"email\",\"Lead Source\"]', '[\"1\",\"3\",\"1\",\"2\",\"1\"]', NULL, '[\"50\",\"10\",\"150\",\"150\",\"50\"]', NULL, NULL, 1, '[\"1\",\"1\",\"0\",\"0\",\"0\"]', 1),
-(77, '2026-04-08 12:30:10', '2026-04-08 12:30:10', 'test', 'test', '122.176.50.152', '12', 'sdds', '54', '[\"ssd\"]', '[\"sdcs\"]', '[\"1\"]', NULL, '[\"22\"]', NULL, NULL, 1, '[\"1\"]', 12);
+(1, '2026-04-17 05:49:09', '2026-04-17 05:49:09', 'test', 'test', '::1', '12', 'User Registration Form', '1', '[\"user_name\",\"user_email\",\"user_phone_number\",\"password\",\"confirm_password\",\"gender\",\"date_of_birth\",\"refferal_code\"]', '[\"Full Name\",\"Email Address\",\"Phone Number\",\"Password\",\"Confirm Password\",\"Gender (optional)\",\"Date of Birth\",\"Referral Code\"]', '[\"1\",\"2\",\"3\",\"4\",\"4\",\"1\",\"5\",\"1\"]', '[0,0,0,0,0,0,0,0]', '[\"20\",\"20\",\"10\",\"15\",\"15\",\"7\",\"10\",\"10\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 0),
+(2, '2026-04-17 05:53:10', '2026-04-17 05:53:10', 'test', 'test', '::1', '12', 'Login Form', '1', '[\"login_name\",\"login_password\"]', '[\"User Name\",\"User Password\"]', '[\"1\",\"4\"]', '[0,0]', '[\"12\",\"15\"]', NULL, NULL, 1, '[\"1\",\"0\"]', 1),
+(3, '2026-04-17 06:00:43', '2026-04-17 06:00:43', 'test', 'test', '::1', '12', 'Address Form Shipping', '1', '[\"full_name\",\"phone_number\",\"address_1\",\"address_2\",\"shipping_city\",\"shipping_state\",\"country\",\"zip_code\",\"landmark\",\"address_type\"]', '[\"Full Name\",\"Phone Number\",\"Address Line 1\",\"Address Line 2\",\"City\",\"State\",\"Country\",\"Zip/Postal Code\",\"Landmark\",\"Address Type (Home/Office)\"]', '[\"1\",\"3\",\"1\",\"1\",\"8\",\"1\",\"1\",\"3\",\"1\",\"1\"]', '[0,0,0,0,\"1\",0,0,0,0,0]', '[\"10\",\"10\",\"20\",\"20\",\"50\",\"20\",\"10\",\"6\",\"10\",\"7\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
+(4, '2026-04-17 06:03:40', '2026-04-17 06:03:40', 'test', 'test', '::1', '12', 'Payment Form', '1', '[\"card_number\",\"card_holder_name\",\"expirt_date\",\"cvv_number\",\"payment_options\",\"billing_address\"]', '[\"Card Number\",\"Card Holder Name\",\"Expiry Date\",\"CVV\",\"UPI ID / Wallet / Net Banking options\",\"Billing Address\"]', '[\"3\",\"1\",\"5\",\"3\",\"1\",\"1\"]', '[0,0,0,0,0,0]', '[\"15\",\"12\",\"12\",\"3\",\"12\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(5, '2026-04-17 06:07:04', '2026-04-17 06:07:04', 'test', 'test', '::1', '12', 'Order Review', '1', '[\"product_summary\",\"total_price\",\"taxes\",\"shipping_address\",\"payment_method\",\"confirm_order_button\"]', '[\"Product summary\",\"Total price\",\"Taxes\",\"Shipping charges\",\"Payment method\",\"Confirm Order button\"]', '[\"1\",\"3\",\"1\",\"1\",\"1\",\"1\"]', '[0,0,0,0,0,0]', '[\"20\",\"5\",\"12\",\"20\",\"5\",\"12\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(6, '2026-04-17 06:08:46', '2026-04-17 06:08:46', 'test', 'test', '::1', '12', 'Rating Form', '1', '[\"rating_form\",\"review_title\",\"review_comment\",\"upload_image\"]', '[\"Rating (1u20135 stars)\",\"Review Title\",\"Comment\",\"Upload Images\"]', '[\"3\",\"1\",\"1\",\"7\"]', '[0,0,0,0]', '[\"1\",\"15\",\"50\",\"30\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"0\"]', 1),
+(7, '2026-04-17 06:10:51', '2026-04-17 06:10:51', 'test', 'test', '::1', '12', 'Support Form', '1', '[\"support_name\",\"email\",\"order_id\",\"support_title\",\"support_message\"]', '[\"Name\",\"Email\",\"Order ID\",\"Subject\",\"Message\"]', '[\"1\",\"2\",\"3\",\"1\",\"1\"]', NULL, '[\"12\",\"20\",\"15\",\"15\",\"50\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(8, '2026-04-17 06:12:50', '2026-04-17 06:12:50', 'test', 'test', '::1', '12', 'Refund Request Form', '1', '[\"order_id_number\",\"product_name\",\"reason_for_return\",\"redunt_image\",\"refund_method\"]', '[\"Order ID\",\"Product Name\",\"Reason for Return\",\"Upload Image (proof)\",\"Refund Method\"]', '[\"3\",\"1\",\"1\",\"7\",\"1\"]', '[0,0,0,0,0]', '[\"15\",\"50\",\"50\",\"30\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(9, '2026-04-17 06:19:20', '2026-04-17 06:19:20', 'test', 'test', '::1', '12', 'Availability Form', '4', '[\"booking_location\",\"booking_date\",\"booking_out_date\",\"type_of_guest\"]', '[\"Location\",\"Check-in Date\",\"Check-out Date\",\"Tyep of Guests\"]', '[\"1\",\"5\",\"5\",\"1\"]', '[0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\"]', 1),
+(10, '2026-04-17 06:21:41', '2026-04-17 06:21:41', 'test', 'test', '::1', '12', 'User Authentication Form', '4', '[\"name\",\"email\",\"phone\",\"password\"]', '[\"Name\",\"Email\",\"Phone\",\"Password\"]', '[\"1\",\"2\",\"3\",\"4\"]', '[0,0,0,0]', '[\"20\",\"20\",\"10\",\"6\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"0\"]', 1),
+(11, '2026-04-17 06:24:57', '2026-04-17 06:24:57', 'test', 'test', '::1', '12', 'Booking Details Form', '4', '[\"select_item\",\"date_and_time\",\"number_of_guest\",\"room_type\",\"speical_requests\"]', '[\"Selected Item\",\"Date & Time\",\"Number of Guests\",\"Room Type / Seat Type\",\"Special Requests (textbox)\"]', '[\"3\",\"6\",\"3\",\"1\",\"1\"]', '[0,0,0,0,0]', '[\"2\",\"10\",\"1\",\"10\",\"50\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
+(12, '2026-04-17 06:28:05', '2026-04-17 06:28:05', 'test', 'test', '::1', '12', 'Guest Information Form', '4', '[\"full_name\",\"guest_age\",\"gender\",\"id_prrof\",\"id_number\"]', '[\"Full Name\",\"Age\",\"Gender\",\"ID Proof Type (Aadhar, Passport)\",\"ID Number\"]', '[\"1\",\"3\",\"1\",\"7\",\"1\"]', '[0,0,0,0,0]', '[\"10\",\"2\",\"8\",\"30\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(13, '2026-04-17 06:33:41', '2026-04-17 06:33:41', 'test', 'test', '::1', '12', 'Booking Review', '4', '[\"booking_summery\",\"total_date\",\"total_guest\",\"total_cost\",\"apply_coupon\"]', '[\"Booking Summary\",\"Dates\",\"Guests\",\"Total Cost (tax + fees)\",\"Apply Coupon\"]', '[\"1\",\"6\",\"3\",\"3\",\"1\"]', '[0,0,0,0,0]', '[\"20\",\"10\",\"2\",\"5\",\"10\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(14, '2026-04-17 06:35:28', '2026-04-17 06:35:28', 'test', 'test', '::1', '12', 'Cancellation Form', '4', '[\"booking_id\",\"reason_for_cancellation\",\"refund_method\"]', '[\"Booking ID\",\"Reason for Cancellation\",\"Refund Method\"]', '[\"3\",\"1\",\"1\"]', '[0,0,0]', '[\"10\",\"50\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"0\"]', 1),
+(15, '2026-04-17 06:43:11', '2026-04-17 06:43:11', 'test', 'test', '::1', '12', 'Address Selection Form', '5', '[\"current_location_gps_autodetect\",\"saved_addresses_home_work\",\"houseflat_no\",\"street_area\",\"city\",\"state\",\"pincode\",\"landmark\",\"address_type_homeoffice\"]', '[\"Current Location (GPS / auto-detect)\",\"Saved Addresses (Home, Work)\",\"House/Flat No\",\"Street / Area\",\"City\",\"State\",\"Pincode\",\"Landmark\",\"Address Type (Home/Office)\"]', '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"3\",\"1\",\"1\"]', '[0,0,0,0,0,0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\",\"20\",\"20\",\"6\",\"20\",\"50\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(16, '2026-04-17 06:44:31', '2026-04-17 06:44:31', 'test', 'test', '::1', '12', 'Checkout Form', '5', '[\"delivery_address\",\"contact_number\",\"delivery_instructions\"]', '[\"Delivery Address (select/add)\",\"Contact Number\",\"Delivery Instructions:\"]', '[\"1\",\"3\",\"1\"]', NULL, '[\"50\",\"10\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"0\"]', 1),
+(17, '2026-04-17 06:46:22', '2026-04-17 06:46:22', 'test', 'test', '::1', '12', 'Restaurant Registration Form', '5', '[\"restaurant_name\",\"owner_name\",\"phone\",\"email\",\"address\",\"fssai_license\",\"bank_details\"]', '[\"Restaurant Name\",\"Owner Name\",\"Phone\",\"Email\",\"Address\",\"FSSAI License\",\"Bank Details\"]', '[\"1\",\"1\",\"3\",\"2\",\"1\",\"1\",\"1\"]', NULL, '[\"20\",\"20\",\"10\",\"20\",\"50\",\"19\",\"30\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(18, '2026-04-17 06:49:35', '2026-04-17 06:49:35', 'test', 'test', '::1', '12', 'Product Master Form', '6', '[\"product_name\",\"sku_unique_code\",\"category\",\"brand\",\"unit_pcs_kg_liter\",\"cost_price\",\"selling_price\",\"tax_gst\",\"barcode\",\"description\"]', '[\"Product Name\",\"SKU (unique code)\",\"Category\",\"Brand\",\"Unit (pcs, kg, liter)\",\"Cost Price\",\"Selling Price\",\"Tax (GST %)\",\"Barcode\",\"Description\"]', '[\"1\",\"1\",\"1\",\"1\",\"3\",\"3\",\"3\",\"1\",\"1\",\"1\"]', '[0,0,0,0,0,0,0,0,0,0]', '[\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\",\"30\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(19, '2026-04-17 06:51:25', '2026-04-17 06:51:25', 'test', 'test', '::1', '12', 'Supplier  Vendor Form', '6', '[\"supplier_name\",\"contact_person\",\"phone\",\"email\",\"address\",\"gst_number\",\"bank_details\"]', '[\"Supplier Name\",\"Contact Person\",\"Phone\",\"Email\",\"Address\",\"GST Number\",\"Bank Details\"]', '[\"1\",\"1\",\"3\",\"2\",\"1\",\"3\",\"1\"]', '[0,0,0,0,0,0,0]', '[\"30\",\"30\",\"10\",\"20\",\"30\",\"10\",\"30\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(20, '2026-04-17 06:53:15', '2026-04-17 06:53:15', 'test', 'test', '::1', '12', 'Purchase Order (PO) Form', '6', '[\"po_number\",\"supplier_name_po\",\"order_date\",\"expected_delivery_date\",\"product_list\",\"total_amount\",\"status\"]', '[\"PO Number\",\"Supplier Name\",\"Order Date\",\"Expected Delivery Date\",\"Product List\",\"Total Amount\",\"Status\"]', '[\"3\",\"1\",\"5\",\"5\",\"1\",\"3\",\"1\"]', '[0,0,0,0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\",\"20\",\"20\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(21, '2026-04-17 06:54:51', '2026-04-17 06:54:51', 'test', 'test', '::1', '12', 'Goods Receipt (GRN) Form', '6', '[\"grn_number\",\"po_reference\",\"received_date\",\"product_list_good\",\"warehouse_location\"]', '[\"GRN Number\",\"PO Reference\",\"Received Date\",\"Product List\",\"Warehouse Location\"]', '[\"3\",\"1\",\"5\",\"1\",\"1\"]', '[0,0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
+(22, '2026-04-17 06:56:33', '2026-04-17 06:56:33', 'test', 'test', '::1', '12', 'Inventory / Stock Entry Form', '6', '[\"product_name_inventory\",\"quantity_added_removed\",\"reason\",\"date\"]', '[\"Product Name\",\"Quantity Added / Removed\",\"Reason(Damage/Theft/Adjustment)\",\"Date\"]', '[\"1\",\"3\",\"1\",\"5\"]', '[0,0,0,0]', '[\"20\",\"20\",\"10\",\"10\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\"]', 1),
+(23, '2026-04-17 07:04:34', '2026-04-17 07:04:34', 'test', 'test', '::1', '12', 'Sales Order Form', '6', '[\"order_id_sales\",\"customer_name\",\"product_lis_sales\",\"discount_sales\",\"total_amount_sales\",\"order_status\"]', '[\"Order ID\",\"Customer Name\",\"Product List sales\",\"Discount\",\"Total Amount\",\"Order Status\"]', '[\"3\",\"1\",\"1\",\"3\",\"3\",\"1\"]', '[0,0,0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\",\"20\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"0\"]', 1),
+(24, '2026-04-17 07:06:22', '2026-04-17 07:06:22', 'test', 'test', '::1', '12', 'Stock Transfer Form', '6', '[\"from_warehouse\",\"to_warehouse\",\"product_stock\",\"quantity_stock\",\"transfer_date\"]', '[\"From Warehouse\",\"To Warehouse\",\"Product\",\"Quantity\",\"Transfer Date\"]', '[\"1\",\"1\",\"1\",\"3\",\"5\"]', '[0,0,0,0,0]', '[\"30\",\"30\",\"30\",\"30\",\"30\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
+(25, '2026-04-17 07:09:22', '2026-04-17 07:09:22', 'test', 'test', '::1', '12', 'Registration / Sign Up Form', '2', '[\"full_name\",\"email\",\"phone_number\",\"password\",\"confirm_password\",\"country\",\"accept_terms\"]', '[\"Full Name\",\"Email\",\"Phone Number\",\"Password\",\"Confirm Password\",\"Country\",\"Accept Terms\"]', '[\"1\",\"2\",\"3\",\"4\",\"4\",\"1\",\"1\"]', '[0,0,0,0,0,0,0]', '[\"20\",\"20\",\"20\",\"20\",\"20\",\"20\",\"20\"]', NULL, NULL, 1, '[\"1\",\"1\",\"1\",\"1\",\"1\",\"1\",\"1\"]', 1),
+(26, '2026-04-17 10:33:57', '2026-04-17 10:33:57', 'test', 'test', '::1', '12', 'testing manu', '4', '[\"manu_pathak\"]', '[\"manu pathak\"]', '[\"1\"]', '[0]', '[\"12\"]', NULL, NULL, 1, '[\"1\"]', 1),
+(27, '2026-04-17 10:50:06', '2026-04-17 10:50:06', 'test', 'test', '::1', '12', 'testing form', '7', '[\"manu_testing\"]', '[\"testing\"]', '[\"1\"]', '[0]', '[\"12\"]', NULL, NULL, 1, '[\"1\"]', 1);
 
 -- --------------------------------------------------------
 
@@ -2525,12 +2864,20 @@ CREATE TABLE `login_active` (
 INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('001jlrprj39fte0cat0qqqt71j', '1775106153', 175),
 ('01piuqh90rfve655etd09kjada', '1763383813', 11),
+('01qchuc5osclj2ok70bkf00pv5', '1777012259', 303),
+('05d16nrk8noqtmk652693hifh0', '1776854614', 291),
+('086m25svtckfmdutf1lus9k533', '1776682720', 277),
+('0bbh7ds4vg40js12pe0rue303t', '1776939051', 298),
+('0eunlek5q4l2lvnjii67h3imc1', '1776322370', 256),
 ('0g52u431pvecn9s36a9to7sh0p', '1763107379', 5),
 ('0i38kt1ff3tse9dc8h1h13l41t', '1764741378', 44),
 ('0i8vg7iumqii0qnkfs8advn0pm', '1775121097', 177),
 ('0lacrt707t4mvbdft5akcmhjca', '1774845301', 146),
+('0q9jnsb4tp89b3v5ora8rlf13f', '1776333544', 261),
+('0qnoitiu6mv96tm3k6nfsvipl4', '1776238723', 247),
 ('0u12ivbq3d0chd2kmhao7vcpdi', '1775563934', 207),
 ('0ubj80g4im23u8tjpevtaufctu', '1775651391', 222),
+('0vo7qrhacdg5fojngj2qvdn42o', '1776317875', 254),
 ('0vrnh1tonr49msd4fqf8kb2ud0', '1763551144', 18),
 ('11p8ui27td64gvp2ijjh8p8ht5', '1774356672', 122),
 ('124geev3g8kjb768udampaiefn', '1763384107', 12),
@@ -2542,6 +2889,7 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('1v6gv9ssoe2fj3vhuhf1554ssm', '1775562474', 205),
 ('1ve63uqm3jmsdgbfert4oj4edu', '1775649317', 221),
 ('20p6cmip53niaemqmlpfd8snuq', '1775023091', 167),
+('27gfuj5t7ncsmvosntkrd6f7n2', '1776335782', 263),
 ('2ftvn4qt8p66qap66n8a409tqu', '1775727792', 232),
 ('2licgrshb0pn9nft327d12bpvk', '1773981612', 100),
 ('2ptfea7rb4m3fvrcf0f8d7nsfs', '1774262645', 110),
@@ -2554,15 +2902,19 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('3k2iv2kh9mdu85ikkct4ivkkbn', '1775731993', 235),
 ('3knbqdvsk7ebmsucnaps3fm95p', '1773897416', 84),
 ('3mievb4u1pavkmgkr2bjsdikk7', '1769346199', 58),
+('40feoqmqmpb2c6ghrdub6q0ovs', '1776918129', 294),
 ('435ap11cpicjfqotvltre1sl64', '1763384385', 13),
 ('468m3brkfulnsg07od289fc2ph', '1764768289', 50),
 ('4ltrboc37np64nncuf8is2m09v', '1775624807', 211),
 ('53vs96udekpbhn9ndobq0krgpb', '1775043159', 171),
 ('5e0jqnmgl5sdhsblbcsuuo8lr4', '1774589966', 138),
 ('5kp69ref2fl3o0l65unlhbocsa', '1763615783', 19),
+('5lkiunq0cahlsh3kkoak79ko70', '1776750119', 280),
 ('5nvkb4cpm24q3kknor5p3n8l06', '1773850722', 77),
 ('5pevi956ghrr52ban0m26dd8h5', '1764760315', 48),
+('5qccht44p1863190q4h75nackd', '1776427954', 272),
 ('5rfag0mec94cc6btr1qbqsj9bt', '1763622354', 27),
+('5t2o5qsl3pabbdlilsroulh57j', '1776055493', 239),
 ('60g917vdiq9stboi32g9325p0q', '1774861295', 149),
 ('60la79fhai1vnl5hg65rshdg1b', '1763535760', 15),
 ('615uocrqgescr36c37pp7decsg', '1775635300', 215),
@@ -2584,13 +2936,17 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('770q20l4apvlvrhcmu4o6drmv3', '1764745170', 45),
 ('7cr3h6aaep4bde7jvmrldcoipn', '1774340435', 117),
 ('7ij41fgi9el4a8rb9oluni5nve', '1774854672', 148),
+('7mo25tbcdvvs6o0sfc85bvh7tn', '1776670209', 275),
 ('7ng9ku8h8doasoh2u096jtdtgp', '1773908966', 90),
+('7qhmo0epplb3ps9e6kjo7cib9q', '1776746258', 279),
 ('7qv07o0jfr9tmjfjuitdu9hb2h', '1763618328', 21),
 ('7tc5s8jo3j68a8lflbphskgic6', '1775197434', 186),
 ('7u01j29kh8en5s3kagihlm22bv', '1775209118', 187),
 ('7v9nq5s85m7ibe89jbb6i038vt', '1774522140', 134),
 ('7vni7o8sca5hs31bjiaqbn83vv', '1773882753', 80),
+('800qa5v73e0lsk3nj5ig3k17q6', '1777012668', 304),
 ('83mth9tuvr21dji1rm8bgjdcl5', '1775713178', 226),
+('8405iq8urhpeggtk2ni0fs9sk2', '1776688337', 278),
 ('84od6r5j053648558f1i2rsclk', '1774506581', 130),
 ('8a1oac5kmi47fhqvcbe6ncn7de', '1764832048', 53),
 ('8f8bh3qin46lot8e0sp1r5rol5', '1775475634', 195),
@@ -2600,11 +2956,13 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('8tvdg78h6h84q5vn8lqfh2f2e2', '1775132653', 180),
 ('8vek4jgfm6ejf368doji9n3sjp', '1775569404', 210),
 ('92ackpihr6avh7g8knmh617rjv', '1774942449', 157),
+('92lbn1bjjo70r6tg1rblj6i0a2', '1777005920', 301),
 ('93v56cvlpehlgttcckqjda43nv', '1774865049', 150),
 ('94hh1tknoe7uncoogcjfo1it54', '1774953474', 160),
 ('96r0gauetrcnedaa70rjkcbbuv', '1774499318', 128),
 ('975a6krdp2rapob2cr7f724a6i', '1764156364', 36),
 ('97jlrmgi8pbhdv6u4qrh29629j', '1775189404', 183),
+('97qsmjnn0htl6sgfaf6ml8ligf', '1776235012', 246),
 ('9852065bfql2tm9u7gkn2n011n', '1775646391', 219),
 ('9helb6dhghj2polboircg7oi7h', '1774949815', 159),
 ('9k3j50l07r6pfftgqi2mqh20nl', '1763988615', 31),
@@ -2612,6 +2970,7 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('9nasnlvnfktt9grnon4h3msuj6', '1775470288', 193),
 ('9ombrjuntvo3nia1lcd5pjn03r', '1775456297', 191),
 ('9q6u71hhdo8ga87fl9jmtcni7g', '1763619134', 24),
+('9s5tf407qjruk22bla0tgi3774', '1776771005', 284),
 ('agbl6r9oi6ssha2bacn74plsk9', '1774613467', 144),
 ('al91dinsmebsu974tdj21o1vqm', '1764838816', 54),
 ('auo95dlgmglevrd5jivvapct3g', '1774243576', 105),
@@ -2624,28 +2983,36 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('buki7a27qh4scip5o3512o5pf5', '1774435579', 126),
 ('buo1af83viojo8u5vl1habg4gn', '1775126280', 178),
 ('bvt472l3f68ir78bdidtcb3ddu', '1775635256', 214),
+('c4johbipbs5ulh2i6jov6ohrhu', '1776407511', 268),
 ('c89llnbfg05bosr70p2c1k9o3a', '1775180049', 182),
+('ciei54ftlk1a88i6lo9hhk62dm', '1777012752', 305),
+('cin7gb78goqntahpnstvqg5fou', '1776666407', 274),
 ('cjqat0etuafrjtfs5ifnevlpde', '1775717432', 227),
 ('ck2bltmat5m0h05mspufqpjdbt', '1775637981', 217),
 ('cucfs906fpb7gnf9dhmoau8q01', '1773909384', 92),
 ('d12ct8qbvb3gkm0cnvv3g8basr', '1764850358', 57),
 ('d39lp0u1f4bpfrc6tpoo8vrmsc', '1763364863', 10),
 ('ddvs7je2p1tvhfkevg00ii02fs', '1775212553', 188),
+('dhus4nei3srhaqk6lrdd2k9acu', '1777008498', 302),
 ('di1cplq8mdsra3k9bcdn6vg071', '1775542015', 198),
 ('dk7vvdmvvvet8vaeva1l33h32p', '1773897860', 87),
 ('dnpb834tq1mla584icco71neg4', '1764842450', 55),
 ('dte9cotc6fklkpvcbajvpfuh53', '1764065458', 32),
 ('duvviueqddiupbjeoj6el3b3ip', '1775037799', 170),
+('e1lmv6kutbvhb7k680tl891ffq', '1776862368', 293),
 ('e3fklsv616g22g1sgu80816isg', '1773916980', 97),
 ('e6o894q95qimrjnqvkjnun6gf8', '1763619725', 25),
 ('eapmeaisiifa38bpm78j9h9jn5', '1775732210', 236),
 ('eb8mgq567e1tk7a5t5pdbviqdf', '1763087343', 4),
 ('ek3s1oei1nn4fjrgrlk75krdt7', '1774346503', 119),
 ('elike2adrqttqh439cc96enjb5', '1764668935', 39),
+('eo8iin9j9pvp032b8n3svo1il5', '1776847362', 289),
+('ep45f7dgdk5hkuem0gt4r5b09b', '1776777365', 285),
 ('eporpjejdvf368ftj0lqdtto2o', '1775558682', 204),
 ('euphulj9h5ab5m550blqseqa5o', '1775018293', 165),
 ('f1kfnho80akqep0bg5hos37rc6', '1775019372', 166),
 ('f3iefajlrelo8sbmqrmnekste9', '1774868887', 151),
+('f51n6fbt8fge4pdf41jjs2j7en', '1776339795', 264),
 ('f5qc88vho5v7r4d3dj0vamqlve', '1774530318', 136),
 ('favlb1o8n0vgpb6ruufl0bm1bu', '1775727557', 231),
 ('fbsoda21olvepi8h7t6s1u69pu', '1775564327', 208),
@@ -2653,16 +3020,24 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('fnm7m1rllqvldb72bldag6ci8r', '1763622318', 26),
 ('fqdu9bbq09062v0o3ctv4d9320', '1763616837', 20),
 ('g4u930js8ld829u2sl78pkfq01', '1774342884', 118),
+('g73eaohoeoh06a7pekpg47rdql', '1776231350', 245),
 ('g7q69h0b43q9v91ap0gd4v795t', '1774502944', 129),
 ('g91hb43smdvge3j1ilae9h63og', '1775708190', 225),
 ('gchkqo2rhdegb6o9a1i44q59s5', '1774263391', 111),
 ('gdoq74iccr194h4dsvldjsahq6', '1775653213', 223),
+('gi1165f2k31u66elebg4fdcvk5', '1776322065', 255),
+('gmgg46553tbsblftr7p7le074o', '1776676175', 276),
+('gn17vqi4p4odakidkqha9045mi', '1776942963', 299),
 ('h41pmhu68v28b19o43b81neilo', '1774270632', 113),
 ('h4br642b4fg79s75ehei3sh827', '1773985295', 101),
+('h4uippk7kh1o0od8fvlst4cnse', '1776946691', 300),
 ('h64ptf9dhfln54ertvk1pg059u', '1763362856', 9),
+('h84nubh1na6pktea4c6nqbk9pa', '1776420117', 271),
 ('h963bmsqvg087einhsl2jhskno', '1764752691', 46),
 ('hdm210vql22fa6ebcd4temd8hn', '1774267014', 112),
+('hncaogpbksgf9rpredspqig3mf', '1776842094', 288),
 ('hokvaio77ptmul50okf5s3pfie', '1774353066', 121),
+('hp5sah97cvntbs13g7jg0i7alb', '1776833384', 286),
 ('hudnavlrh0klmdjcgj0qkje7ea', '1762866990', 2),
 ('i02cirs1v7the78h8d6cjcc886', '1763719720', 29),
 ('i2gdlf45hcdcjvcv45ofoc6qbl', '1763542997', 16),
@@ -2671,6 +3046,7 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('iijbka8hlhqoj4l86vccr3lah2', '1773850673', 76),
 ('ijcnvi82ineu8uf5985j80jqif', '1775568013', 209),
 ('ijebap0tfpm89m3dlmhqgc7709', '1773988901', 102),
+('imgngpchjngialntqlspoqif3l', '1776765920', 283),
 ('in53feubgk9d9mi9nif55dpp2i', '1774609850', 143),
 ('ioeh417opnj86b0qq5sk68q9ql', '1775731573', 234),
 ('ipc65d6k187g4h4mmj6i4orpjt', '1774510285', 131),
@@ -2679,30 +3055,43 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('j2cvkqqdgi6jensv4d02n0jir3', '1774960824', 162),
 ('j3uh0hal5spvsui51el1s1g5uo', '1775048528', 173),
 ('j532pb1vl1fi631186837fdn4h', '1774602296', 141),
+('j6m015ll6plqala44tae9f653p', '1776326152', 259),
 ('j6nhmc8mlaiqo9315rs511p1sc', '1774963283', 164),
 ('jdf7v675t20eqgoaujoi5hs84f', '1764681864', 42),
+('jdh76660mi6vn41js0l22hoac6', '1776838275', 287),
+('jfngkn13sl99gig4ugh6o79r7n', '1776762165', 282),
 ('jod9qmc4am3v005cr2418b22hg', '1773850552', 74),
 ('jpgf8hf04uu90abnvc67cqmg9v', '1775735849', 237),
 ('jqgo1lfs010l369fi6ak58ckvn', '1763619034', 23),
 ('js2pdo0k1ohkglnnloi7mb6ml7', '1775535562', 196),
+('jujggfskegnuls39avg50r5c0h', '1776934885', 297),
 ('k2png9ur0pogd4ek2disi0l4r2', '1762864034', 1),
 ('k8obburi2tmn3g5b705tgelf1k', '1763010963', 3),
 ('kelrvq3410dd7a46gdene4cs3v', '1775637115', 216),
 ('kff6tor7c99cjjcfc1ri2g0ovf', '1774946165', 158),
 ('kir0c0nlhk6f5dtbleqaq7q7bb', '1764665322', 38),
+('kj031tfkm50873pafkijoh8752', '1776065849', 243),
+('kuf3p3uf8k02u6s435urmb04lh', '1776329892', 260),
 ('la5pcuvc7aaeh3b5kurp286aav', '1775547757', 202),
 ('lagqvtffu2ji15bo4hhkqenq0f', '1775047264', 172),
 ('lp0m3u8hg02pnf8u7g94esqtjt', '1775222521', 189),
+('lph4e8mrofh71j5ifpesv5khau', '1776059143', 240),
+('ls5rbv9o6pijh74ug4ked22gae', '1776416498', 270),
 ('m44sje02m4vjklrvoebfi1cp24', '1775136349', 181),
 ('ma0r2krmtdk49102jhb0aiqub8', '1775471735', 194),
+('mbp65hjq494iehk5vruhfl3mjn', '1776258102', 252),
 ('mgi36tmms28errh2j8hckot0se', '1773909082', 91),
+('mhup42vqhvq50r1hh2gi71l9da', '1776335673', 262),
 ('mk0qfgq81595cvluair0ndkivi', '1764737773', 43),
+('mkaauksfd3agq7s5lqh6gmqih2', '1776850999', 290),
 ('mlq89omr6ol01spajl4ef9eh59', '1775639051', 218),
 ('mm29g0m7u0olu6phpanve3l55t', '1775721357', 229),
 ('mrok7bjmuims2lpsoed2p7ahed', '1773992674', 103),
 ('munm56i7e75m6o8sue4lq8bt4u', '1775545685', 199),
 ('n0cbqi1p37j3ce5liab25vjv9s', '1763121842', 7),
+('n4afeodhqt8qespeo2ngsdar6l', '1776242352', 248),
 ('n6clt3ht6u4in2a2i2ojulnfij', '1775049523', 174),
+('ncumtgfros4av4r1i7t044m09n', '1776400169', 266),
 ('nob5nkb2k6veu6gvtruf5ptq8r', '1773896667', 82),
 ('nqtt6l649ic2j0ovsg5h4ektin', '1775196161', 184),
 ('ntfnoc25csv3c9m1ra0sn31h80', '1775197412', 185),
@@ -2712,14 +3101,22 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('or8ht9jgit3kf5s4tnt0uihqa4', '1775558458', 203),
 ('ouf1pq557ofjmb6uh42e18ugci', '1775655013', 224),
 ('p39847apkf78behufdpjrhshj6', '1773913036', 96),
+('p4ufdk5s7cmugu1g3g9rjvc0mv', '1776344294', 265),
 ('p5255d8ujkdoc2ujau3vojjkge', '1775109787', 176),
+('p5lmm9i1241bem2f6vgb2ikrl2', '1776227118', 244),
 ('p6ro3jab1vgk9g56cf3t1svc3o', '1764764318', 49),
 ('pas5hn2m049vf1jv5e1grkr454', '1773850534', 73),
+('plei5dnb6rgvhhgehtt3i1m182', '1776061258', 241),
+('pm3tcp4ijoh8r5t7p718r75iq6', '1776061306', 242),
 ('q112m2ovksb2cmr6f559mr3a68', '1763384525', 14),
+('q4rhltql1jec0mpf06ejd57pde', '1776253672', 251),
 ('q6rhah2q8jufbsq927rgq9ini3', '1764152027', 34),
 ('q9c88vkqslpqsh5n3263gg9809', '1775126779', 179),
 ('qd68i3112ki2i8o2nmhhc7dn3u', '1773912777', 94),
+('qe2s209csja4p46flgkdmvir7g', '1776858269', 292),
+('qkp7ctjop3ji502taad2p2sme2', '1776246117', 249),
 ('qm28ig0reuek2ir91i4peljrha', '1773848913', 59),
+('qp5uedirdee7huvsv00ebnsg5d', '1776314233', 253),
 ('r1djhkm0aail3h2akm9dq3s9vc', '1764756497', 47),
 ('r79rifpo4rkhl3f40hbcv5eqti', '1775026715', 168),
 ('r9dngq36qpnqc9pjgo2ejinfe5', '1774593594', 139),
@@ -2728,6 +3125,7 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('s0krjnp635sli7909bhtdo8rf6', '1775547055', 201),
 ('s2mg15fm9k8dadeobeur7h7016', '1775724972', 230),
 ('s9nq6k7sbiaqaek5rjrlhjuu5r', '1773850571', 75),
+('sbr4su2glapfk5l9sc3kd1r47b', '1776322527', 258),
 ('sg6m3t7vgilfk0ot8k8lrr3cgp', '1764678130', 41),
 ('shsq3r9tpt8tr9dsf94dl4j9sm', '1775546138', 200),
 ('sm6cve1l2i9qkjm17sb4mlq4qe', '1774525751', 135),
@@ -2738,17 +3136,25 @@ INSERT INTO `login_active` (`session`, `started_at`, `history_ref`) VALUES
 ('t3s7sc6c8ei8fk3mg3lnh0qlkq', '1774335467', 116),
 ('tf9v97e9ceabmbm3c7o0ksfrrq', '1764077963', 33),
 ('tfd2g03mnl8e982pm50ot4tr24', '1774957261', 161),
+('tk7fai7ap0us35tuhoap8cfal7', '1776249991', 250),
 ('tkgqjk4eldk6dos8kgd72h5cf5', '1775721082', 228),
 ('tlubamfvpro89ml59qdcde8qpb', '1773850377', 68),
 ('tn8covsolhrjdk7b9cg25otjhb', '1774595784', 140),
+('trqhsu7qkqdpdedd4jc738nklp', '1776403792', 267),
+('u9rcf9o37u2u64h1jgddv3f3g1', '1776754341', 281),
 ('ua3mq4olf93784vi5qnom1bevs', '1773912974', 95),
 ('ucei8rgfft7k3bnejlna030n3t', '1775467842', 192),
+('uf24r4aptp9ftr6irq4dnig3ph', '1776322451', 257),
 ('ujbgtf2t5e0kmgjj1ohd3l8uug', '1763983818', 30),
 ('uo8f5fmbr5r5nn9bse1u44beet', '1774247542', 106),
 ('uob522pn8j2eceiri2hmga930l', '1774421859', 125),
+('uu6bqu48adrppnb8gu1tb75fac', '1776411149', 269),
 ('v08b4bl6n2knfo8suuj3tb7j8c', '1774439473', 127),
 ('v184jdmrgq2t289nm1okbje1m2', '1774514171', 132),
 ('v36r4b638gk41atp6k1lkcutkn', '1763277149', 8),
+('v7sluo6fs9jonp4g351iljlhrp', '1776921781', 295),
+('vbduvjrgilku0l9bpvoi3rl06p', '1776925618', 296),
+('vbo9ilpvhgl8pt85pqelm605hu', '1776659613', 273),
 ('vqt78ep4nqg6o3n0nkok233dhf', '1773850878', 79);
 
 -- --------------------------------------------------------
@@ -3031,7 +3437,75 @@ INSERT INTO `login_attemps` (`sr_no`, `user_agent`, `user_ip`, `result`, `timest
 (259, 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1', '::1', 1, 1775731993),
 (260, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775732210),
 (261, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775735849),
-(262, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775739461);
+(262, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1775739461),
+(263, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776055493),
+(264, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776059143),
+(265, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776061258),
+(266, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776061306),
+(267, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776065849),
+(268, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776227118),
+(269, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776231350),
+(270, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776235012),
+(271, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776238723),
+(272, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776242352),
+(273, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776246117),
+(274, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776249991),
+(275, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776253672),
+(276, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', '::1', 1, 1776258102),
+(277, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776314233),
+(278, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776317875),
+(279, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776322065),
+(280, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776322370),
+(281, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776322451),
+(282, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776322527),
+(283, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776326152),
+(284, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776329892),
+(285, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776333544),
+(286, 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36', '::1', 1, 1776335673),
+(287, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776335782),
+(288, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776339795),
+(289, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776344294),
+(290, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776400169),
+(291, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776403792),
+(292, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776407511),
+(293, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776411149),
+(294, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776416498),
+(295, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776420117),
+(296, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776427954),
+(297, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776659613),
+(298, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776666407),
+(299, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776670209),
+(300, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776676175),
+(301, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776682720),
+(302, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776688337),
+(303, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776746258),
+(304, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776750119),
+(305, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776754341),
+(306, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776762165),
+(307, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776765920),
+(308, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776771005),
+(309, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '127.0.0.1', 1, 1776777365),
+(310, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776833384),
+(311, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776838275),
+(312, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776842094),
+(313, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 0, 1776847358),
+(314, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776847362),
+(315, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776850999),
+(316, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776854614),
+(317, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776858269),
+(318, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776862368),
+(319, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776918129),
+(320, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776921781),
+(321, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776925618),
+(322, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776934885),
+(323, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776939051),
+(324, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776942963),
+(325, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1776946691),
+(326, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1777005920),
+(327, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15', '::1', 1, 1777008498),
+(328, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15', '::1', 1, 1777012259),
+(329, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1777012668),
+(330, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', '::1', 1, 1777012752);
 
 -- --------------------------------------------------------
 
@@ -3290,7 +3764,75 @@ INSERT INTO `login_history` (`sr_no`, `user_id`, `session`, `login_time`, `login
 (235, 'test', '3k2iv2kh9mdu85ikkct4ivkkbn', '2026-04-09 16:23:13', '::1', 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'),
 (236, 'test', 'eapmeaisiifa38bpm78j9h9jn5', '2026-04-09 16:26:50', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
 (237, 'test', 'jpgf8hf04uu90abnvc67cqmg9v', '2026-04-09 17:27:29', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
-(238, 'test', '1jlukbhevuhinetr8rfspbr7e5', '2026-04-09 18:27:41', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36');
+(238, 'test', '1jlukbhevuhinetr8rfspbr7e5', '2026-04-09 18:27:41', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(239, 'test', '5t2o5qsl3pabbdlilsroulh57j', '2026-04-13 10:14:53', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(240, 'test', 'lph4e8mrofh71j5ifpesv5khau', '2026-04-13 11:15:43', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(241, 'test', 'plei5dnb6rgvhhgehtt3i1m182', '2026-04-13 11:50:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(242, 'test', 'pm3tcp4ijoh8r5t7p718r75iq6', '2026-04-13 11:51:46', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(243, 'test', 'kj031tfkm50873pafkijoh8752', '2026-04-13 13:07:29', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(244, 'test', 'p5lmm9i1241bem2f6vgb2ikrl2', '2026-04-15 09:55:18', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(245, 'test', 'g73eaohoeoh06a7pekpg47rdql', '2026-04-15 11:05:50', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(246, 'test', '97qsmjnn0htl6sgfaf6ml8ligf', '2026-04-15 12:06:52', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(247, 'test', '0qnoitiu6mv96tm3k6nfsvipl4', '2026-04-15 13:08:43', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(248, 'test', 'n4afeodhqt8qespeo2ngsdar6l', '2026-04-15 14:09:12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(249, 'test', 'qkp7ctjop3ji502taad2p2sme2', '2026-04-15 15:11:57', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(250, 'test', 'tk7fai7ap0us35tuhoap8cfal7', '2026-04-15 16:16:31', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(251, 'test', 'q4rhltql1jec0mpf06ejd57pde', '2026-04-15 17:17:52', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(252, 'test', 'mbp65hjq494iehk5vruhfl3mjn', '2026-04-15 18:31:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36'),
+(253, 'test', 'qp5uedirdee7huvsv00ebnsg5d', '2026-04-16 10:07:13', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(254, 'test', '0vo7qrhacdg5fojngj2qvdn42o', '2026-04-16 11:07:55', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(255, 'test', 'gi1165f2k31u66elebg4fdcvk5', '2026-04-16 12:17:45', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(256, 'test', '0eunlek5q4l2lvnjii67h3imc1', '2026-04-16 12:22:50', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(257, 'test', 'uf24r4aptp9ftr6irq4dnig3ph', '2026-04-16 12:24:11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(258, 'test', 'sbr4su2glapfk5l9sc3kd1r47b', '2026-04-16 12:25:27', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(259, 'test', 'j6m015ll6plqala44tae9f653p', '2026-04-16 13:25:52', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(260, 'test', 'kuf3p3uf8k02u6s435urmb04lh', '2026-04-16 14:28:12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36');
+INSERT INTO `login_history` (`sr_no`, `user_id`, `session`, `login_time`, `login_ip`, `user_agent`) VALUES
+(261, 'test', '0q9jnsb4tp89b3v5ora8rlf13f', '2026-04-16 15:29:04', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(262, 'test', 'mhup42vqhvq50r1hh2gi71l9da', '2026-04-16 16:04:33', '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36'),
+(263, 'test', '27gfuj5t7ncsmvosntkrd6f7n2', '2026-04-16 16:06:22', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(264, 'test', 'f51n6fbt8fge4pdf41jjs2j7en', '2026-04-16 17:13:15', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(265, 'test', 'p4ufdk5s7cmugu1g3g9rjvc0mv', '2026-04-16 18:28:14', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(266, 'test', 'ncumtgfros4av4r1i7t044m09n', '2026-04-17 09:59:29', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(267, 'test', 'trqhsu7qkqdpdedd4jc738nklp', '2026-04-17 10:59:52', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(268, 'test', 'c4johbipbs5ulh2i6jov6ohrhu', '2026-04-17 12:01:51', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(269, 'test', 'uu6bqu48adrppnb8gu1tb75fac', '2026-04-17 13:02:29', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(270, 'test', 'ls5rbv9o6pijh74ug4ked22gae', '2026-04-17 14:31:38', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(271, 'test', 'h84nubh1na6pktea4c6nqbk9pa', '2026-04-17 15:31:57', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(272, 'test', '5qccht44p1863190q4h75nackd', '2026-04-17 17:42:34', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(273, 'test', 'vbo9ilpvhgl8pt85pqelm605hu', '2026-04-20 10:03:33', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(274, 'test', 'cin7gb78goqntahpnstvqg5fou', '2026-04-20 11:56:47', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(275, 'test', '7mo25tbcdvvs6o0sfc85bvh7tn', '2026-04-20 13:00:09', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(276, 'test', 'gmgg46553tbsblftr7p7le074o', '2026-04-20 14:39:35', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(277, 'test', '086m25svtckfmdutf1lus9k533', '2026-04-20 16:28:40', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(278, 'test', '8405iq8urhpeggtk2ni0fs9sk2', '2026-04-20 18:02:17', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(279, 'test', '7qhmo0epplb3ps9e6kjo7cib9q', '2026-04-21 10:07:38', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(280, 'test', '5lkiunq0cahlsh3kkoak79ko70', '2026-04-21 11:11:59', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(281, 'test', 'u9rcf9o37u2u64h1jgddv3f3g1', '2026-04-21 12:22:21', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(282, 'test', 'jfngkn13sl99gig4ugh6o79r7n', '2026-04-21 14:32:45', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(283, 'test', 'imgngpchjngialntqlspoqif3l', '2026-04-21 15:35:20', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(284, 'test', '9s5tf407qjruk22bla0tgi3774', '2026-04-21 17:00:05', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(285, 'test', 'ep45f7dgdk5hkuem0gt4r5b09b', '2026-04-21 18:46:05', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(286, 'test', 'hp5sah97cvntbs13g7jg0i7alb', '2026-04-22 10:19:44', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(287, 'test', 'jdh76660mi6vn41js0l22hoac6', '2026-04-22 11:41:15', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(288, 'test', 'hncaogpbksgf9rpredspqig3mf', '2026-04-22 12:44:54', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(289, 'test', 'eo8iin9j9pvp032b8n3svo1il5', '2026-04-22 14:12:42', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(290, 'test', 'mkaauksfd3agq7s5lqh6gmqih2', '2026-04-22 15:13:19', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(291, 'test', '05d16nrk8noqtmk652693hifh0', '2026-04-22 16:13:34', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(292, 'test', 'qe2s209csja4p46flgkdmvir7g', '2026-04-22 17:14:29', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(293, 'test', 'e1lmv6kutbvhb7k680tl891ffq', '2026-04-22 18:22:48', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(294, 'test', '40feoqmqmpb2c6ghrdub6q0ovs', '2026-04-23 09:52:09', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(295, 'test', 'v7sluo6fs9jonp4g351iljlhrp', '2026-04-23 10:53:01', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(296, 'test', 'vbduvjrgilku0l9bpvoi3rl06p', '2026-04-23 11:56:58', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(297, 'test', 'jujggfskegnuls39avg50r5c0h', '2026-04-23 14:31:25', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(298, 'test', '0bbh7ds4vg40js12pe0rue303t', '2026-04-23 15:40:51', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(299, 'test', 'gn17vqi4p4odakidkqha9045mi', '2026-04-23 16:46:03', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(300, 'test', 'h4uippk7kh1o0od8fvlst4cnse', '2026-04-23 17:48:11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(301, 'test', '92lbn1bjjo70r6tg1rblj6i0a2', '2026-04-24 10:15:20', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(302, 'test', 'dhus4nei3srhaqk6lrdd2k9acu', '2026-04-24 10:58:18', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15'),
+(303, 'test', '01qchuc5osclj2ok70bkf00pv5', '2026-04-24 12:00:59', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15'),
+(304, 'test', '800qa5v73e0lsk3nj5ig3k17q6', '2026-04-24 12:07:48', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'),
+(305, 'test', 'ciei54ftlk1a88i6lo9hhk62dm', '2026-04-24 12:09:12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36');
 
 -- --------------------------------------------------------
 
@@ -3325,17 +3867,15 @@ CREATE TABLE `operation_rights` (
 --
 
 INSERT INTO `operation_rights` (`id`, `userid`, `tabid`, `maintab`, `subtab`, `add_rgt`, `edit_rgt`, `view_rgt`, `cancel_rgt`, `print_rgt`, `download_rgt`, `approval_rgt`, `approval_rgt2`, `approval_rgt3`, `block_from`, `block_to`, `block_add`, `block_edit`, `block_price`) VALUES
-(1, 'test', 1, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N', '', '', '2026-04-02', '2026-04-02', '', '', 'N'),
-(2, 'test', 292, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
-(3, 'test', 290, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
-(4, 'test', 204, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(5, 'test', 119, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(6, 'test', 293, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
-(7, 'test', 65, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(8, 'test', 189, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(9, 'test', 197, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(10, 'test', 294, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
-(11, 'test', 295, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y');
+(1, 'test', 1, '1', NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0000-00-00', '0000-00-00', '', '', 'N'),
+(2, 'test', 296, NULL, NULL, 'N', 'N', 'Y', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(3, 'test', 297, NULL, NULL, 'N', 'N', 'Y', 'N', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(4, 'test', 294, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(5, 'test', 292, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(6, 'test', 290, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(7, 'test', 293, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '', '', '0000-00-00', '0000-00-00', '', '', 'Y'),
+(8, 'OKAYAUSR002', 292, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N'),
+(9, 'OKAYAUSR002', 290, NULL, NULL, 'Y', 'Y', 'Y', 'Y', 'N', 'N', 'N', '', '', '0000-00-00', '0000-00-00', '', '', 'N');
 
 -- --------------------------------------------------------
 
@@ -3758,7 +4298,9 @@ INSERT INTO `tab_master` (`tabid`, `subtabname`, `subtabicon`, `subtabseq`, `mai
 (292, 'FMS ', 'fa-users', 1, 'Masters', 'fa-database', 1, 'fms_view', '', 'admin', 1),
 (293, 'Role Master', 'fa-users', 1, 'Masters', 'fa-database', 1, 'role_master', '', 'admin', 1),
 (294, 'Dropdown Master', 'fa-users', 1, 'Masters', 'fa-database', 1, 'dropdown_master', '', 'admin', 1),
-(295, 'Table  Master', 'fa-users', 1, 'Masters', 'fa-database', 1, 'table_master', '', 'admin', 1);
+(295, 'Table  Master', 'fa-users', 1, 'Masters', 'fa-database', 1, 'table_master', '', 'admin', 1),
+(296, 'FMS Analysis', 'fa-users', 1, 'Dashoard', 'fa-database', 2, 'fms_analysis', '', 'admin', 1),
+(297, 'Form Analysis', 'fa-users', 1, 'Dashoard', 'fa-database', 2, 'form_analysis', '', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -3794,7 +4336,8 @@ INSERT INTO `usertype_master` (`id`, `typename`, `utype`, `refid`, `status`) VAL
 (13, 'Manu', 'Admin', 13, 'A'),
 (14, 'sccd', 'dcsd', 14, 'A'),
 (15, 'csd', 'sd', 15, 'A'),
-(16, 'scddsfffs', 'sdfsddcdsdf', 16, 'A');
+(16, 'scddsfffs', 'sdfsddcdsdf', 16, 'A'),
+(17, 'Subordinate', 'Subordinate', 17, 'A');
 
 --
 -- Indexes for dumped tables
@@ -3843,6 +4386,18 @@ ALTER TABLE `audit_trial`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `charts_master`
+--
+ALTER TABLE `charts_master`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chart_operation`
+--
+ALTER TABLE `chart_operation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `city_master`
 --
 ALTER TABLE `city_master`
@@ -3854,6 +4409,12 @@ ALTER TABLE `city_master`
 -- Indexes for table `daily_activities`
 --
 ALTER TABLE `daily_activities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dashboard_master`
+--
+ALTER TABLE `dashboard_master`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3869,57 +4430,33 @@ ALTER TABLE `dropdown_master`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dv0_dscdc_master`
+-- Indexes for table `dv0_booking_system_master`
 --
-ALTER TABLE `dv0_dscdc_master`
+ALTER TABLE `dv0_booking_system_master`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dv0_manudkbsdkjbc_master`
+-- Indexes for table `fms_ecommerce_fms`
 --
-ALTER TABLE `dv0_manudkbsdkjbc_master`
+ALTER TABLE `fms_ecommerce_fms`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dy0_fms_adminuser_master`
+-- Indexes for table `fms_food_delivery`
 --
-ALTER TABLE `dy0_fms_adminuser_master`
+ALTER TABLE `fms_food_delivery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dy0_fms_ecommerce_master`
+-- Indexes for table `fms_inventory_erp_systems`
 --
-ALTER TABLE `dy0_fms_ecommerce_master`
+ALTER TABLE `fms_inventory_erp_systems`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dy0_sdds_master`
+-- Indexes for table `fms_learning_management_system`
 --
-ALTER TABLE `dy0_sdds_master`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_adminuser`
---
-ALTER TABLE `fms_adminuser`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_dcsdefvfvfvfdv`
---
-ALTER TABLE `fms_dcsdefvfvfvfdv`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_ecommerce`
---
-ALTER TABLE `fms_ecommerce`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_fms_dscdc`
---
-ALTER TABLE `fms_fms_dscdc`
+ALTER TABLE `fms_learning_management_system`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3930,27 +4467,15 @@ ALTER TABLE `fms_master`
   ADD KEY `category` (`category`);
 
 --
--- Indexes for table `fms_o2d`
+-- Indexes for table `fms_recruitment_system`
 --
-ALTER TABLE `fms_o2d`
+ALTER TABLE `fms_recruitment_system`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `fms_organization`
+-- Indexes for table `fms_testing_manu`
 --
-ALTER TABLE `fms_organization`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_sdds`
---
-ALTER TABLE `fms_sdds`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `fms_xyz`
---
-ALTER TABLE `fms_xyz`
+ALTER TABLE `fms_testing_manu`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4026,31 +4551,43 @@ ALTER TABLE `usertype_master`
 -- AUTO_INCREMENT for table `access_fms`
 --
 ALTER TABLE `access_fms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `access_role_tab`
 --
 ALTER TABLE `access_role_tab`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `access_tab`
 --
 ALTER TABLE `access_tab`
-  MODIFY `sno` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2523;
+  MODIFY `sno` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `audit_trial`
 --
 ALTER TABLE `audit_trial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+
+--
+-- AUTO_INCREMENT for table `charts_master`
+--
+ALTER TABLE `charts_master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `chart_operation`
+--
+ALTER TABLE `chart_operation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `city_master`
@@ -4062,121 +4599,91 @@ ALTER TABLE `city_master`
 -- AUTO_INCREMENT for table `daily_activities`
 --
 ALTER TABLE `daily_activities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=381;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=497;
+
+--
+-- AUTO_INCREMENT for table `dashboard_master`
+--
+ALTER TABLE `dashboard_master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `dropdown_master`
 --
 ALTER TABLE `dropdown_master`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `dv0_dscdc_master`
+-- AUTO_INCREMENT for table `dv0_booking_system_master`
 --
-ALTER TABLE `dv0_dscdc_master`
+ALTER TABLE `dv0_booking_system_master`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dv0_manudkbsdkjbc_master`
+-- AUTO_INCREMENT for table `fms_ecommerce_fms`
 --
-ALTER TABLE `dv0_manudkbsdkjbc_master`
+ALTER TABLE `fms_ecommerce_fms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dy0_fms_adminuser_master`
+-- AUTO_INCREMENT for table `fms_food_delivery`
 --
-ALTER TABLE `dy0_fms_adminuser_master`
+ALTER TABLE `fms_food_delivery`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dy0_fms_ecommerce_master`
+-- AUTO_INCREMENT for table `fms_inventory_erp_systems`
 --
-ALTER TABLE `dy0_fms_ecommerce_master`
+ALTER TABLE `fms_inventory_erp_systems`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `dy0_sdds_master`
+-- AUTO_INCREMENT for table `fms_learning_management_system`
 --
-ALTER TABLE `dy0_sdds_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fms_adminuser`
---
-ALTER TABLE `fms_adminuser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `fms_dcsdefvfvfvfdv`
---
-ALTER TABLE `fms_dcsdefvfvfvfdv`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fms_ecommerce`
---
-ALTER TABLE `fms_ecommerce`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fms_fms_dscdc`
---
-ALTER TABLE `fms_fms_dscdc`
+ALTER TABLE `fms_learning_management_system`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fms_master`
 --
 ALTER TABLE `fms_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `fms_o2d`
+-- AUTO_INCREMENT for table `fms_recruitment_system`
 --
-ALTER TABLE `fms_o2d`
+ALTER TABLE `fms_recruitment_system`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fms_organization`
+-- AUTO_INCREMENT for table `fms_testing_manu`
 --
-ALTER TABLE `fms_organization`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `fms_sdds`
---
-ALTER TABLE `fms_sdds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fms_xyz`
---
-ALTER TABLE `fms_xyz`
+ALTER TABLE `fms_testing_manu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `form_master`
 --
 ALTER TABLE `form_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `login_attemps`
 --
 ALTER TABLE `login_attemps`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=331;
 
 --
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
 
 --
 -- AUTO_INCREMENT for table `operation_rights`
 --
 ALTER TABLE `operation_rights`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `parameter_type`
@@ -4200,13 +4707,13 @@ ALTER TABLE `status_master`
 -- AUTO_INCREMENT for table `tab_master`
 --
 ALTER TABLE `tab_master`
-  MODIFY `tabid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+  MODIFY `tabid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
 
 --
 -- AUTO_INCREMENT for table `usertype_master`
 --
 ALTER TABLE `usertype_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
