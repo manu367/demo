@@ -1,19 +1,62 @@
 <?php
 require_once("../includes/config.php");
-if(isset($_REQUEST['chart'])){
-    $sql="select id,chart_name,chart_type,attribute,operations from charts_master where status='1'";
-    $result=mysqli_query($link1,$sql);
-    if(!$result && mysqli_num_rows($result)==0){
-       echo "No result";
+global $link1;
+header("Content-Type: application/json");
+
+
+if(isset($_GET['chart_type'])){
+
+    if ($_REQUEST['chart_type'] === "") {
+        responseSender(false, "Empty chart type");
     }
-    $data=[];
-    while ($row=mysqli_fetch_assoc($result)) {
-        $data[]=$row;
+
+    $chartType = mysqli_real_escape_string($link1, $_GET['chart_type']);
+
+    $sql = "SELECT operations FROM charts_master WHERE chart_type='$chartType' AND status='1'";
+    $result = mysqli_query($link1, $sql);
+
+    if (!$result) {
+        responseSender(false, "Database error: " . mysqli_error($link1));
     }
-    echo json_encode($data);
+
+    $row = mysqli_fetch_assoc($result);
+
+    if (!$row) {
+        responseSender(false, "No chart found");
+    }
+
+// 🔹 Decode operations
+    $operations = json_decode($row['operations'], true);
+
+    if (!is_array($operations) || count($operations) === 0) {
+        responseSender(false, "No operations found");
+    }
+
+// 🔹 Step 2: Fetch operation details
+    $finalData = [];
+
+    foreach ($operations as $opId) {
+
+        $opId = mysqli_real_escape_string($link1, $opId);
+
+        $sql = "SELECT id, operation FROM chart_operation WHERE id='$opId' AND status='1'";
+        $res = mysqli_query($link1, $sql);
+
+        if ($res && $row = mysqli_fetch_assoc($res)) {
+            $finalData[] = $row;
+        }
+    }
+
+// 🔹 Final response
+    responseSender(true, $finalData);
+
 }
 
 
-
-header("Content-type: application/json");
-exit();
+function responseSender($status, $data) {
+    echo json_encode([
+        "status" => $status,
+        "data" => $data
+    ]);
+    exit();
+}

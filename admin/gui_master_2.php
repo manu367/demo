@@ -1,5 +1,6 @@
 <?php
 require_once("../includes/config.php");
+global $link1;
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $errormsg=$e->getMessage();
@@ -7,6 +8,57 @@ set_exception_handler(function($e){
         exit;
     }
 });
+function loadChartOperations_Gui($link1, $operationsId) {
+
+    $sql = "SELECT operation FROM chart_operation WHERE id = $operationsId AND status = 1";
+    $result = mysqli_query($link1, $sql);
+    if (!$result) {
+        throw new Exception(mysqli_error($link1));
+    }
+    if ($row = mysqli_fetch_assoc($result)) {
+        return $row['operation'];
+    }
+    return null;
+}
+$response=[];
+$response['pid']=$_REQUEST['pid'];
+$response['hid']=$_REQUEST['hid'];
+$response['id']=$_REQUEST['id'];
+if(isset($_REQUEST['id']) && $_REQUEST['id']!==""){
+    $flag=true;
+    $data=getFMsbyid($link1,$_REQUEST['id']);
+}
+$hide=false;
+$msg=null;
+if(isset($_POST['submit'])){
+    $charttyle=$_POST['charttype'];
+    $charttitle=$_POST['charttitle'];
+    $chartsubtitle=$_POST['chartsubtitle'];
+    $x_axis_label=$_POST['x_axis_label'];
+    $y_axis_label=$_POST['y_axis_label'];
+
+    $x_axis_param=$_POST['x_axis_param'];
+    $y_axis_param=$_POST['y_axis_param'];
+    $group_operations=$_POST['group_operations'];
+    $chart_alignment=$_POST['chart_alignment'];
+    $hide=true;
+    $msg="Changes saved successfully";
+
+}
+if(isset($_POST['preview_button'])){
+    $x_axis_param=$_POST['x_axis_param'];
+    $y_axis_param=$_POST['y_axis_param'];
+    $create_method=$_REQUEST['charttype'].'_'.loadChartOperations_Gui($link1,$_REQUEST['group_operations']);
+    $create_method=$create_method.'_Chart';
+    $report_data=[];
+    $report_data['fms_id']=$_REQUEST['fms_id'];
+    $report_data['from_date']=$_POST['from_date'];
+    $report_data['to_date']=$_POST['to_date'];
+    $report_data['x_axis_param']=$_POST['x_axis_param'];
+    $report_data['y_axis_param']=$_POST['y_axis_param'];
+    $data_create_method=dynamicBinding($create_method,$link1,$report_data);
+    var_dump($data_create_method);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +68,13 @@ set_exception_handler(function($e){
     <title>Responsive Layout</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/12.6.0/highstock.js"></script>
+
+    <script src="../js/chartobserver.js"></script>
     <style>
         /* Smooth scrollbar */
         ::-webkit-scrollbar {
@@ -32,10 +91,6 @@ set_exception_handler(function($e){
             background: rgba(100,100,100,0.7);
         }
     </style>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/maps/12.6.0/highmaps.js"></script>
-    <script src="https://code.highcharts.com/stock/12.6.0/highstock.js"></script>
-    <script src="../js/gui_master.js"></script>
 </head>
 <body class="h-screen overflow-hidden bg-gray-100">
 
@@ -63,8 +118,19 @@ set_exception_handler(function($e){
     <!-- Main Content -->
     <!-- Main Content -->
     <div class="flex-1 overflow-y-auto p-4 md:p-6">
-        <h2 class="text-2xl font-bold mb-6">Chart Panel</h2>
+        <h2 class="text-2xl font-bold mb-6"><?=$data['fmsname']?> Chart Panel</h2>
+        <?php
+        if($msg){
+            ?>
+            <div class="mb-4 flex items-center justify-between rounded-lg bg-green-100 border border-green-300 text-green-800 px-4 py-3">
+                <span>Changes saved successfully.</span>
 
+                <a href="fms_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>"
+                   class="ml-4 px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 transition">
+                    ← Back
+                </a>
+            </div>
+        <?php } ?>
         <!-- Chart Card -->
         <div class="bg-white rounded-2xl shadow-md p-4 md:p-6 w-full max-w-5xl mx-auto">
             <div id="container" class="w-full h-[400px] md:h-[500px]"></div>
@@ -72,90 +138,228 @@ set_exception_handler(function($e){
     </div>
 
     <!-- Sidebar (Desktop) -->
-    <aside class="hidden md:block w-80 bg-gray-800 h-full overflow-y-auto p-6 text-white shadow-xl">
+    <aside class="hidden md:block w-80 bg-gray-800 h-full overflow-visible overflow-y-auto p-6 text-white shadow-xl">
 
         <h2 class="text-xl font-semibold mb-6 border-b border-gray-600 pb-2">
             Chart Config Panel
         </h2>
+        <form action="" method="post" id="form1">
+            <input type="hidden" name="fms_id" value="<?=$data['id']?>">
+            <div class="space-y-5">
 
-        <div class="space-y-5">
-
-            <!-- Chart Type -->
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">Chart Type</label>
-                <select id="charttype" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>-- Select Chart Type --</option>
-                </select>
-            </div>
-
-            <!-- Chart Title -->
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">Chart Title</label>
-                <input type="text" id="charttitle" placeholder="Enter chart title"
-                       class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">X-Axis Label</label>
-                <input type="text" id="x_axis_label" placeholder="Enter chart title"
-                       class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">Y-Axis Label</label>
-                <input type="text" id="y_axis_label" placeholder="Enter chart title"
-                       class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <!-- Parameters -->
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">X-Axis Parameter</label>
-                <select id="x_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>-- Select Parameter --</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-sm mb-1 text-gray-300">Y-Axis Parameter</label>
-                <select id="y_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>-- Select Parameter --</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-
-            <!-- Divider -->
-            <div class="border-t border-gray-600 pt-4 space-y-4">
-
-                <!-- Alignment -->
+                <!-- Chart Type -->
                 <div>
-                    <label class="block text-sm mb-1 text-gray-300">Alignment</label>
-                    <select id="chart_alignment" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>-- Select Alignment --</option>
-                        <option>Left</option>
-                        <option>Center</option>
-                        <option>Right</option>
+                    <?php
+                    $selected_chart = $charttyle ?? '';
+                    $disableSelect = !empty($selected_chart) ? 'disabled' : '';
+                    ?>
+                    <label class="block text-sm mb-1 text-gray-300">Chart Type</label>
+                    <select style="text-transform: capitalize" <?=$disableSelect?> id="charttype" name="charttype"  required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>-- Select Chart Type --</option>
+                        <?php
+                        $sql = "SELECT * FROM charts_master WHERE status='1'";
+                        $result = mysqli_query($link1, $sql);
+                        while($row = mysqli_fetch_assoc($result)) {
+                            $selected = ($selected_chart == $row['chart_type']) ? 'selected' : '';
+                            $isDisabled = ($selected_chart == $row['chart_type']) ? 'disabled' : '';
+
+                            echo "<option value='".$row['chart_type']."' $selected>".$row['chart_name']."</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
-                <!-- Color -->
+                <!-- Chart Title -->
                 <div>
-                    <label class="block text-sm mb-1 text-gray-300">Theme Color</label>
-                    <input id="chart_color" type="color"
-                           class="w-full h-10 p-1 rounded-lg bg-gray-700 border border-gray-600 cursor-pointer">
+                    <label class="block text-sm mb-1 text-gray-300">Chart Title</label>
+                    <input type="text" id="charttitle" name="charttitle" value="<?=$charttitle??''?>" <?=$charttitle?'disabled':''?>
+                           placeholder="Enter chart title"
+                           class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <!--                chart subtitile-->
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">Chart Subtitle</label>
+                    <input type="text" id="chartsubtitle" name="chartsubtitle" value="<?=$chartsubtitle??''?>" <?=$chartsubtitle?'disabled':''?> placeholder="Subtitle of Chart"
+                           class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
+                <!--                x-axis label name-->
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">X-Axis Label</label>
+                    <input type="text" id="x_axis_label" name="x_axis_label" value="<?=$x_axis_label??''?>" <?=$x_axis_label?'disabled':''?> placeholder="X-axis Name"
+                           class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+
+                <!--                Y-axis name-->
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">Y-Axis Label</label>
+                    <input type="text" id="y_axis_label" name="y_axis_label" value="<?=$y_axis_label??''?>" <?=$y_axis_label?'disabled':''?> placeholder="Y-axis Name"
+                           class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Parameters -->
+                <div>
+                    <?php
+                    $x_axis_param_selected = $_REQUEST['x_axis_param'] ?? '';
+                    $x_axis_param_disabled=!empty($x_axis_param_selected)?'disabled':'';
+                    ?>
+                    <label class="block text-sm mb-1 text-gray-300">X-Axis Parameter</label>
+                    <select <?=$x_axis_param_disabled?> style="text-transform: capitalize" id="x_axis_param" name="x_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>-- Select Parameter --</option>
+                        <?php
+                        $tablename = mysqli_real_escape_string($link1, $data['table_name'] ?? '');
+                        $exclude = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
+                        $sql = "SHOW COLUMNS FROM `$tablename`";
+                        $result = mysqli_query($link1, $sql);
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $col = $row['Field'];
+                                if (!in_array($col, $exclude)) {
+                                    $isSelected = ($x_axis_param_selected === $col) ? 'selected' : '';
+                                    echo "<option value='$col' $isSelected>$col</option>";
+                                }
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <?php
+                ?>
+                <div>
+                    <?php
+                    $y_axis_param_selected = $_REQUEST['y_axis_param'] ?? '';
+                    $y_axis_param_disabled=!empty($y_axis_param_selected)?'disabled':'';
+                    ?>
+                    <label class="block text-sm mb-1 text-gray-300">Y-Axis Parameter</label>
+                    <select <?=$y_axis_param_disabled?> style="text-transform: capitalize" id="y_axis_param" name="y_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>-- Select Parameter --</option>
+                        <?php
+                        $tablename = mysqli_real_escape_string($link1, $data['table_name'] ?? '');
+
+                        $exclude = ['id', 'created_date', 'update_date', 'updated_by', 'updated_ip'];
+
+                        $sql = "SHOW COLUMNS FROM `$tablename`";
+                        $result = mysqli_query($link1, $sql);
+
+                        if ($result) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $col = $row['Field'];
+
+                                if (!in_array($col, $exclude)) {
+                                    $isSelected = ($y_axis_param_selected === $col) ? 'selected' : '';
+                                    echo "<option value='$col' $isSelected>$col</option>";
+                                }
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+
+
+                <div class="space-y-4">
+
+                    <!-- Date Range Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <!-- From Date -->
+                        <div>
+                            <label class="block text-sm mb-1 text-gray-300">From Date</label>
+                            <input type="date" id="from_date" name="from_date"
+                                   class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <!-- To Date -->
+                        <div>
+                            <label class="block text-sm mb-1 text-gray-300">To Date</label>
+                            <input type="date" id="to_date" name="to_date"
+                                   class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">Group Operations</label>
+                    <select style="text-transform: capitalize" id="group_operations" name="group_operations" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>-- Select Parameter --</option>
+                        <?php
+                        if(isset($group_operations)){
+                            echo "<option value='$group_operations' selected>$group_operations</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+
+                <div style="display: none">
+                    <label class="block text-sm mb-1 text-gray-300">Filter Month (2026) </label>
+                    <select id="filter_month"
+                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Months</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+
+                <!-- Divider -->
+                <div class="border-t border-gray-600 pt-4 space-y-4">
+
+                    <!-- Alignment -->
+                    <div>
+                        <label class="block text-sm mb-1 text-gray-300">Alignment</label>
+                        <?php
+                        $selected = $chart_alignment??'';
+                        $select=!empty($selected)?'selected':'';
+                        $isDisabled=!empty($selected)?'disabled':'';
+
+                        ?>
+                        <select <?=$isDisabled?> id="chart_alignment" name="chart_alignment" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">-- Select Alignment --</option>
+                            <option value="left" <?=$select?>>Left</option>
+                            <option value="center" <?=$select?>>Center</option>
+                            <option value="right" <?=$select?>>Right</option>
+                        </select>
+                    </div>
+
+                    <!-- Color -->
+                    <div>
+                        <label class="block text-sm mb-1 text-gray-300">Theme Color</label>
+                        <input id="chart_color" type="color"
+                               class="w-full h-10 p-1 rounded-lg bg-gray-700 border border-gray-600 cursor-pointer">
+                    </div>
+
+                </div>
+
+                <!-- Button -->
+                <?php
+                if(!$hide){
+                    echo '
+                        <div style="display: flex;flex-direction: row;justify-content: space-around;">
+                        <button type="submit" id="preview_button" name="preview_button" class="mx-2 w-full mt-4 bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-medium">
+                         Preview
+                    </button>
+                    <button type="submit" id="save" name="submit" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-medium mx-2">
+                         Save
+                    </button>
+</div>
+                        ';
+                }
+                ?>
+
             </div>
-
-            <!-- Button -->
-            <button class="w-full mt-4 bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-medium">
-                Apply Changes
-            </button>
-
-        </div>
+        </form>
 
     </aside>
 
@@ -189,7 +393,37 @@ set_exception_handler(function($e){
             closeMenu();
         }
     });
+    document.getElementById("preview_button").addEventListener("click", (e) => {
+        const type_of_chart_local = document.getElementById("charttype").value;
+        const x_axis_param_local = document.getElementById("x_axis_param").value;
+        const y_axis_param_local = document.getElementById("y_axis_param").value;
+        const group_operation_local = document.getElementById("group_operations").value;
+
+        if (
+            !type_of_chart_local ||
+            !x_axis_param_local ||
+            !y_axis_param_local ||
+            !group_operation_local
+        ) {
+            e.preventDefault();
+            alert("Please select all fields before proceeding.");
+            return;
+        }
+        // if everything is selected → form will proceed normally
+    });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded",function (){
+        console.log(Highcharts.charts);
+        const wrapper=new DataWrapper();
+        wrapper.charttype="<?=$_REQUEST['charttype']??''?>";
+        wrapper.chartTitle="<?=$_REQUEST['charttitle']??''?>";
+        wrapper.chartSubtitle="<?=$_REQUEST['chartsubtitle']??''?>";
+        wrapper.xAxisLabel="<?=$_REQUEST['x_axis_label']??''?>";
+        wrapper.yAxisLabel="<?=$_REQUEST['y_axis_label']??''?>"
+        SingleTonInstanceHightChart.renderChart(Highcharts,wrapper);
+    });
+</script>
 </body>
 </html>

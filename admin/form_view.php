@@ -43,26 +43,15 @@ function fileUpload($field){
     return false;
 }
 
-//function fileUpload($field){
-//    if(isset($_FILES[$field]) && $_FILES[$field]['error'] == 0){
-//        $fileName = $_FILES[$field]['name'];
-//        $tmpName  = $_FILES[$field]['tmp_name'];
-//        $fileSize = $_FILES[$field]['size'];
-//        if($fileSize > 6 * 1024 * 1024){
-//            die("File too large");
-//        }
-//        $uploadDir = "../upload_fms_file/";
-//        $newName = time() . "_" . basename($fileName);
-//        $destination = $uploadDir . $newName;
-//        if(move_uploaded_file($tmpName, $destination)){
-//            return $uploadDir.$newName;
-//        }
-//    }
-//    return false;
-//}
 
 require_once("../includes/config.php");
 global $link1;
+
+set_exception_handler(function ($e){
+    $msg=$e->getMessage();
+    header("location:form_view.php?$msg");
+    exit();
+});
 
 $formview=new FormView($link1);
 $data=[];
@@ -71,43 +60,60 @@ if(isset($_REQUEST['formid'])){
     $data=$formview->loadform($formid);
     $fms_de=fmsloading($link1,$data['fms_id']);
 }
+
+$param=[];
+$param['pid']=$_REQUEST['pid'];
+$param['hid']=$_REQUEST['hid']??'';
+$param['formid']=$_REQUEST['formid']??'';
+
 if(isset($_POST['save'])){
+    try{
+        $data=$formview->loadform($formid);
+        $total=count(json_decode($data['parameter_name']));
+        $parameter[]=json_decode($data['parameter_name'],true);
 
-    $data=$formview->loadform($formid);
-    $total=count(json_decode($data['parameter_name']));
-    $parameter[]=json_decode($data['parameter_name'],true);
-
-    $parameter_1=$parameter[0];
-    $data_save=[];
-    for($i=0;$i<$total;$i++){
-        $fieldName = $parameter_1[$i];
-        $uploadedFile = fileUpload($fieldName);
-        if($uploadedFile !== false){
-            $data_save[] = $uploadedFile;
-        } else {
-            $data_save[] = $_POST[$fieldName] ?? '';
+        $parameter_1=$parameter[0];
+        $data_save=[];
+        for($i=0;$i<$total;$i++){
+            $fieldName = $parameter_1[$i];
+            $uploadedFile = fileUpload($fieldName);
+            if($uploadedFile !== false){
+                $data_save[] = $uploadedFile;
+            } else {
+                $data_save[] = $_POST[$fieldName] ?? '';
+            }
         }
-    }
 
-    $parameter_1[]="updated_by";
-    $parameter_1[]="updated_ip";
+        $parameter_1[]="updated_by";
+        $parameter_1[]="updated_ip";
 
-    $data_save[]=$_SESSION['userid'];
-    $data_save[]=$_SERVER['REMOTE_ADDR'];
+        $data_save[]=$_SESSION['userid'];
+        $data_save[]=$_SERVER['REMOTE_ADDR'];
 
-    $save=$formview->saveDataintable($_POST['table_name'],$parameter_1,$data_save);
+        $save=$formview->saveDataintable($_POST['table_name'],$parameter_1,$data_save);
 
-    if($save){
-        operationtracker($link1,$_SESSION['userid'],'form_view',"Add form data",'ADD',$_SERVER['REMOTE_ADDR']);
-        $tablename=$_POST['table_name'];
-        header("location:fms_view.php?msg=saved data successfully in $tablename table");
-        exit();
-    }
-    else{
-        throw new GlobalException("Data is not saved");
+        if($save){
+            operationtracker($link1,$_SESSION['userid'],'form_view',"Add form data",'ADD',$_SERVER['REMOTE_ADDR']);
+            $tablename=$_POST['table_name'];
+            $param['msg']='Successfully Saved data in '.$tablename;
+            $param['type']='success';
+            $param=http_build_query($param);
+            header("location:form_view.php?$param");
+            exit();
+        }
+        else{
+            $param['msg']='Data is not saved';
+            $param['type']='error';
+            $param=http_build_query($param);
+            throw new GlobalException($param);
+        }
+    }catch (Exception $e){
+        $param['msg']=$e->getMessage();
+        $param['type']='error';
+        $param=http_build_query($param);
+        throw new GlobalException($param);
     }
 }
-
 $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQUEST['pid']);
 ?>
 <!DOCTYPE html>
@@ -221,8 +227,65 @@ $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQ
     </style>
     <link href="https://unpkg.com/cropperjs/dist/cropper.min.css" rel="stylesheet"/>
     <script src="https://unpkg.com/cropperjs"></script>
+    <style>
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: green;
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 250px;
+            max-width: 300px;
+
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .toast.show {
+            right: 20px;
+            opacity: 1;
+        }
+
+        .toast .icon {
+            font-size: 18px;
+        }
+
+        .toast .message {
+            flex: 1;
+        }
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: #fff;
+            animation: progress 50s linear;
+        }
+
+        @keyframes progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+    </style>
 </head>
 <body>
+<?php
+if(isset($_REQUEST['msg']) && isset($_REQUEST['type'])){
+    $type=$_REQUEST['type']==='error'?'error':'success';
+    echo showToastUI($_REQUEST['msg'],$type);
+}
+?>
 
 <div class="container-fluid">
     <div class="row content">
@@ -234,23 +297,23 @@ $isPermission=PermissionManager::checkaddRights($link1,$_SESSION['userid'],$_REQ
             <div class="form-group"  id="page-wrap" style="margin-left:10px;" >
                 <?php
                 if($isPermission){
-                ?>
-                <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                    <input name="fmsid" value="<?=$fms_de['id']?>" type="hidden"/>
-                    <input name="fmsname" value="<?=$fms_de['fmsname']?>" type="hidden"/>
-                    <input name="table_name" value="<?=$fms_de['table_name']?>" type="hidden"/>
-                    <input name="formid_value_h" value="<?=$data['id']?>" type="hidden"/>
-                    <?php
-                    $formview->viewFrom($data);
                     ?>
+                    <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        <input name="fmsid" value="<?=$fms_de['id']?>" type="hidden"/>
+                        <input name="fmsname" value="<?=$fms_de['fmsname']?>" type="hidden"/>
+                        <input name="table_name" value="<?=$fms_de['table_name']?>" type="hidden"/>
+                        <input name="formid_value_h" value="<?=$data['id']?>" type="hidden"/>
+                        <?php
+                        $formview->viewFrom($data);
+                        ?>
 
-                    <div class="text-center mt-5">
-                        <button type="submit" name="save" class="btn btn-primary">Add</button>
-                        <span  class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=292&hid=Masters'"><span id="operation_name">Cancel</span</span>
-                    </div>
-                </form>
+                        <div class="text-center mt-5">
+                            <button type="submit" name="save" class="btn btn-primary">Add</button>
+                            <span  class="btn btn-primary" onclick="window.location.href='fms_view.php?pid=292&hid=Masters'"><span id="operation_name">Cancel</span</span>
+                        </div>
+                    </form>
                 <?php }else{
-                ?>
+                    ?>
                     <div class="d-flex justify-content-center align-items-center" style="height:70vh;">
                         <div class="card shadow-lg text-center" style="max-width: 420px; border-radius:15px;">
                             <div class="card-body">
@@ -350,6 +413,17 @@ include("../includes/connection_close.php");
     done.addEventListener("click", () => {
         modal.classList.add("hidden");
     });
+</script>
+<script>
+    function ChartProperties(){
+        this.title=null;
+        this.subtitle=null;
+        this.xAxisLabel=null;
+        this.yAxisLabel=null;
+        this.xAxisValue=null;
+        this.yAxisValue=null;
+        this.alignement=null;
+    }
 </script>
 </body>
 </html>

@@ -9,6 +9,8 @@ function dynamicBinding($functionName, ...$params) {
         throw new Exception("Function '{$functionName}' does not exist");
     }
 }
+
+
 function count_Chart($fms_id){
     return [
         ["name" => "Count Data 1", "data" => [10, 20, 30, 40]],

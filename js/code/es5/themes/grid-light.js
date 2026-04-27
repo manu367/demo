@@ -1,0 +1,11 @@
+!/**
+ * Highcharts JS v12.6.0 (2026-04-13)
+ * @module highcharts/themes/grid-light
+ * @requires highcharts
+ *
+ * (c) 2009-2026 Highsoft AS
+ * Author: Torstein Hønsi
+ *
+ * A commercial license may be required depending on use.
+ * See www.highcharts.com/license
+ */function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t(e._Highcharts):"function"==typeof define&&define.amd?define("highcharts/themes/grid-light",["highcharts/highcharts"],function(e){return t(e)}):"object"==typeof exports?exports["highcharts/themes/grid-light"]=t(e._Highcharts):e.Highcharts=t(e.Highcharts)}("u"<typeof window?this:window,function(e){return function(){"use strict";var t,o,r={944:function(t){t.exports=e}},n={};function i(e){var t=n[e];if(void 0!==t)return t.exports;var o=n[e]={exports:{}};return r[e](o,o.exports,i),o.exports}i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,{a:t}),t},i.d=function(e,t){for(var o in t)i.o(t,o)&&!i.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:t[o]})},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)};var s={};i.d(s,{default:function(){return h}});var a=i(944),c=i.n(a),l=c().doc;c().win;function f(e,t){var o;for(o in e||(e={}),t)e[o]=t[o];return e}Array.prototype.find;var p=c().setOptions;(t=o||(o={})).options={colors:["#7cb5ec","#f7a35c","#90ee7e","#7798BF","#aaeeee","#ff0066","#eeaaee","#55BF3B","#DF5353","#7798BF","#aaeeee"],chart:{backgroundColor:null,style:{fontFamily:"Dosis, sans-serif"}},title:{style:{fontSize:"16px",fontWeight:"bold",textTransform:"uppercase"}},tooltip:{borderWidth:0,backgroundColor:"rgba(219,219,216,0.8)",shadow:!1},legend:{backgroundColor:"#F0F0EA",itemStyle:{fontWeight:"bold",fontSize:"13px"}},xAxis:{gridLineWidth:1,labels:{style:{fontSize:"12px"}}},yAxis:{minorTickInterval:"auto",title:{style:{textTransform:"uppercase"}},labels:{style:{fontSize:"12px"}}},plotOptions:{candlestick:{lineColor:"#404048"}}},t.apply=function(){var e,o,r;e={href:"https://fonts.googleapis.com/css?family=Dosis:400,600",rel:"stylesheet",type:"text/css"},o=document.getElementsByTagName("head")[0],r=l.createElement("link"),e&&f(r,e),o&&o.appendChild(r),p(t.options)};var u=o;c().theme=u.options,u.apply();var h=c();return s.default}()});
