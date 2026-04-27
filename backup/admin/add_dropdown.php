@@ -89,23 +89,12 @@ if(isset($_POST['add'])){
  *             If the operation fails:
  *              - Set error flag and message
  */
-
 if(isset($_POST['update'])){
-    $rData=[];
-    $rData['pid']=$_REQUEST['pid'];
-    $rData['hid']=$_REQUEST['hid'];
-    $rData['op']=$_REQUEST['op'];
-    $rData['dropdown']=$_REQUEST['dropdown'];
-
     $drppdowm->setupdateBy_and_IP($_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
     $flag=$drppdowm->updateDateDropDownData($_POST);
     if($flag){
         $op_p=operationtracker($link1,$_SESSION['userid'],'dropdown',"Dropdown Updated",'UPDATE',$_SERVER['REMOTE_ADDR']);
-        $rData['msg']="Updated Successfully";
-        $rData['type']="sucess";
-        $param=http_build_query($rData);
-        header("location:add_dropdown.php?$param");
-        exit();
+        redirect('dropdown_master.php','DropDown savedy update successfully','success',['pid'=>$_REQUEST['pid'],'hid'=>$_REQUEST['hid']]);
     }
     else{
         $flag=false;
@@ -235,9 +224,8 @@ if($is_edit && isset($edit_data)){
 <body>
 
 <?php
-if($flag || isset($_REQUEST['type'])){
-    $type=$_REQUEST['type']==='error'?'error':'success';
-    echo showToastUI($_REQUEST['msg']??'',$type??'success');
+if($flag){
+    echo showToastUI($msg,'success');
 }
 ?>
 <div class="container-fluid">
@@ -246,9 +234,6 @@ if($flag || isset($_REQUEST['type'])){
         <div class="<?=$screenwidth?>">
             <h2 align="center"><i class="fa fa-users"></i> <?=$op==='edit'?'Update':'Add'?> DropDown</h2><br/><br/>
             <form  name="frm1" id="frm1" class="form-horizontal" action="" method="post">
-                <input type="hidden" name="pid" value="<?=$_REQUEST['pid']??''?>">
-                <input type="hidden" name="hid" value="<?=$_REQUEST['hid']??''?>">
-                <input type="hidden" name="op" value="<?=$_REQUEST['op']??''?>">
                 <input type="hidden" name="prev_table" value="<?= $_REQUEST['master_table'] ?? '' ?>">
                 <?php
                 if(isset($_REQUEST['dropdown'])){

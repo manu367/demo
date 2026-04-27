@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4db46474-4e3a-48a9-9fc9-2e62ec4c0e73" name="Changes" comment="sdcdc">
-      <change afterPath="$PROJECT_DIR$/_practice/test.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/area.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/bar.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/column.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/funnel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/line.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/includes/chart_plugin/charts/pie.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_practice/typescript_practice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/_practice/typescript_practice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_dropdown.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_dropdown.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/create_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/create_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/form_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/form_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/gui_master_2.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/gui_master_2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/Chartfunction.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/Chartfunction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/chart_plugin/run_plugin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/gui_master.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/highcharts-more.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/highcharts-more.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/highcharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/highcharts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/chart-data_grid.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/chart-data_grid.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagination/fms-grid-data.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagination/fms-grid-data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/leftnav2.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/leftnav2.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +243,7 @@
       <workItem from="1777031130739" duration="42000" />
       <workItem from="1777035233988" duration="205000" />
       <workItem from="1777035506658" duration="677000" />
-      <workItem from="1777264231220" duration="22017000" />
+      <workItem from="1777264231220" duration="23659000" />
     </task>
     <task id="LOCAL-00001" summary="basic operations">
       <option name="closed" value="true" />

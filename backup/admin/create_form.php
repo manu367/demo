@@ -510,7 +510,6 @@ if(isset($_REQUEST['msg'])):?>
                                     <th style="text-align: center; padding: 8px;">Type</th>
                                     <th style="text-align: center; padding: 8px;">length</th>
                                     <th style="text-align: center; padding: 8px;">Required</th>
-                                    <th style="text-align: center; padding: 8px;">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody id="addform">
@@ -954,57 +953,6 @@ function showAlert(message, type = "success", duration = 3000) {
         document.querySelectorAll("input[name=param_name]").forEach((inputs_paramter) => {
             console.log(inputs_paramter);
         });
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-
-        document.querySelectorAll("#form_table tbody tr").forEach((row) => {
-            addDeleteBtn(row);
-        });
-
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(function (node) {
-                    if (node.nodeName === "TR") {
-                        addDeleteBtn(node);
-                    }
-                });
-            });
-        });
-
-        observer.observe(document.getElementById("addform"), {
-            childList: true
-        });
-
-        // 3. Delete button click (event delegation)
-        document.getElementById("form_table").addEventListener("click", function (e) {
-            if (e.target.classList.contains("delete-row")) {
-                e.target.closest("tr").remove();
-                updateSerialNumbers();
-            }
-        });
-
-        // function to add button
-        function addDeleteBtn(row) {
-            // avoid duplicate button
-            if (row.querySelector(".delete-row")) return;
-
-            let td = document.createElement("td");
-            td.style.textAlign = "center";
-
-            td.innerHTML = `<button type="button" class="btn btn-danger delete-row">Delete</button>`;
-            row.appendChild(td);
-        }
-
-        // optional: serial number update
-        function updateSerialNumbers() {
-            document.querySelectorAll("#form_table tbody tr").forEach((row, index) => {
-                row.cells[0].innerText = index + 1;
-            });
-        }
-
     });
 </script>
 </body>

@@ -251,7 +251,8 @@ else{
     </script>
 <?php
 }
-if($_REQUEST["pid"]!=""){
+if($_REQUEST["pid"]!="")
+{
 	if(in_array($_REQUEST["pid"], $arr_nav)){
 		/*	echo $_REQUEST["pid"];
 		print_r($arr_nav);*/
@@ -262,7 +263,8 @@ if($_REQUEST["pid"]!=""){
 		exit;
 	}
 }
-}else{
+}
+else{
 session_destroy();
 $msg='3';
 header("Location:../index.php?msg=".$msg);

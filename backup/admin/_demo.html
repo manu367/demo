@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+loading.txs Shows while page is loading
+             app/blog/loading.tsx
+
+error.tsx => Handles errors in that route
+not-found.tsx => Custom 404 page for that section
+
+
+src/
+├── app/              # routing (Next.js core)
+├── components/       # reusable UI
+├── lib/              # utilities, helpers
+├── services/         # API/business logic
+├── hooks/            # custom React hooks
+├── store/            # state management (Redux/Zustand)
+├── types/            # TypeScript types
+├── config/           # constants, env config
+├── styles/           # extra styles
+├── features/         # feature-based modules (VERY important)
+
+
+src/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx                  # Home page
+│   ├── globals.css
+│
+│   ├── (auth)/                   # route group (clean URLs)
+│   │   ├── login/page.tsx
+│   │   ├── register/page.tsx
+│
+│   ├── products/
+│   │   ├── page.tsx              # product listing
+│   │   ├── [id]/page.tsx         # product details
+│
+│   ├── cart/
+│   │   └── page.tsx
+│
+│   ├── checkout/
+│   │   └── page.tsx
+│
+│   ├── orders/
+│   │   └── page.tsx
+│
+│   ├── admin/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── products/page.tsx
+│   │   └── orders/page.tsx
+│
+│   ├── api/
+│   │   ├── auth/route.ts
+│   │   ├── products/route.ts
+│   │   ├── cart/route.ts
+│   │   ├── orders/route.ts
+│   │   └── payments/route.ts
+│
+│
+├── components/
+│   ├── ui/                       # buttons, inputs, cards
+│   ├── layout/                   # navbar, footer
+│   ├── product/
+│   │   ├── ProductCard.tsx
+│   │   ├── ProductList.tsx
+│   ├── cart/
+│   │   ├── CartItem.tsx
+│   ├── checkout/
+│   │   ├── CheckoutForm.tsx
+│
+│
+├── features/                     # 🔥 feature-based logic
+│   ├── auth/
+│   │   ├── auth.service.ts
+│   │   ├── auth.hooks.ts
+│   │   ├── auth.store.ts
+│
+│   ├── products/
+│   │   ├── product.service.ts
+│   │   ├── product.hooks.ts
+│   │   ├── product.types.ts
+│
+│   ├── cart/
+│   │   ├── cart.service.ts
+│   │   ├── cart.store.ts
+│
+│   ├── orders/
+│   │   ├── order.service.ts
+│
+│
+├── lib/
+│   ├── db.ts                     # database connection
+│   ├── auth.ts                   # auth helpers
+│   ├── fetcher.ts                # API wrapper
+│   ├── utils.ts
+│
+│
+├── services/                     # optional (external APIs)
+│   ├── payment.service.ts
+│   ├── email.service.ts
+│
+│
+├── hooks/
+│   ├── useAuth.ts
+│   ├── useCart.ts
+│
+│
+├── store/
+│   ├── index.ts
+│   ├── cartStore.ts
+│
+│
+├── types/
+│   ├── product.ts
+│   ├── user.ts
+│   ├── order.ts
+│
+│
+├── config/
+│   ├── index.ts                  # env configs
+│
+│
+├── styles/
+│   ├── globals.css
+│
+</body>
+</html>l
