@@ -53,7 +53,6 @@ $sql = "
     ORDER BY $orderColumn $orderDir 
     LIMIT $start,$length
 ";
-
 $res = mysqli_query($link1,$sql);
 
 $data = [];
@@ -79,7 +78,7 @@ while($row = mysqli_fetch_assoc($res)){
             ? '<a href="form_master.php?pid='.$pid.'&hid='.$hid.'&id='.base64_encode($row['id']).'" class="btn btn-sm btn-primary">Create</a>'
             : '',
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="clone_fms_master.php?pid='.$pid.'&hid='.$hid.'&id='.($row['id']).'" class="btn btn-sm btn-primary">Clone</a>':'',
-        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="gui_master_2.php?pid='.$pid.'&hid='.$hid.'&id='.($row['id']).'" class="btn btn-sm btn-primary">GUI</a>':'',
+        PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?'<a href="fms_charts.php?pid='.$pid.'&hid='.$hid.'&id='.($row['id']).'" class="btn btn-sm btn-primary">GUI</a>':'',
     ];
 }
 

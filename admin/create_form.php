@@ -201,6 +201,7 @@ if(isset($_POST['update']))
         $status = $formoperation->addnewColumnInDb($fms_data_p['table_name'], $newColumnAddInDB);
     }
 
+    $formoperation->newTableColumnupdate($link1,$fms_data_p['table_name'],$data['new'],$data['old_col']);
     $response=null;
     try{
         $response = $formoperation->updateForm($formid,$fmsid, $data, $_SESSION['userid'],$fms_data_p['table_name']);

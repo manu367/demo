@@ -1,6 +1,115 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
+class ChartModal{
+    private $charttype,$title,$subtitle,$x_axis_label,$y_axis_label;
+    private $x_axis_param,$y_axis_param;
+    private $from_date,$to_date,$alignment;
+    private $operations,$operation_method,$table_name,$fms_id,$update_by,$update_ip;
+
+    public function __construct($charttype, $title, $subtitle, $x_axis_label, $y_axis_label, $x_axis_param, $y_axis_param, $from_date, $to_date, $alignment, $operations, $operation_method, $table_name, $fms_id, $update_by, $update_ip)
+    {
+        $this->charttype = $charttype;
+        $this->title = $title;
+        $this->subtitle = $subtitle;
+        $this->x_axis_label = $x_axis_label;
+        $this->y_axis_label = $y_axis_label;
+        $this->x_axis_param = $x_axis_param;
+        $this->y_axis_param = $y_axis_param;
+        $this->from_date = $from_date;
+        $this->to_date = $to_date;
+        $this->alignment = $alignment;
+        $this->operations = $operations;
+        $this->operation_method = $operation_method;
+        $this->table_name = $table_name;
+        $this->fms_id = $fms_id;
+        $this->update_by = $update_by;
+        $this->update_ip = $update_ip;
+    }
+
+    public function getCharttype()
+    {
+        return $this->charttype;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    public function getXAxisLabel()
+    {
+        return $this->x_axis_label;
+    }
+
+    public function getYAxisLabel()
+    {
+        return $this->y_axis_label;
+    }
+
+    public function getXAxisParam()
+    {
+        return $this->x_axis_param;
+    }
+
+    public function getYAxisParam()
+    {
+        return $this->y_axis_param;
+    }
+
+    public function getFromDate()
+    {
+        return $this->from_date;
+    }
+
+    public function getToDate()
+    {
+        return $this->to_date;
+    }
+
+    public function getAlignment()
+    {
+        return $this->alignment;
+    }
+
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+
+
+    public function getOperationMethod()
+    {
+        return $this->operation_method;
+    }
+
+    public function getTableName()
+    {
+        return $this->table_name;
+    }
+
+    
+    public function getFmsId()
+    {
+        return $this->fms_id;
+    }
+    
+    public function getUpdateBy()
+    {
+        return $this->update_by;
+    }
+    
+    public function getUpdateIp()
+    {
+        return $this->update_ip;
+    }
+    
+}
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $errormsg=$e->getMessage();
@@ -20,6 +129,7 @@ function loadChartOperations_Gui($link1, $operationsId) {
     }
     return null;
 }
+
 $response=[];
 $response['pid']=$_REQUEST['pid'];
 $response['hid']=$_REQUEST['hid'];
@@ -30,6 +140,8 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!==""){
 }
 $hide=false;
 $msg=null;
+
+$tablename=$data['table_name'];
 if(isset($_POST['submit'])){
     $charttyle=$_POST['charttype'];
     $charttitle=$_POST['charttitle'];
@@ -41,8 +153,50 @@ if(isset($_POST['submit'])){
     $y_axis_param=$_POST['y_axis_param'];
     $group_operations=$_POST['group_operations'];
     $chart_alignment=$_POST['chart_alignment'];
-    $hide=true;
-    $msg="Changes saved successfully";
+
+    $create_method=$_REQUEST['charttype'].'_'.loadChartOperations_Gui($link1,$_REQUEST['group_operations']);
+    $create_method=$create_method.'_Chart';
+    $modal=new ChartModal($charttyle,$charttitle,$chartsubtitle,
+            $x_axis_label,$y_axis_label,
+            $x_axis_param,$y_axis_param,$_REQUEST['from_date'], $_REQUEST['to_date'],
+            $chart_alignment,$group_operations,$create_method,$tablename,
+            $data['id'],$_SESSION['userid'],$_SERVER['REMOTE_ADDR']
+    );
+
+    $chart_type = mysqli_real_escape_string($link1, $modal->getCharttype());
+    $title = mysqli_real_escape_string($link1, $modal->getTitle());
+    $subtitle = mysqli_real_escape_string($link1, $modal->getSubtitle());
+    $x_axis = mysqli_real_escape_string($link1, $modal->getXAxisLabel());
+    $y_axis = mysqli_real_escape_string($link1, $modal->getYAxisLabel());
+    $x_axis_param1 = mysqli_real_escape_string($link1, $modal->getXAxisParam());
+    $x_axis_param2 = mysqli_real_escape_string($link1, $modal->getYAxisParam());
+    $from_date = mysqli_real_escape_string($link1, $modal->getFromDate());
+    $to_date = mysqli_real_escape_string($link1, $modal->getToDate());
+    $alignment = mysqli_real_escape_string($link1, $modal->getAlignment());
+    $operations = mysqli_real_escape_string($link1, $modal->getOperations());
+    $operation_method = mysqli_real_escape_string($link1, $modal->getOperationMethod());
+    $table_name = mysqli_real_escape_string($link1, $modal->getTableName());
+    $fms_id = mysqli_real_escape_string($link1, $modal->getFmsId());
+    $updated_by = mysqli_real_escape_string($link1, $modal->getUpdateBy());
+    $updated_ip = mysqli_real_escape_string($link1, $modal->getUpdateIp());
+    $sql = "
+INSERT INTO dashboard_master (
+    chart_type,title,subtitle,x_axis,y_axis,x_axis_param1,x_axis_param2,
+    from_date,to_date,operations,operation_method,alignment,table_name,fms_id,remarks,chart_status,updated_by,updated_ip,created_at,updated_at
+) VALUES (
+          '$chart_type','$title','$subtitle','$x_axis','$y_axis','$x_axis_param1','$x_axis_param2',
+          '$from_date','$to_date','$operations','$operation_method','$alignment','$table_name',
+          '$fms_id','', 1,'$updated_by','$updated_ip',NOW(),NOW())";
+    $result = mysqli_query($link1, $sql);
+    if ($result) {
+        $hide=true;
+        $msg="Changes saved successfully";
+    }
+    else {
+        $hide=false;
+        $msg=mysqli_error($link1);
+    }
+
 
 }
 if(isset($_POST['preview_button'])){
@@ -125,7 +279,7 @@ if(isset($_POST['preview_button'])){
             <div class="mb-4 flex items-center justify-between rounded-lg bg-green-100 border border-green-300 text-green-800 px-4 py-3">
                 <span>Changes saved successfully.</span>
 
-                <a href="fms_master.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>"
+                <a href="fms_charts.php?pid=<?=$_REQUEST['pid']?>&hid=<?=$_REQUEST['hid']?>&id=<?=$_REQUEST['id']??''?>"
                    class="ml-4 px-3 py-1.5 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 transition">
                     ← Back
                 </a>

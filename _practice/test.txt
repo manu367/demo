@@ -8,3 +8,23 @@ class User {
 }
 
 module.exports = User;
+
+/*
+Reading Comprehension = 20 questions
+
+Cloze Test
+Spotting Errors
+Sentence Based Error
+Sentence Improvement
+Sentence Correction
+Sentence Rearrangement
+Para Jumbles
+Fill in the Blanks
+
+Para/Sentence Completion
+Column Based
+Word Swap
+
+Spelling Errors
+Connectors
+*/

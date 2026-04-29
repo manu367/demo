@@ -655,6 +655,32 @@ class FormOperations{
         return true;
     }
 
+    public function newTableColumnupdate($conn, $tablename, $newcol, $oldCol)
+    {
+        $newColumns = [];
+
+        foreach ($newcol as $obj) {
+            if (isset($obj->parameter)) {
+                $newColumns[] = trim($obj->parameter);
+            }
+        }
+
+        $oldColumns = array_map('trim', $oldCol);
+
+        $deletecol = array_diff($oldColumns, $newColumns);
+
+        foreach ($deletecol as $col) {
+
+            $sql = "ALTER TABLE `$tablename` DROP COLUMN `$col`";
+            var_dump($sql);
+            if (!mysqli_query($conn, $sql)) {
+                throw new Exception("Error deleting column $col: " . mysqli_error($conn));
+            }
+        }
+
+        return true;
+    }
+
     public function addForm($fms_id, $data, $createdBy)
     {
 
