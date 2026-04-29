@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "@types/node": "^25.6.0"
-  },
-  "dependencies": {
-    "@huggingface/inference": "^4.13.15"
-  }
-}
