@@ -1,6 +1,24 @@
 <?php
 require_once("../includes/config.php");
 global $link1;
+
+$chart_type = null;
+$title = null;
+$subtitle = null;
+$x_axis = null;
+$y_axis = null;
+$x_axis_param1 = null;
+$x_axis_param2 = null;
+$from_date = null;
+$to_date = null;
+$alignment = null;
+$operations = null;
+$operation_method = null;
+$table_name = null;
+$fms_id = null;
+$updated_by = null;
+$updated_ip = null;
+
 class ChartModal{
     private $charttype,$title,$subtitle,$x_axis_label,$y_axis_label;
     private $x_axis_param,$y_axis_param;
@@ -113,7 +131,8 @@ class ChartModal{
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $errormsg=$e->getMessage();
-        header("Location: gui_master.php?{$errormsg}");
+        var_dump($errormsg);exit();
+        header("Location: fms_charts.php?pid=290&hid=Masters&id=4");
         exit;
     }
 });
@@ -129,7 +148,7 @@ function loadChartOperations_Gui($link1, $operationsId) {
     }
     return null;
 }
-
+$modal=null;
 $response=[];
 $response['pid']=$_REQUEST['pid'];
 $response['hid']=$_REQUEST['hid'];
@@ -138,12 +157,58 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!==""){
     $flag=true;
     $data=getFMsbyid($link1,$_REQUEST['id']);
 }
+if(isset($_REQUEST['chartid']) && $_REQUEST['chartid']!==""){
+    $flag=true;
+    $charid=$_REQUEST['chartid'];
+    $sql="SELECT * FROM `dashboard_master` where id='$charid' and chart_status=1";
+    $result=mysqli_query($link1,$sql);
+    if(!$result){
+        $response['type']='error';
+        $response['msg']=mysqli_error($link1);
+        $param=http_build_query($response);
+        throw new GlobalException($param);
+    }
+    if(mysqli_num_rows($result)===0){
+        $response['type']='error';
+        $response['msg']='No chart found';
+        $param=http_build_query($response);
+        throw new GlobalException($param);
+    }
+    $row=mysqli_fetch_assoc($result);
+    $modal=new ChartModal($row['chart_type'],$row['title'],$row['subtitle'],
+            $row['x_axis'],$row['y_axis'],
+            $row['x_axis_param1'],$row['x_axis_param2'],$row['from_date'],$row['to_date'],$row['alignment'],
+            $row['operations'],$row['operation_method'],$row['table_name'],$row['fms_id'],$_SESSION['userid'],$_SERVER['REMOTE_ADDR']);
+    $chart_type = $modal->getCharttype();
+    $title = $modal->getTitle();
+    $subtitle = $modal->getSubtitle();
+    $x_axis = $modal->getXAxisLabel();
+    $y_axis = $modal->getYAxisLabel();
+    $x_axis_param1 = $modal->getXAxisParam();
+    $x_axis_param2 = $modal->getYAxisParam();
+    $from_date = $modal->getFromDate();
+    $to_date = $modal->getToDate();
+    $alignment = $modal->getAlignment();
+    $operations = $modal->getOperations();
+    $operation_method = $modal->getOperationMethod();
+    $table_name = $modal->getTableName();
+    $fms_id = $modal->getFmsId();
+    $updated_by = $modal->getUpdateBy();
+    $updated_ip = $modal->getUpdateIp();
+}
+if(isset($_REQUEST['chartid']) && empty($_REQUEST['chartid'])){
+    $response['type']='error';
+    $response['msg']='No chart found';
+    $param=http_build_query($response);
+    throw new GlobalException($param);
+}
 $hide=false;
 $msg=null;
 
 $tablename=$data['table_name'];
 if(isset($_POST['submit'])){
     $charttyle=$_POST['charttype'];
+    $chart_type=$charttyle;
     $charttitle=$_POST['charttitle'];
     $chartsubtitle=$_POST['chartsubtitle'];
     $x_axis_label=$_POST['x_axis_label'];
@@ -196,8 +261,6 @@ INSERT INTO dashboard_master (
         $hide=false;
         $msg=mysqli_error($link1);
     }
-
-
 }
 if(isset($_POST['preview_button'])){
     $x_axis_param=$_POST['x_axis_param'];
@@ -213,6 +276,8 @@ if(isset($_POST['preview_button'])){
     $data_create_method=dynamicBinding($create_method,$link1,$report_data);
     var_dump($data_create_method);
 }
+
+var_dump($chart_type);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -304,11 +369,13 @@ if(isset($_POST['preview_button'])){
                 <!-- Chart Type -->
                 <div>
                     <?php
-                    $selected_chart = $charttyle ?? '';
+                    $selected_chart = $chart_type ?? '';
                     $disableSelect = !empty($selected_chart) ? 'disabled' : '';
                     ?>
                     <label class="block text-sm mb-1 text-gray-300">Chart Type</label>
-                    <select style="text-transform: capitalize" <?=$disableSelect?> id="charttype" name="charttype"  required class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select style="text-transform: capitalize"
+                            id="charttype" name="charttype"  required onchange="this.form.submit()"
+                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>-- Select Chart Type --</option>
                         <?php
                         $sql = "SELECT * FROM charts_master WHERE status='1'";
@@ -326,21 +393,21 @@ if(isset($_POST['preview_button'])){
                 <!-- Chart Title -->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Chart Title</label>
-                    <input type="text" id="charttitle" name="charttitle" value="<?=$charttitle??''?>" <?=$charttitle?'disabled':''?>
+                    <input type="text" id="charttitle" name="charttitle" value="<?=$title??''?>"
                            placeholder="Enter chart title"
                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <!--                chart subtitile-->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Chart Subtitle</label>
-                    <input type="text" id="chartsubtitle" name="chartsubtitle" value="<?=$chartsubtitle??''?>" <?=$chartsubtitle?'disabled':''?> placeholder="Subtitle of Chart"
+                    <input type="text" id="chartsubtitle" name="chartsubtitle" value="<?=subtitle ??''?>" placeholder="Subtitle of Chart"
                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <!--                x-axis label name-->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">X-Axis Label</label>
-                    <input type="text" id="x_axis_label" name="x_axis_label" value="<?=$x_axis_label??''?>" <?=$x_axis_label?'disabled':''?> placeholder="X-axis Name"
+                    <input type="text" id="x_axis_label" name="x_axis_label" value="<?=$x_axis ??''?>" placeholder="X-axis Name"
                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
@@ -348,18 +415,18 @@ if(isset($_POST['preview_button'])){
                 <!--                Y-axis name-->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Y-Axis Label</label>
-                    <input type="text" id="y_axis_label" name="y_axis_label" value="<?=$y_axis_label??''?>" <?=$y_axis_label?'disabled':''?> placeholder="Y-axis Name"
+                    <input type="text" id="y_axis_label" name="y_axis_label" value="<?=$y_axis ??''?>" placeholder="Y-axis Name"
                            class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <!-- Parameters -->
                 <div>
                     <?php
-                    $x_axis_param_selected = $_REQUEST['x_axis_param'] ?? '';
+                    $x_axis_param_selected = $x_axis_param1  ?? '';
                     $x_axis_param_disabled=!empty($x_axis_param_selected)?'disabled':'';
                     ?>
                     <label class="block text-sm mb-1 text-gray-300">X-Axis Parameter</label>
-                    <select <?=$x_axis_param_disabled?> style="text-transform: capitalize" id="x_axis_param" name="x_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select  style="text-transform: capitalize" id="x_axis_param" name="x_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>-- Select Parameter --</option>
                         <?php
                         $tablename = mysqli_real_escape_string($link1, $data['table_name'] ?? '');
@@ -383,11 +450,11 @@ if(isset($_POST['preview_button'])){
                 ?>
                 <div>
                     <?php
-                    $y_axis_param_selected = $_REQUEST['y_axis_param'] ?? '';
+                    $y_axis_param_selected = $x_axis_param2 ?? '';
                     $y_axis_param_disabled=!empty($y_axis_param_selected)?'disabled':'';
                     ?>
                     <label class="block text-sm mb-1 text-gray-300">Y-Axis Parameter</label>
-                    <select <?=$y_axis_param_disabled?> style="text-transform: capitalize" id="y_axis_param" name="y_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select  style="text-transform: capitalize" id="y_axis_param" name="y_axis_param" class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option>-- Select Parameter --</option>
                         <?php
                         $tablename = mysqli_real_escape_string($link1, $data['table_name'] ?? '');
@@ -420,7 +487,7 @@ if(isset($_POST['preview_button'])){
                         <!-- From Date -->
                         <div>
                             <label class="block text-sm mb-1 text-gray-300">From Date</label>
-                            <input type="date" id="from_date" name="from_date"
+                            <input type="date" id="from_date" name="from_date" value="<?=$from_date?>"
                                    class="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
 
@@ -571,7 +638,7 @@ if(isset($_POST['preview_button'])){
     document.addEventListener("DOMContentLoaded",function (){
         console.log(Highcharts.charts);
         const wrapper=new DataWrapper();
-        wrapper.charttype="<?=$_REQUEST['charttype']??''?>";
+        wrapper.charttype="<?=$chart_type??''?>";
         wrapper.chartTitle="<?=$_REQUEST['charttitle']??''?>";
         wrapper.chartSubtitle="<?=$_REQUEST['chartsubtitle']??''?>";
         wrapper.xAxisLabel="<?=$_REQUEST['x_axis_label']??''?>";

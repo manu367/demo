@@ -8,7 +8,7 @@ global $link1;
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $msg=$e->getMessage();
-        header("location:gui_master.php?$msg");
+        header("location:gui_master_3.php?$msg");
         exit();
     }
     var_dump("sdsc",$e->getMessage());exit();
@@ -217,7 +217,7 @@ if(isset($_POST) && !empty($_POST)){
         $meta_data['chartid']=$gen_chartId;
         $meta_data['msg']='Saved Succesfully';
         $param=http_build_query($meta_data);
-        header("location:gui_master.php?$param");exit();
+        header("location:gui_master_3.php?$param");exit();
     }
     if(isset($_POST['preview_button'])){
         var_dump("Preview feature is currently under development."); exit();
@@ -239,15 +239,13 @@ if(isset($_POST) && !empty($_POST)){
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chart Panel Builder</title>
-    <link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
+    <title>Responsive Layout</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/highcharts.js"></script>
     <script src="../js/highcharts-more.js"></script>
     <script src="../js/funnel.js"></script>
     <script src="../js/exporting.js"></script>
     <script src="../js/highstock.js"></script>
-    <script src="../js/highmaps.js"></script>
     <style>
         /* Smooth scrollbar */
         ::-webkit-scrollbar {
@@ -323,7 +321,7 @@ if(isset($_POST) && !empty($_POST)){
             }
             ?>
             <div class="space-y-5">
-                <!--                chart type-->
+<!--                chart type-->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Chart Type</label>
                     <select  style="text-transform: capitalize" id="charttype" name="charttype"  required onchange="this.form.submit()"
@@ -393,7 +391,7 @@ if(isset($_POST) && !empty($_POST)){
                     </select>
                 </div>
 
-                <!--                paramters 2-->
+<!--                paramters 2-->
                 <div>
                     <label class="block text-sm mb-1 text-gray-300">Y-Axis Parameter</label>
                     <select  style="text-transform: capitalize" id="y_axis_param" name="y_axis_param" onchange="this.form.submit()"
@@ -418,7 +416,7 @@ if(isset($_POST) && !empty($_POST)){
                 </div>
 
 
-                <!--                data selection-->
+<!--                data selection-->
                 <div class="space-y-4">
 
                     <!-- Date Range Row -->

@@ -51,7 +51,7 @@ function gaugeChart($container, $title, $subtitle, string $param,$methodname,$xA
     var_dump($methodname,$xAxis,$yAxis,$fms_id);
     var_dump($getData);
 
-    $value = 65; // sample value (0–100)
+    $value = 65;
 
     return "
     <script>

@@ -82,6 +82,7 @@ while($row = mysqli_fetch_assoc($res)){
     }
     $data[] = [
         $serial++,
+        '<span style="text-transform: uppercase">'.$row['chart_type'].'</span>',
         $row['title'],
         $row['x_axis'],
         $row['y_axis'],
@@ -90,7 +91,7 @@ while($row = mysqli_fetch_assoc($res)){
         $status,
         PermissionManager::checkViewRights($link1,$_SESSION['userid'],$pid)?
             '<div style="display: flex; flex-direction: column; gap: 6px;">
-<a href="gui_master_2.php?pid='.$pid.'&hid='.$hid.'&id='.($fms_id).'&chartid='.$row['id'].'"" class="btn btn-sm btn-primary">View</a>
+<a href="gui_master.php?pid='.$pid.'&hid='.$hid.'&id='.($fms_id).'&chartid='.$row['id'].'"" class="btn btn-sm btn-primary">View</a>
 </div>':'',
     ];
 }

@@ -774,7 +774,7 @@ function showAlert(message, type = "success", duration = 3000) {
                     input.value = 50;
                     input.type='hidden'
                 }
-
+                td.innerHTML="";
                 td.insertAdjacentHTML("beforeend", `<?=$selectedBox?>`);
             }
         }
@@ -1002,7 +1002,7 @@ function showAlert(message, type = "success", duration = 3000) {
         // optional: serial number update
         function updateSerialNumbers() {
             document.querySelectorAll("#form_table tbody tr").forEach((row, index) => {
-                row.cells[0].innerText = index + 1;
+                row.cells[0].innerText = index + 1
             });
         }
 

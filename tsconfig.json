@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ES6",
+    "rootDir": "./typescript",
+    "outDir": "./js",
+    "lib": ["DOM","ES2016"],
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["typescript/**/*.ts"]
+}

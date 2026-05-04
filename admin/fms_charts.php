@@ -143,7 +143,7 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!==""){
                     if ($pid && PermissionManager::checkaddRights($link1,$_SESSION['userid'], $pid)) {
                         ?>
                         <button class="btn btn-primary"
-                                onclick="window.location.href='gui_master_2.php?pid=<?=$pid?>&hid=<?=$hid?>&id=<?=$id?>'">
+                                onclick="window.location.href='gui_master_3.php?pid=<?=$pid?>&hid=<?=$hid?>&id=<?=$id?>'">
                             Add FMS
                         </button>
                         <?php
@@ -159,6 +159,7 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!==""){
                             <thead>
                             <tr class="<?=$tableheadcolor?>">
                                 <th>S.No</th>
+                                <th>ChartType</th>
                                 <th>title</th>
                                 <th>X-Axis Label</th>
                                 <th>Y-Axis Label</th>
