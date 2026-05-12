@@ -189,11 +189,14 @@ class Accounts{
         $resp = [ "status"=>"failed", "msg"=>"" ];
         // security check
         $security_check = $this->securityCheck($link1);
+
         if($security_check["status"] == "success"){
 		            /// admin & user verification
             $sql = "SELECT * FROM admin_users WHERE (username = '".$user."' or sapid = '".$user."') AND status IN ('1','99') LIMIT 1";
+
             $res = mysqli_query($link1, $sql);
             if($res){
+
                 if(mysqli_num_rows($res) > 0){
                     $data = mysqli_fetch_assoc($res);
                     if($data["password"] == $pass){

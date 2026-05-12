@@ -115,7 +115,7 @@ if($_SESSION['userid']){
                     Remember me
                 </label>
 
-                <a href="#" class="text-gray-600 hover:underline">Forgot password?</a>
+                <a href="forget-password.php" class="text-gray-600 hover:underline">Forgot password?</a>
             </div>
 
             <!-- Button -->

@@ -44,12 +44,14 @@ if(isset($_POST['save'])){
 
     $data=$formview->loadform(isset($_REQUEST['formid'])?$_REQUEST['formid']:'');
 
+
     $total=count(json_decode($data['parameter_name']));
     $parameter[]=json_decode($data['parameter_name'],true);
 
     $parameter_1=$parameter[0];
 
     $data_save=[];
+
     for($i=0;$i<$total;$i++){
         $fieldName = $parameter_1[$i];
         $uploadedFile = fileUpload($fieldName);
@@ -67,7 +69,6 @@ if(isset($_POST['save'])){
     $data_save[]=$_SERVER['REMOTE_ADDR'];
 
     $tablename=getTablename($link1,isset($_POST['fmsid'])?$_POST['fmsid']:'');
-
 
     if($tablename){
         $save=null;

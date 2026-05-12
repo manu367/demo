@@ -1,0 +1,45 @@
+flask
+opencv-python
+pytesseract
+easyocr
+langdetect
+numpy
+Pillow
+werkzeug
+
+C:\Program Files\Tesseract-OCR\tesseract.exe
+
+
+UPLOAD IMAGE
+    ↓
+SAVE IMAGE
+    ↓
+IMAGE CLEANING
+    ↓
+TEXT DETECTION
+    ↓
+HANDWRITTEN CHECK
+    ↓
+ 
+ ---------------
+ COMPUTER TEXT 
+ ---------------
+
+    ↓
+TESSERACT OCR
+    ↓
+JSON RESPONSE
+
+--------------------
+  HANDWRITTEN TEXT
+--------------------
+    ↓
+LANGUAGE DETECTION
+    ↓
+HANDWRITTEN REGION CROP
+    ↓
+CONTRAST + SHARPEN
+    ↓
+EASYOCR
+    ↓
+JSON RESPONSE

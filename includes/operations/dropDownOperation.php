@@ -18,9 +18,9 @@ class DropDownMaster{
         $table_keys   = trim($data['key_id'] ?? '');
         $table_value  = trim($data['key_value'] ?? '');
 
-        if($table_keys === $table_value){
-            throw new ValidationException("Table key and value cannot be same");
-        }
+//        if($table_keys === $table_value){
+//            throw new ValidationException("Table key and value cannot be same");
+//        }
 
         if($dropdownname === ''){
             throw new ValidationException("Dropdown name cannot be empty");
@@ -63,9 +63,9 @@ class DropDownMaster{
             throw new ValidationException("Dropdown Id cannot be empty");
         }
 
-        if($table_keys === $table_value){
-            throw new ValidationException("Table key and value cannot be same");
-        }
+//        if($table_keys === $table_value){
+//            throw new ValidationException("Table key and value cannot be same");
+//        }
 
         if($dropdownname === ''){
             throw new ValidationException("Dropdown name cannot be empty");

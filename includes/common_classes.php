@@ -533,7 +533,8 @@ class FormOperations{
 
         // insert final data here
         try{
-            $result=$this->updateFormMaster_1($data['formid'],$data['new'],$data['frm_seq']);
+            $result=$this->updateFormMaster_1($data['formid'],$data['new'],$data['frm_seq'],$data['frmName']);
+
             $flag=true;
         }catch (Exception $e){
             throw new GlobalException($e->getMessage());
@@ -565,7 +566,7 @@ class FormOperations{
         return true;
     }
 
-    private function updateFormMaster_1($formid, $data,$frm_seq)
+    private function updateFormMaster_1($formid, $data,$frm_seq,$frmname)
     {
         $parameter   = [];
         $displayname = [];
@@ -594,6 +595,7 @@ class FormOperations{
         $sql = "UPDATE form_master SET 
                 parameter_name = '$parameter',
                 display_name = '$displayname',
+                form_name='$frmname',
                 type = '$type',
                 param_require = '$require',
                 length = '$length',
@@ -681,41 +683,211 @@ class FormOperations{
         return true;
     }
 
-    public function addForm($fms_id, $data, $createdBy)
-    {
+    // deprecated
+    public function addForm($fms_id, $data, $createdBy){
 
         $fmsid=$fms_id;
         $formname     = $data['formname'];
-        $paramername  = $data['name'];
-        $displayName  = $data['displayName'];
-        $type         = $data['type'];
-        $length       = $data['length'];
         $frm_seq=$data['frm_seq'];
-        $check=$data['check'];
-
-
         $created_at = date('Y-m-d H:i:s');
         $updated_at = $created_at;
         $updated_by = $createdBy;
         $updated_ip = $_SERVER['REMOTE_ADDR'];
 
-        $query = "INSERT INTO form_master 
-        (created_date, updated_date, created_by, updated_by, updated_ip, 
-         form_id, form_name, fms_id, parameter_name, display_name, type, length, status,frm_seq,param_require)
-        VALUES 
-        ('$created_at', '$updated_at', '$createdBy', '$updated_by', '$updated_ip',
-         '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1','$frm_seq','$check')";
+        $data=$data['wrapping'];
 
-        try{
-            $result=mysqli_query($this->conn, $query);
-            return true;
-        }catch (Exception $e){
-
+        $param_array=[];
+        $display_array=[];
+        $type_array=[];
+        $require_array=[];
+        $length_array=[];
+        $dropdown_array=[];
+        for($i=0;$i<count($data);$i++){
+            var_dump($data[$i]);
+            $param_array[]=$data[$i]->parameter??'unknown';
+            $display_array[]=$data[$i]->value??'';
+            $type_array[]=$data[$i]->type??'1';
+            $require_array[]=$data[$i]->require;
+            $length_array[]=$data[$i]->length??'100';
+            $dropdown_array[]=$data[$i]->dropdown??'0';
         }
+        $param_array=json_encode($param_array);
+        $display_array=json_encode($display_array);
+        $type_array=json_encode($type_array);
+        $require_array=json_encode($require_array);
+        $length_array=json_encode($length_array);
+        $dropdown_array=json_encode($dropdown_array);
+
+//        $query = "INSERT INTO form_master
+//        (created_date, updated_date, created_by, updated_by, updated_ip,
+//         form_id, form_name,
+//         fms_id,
+//         parameter_name,
+//         display_name,
+//         type,
+//         drop_down,
+//         length,
+//         param_require
+//         status,
+//         frm_seq,)
+//        VALUES
+//        ('$created_at', '$updated_at', '$createdBy', '$updated_by', '$updated_ip',
+//         '12', '$formname', '$fms_id', '$paramername', '$displayName', '$type', '$length', '1','$frm_seq','$check')";
+
+//        echo $query;exit();
+//        try{
+//            $result=mysqli_query($this->conn, $query);
+//            return true;
+//        }catch (Exception $e){
+//
+//        }
 
     }
 
+    public function addForm_1($fms_id, $data, $createdBy){
+        mysqli_begin_transaction($this->conn);
+        try {
+
+            $formname   = trim($data['formname']);
+            $frm_seq    = trim($data['frm_seq']);
+
+            $created_at = date('Y-m-d H:i:s');
+            $updated_at = $created_at;
+
+            $updated_by = $createdBy;
+            $updated_ip = $_SERVER['REMOTE_ADDR'];
+
+            $wrapping = $data['wrapping'];
+
+            if (empty($wrapping)) {
+                throw new Exception("No form fields provided");
+            }
+
+            $param_array    = [];
+            $display_array  = [];
+            $type_array     = [];
+            $require_array  = [];
+            $length_array   = [];
+            $dropdown_array = [];
+
+            foreach ($wrapping as $item) {
+
+                $param_array[] =
+                    !empty($item->parameter)
+                        ? trim($item->parameter)
+                        : 'unknown';
+
+                $display_array[] =
+                    !empty($item->value)
+                        ? trim($item->value)
+                        : '';
+
+                $type_array[] =
+                    !empty($item->type)
+                        ? trim($item->type)
+                        : '1';
+
+                $require_array[] =
+                    !empty($item->require)
+                        ? trim($item->require)
+                        : '0';
+
+                $length_array[] =
+                    !empty($item->length)
+                        ? trim($item->length)
+                        : '100';
+
+                $dropdown_array[] =
+                    !empty($item->dropdown)
+                        ? trim($item->dropdown)
+                        : '0';
+            }
+
+            $parameter_name =  json_encode($param_array);
+
+            $display_name = (json_encode($display_array)
+            );
+
+            $type = (
+                json_encode($type_array)
+            );
+
+            $param_require = (
+                json_encode($require_array)
+            );
+
+            $length = (
+                json_encode($length_array)
+            );
+
+            $drop_down = (
+                json_encode($dropdown_array)
+            );
+
+            $formname = mysqli_real_escape_string($this->conn, $formname);
+            $frm_seq  = mysqli_real_escape_string($this->conn, $frm_seq);
+            $fms_id   = mysqli_real_escape_string($this->conn, $fms_id);
+
+            $query = "
+            INSERT INTO form_master (
+                created_date,
+                updated_date,
+                created_by,
+                updated_by,
+                updated_ip,
+                form_id,
+                form_name,
+                fms_id,
+                parameter_name,
+                display_name,
+                type,
+                drop_down,
+                length,
+                param_require,
+                status,
+                frm_seq
+            ) VALUES (
+                '$created_at',
+                '$updated_at',
+                '$createdBy',
+                '$updated_by',
+                '$updated_ip',
+                '12',
+                '$formname',
+                '$fms_id',
+                '$parameter_name',
+                '$display_name',
+                '$type',
+                '$drop_down',
+                '$length',
+                '$param_require',
+                '1',
+                '$frm_seq'
+            )
+        ";
+
+            $result = mysqli_query($this->conn, $query);
+
+            if (!$result) {
+                throw new Exception(mysqli_error($this->conn));
+            }
+
+            mysqli_commit($this->conn);
+
+            return true;
+
+        } catch (Exception $e) {
+
+            mysqli_rollback($this->conn);
+
+            throw new GlobalException(
+                "Form insert failed: " . $e->getMessage()
+            );
+        }
+    }
+
     //addColumnInTable("fms_master", "status", "VARCHAR(50) NOT NULL DEFAULT 'active'");
+    // deprecated methods
     public function addColumnInTable($tableName, $col = [], $type = [], $length = []) {
 
         if (empty($col)) {
@@ -731,12 +903,46 @@ class FormOperations{
         }
 
         $sql .= implode(", ", $parts);
+
         $result = mysqli_query($this->conn, $sql);
         if (!$result) {
             $error = mysqli_error($this->conn);
             $errno = mysqli_errno($this->conn);
             throw new GlobalException("MySQL Error [$errno]: $error \nQuery: $sql");
         }
+        return true;
+    }
+
+    public function addColumnInTable_1($tableName, $col = [], $type = [], $length = [])
+    {
+        if (empty($col)) {
+            throw new Exception("No columns provided");
+        }
+
+        $sql = "ALTER TABLE `$tableName` ";
+        $parts = [];
+
+        for ($i = 0; $i < count($col); $i++) {
+
+            $column = $this->spaceRemover($col[$i]);
+
+            $parts[] = "ADD COLUMN `$column` " .
+                $this->columnType($type[$i], $length[$i]);
+        }
+
+        $sql .= implode(", ", $parts);
+        $result = mysqli_query($this->conn, $sql);
+
+        if (!$result) {
+
+            $error = mysqli_error($this->conn);
+            $errno = mysqli_errno($this->conn);
+
+            throw new GlobalException(
+                "MySQL Error [$errno]: $error \nQuery: $sql"
+            );
+        }
+
         return true;
     }
 
@@ -809,11 +1015,12 @@ class FormOperations{
         return mysqli_query($this->conn, $sql);
     }
 
-    public function columnType($type, $length) {
+    public function columnType($type, $length = null){
+        $length = !empty($length) ? (int)$length : 100;
         if ($type === "3") {
             return "VARCHAR($length)";
         }
-        if($type==='8'){
+        if ($type === "8") {
             return "VARCHAR(50)";
         }
         return "VARCHAR($length)";
@@ -945,7 +1152,11 @@ class FormView{
     {
         $result=null;
         try{
-            $columns = implode(",", $parameter);
+            $columns = array_map(function($col){
+                return "`" . $col . "`";
+            }, $parameter);
+
+            $columns = implode(",", $columns);
             $escapedData = [];
             foreach ($data as $value) {
                 $escapedData[] = "'" . mysqli_real_escape_string($this->conn, $value) . "'";

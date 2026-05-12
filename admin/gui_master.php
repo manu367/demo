@@ -4,14 +4,14 @@ $meta_data=[];
 require_once("../includes/config.php");
 global $link1;
 
-
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $msg=$e->getMessage();
         header("location:gui_master.php?$msg");
         exit();
     }
-    var_dump("sdsc",$e->getMessage());exit();
+    $msg=$e->getMessage();
+    header("location:error.php?msg=$msg");
 });
 
 function loadChartOperations_Gui($link1, $operationsId) {
@@ -266,10 +266,9 @@ if(isset($_POST) && !empty($_POST)){
     </style>
 </head>
 <body class="h-screen overflow-hidden bg-gray-100">
-
 <!-- Mobile Header -->
 <div class="md:hidden flex items-center justify-between p-4 bg-white shadow">
-    <h1 class="text-lg font-semibold">App</h1>
+    <h1 class="text-lg font-semibold">Mobile View</h1>
     <button id="menuBtn" class="text-2xl">⋮</button>
 </div>
 

@@ -86,6 +86,7 @@ function cleanData($instr) {
 
 //////// set currency format /////
 
+
 function currencyFormat($amttt){
 
 	return "<i class='fa fa-inr' aria-hidden='true'></i> ".number_format($amttt,'2','.','');

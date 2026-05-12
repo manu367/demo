@@ -42,20 +42,16 @@ if(isset($_REQUEST['formid'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mobile Browser Theme -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
     <title> <?=$data['form_name']?> Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../js/frmvalidate.js"></script>
     <script type="text/javascript" src="../js/jquery.validate.js"></script>
-    <script>
-        // $.validator.addMethod("date", function(value, element) {
-        //     return this.optional(element) || !isNaN(Date.parse(value));
-        // }, "Please enter a valid date.");
-        //
-        // $(document).ready(function(){
-        //     $("#myForm").validate();
-        // });
-    </script>
     <style>
         .error{
             color: red;

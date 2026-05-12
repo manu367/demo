@@ -4,11 +4,9 @@ require_once("security/backend.php");
 global $acc;
 global $link1;
 global $root;
-if(!isset($_SESSION["userid"]))
-{
+if(!isset($_SESSION["userid"])) {
 	$user = $_POST['userid'];
 	$pass = $_POST['pwd'];
-
 	if($_SESSION["otp"]["otp"] == "verified")
 	{
 		$user = $_SESSION["otp"]["temp_user"];
@@ -21,8 +19,14 @@ if(!isset($_SESSION["userid"]))
 		//$pass = hash("sha256", md5($pass));
 	}
 
+	try{
+        $res = $acc->doLogin($link1, $user, $pass);
+    }catch (Exception $e){
+        $msg = $e->getMessage();
+        header("location:index.php?msg=$msg");
+        exit();
+    }
 
-	$res = $acc->doLogin($link1, $user, $pass);
 
 	if($res["status"] == "success")
 	{

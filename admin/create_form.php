@@ -1,7 +1,5 @@
 <?php
 require_once("../includes/config.php");
-
-
 set_exception_handler(function($e){
     if($e instanceof GlobalException){
         $msg = urlencode($e->getMessage());
@@ -9,7 +7,6 @@ set_exception_handler(function($e){
         exit;
     }
 });
-
 function showTyepParameter($link){
     $option="";
     $result=mysqli_query($link, "SELECT * FROM parameter_type where status = '1'");
@@ -29,9 +26,7 @@ function loadFSM($link,$sql){
     return false;
 }
 
-
 $operation=isset($_REQUEST['op'])?'update':'save';
-
 
 $option=showTyepParameter($link1);
 $formoperation=new FormOperations('','','',$link1);
@@ -60,8 +55,8 @@ $hid=isset($_REQUEST['hid'])?$_REQUEST['hid']:'';
  *     Step 7 = if everythings is good then return to the page and otherwise the redirect to
  *              fms_master with error message
  */
-if(isset($_POST['save']))
-{
+if(isset($_POST['save'])) {
+
    $fmsid=$_POST['fmsid'];
    $frmName=$_POST['frm_name'];
    $frm_seq=$_POST['frm_seq'];
@@ -69,6 +64,36 @@ if(isset($_POST['save']))
 
    // load fsm
    $fms_data=loadFSM($link1,"SELECT * FROM fms_master where id=$fmsid");
+
+
+   // ############################# Wrapp data into FormModal #######################
+   $j=0;
+   $newData=[];
+    for($i=0;$i<count($_POST['param_name']);$i++){
+        $newColumnName=$_POST['param_name'][$i];
+
+        $newColumnName = strtolower(trim($newColumnName));
+        $newColumnName = preg_replace('/\s+/', '_', $newColumnName);
+
+
+        $displayName=$_POST['display_name'][$i];
+        $type=$_POST['type'][$i];
+        $dropdown='0';
+        if($type==='8'){
+            $dropdown=$_POST['drop_down'][$j];
+            $length='50';
+            $j++;
+        }else{
+            $length=$_POST['length'][$i];
+        }
+        $length_1=(int)$length;
+        if($length_1>255){
+            $length='255';
+        }
+
+        $check=$_POST['check'][$i];
+        $newData[]=new FormSaveModel($newColumnName,$displayName,$type,$check,$length??'50',$old_col,$dropdown);
+    }
 
 
    // partname space = Part_SPACE_Name
@@ -81,6 +106,18 @@ if(isset($_POST['save']))
     $type=json_encode($_POST['type']);
     $length=json_encode($_POST['length']);
     $check=json_encode($_POST['check']);
+    $dropdown_save=[];
+
+    for ($i=0;$i<count($_POST['type']);$i++){
+    $type=$_POST['type'];
+
+    if($type==='8'){
+        $dropdown_save[]=$_POST['drop_down'][0];
+    }else{
+        $dropdown_save[]='0';
+    }
+    }
+    $dropdown_save=json_encode($dropdown_save);
 
     // store all data in one unit
     $data=["fmsid"=>$fmsid,
@@ -90,13 +127,14 @@ if(isset($_POST['save']))
             "displayName"=>$displayName,
             "type"=>$type,
             "length"=>$length,
+        "dropdown"=>$dropdown_save,
         "check"=>$check,
+        "wrapping"=>$newData,
             ];
-    
-    $response=$formoperation->addForm($fmsid,$data,$_SESSION['userid']);
-
+//    var_dump($data);exit();
     try{
-        $status_column=$formoperation->addColumnInTable($fms_data['table_name'],$_POST['param_name'],$_POST['type'],$_POST['length']);
+        $status_column=$formoperation->addColumnInTable_1($fms_data['table_name'],$_POST['param_name'],$_POST['type'],$_POST['length']);
+        $response=$formoperation->addForm_1($fmsid,$data,$_SESSION['userid']);
     }catch (Exception $e){
         throw new GlobalException($e->getMessage());
     }
@@ -136,9 +174,7 @@ if(isset($_POST['update']))
     $old_column=$_POST['old_column'];
     $frmName    = $_POST['frm_name'];
     $frm_seq=$_POST['frm_seq'];
-
     $id_fms=$fmsid;
-
     $raw = $_POST['old_column'];
     $raw = trim($raw, "'");
     $old_column = json_decode($raw, true);
@@ -187,7 +223,8 @@ if(isset($_POST['update']))
             "formid"=>$formid,
             "frm_seq"=>$frm_seq,
             "new"=>$newData,
-            "old_col"=>$old_column
+            "old_col"=>$old_column,
+        "frmName"=>$frmName
     ];
 
     // here we can get the tble on the basic of ID

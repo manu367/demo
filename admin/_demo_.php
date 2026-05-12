@@ -8,17 +8,13 @@ require_once("../includes/config.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/titleimg.png" type="image/png">
     <script src="../js/jquery.js"></script>
-
-
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/abc.css" rel="stylesheet">
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <link href="../css/abc2.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-
-
-   <link rel="stylesheet" type="text/css" href="../css/dataTables.responsive.css">
+    <link rel="stylesheet" type="text/css" href="../css/dataTables.responsive.css">
     <script type="text/javascript" language="javascript" src="../js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" language="javascript" >
         $(document).ready(function() {
@@ -29,7 +25,7 @@ require_once("../includes/config.php");
                 "order":  [[0,"asc"]],
                 "ajax":{
                     url: "../pagination/fms-grid-data.php",
-                    data: { "pid": "<?=$_REQUEST['pid']?>", "hid": "<?=$_REQUEST['hid']?>", "icn": "<?=$_REQUEST['icn']?>", "status": "<?=$selstatus?>"},
+                    data: { "pid": "<?=$_REQUEST['pid']?>", "hid": "<?=$_REQUEST['hid']?>", "icn": "<?=$_REQUEST['icn']?>", "status": "<?=$selstatus??''?>"},
                     type: "post",  // method  , by default get
                     error: function(){  // error handling
                         $(".company-grid-error").html("");
@@ -49,8 +45,8 @@ require_once("../includes/config.php");
         <?php
         include("../includes/leftnav2.php");
         ?>
-        <div class="<?=$screenwidth?> tab-pane fade in active" id="home">
-            <h2 align="center"><i class="fa <?=$fa_icon?>"></i> Company Master</h2>
+        <div class="<?=$screenwidth??''?> tab-pane fade in active" id="home">
+            <h2 align="center"><i class="fa <?=$fa_icon??''?>"></i> Company Master</h2>
 
             <?php if(isset($_REQUEST['msg'])){?>
                 <div class="alert alert-<?php echo $_REQUEST['chkflag'];?> alert-dismissible" role="alert">
@@ -81,7 +77,7 @@ require_once("../includes/config.php");
                             <input name="pid" id="pid" type="hidden" value="<?=$_REQUEST['pid']?>"/>
                             <input name="hid" id="hid" type="hidden" value="<?=$_REQUEST['hid']?>"/>
                             <input name="icn" id="icn" type="hidden" value="<?=$_REQUEST['icn']?>"/>
-                            <input name="Submit" type="submit" class="btn<?=$btncolor?>" value="GO"  title="Go!">
+                            <input name="Submit" type="submit" class="btn<?=$btncolor??''?>" value="GO"  title="Go!">
                         </div>
                     </div>
                 </div><!--close form group-->
@@ -118,7 +114,7 @@ require_once("../includes/config.php");
                     <!--<div class="form-group table-responsive"  id="page-wrap" style="margin-left:10px;"><br/><br/>-->
                     <table  width="98%" id="company-grid" class="display table-striped" align="center" cellpadding="4" cellspacing="0" border="1">
                         <thead>
-                        <tr class="<?=$tableheadcolor?>">
+                        <tr class="<?=$tableheadcolor??''?>">
                             <th>S.No</th>
                             <th>Company Code</th>
                             <th>Company Name</th>
